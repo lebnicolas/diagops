@@ -1,0 +1,19 @@
+# Environnements virtuels Python
+.venv/
+venv/
+env/
+
+# Caches Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+
+# Secrets
+.env
+**/.env
+
+# OS
+.DS_Store
+Thumbs.db
+__MACOSX/
