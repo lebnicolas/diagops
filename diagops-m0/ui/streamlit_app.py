@@ -20,7 +20,7 @@ import streamlit as st
 
 API_URL = os.getenv("DIAGOPS_UI_API", "http://localhost:8000")
 DATA = Path(__file__).parent.parent / "data_pack/2026-S1/reports/reports.jsonl"
-TIMEOUT = 180.0  # le modele local demande ~25 s, on prend de la marge
+TIMEOUT = 180.0  # ~5 s en regime etabli, mais le 1er appel charge le modele
 
 COULEURS = {"low": "🟢", "medium": "🟡", "high": "🟠", "critical": "🔴"}
 
@@ -99,7 +99,7 @@ else:
     report_id = colonne_2.text_input("report_id (optionnel)")
 
 if st.button("Diagnostiquer", type="primary", disabled=not note.strip()):
-    with st.spinner("Analyse en cours (~25 s avec le modele local)..."):
+    with st.spinner("Analyse en cours (~5 s, plus le chargement au premier appel)..."):
         try:
             resultat = appeler_api(note, equipment_id, report_id)
         except httpx.HTTPStatusError as exc:

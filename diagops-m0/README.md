@@ -67,6 +67,7 @@ Toutes les variables sont optionnelles et ont une valeur par défaut fonctionnel
 | `DIAGOPS_MODEL` | `mistralai/ministral-3-3b` | Modèle utilisé |
 | `DIAGOPS_TIMEOUT` | `120` | Timeout de l'appel modèle (s) |
 | `DIAGOPS_MAX_TOKENS` | `1200` | Longueur maximale de la réponse |
+| `DIAGOPS_CONFIDENCE_THRESHOLD` | `0.85` | Sous ce seuil, révision humaine imposée |
 | `DIAGOPS_UI_API` | `http://localhost:8000` | API visée par l'interface |
 
 ---
@@ -168,7 +169,7 @@ curl -X POST http://localhost:8000/diagnose \
 
 - **Instruction-following.** La tâche demande de produire un JSON structuré à partir de texte libre. Un modèle de classification zero-shot aurait pu attribuer `severity`, mais pas rédiger `failure_hypothesis` ni `recommended_action`, qui sont des textes libres.
 - **Exécution locale.** Aucune donnée ne sort de la machine — argument réel en maintenance industrielle, où les rapports peuvent contenir des informations sensibles sur l'outil de production. Pas de clé d'API, pas de coût à l'usage, pas de dépendance réseau.
-- **Compromis vitesse/qualité.** ~25 s par diagnostic sur CPU. Acceptable pour un poste de travail.
+- **Compromis vitesse/qualité.** ~5 s par diagnostic une fois le modèle chargé en mémoire (mesuré sur 5 rapports : 5,4 s de moyenne). Le premier appel après le démarrage de LM Studio est plus long, le temps du chargement.
 - **API compatible OpenAI.** Changer de modèle ou basculer vers une API distante ne demande qu'une variable d'environnement, aucun changement de code.
 
 ### Alternatives considérées
@@ -192,7 +193,7 @@ curl -X POST http://localhost:8000/diagnose \
 
 ```powershell
 pytest                    # 8 tests rapides, modèle mocké, ~0,3 s
-pytest -m integration     # test de bout en bout avec le vrai modèle, ~25 s
+pytest -m integration     # test de bout en bout avec le vrai modèle, ~5 s
 pytest -v                 # détail
 ```
 
@@ -216,13 +217,17 @@ Le test nominal valide **la forme, jamais la formulation** : un LLM est non dét
 
 1. **`confidence` n'est pas une mesure calibrée.** Le modèle produit un nombre plausible, pas une probabilité issue d'un calcul d'incertitude. Il ne doit pas être interprété comme une fiabilité statistique.
 
-2. **`requires_human_review` est décidé par le modèle.** Aucune règle ne le force. Un rapport sommaire peut recevoir `false` avec une confiance élevée — le pire type d'erreur dans ce domaine. Une amélioration consisterait à le dériver d'un seuil sur `confidence`.
+2. **`requires_human_review` n'est plus laissé au modèle seul.** Sous le seuil `DIAGOPS_CONFIDENCE_THRESHOLD` (0,85 par défaut), la révision humaine est imposée quel que soit l'avis du modèle. Le garde-fou est appliqué après validation, dans `model_client.py`. Voir la limite 6 : en pratique, le modèle ne dépasse jamais ce seuil.
 
 3. **Le prompt n'est pas un contrat.** Il demande d'écrire sans accents, comme les données d'entrée ; le modèle en produit malgré tout. Seule la validation Pydantic contraint réellement la sortie — d'où le choix de valider systématiquement.
 
-4. **Latence de ~25 s.** Perceptible dans l'interface. Vient du modèle local sur CPU, pas du code.
+4. **Latence de ~5 s par diagnostic**, plus le chargement du modèle au premier appel. Vient du modèle local, pas du code.
 
-5. **Aucune évaluation quantitative.** Le comportement n'a pas été mesuré sur l'ensemble des 40 rapports. Voir `evaluation_m0.md` (brief 2).
+5. **La sévérité ne discrimine pas.** Sur les 5 rapports évalués, le modèle a répondu `medium` à chaque fois — pompe en surchauffe, convoyeur désaligné et compresseur instable reçoivent le même verdict. C'est la limite la plus sérieuse observée. Voir `evaluation_m0.md`.
+
+6. **La confiance est quasi constante** (0,75 ou 0,80 sur 5 rapports). Combinée au seuil de 0,85, elle force la révision humaine sur 100 % des diagnostics — le champ n'apporte donc aucune information exploitable en l'état.
+
+7. **Instabilité de formulation.** Le même rapport a produit `alignement mecanique` puis `alimentation mecanique` sur deux appels — le second n'a pas de sens technique. À surveiller dans un domaine où le vocabulaire est précis.
 
 6. **Avertissement de dépréciation.** Starlette signale que `httpx` est déprécié pour `TestClient` au profit de `httpx2`. Sans effet aujourd'hui, à surveiller.
 

@@ -11,11 +11,13 @@ Lancement :
     pytest -v                       # detail
 """
 
+import json
+
 import pytest
 from fastapi.testclient import TestClient
 
 from app.main import app
-from app.model_client import ModelError
+from app.model_client import ModelError, diagnostiquer
 from app.schemas import DiagnosisResponse
 
 client = TestClient(app)
@@ -135,6 +137,89 @@ def test_diagnose_modele_indisponible(monkeypatch):
 
     assert reponse.status_code == 502
     assert "Diagnostic indisponible" in reponse.json()["detail"]
+
+
+# --- Garde-fou metier ----------------------------------------------------
+def _fausse_reponse_modele(contenu: str):
+    """Fabrique une reponse HTTP de modele contenant le JSON voulu.
+
+    Ces tests mockent l appel HTTP et non diagnostiquer() : ils traversent
+    donc reellement model_client, ou vit la regle de seuil.
+    """
+
+    class Reponse:
+        status_code = 200
+
+        @staticmethod
+        def raise_for_status():
+            return None
+
+        @staticmethod
+        def json():
+            return {"choices": [{"message": {"content": contenu}}]}
+
+    return Reponse()
+
+
+def _diagnostic_json(confidence: float, requires_review: bool) -> str:
+    return json.dumps(
+        {
+            "equipment_id": "EQ-PUMP-001",
+            "symptom": "vibration anormale",
+            "severity": "medium",
+            "failure_hypothesis": "roulement use",
+            "recommended_action": "inspection",
+            "confidence": confidence,
+            "evidence": ["rapport"],
+            "requires_human_review": requires_review,
+        }
+    )
+
+
+def test_revision_imposee_sous_le_seuil(monkeypatch):
+    """Sous le seuil, la revision humaine est forcee malgre l avis du modele."""
+    monkeypatch.setattr(
+        "app.model_client.httpx.post",
+        lambda *a, **k: _fausse_reponse_modele(_diagnostic_json(0.50, False)),
+    )
+
+    diagnostic = diagnostiquer(NOTE_VALIDE)
+
+    assert diagnostic.confidence == 0.50
+    assert diagnostic.requires_human_review is True
+
+
+def test_avis_du_modele_respecte_au_dessus_du_seuil(monkeypatch):
+    """Au-dessus du seuil, la regle ne s applique pas : le modele decide."""
+    monkeypatch.setattr(
+        "app.model_client.httpx.post",
+        lambda *a, **k: _fausse_reponse_modele(_diagnostic_json(0.95, False)),
+    )
+
+    diagnostic = diagnostiquer(NOTE_VALIDE)
+
+    assert diagnostic.requires_human_review is False
+
+
+def test_json_entoure_de_texte_est_extrait(monkeypatch):
+    """Le modele encadre souvent son JSON de texte ou d un bloc markdown."""
+    brut = "Voici le diagnostic :\n```json\n" + _diagnostic_json(0.90, False) + "\n```\nJ espere que cela aide."
+    monkeypatch.setattr(
+        "app.model_client.httpx.post", lambda *a, **k: _fausse_reponse_modele(brut)
+    )
+
+    assert diagnostiquer(NOTE_VALIDE).severity == "medium"
+
+
+def test_sortie_non_conforme_rejetee(monkeypatch):
+    """Une severite hors enumeration ne franchit pas model_client."""
+    invalide = _diagnostic_json(0.90, False).replace('"medium"', '"elevee"')
+    monkeypatch.setattr(
+        "app.model_client.httpx.post", lambda *a, **k: _fausse_reponse_modele(invalide)
+    )
+
+    with pytest.raises(ModelError, match="non conforme"):
+        diagnostiquer(NOTE_VALIDE)
 
 
 # --- Integration (modele reel) -------------------------------------------

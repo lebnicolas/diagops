@@ -29,6 +29,12 @@ MODEL = os.getenv("DIAGOPS_MODEL", "mistralai/ministral-3-3b")
 TIMEOUT = float(os.getenv("DIAGOPS_TIMEOUT", "120"))
 MAX_TOKENS = int(os.getenv("DIAGOPS_MAX_TOKENS", "1200"))
 
+# Regle metier : sous ce seuil de confiance, la revision humaine est imposee
+# quel que soit l avis du modele. Un LLM peut se declarer sur de lui sur un
+# rapport sommaire — en maintenance industrielle, un faux "pas besoin de
+# verifier" est le pire type d erreur.
+CONFIDENCE_THRESHOLD = float(os.getenv("DIAGOPS_CONFIDENCE_THRESHOLD", "0.85"))
+
 
 class ModelError(RuntimeError):
     """Le modele est injoignable, ou sa reponse est inexploitable."""
@@ -163,7 +169,19 @@ def diagnostiquer(
             donnees["evidence"] = [reference, *evidence]
 
     try:
-        return DiagnosisResponse(**donnees)
+        diagnostic = DiagnosisResponse(**donnees)
     except ValidationError as exc:
         logger.warning("Sortie modele non conforme au contrat : %s", donnees)
         raise ModelError(f"Sortie non conforme au contrat DiagOps : {exc}") from exc
+
+    # Garde-fou metier applique APRES validation : le modele n a pas le
+    # dernier mot sur la necessite d une revision humaine.
+    if diagnostic.confidence < CONFIDENCE_THRESHOLD and not diagnostic.requires_human_review:
+        logger.info(
+            "Revision humaine imposee : confiance %.2f < seuil %.2f",
+            diagnostic.confidence,
+            CONFIDENCE_THRESHOLD,
+        )
+        diagnostic = diagnostic.model_copy(update={"requires_human_review": True})
+
+    return diagnostic
