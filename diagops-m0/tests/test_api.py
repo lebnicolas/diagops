@@ -211,6 +211,28 @@ def test_json_entoure_de_texte_est_extrait(monkeypatch):
     assert diagnostiquer(NOTE_VALIDE).severity == "medium"
 
 
+def test_equipment_id_nullable(monkeypatch):
+    """Le contrat autorise equipment_id a null quand l equipement est inconnu."""
+    sans_equipement = json.dumps(
+        {
+            "equipment_id": None,
+            "symptom": "bruit anormal",
+            "severity": "low",
+            "failure_hypothesis": "a determiner",
+            "recommended_action": "inspection",
+            "confidence": 0.90,
+            "evidence": ["rapport"],
+            "requires_human_review": False,
+        }
+    )
+    monkeypatch.setattr(
+        "app.model_client.httpx.post",
+        lambda *a, **k: _fausse_reponse_modele(sans_equipement),
+    )
+
+    assert diagnostiquer(NOTE_VALIDE).equipment_id is None
+
+
 def test_sortie_non_conforme_rejetee(monkeypatch):
     """Une severite hors enumeration ne franchit pas model_client."""
     invalide = _diagnostic_json(0.90, False).replace('"medium"', '"elevee"')

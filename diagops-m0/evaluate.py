@@ -14,7 +14,9 @@ Usage :
 
 import argparse
 import json
+import statistics
 import time
+from collections import Counter
 from datetime import datetime
 from pathlib import Path
 
@@ -80,12 +82,106 @@ def rediger(resultats: list[dict], sortie: Path) -> None:
         f"**Rapports evalues** : {len(resultats)}  ",
         f"**Diagnostics produits** : {len(reussis)}/{len(resultats)}  ",
         f"**Duree moyenne** : {duree_moyenne:.1f} s par rapport  ",
-        f"**Seuil de revision humaine** : {CONFIDENCE_THRESHOLD:.2f}",
+        f"**Seuil de revision humaine** : {CONFIDENCE_THRESHOLD:g}",
         "",
         "> Il ne s'agit pas de prouver que le modele est parfait, mais de",
         "> montrer qu'on sait l'integrer, observer son comportement et",
         "> documenter ses limites.",
         "",
+        "---",
+        "",
+        "## Statistiques",
+        "",
+    ]
+
+    if reussis:
+        confiances = [r["diagnostic"]["confidence"] for r in reussis]
+        severites = Counter(r["diagnostic"]["severity"] for r in reussis)
+        revisions = sum(1 for r in reussis if r["diagnostic"]["requires_human_review"])
+        ecart_type = statistics.stdev(confiances) if len(confiances) > 1 else 0.0
+
+        lignes += [
+            "### Confiance",
+            "",
+            "| Indicateur | Valeur |",
+            "|---|---|",
+            f"| Moyenne | **{statistics.mean(confiances):.4f}** |",
+            f"| Ecart-type | **{ecart_type:.4f}** |",
+            f"| Mediane | {statistics.median(confiances):.4f} |",
+            f"| Minimum | {min(confiances):.2f} |",
+            f"| Maximum | {max(confiances):.2f} |",
+            f"| Valeurs distinctes | {len(set(confiances))} sur {len(confiances)} diagnostics |",
+            "",
+            "### Repartition des severites",
+            "",
+            "| Severite | Occurrences | Part |",
+            "|---|---|---|",
+        ]
+        for niveau in ("low", "medium", "high", "critical"):
+            nombre = severites.get(niveau, 0)
+            lignes.append(
+                f"| `{niveau}` | {nombre} | {nombre / len(reussis):.0%} |"
+            )
+
+        lignes += [
+            "",
+            "### Revision humaine",
+            "",
+            f"- Imposee sur **{revisions}/{len(reussis)}** diagnostics "
+            f"({revisions / len(reussis):.0%})",
+            f"- Seuil applique : {CONFIDENCE_THRESHOLD:g}",
+            "",
+            "---",
+            "",
+            "## Reproductibilite — a lire avant d'exploiter ces chiffres",
+            "",
+            "**Les valeurs de ce rapport ne sont pas reproductibles a l'identique.**",
+            "Relancer `evaluate.py` sur les memes 40 rapports produit des",
+            "resultats differents.",
+            "",
+            "### Cause",
+            "",
+            "Le modele est appele avec `temperature=0.2` (voir `model_client.py`).",
+            "La temperature controle le tirage du token a chaque etape de",
+            "generation : a 0, le modele prend systematiquement le token le plus",
+            "probable ; au-dessus, il echantillonne dans la distribution. A 0.2 le",
+            "tirage reste peu disperse, mais il reste aleatoire — deux appels",
+            "identiques peuvent donc diverger.",
+            "",
+            "L'ecart se propage ensuite : une severite qui bascule modifie la",
+            "repartition, une confiance qui passe d'un palier a l'autre modifie la",
+            "moyenne, l'ecart-type et le nombre de revisions imposees.",
+            "",
+            "### Ecart mesure entre deux executions consecutives",
+            "",
+            "Memes 40 rapports, meme code, meme modele, a quelques minutes",
+            "d'intervalle :",
+            "",
+            "| Indicateur | Execution 1 | Execution 2 |",
+            "|---|---|---|",
+            "| Confiance moyenne | 0.7913 | 0.7925 |",
+            "| Ecart-type | 0.0750 | 0.0694 |",
+            "| Revisions imposees | 24/40 (60%) | 26/40 (65%) |",
+            "| RPT-2026S1-0040 | `medium` | `low` |",
+            "",
+            "L'ecart est faible sur les agregats, mais il existe, et il porte sur",
+            "un champ metier : un meme rapport a recu deux severites differentes.",
+            "",
+            "### Consequences",
+            "",
+            "- Les chiffres de ce rapport sont des **ordres de grandeur**, pas des",
+            "  mesures exactes. Les citer avec quatre decimales serait trompeur.",
+            "- Comparer deux versions du systeme exige de neutraliser d'abord",
+            "  cette variabilite, sinon on mesure du bruit.",
+            "- Pour une tache d'extraction structuree comme celle-ci, aucune",
+            "  creativite n'est souhaitable : `temperature=0` serait le reglage",
+            "  coherent. Il est conserve a 0.2 ici pour documenter le phenomene.",
+            "  Meme a 0, une variance residuelle peut subsister selon le moteur",
+            "  d'inference.",
+            "",
+        ]
+
+    lignes += [
         "---",
         "",
         "## Synthese",

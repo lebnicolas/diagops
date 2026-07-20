@@ -78,7 +78,13 @@ class DiagnosisResponse(BaseModel):
     champs, d'autres modules de la formation s'appuient dessus.
     """
 
-    equipment_id: str = Field(..., description="Equipement concerne.")
+    equipment_id: str | None = Field(
+        ...,
+        description=(
+            "Equipement concerne, ou null s il n est pas identifiable depuis "
+            "le rapport. Nullable conformement au contrat (acquis_m0.md)."
+        ),
+    )
     symptom: str = Field(..., description="Symptome extrait du rapport.")
     severity: Severity = Field(..., description="Gravite estimee.")
     failure_hypothesis: str = Field(..., description="Hypothese de panne.")

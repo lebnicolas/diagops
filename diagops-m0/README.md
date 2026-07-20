@@ -67,7 +67,7 @@ Toutes les variables sont optionnelles et ont une valeur par défaut fonctionnel
 | `DIAGOPS_MODEL` | `mistralai/ministral-3-3b` | Modèle utilisé |
 | `DIAGOPS_TIMEOUT` | `120` | Timeout de l'appel modèle (s) |
 | `DIAGOPS_MAX_TOKENS` | `1200` | Longueur maximale de la réponse |
-| `DIAGOPS_CONFIDENCE_THRESHOLD` | `0.85` | Sous ce seuil, révision humaine imposée |
+| `DIAGOPS_CONFIDENCE_THRESHOLD` | `0.825` | Sous ce seuil, révision humaine imposée |
 | `DIAGOPS_UI_API` | `http://localhost:8000` | API visée par l'interface |
 
 ---
@@ -90,7 +90,7 @@ Produit un diagnostic à partir d'un rapport technicien.
 
 | Champ | Type | Contraintes |
 |---|---|---|
-| `equipment_id` | string | — |
+| `equipment_id` | string \| null | `null` si l'équipement n'est pas identifiable |
 | `symptom` | string | — |
 | `severity` | enum | `low` \| `medium` \| `high` \| `critical` |
 | `failure_hypothesis` | string | — |
@@ -217,19 +217,27 @@ Le test nominal valide **la forme, jamais la formulation** : un LLM est non dét
 
 1. **`confidence` n'est pas une mesure calibrée.** Le modèle produit un nombre plausible, pas une probabilité issue d'un calcul d'incertitude. Il ne doit pas être interprété comme une fiabilité statistique.
 
-2. **`requires_human_review` n'est plus laissé au modèle seul.** Sous le seuil `DIAGOPS_CONFIDENCE_THRESHOLD` (0,85 par défaut), la révision humaine est imposée quel que soit l'avis du modèle. Le garde-fou est appliqué après validation, dans `model_client.py`. Voir la limite 6 : en pratique, le modèle ne dépasse jamais ce seuil.
+2. **`requires_human_review` n'est plus laissé au modèle seul.** Sous le seuil `DIAGOPS_CONFIDENCE_THRESHOLD` (0,825 par défaut), la révision humaine est imposée quel que soit l'avis du modèle. Le garde-fou est appliqué après validation, dans `model_client.py`. Il déclenche sur 60 % des 40 rapports évalués.
+
+   La valeur 0,825 n'est pas arbitraire : le modèle n'émet que 6 valeurs de confiance distinctes, par paliers de 0,05. Placer le seuil sur une valeur émise (0,85, présente 11 fois sur 40) rendrait la règle instable — passer de `<` à `<=` y basculerait 28 % du corpus. Le seuil est donc posé **entre** deux paliers.
+
+   En revanche, le **taux** de 60 % reste choisi à l'estime : sans vérité terrain, rien ne prouve que la confiance corrèle avec la justesse. Calibrable en M1, avec `annotated_diagnostics`.
 
 3. **Le prompt n'est pas un contrat.** Il demande d'écrire sans accents, comme les données d'entrée ; le modèle en produit malgré tout. Seule la validation Pydantic contraint réellement la sortie — d'où le choix de valider systématiquement.
 
 4. **Latence de ~5 s par diagnostic**, plus le chargement du modèle au premier appel. Vient du modèle local, pas du code.
 
-5. **La sévérité ne discrimine pas.** Sur les 5 rapports évalués, le modèle a répondu `medium` à chaque fois — pompe en surchauffe, convoyeur désaligné et compresseur instable reçoivent le même verdict. C'est la limite la plus sérieuse observée. Voir `evaluation_m0.md`.
+5. **La sévérité discrimine faiblement, et n'atteint jamais `critical`.** Sur les 40 rapports : `medium` 68 %, `high` 28 %, `low` 5 %, `critical` **0 %**. Le modèle utilise donc trois niveaux sur quatre, avec une forte concentration sur la valeur médiane. Un incident réellement critique risque d'être sous-évalué en `high` — c'est la limite la plus sérieuse pour un usage en maintenance.
 
-6. **La confiance est quasi constante** (0,75 ou 0,80 sur 5 rapports). Combinée au seuil de 0,85, elle force la révision humaine sur 100 % des diagnostics — le champ n'apporte donc aucune information exploitable en l'état.
+6. **La confiance est quasi discrète.** 6 valeurs distinctes seulement sur 40 diagnostics, par paliers de 0,05 (0,70 à 0,95). Moyenne 0,7913, écart-type 0,0750. Le modèle ne calcule pas une incertitude : il choisit un nombre rond dans un petit répertoire. C'est ce qui rend le placement du seuil délicat (voir limite 2).
 
 7. **Instabilité de formulation.** Le même rapport a produit `alignement mecanique` puis `alimentation mecanique` sur deux appels — le second n'a pas de sens technique. À surveiller dans un domaine où le vocabulaire est précis.
 
-6. **Avertissement de dépréciation.** Starlette signale que `httpx` est déprécié pour `TestClient` au profit de `httpx2`. Sans effet aujourd'hui, à surveiller.
+8. **Un échantillon de 5 rapports induit en erreur.** Les premières mesures, faites sur 5 rapports, concluaient à tort que la sévérité était toujours `medium` et la confiance figée. Le passage à 40 a démenti les deux. Le minimum de 5 demandé par le brief suffit à illustrer la démarche, pas à caractériser le modèle.
+
+9. **L'évaluation n'est pas reproductible à l'identique.** Le modèle tourne à `temperature=0.2` : deux exécutions sur les mêmes 40 rapports donnent des résultats différents. Écart mesuré entre deux passages consécutifs — confiance moyenne 0,7913 puis 0,7925, révisions imposées 60 % puis 65 %, et un rapport passé de `medium` à `low`. Les chiffres ci-dessus sont donc des **ordres de grandeur**. Analyse détaillée dans `evaluation_m0.md`.
+
+10. **Avertissement de dépréciation.** Starlette signale que `httpx` est déprécié pour `TestClient` au profit de `httpx2`. Sans effet aujourd'hui, à surveiller.
 
 ---
 

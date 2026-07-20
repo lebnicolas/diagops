@@ -33,7 +33,17 @@ MAX_TOKENS = int(os.getenv("DIAGOPS_MAX_TOKENS", "1200"))
 # quel que soit l avis du modele. Un LLM peut se declarer sur de lui sur un
 # rapport sommaire — en maintenance industrielle, un faux "pas besoin de
 # verifier" est le pire type d erreur.
-CONFIDENCE_THRESHOLD = float(os.getenv("DIAGOPS_CONFIDENCE_THRESHOLD", "0.85"))
+#
+# 0.825 et non 0.85 : le modele n emet que 6 valeurs distinctes, par paliers
+# de 0.05, et 0.85 est la deuxieme plus frequente (11 rapports sur 40). Un
+# seuil pose exactement sur une valeur emise est instable — passer de "<" a
+# "<=" y basculerait 28% du corpus. On place donc le seuil ENTRE deux
+# paliers : meme comportement, sans effet de bord.
+#
+# Le taux obtenu (60% de revisions sur 40 rapports) reste choisi a l estime :
+# sans verite terrain, impossible de savoir si la confiance correle avec la
+# justesse. Calibrable en M1, quand annotated_diagnostics sera disponible.
+CONFIDENCE_THRESHOLD = float(os.getenv("DIAGOPS_CONFIDENCE_THRESHOLD", "0.825"))
 
 
 class ModelError(RuntimeError):
@@ -62,7 +72,8 @@ Regles :
 - evidence cite des elements reellement presents dans le rapport.
 - requires_human_review vaut true si le rapport est ambigu ou incomplet.
 - Ecris en francais sans accents, comme les rapports d'entree.
-- Si l'equipement n'est pas identifiable, mets "UNKNOWN" dans equipment_id.
+- Si l'equipement n'est pas identifiable dans le rapport, mets null dans
+  equipment_id. N'invente jamais un identifiant.
 """
 
 
