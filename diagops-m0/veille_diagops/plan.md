@@ -31,8 +31,8 @@ Mission de M0 à M4, 12 h au total. Ce fichier pilote l'avancement : on coche au
   - [ ] abonnement "SIP updates" de l'AI Act Service Desk
   - [ ] dossier + filtre "veille" dans la boîte email dédiée
   - [ ] script d'agrégation RSS + digest email (à coder une fois les 15 sources posées)
-- [ ] Vérifier sur sources officielles le calendrier d'application de l'AI Act (échéance du 2 août 2026, dispositions déjà applicables, exceptions)
-- [ ] `journal_veille.md` : première entrée (datée, ≥ 1 source primaire, fait vs interprétation, incertitudes, impact DiagOps, décision)
+- [x] Vérifier sur sources officielles le calendrier d'application de l'AI Act — fait le 21/07/2026 : le Digital Omnibus (adopté juin 2026) reporte le haut risque (Annexe III → 02/12/2027, Annexe I → 02/08/2028) ; le 2 août 2026 reste la date de la majorité des règles (dont transparence art. 50) et du début de l'exécution
+- [x] `journal_veille.md` : première entrée rédigée le 21/07/2026 (calendrier AI Act révisé ; décision `évaluer` ; révision programmée à la publication au JO — satisfera l'exigence de révision avant fin M4)
 
 ## Phase M1 — Suivi (1 h)
 
