@@ -1,0 +1,7 @@
+systeme,adaptateur_fusionne,exemples,json_parseable,schema_valide,equipment_id,severity_macro_f1,requires_human_review,score_textuel,composite,f1_low,detectes_low,f1_medium,detectes_medium,f1_high,detectes_high,f1_critical,detectes_critical,composite_vu,macro_f1_vu,composite_nouveau,macro_f1_nouveau,latence_med_s_NON_FIABLE,latence_p95_s_NON_FIABLE,memoire_max_octets
+baseline,False,80,1.0,0.0,0.0875,0.0,0.0,0.0,18.125,0.0,0,0.0,0,0.0,0,0.0,0,18.2051,0.0,17.7778,0.0,3.776,8.341,1241735680
+lora_reference,False,80,1.0,0.9875,1.0,0.7583,0.9875,0.6676,90.0159,0.9231,12,0.8571,15,0.878,36,0.375,3,91.5708,0.7946,81.8219,0.5139,8.352,15.067,1258009088
+lora_reference_merged,True,80,1.0,0.9875,1.0,0.7551,0.9875,0.6617,89.8628,0.9231,12,0.8333,15,0.8889,36,0.375,3,91.3948,0.791,81.7974,0.5139,4.835,7.489,1239888384
+variation_1,False,80,1.0,1.0,0.9875,0.8968,0.9875,0.9398,96.8605,0.963,13,0.9375,15,0.925,37,0.7619,8,98.6414,0.9339,86.2285,0.5615,10.762,16.35,1280143872
+variation_1_merged,True,80,1.0,1.0,0.9875,0.8968,0.9875,0.9401,96.8664,0.963,13,0.9375,15,0.925,37,0.7619,8,98.6414,0.9339,86.2601,0.5615,9.99,13.128,1239773696
+variation_2,False,80,1.0,1.0,1.0,0.9585,0.9875,0.9404,98.1071,0.963,13,0.9375,15,0.9737,37,0.96,12,100.0,1.0,86.2821,0.5615,14.476,18.152,1258123776
