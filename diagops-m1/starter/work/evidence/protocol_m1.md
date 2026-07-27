@@ -257,6 +257,17 @@ Elles conditionnent ce que ce protocole autorise à conclure.
 
 ## Gel
 
-- **commit** : *(à compléter au commit de gel)*
-- **date** : 27/07/2026
+- **commit** : `aa0c03697d8e802a01ebbb5256e8e5644d25af8b` (`aa0c036`)
+- **date** : 2026-07-27 13:00:59 +0400
 - **auteurs** : Nicolas Lebon
+
+Ce commit introduit le présent protocole dans le dépôt. À cette date, les seuls
+artefacts produits sont le relevé de la machine (`work/environment.json`) et le
+découpage déterministe des données (`work/splits/`). **Aucune évaluation, aucun
+entraînement, aucune métrique n'existe dans l'historique avant ce commit** —
+l'historique git en fait foi et permet de le vérifier sans nous croire sur
+parole.
+
+Toute modification ultérieure de ce fichier devra apparaître comme un commit
+distinct et postérieur, et être justifiée. Les hypothèses, les prédictions et la
+règle de décision ne sont plus modifiables.
