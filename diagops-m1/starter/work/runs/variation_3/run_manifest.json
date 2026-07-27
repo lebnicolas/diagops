@@ -1,0 +1,64 @@
+{
+  "model_id": "Qwen/Qwen3-0.6B",
+  "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+  "config": {
+    "model": {
+      "id": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "dtype": "bfloat16"
+    },
+    "lora": {
+      "r": 16,
+      "alpha": 32,
+      "dropout": 0.15,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ]
+    },
+    "training": {
+      "seed": 42,
+      "max_length": 512,
+      "per_device_batch_size": 4,
+      "gradient_accumulation_steps": 4,
+      "epochs": 3,
+      "learning_rate": 0.0002,
+      "warmup_ratio": 0.1,
+      "weight_decay": 0.01,
+      "logging_steps": 5,
+      "save_strategy": "epoch"
+    },
+    "experiment": {
+      "statut": "EXPERIENCE COMPLEMENTAIRE, posterieure au gel du protocole (67c873e) et a la decision intermediaire (25f4f42). Ne fait pas partie des trois candidats du Brief 1 et ne remet pas en cause la decision prise. Elle repond a la reserve inscrite dans cette decision : la generalisation n'est pas demontree.",
+      "reference_de_comparaison": "variation_1 (candidat retenu). Une seule variable change entre les deux configurations : lora.dropout. Tout le reste est identique, y compris la seed, le decoupage et les parametres de generation a l'evaluation.",
+      "changed_variable": "lora.dropout",
+      "baseline_value": 0.05,
+      "new_value": 0.15,
+      "hypothesis": "Si je porte le dropout de l'adaptateur de 0.05 a 0.15 sans rien changer d'autre, alors le score composite baissera sur le groupe \"vu\" et montera sur le groupe \"nouveau\", parce que le dropout regularise l'adaptateur et l'empeche de memoriser les patrons du corpus — memorisation etablie par la variation_2, qui atteint un composite de 100.00 sur les exemples vus sans aucun gain sur les inedits.",
+      "expected_effect": "Composite \"vu\" : 98.64 -> entre 95 et 97.5. Composite \"nouveau\" : 86.23 -> entre 87 et 90. Macro-F1 severity \"nouveau\" : 0.562 -> entre 0.58 et 0.65. Le composite global pourra baisser : ce n'est pas un echec, la grandeur d'interet est l'ECART entre les deux groupes.",
+      "critere_de_succes": "L'ecart de composite vu-nouveau, actuellement de 12.41 points pour variation_1, doit se reduire d'au moins 2 points ET le composite \"nouveau\" doit progresser d'au moins 1 point. Les deux conditions sont cumulatives : un ecart reduit par simple degradation du groupe \"vu\" ne demontrerait rien.",
+      "falsification": "Si le composite \"nouveau\" baisse, le dropout ajoute du bruit sans benefice de regularisation et l'hypothese est rejetee. Si les deux groupes progressent, l'entrainement initial etait sous-optimal et l'interpretation en termes de regularisation est fausse.",
+      "limite_connue": "Le groupe \"nouveau\" ne compte que 15 exemples, dont un seul de gravite critical. Un ecart inferieur a 2 points de composite sur ce groupe n'est pas interpretable. Cette experience ne pourra pas trancher finement — elle cherche un signal de direction, pas une mesure.",
+      "written_before_run": true,
+      "protocol_commit": "aa0c036"
+    }
+  },
+  "effective_dtype": "bfloat16",
+  "config_sha256": "6a520f98d9fdd5dd8ea0ae8c39eaff9297b268e349340aa8cdb98e5a04b929f6",
+  "train_data": "work\\splits\\train.jsonl",
+  "train_data_sha256": "4e33fa772f125708e754c99c6ac7c0b706053a4651207dd6b47ba9dc89932bc3",
+  "train_rows": 320,
+  "train_metrics": {
+    "train_runtime": 276.5787,
+    "train_samples_per_second": 3.471,
+    "train_steps_per_second": 0.217,
+    "total_flos": 758000517120000.0,
+    "train_loss": 0.4904517392317454,
+    "epoch": 3.0
+  }
+}
