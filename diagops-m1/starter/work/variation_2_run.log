@@ -1,0 +1,132 @@
+########## VARIATION 2 : epochs 3 -> 5 ##########
+No label_names provided for model class `PeftModelForCausalLM`. Since `PeftModel` hides base models input arguments, if label_names is not given, label_names can't be set automatically within `Trainer`. Note that empty label_names list will be used instead.
+  0%|          | 0/100 [00:00<?, ?it/s]  1%|1         | 1/100 [00:02<03:45,  2.28s/it]  2%|2         | 2/100 [00:04<03:16,  2.01s/it]  3%|3         | 3/100 [00:07<04:32,  2.81s/it]  4%|4         | 4/100 [00:11<04:49,  3.01s/it]  5%|5         | 5/100 [00:16<05:52,  3.71s/it]                                               {'loss': 2.6142, 'grad_norm': 4.1877899169921875, 'learning_rate': 8e-05, 'epoch': 0.25}
+  5%|5         | 5/100 [00:16<05:52,  3.71s/it]  6%|6         | 6/100 [00:22<07:18,  4.66s/it]  7%|7         | 7/100 [00:25<06:24,  4.13s/it]  8%|8         | 8/100 [00:30<06:45,  4.41s/it]  9%|9         | 9/100 [00:37<07:45,  5.12s/it] 10%|#         | 10/100 [00:42<07:33,  5.04s/it]                                                {'loss': 1.8141, 'grad_norm': 2.1132025718688965, 'learning_rate': 0.00018, 'epoch': 0.5}
+ 10%|#         | 10/100 [00:42<07:33,  5.04s/it] 11%|#1        | 11/100 [00:46<07:21,  4.96s/it] 12%|#2        | 12/100 [00:52<07:23,  5.04s/it] 13%|#3        | 13/100 [00:57<07:15,  5.00s/it] 14%|#4        | 14/100 [01:01<07:03,  4.92s/it] 15%|#5        | 15/100 [01:06<06:55,  4.89s/it]                                                {'loss': 1.1646, 'grad_norm': 1.4743715524673462, 'learning_rate': 0.00019902680687415705, 'epoch': 0.75}
+ 15%|#5        | 15/100 [01:06<06:55,  4.89s/it] 16%|#6        | 16/100 [01:11<06:56,  4.96s/it] 17%|#7        | 17/100 [01:14<06:05,  4.41s/it] 18%|#8        | 18/100 [01:21<06:56,  5.08s/it] 19%|#9        | 19/100 [01:24<06:08,  4.55s/it] 20%|##        | 20/100 [01:31<06:56,  5.20s/it]                                                {'loss': 0.8182, 'grad_norm': 0.9448615908622742, 'learning_rate': 0.00019510565162951537, 'epoch': 1.0}
+ 20%|##        | 20/100 [01:31<06:56,  5.20s/it] 21%|##1       | 21/100 [01:39<07:44,  5.88s/it] 22%|##2       | 22/100 [01:44<07:18,  5.62s/it] 23%|##3       | 23/100 [01:47<06:19,  4.93s/it] 24%|##4       | 24/100 [01:52<06:13,  4.92s/it] 25%|##5       | 25/100 [01:59<06:50,  5.48s/it]                                                {'loss': 0.6208, 'grad_norm': 0.913361668586731, 'learning_rate': 0.00018829475928589271, 'epoch': 1.25}
+ 25%|##5       | 25/100 [01:59<06:50,  5.48s/it] 26%|##6       | 26/100 [02:04<06:36,  5.36s/it] 27%|##7       | 27/100 [02:05<05:09,  4.24s/it] 28%|##8       | 28/100 [02:09<04:45,  3.96s/it] 29%|##9       | 29/100 [02:15<05:35,  4.73s/it] 30%|###       | 30/100 [02:22<06:09,  5.28s/it]                                                {'loss': 0.4543, 'grad_norm': 0.9351264238357544, 'learning_rate': 0.00017880107536067218, 'epoch': 1.5}
+ 30%|###       | 30/100 [02:22<06:09,  5.28s/it] 31%|###1      | 31/100 [02:25<05:20,  4.64s/it] 32%|###2      | 32/100 [02:26<04:12,  3.71s/it] 33%|###3      | 33/100 [02:31<04:32,  4.06s/it] 34%|###4      | 34/100 [02:36<04:45,  4.32s/it] 35%|###5      | 35/100 [02:39<04:15,  3.94s/it]                                                {'loss': 0.3498, 'grad_norm': 1.0981496572494507, 'learning_rate': 0.00016691306063588583, 'epoch': 1.75}
+ 35%|###5      | 35/100 [02:39<04:15,  3.94s/it] 36%|###6      | 36/100 [02:43<04:02,  3.80s/it] 37%|###7      | 37/100 [02:49<04:49,  4.60s/it] 38%|###8      | 38/100 [02:54<04:49,  4.68s/it] 39%|###9      | 39/100 [02:59<04:48,  4.73s/it] 40%|####      | 40/100 [03:04<04:48,  4.81s/it]                                                {'loss': 0.2606, 'grad_norm': 1.0194565057754517, 'learning_rate': 0.0001529919264233205, 'epoch': 2.0}
+ 40%|####      | 40/100 [03:04<04:48,  4.81s/it] 41%|####1     | 41/100 [03:06<03:58,  4.04s/it] 42%|####2     | 42/100 [03:11<04:07,  4.26s/it] 43%|####3     | 43/100 [03:16<04:17,  4.51s/it] 44%|####4     | 44/100 [03:22<04:45,  5.10s/it] 45%|####5     | 45/100 [03:27<04:36,  5.02s/it]                                                {'loss': 0.1552, 'grad_norm': 0.9394974112510681, 'learning_rate': 0.00013746065934159123, 'epoch': 2.25}
+ 45%|####5     | 45/100 [03:27<04:36,  5.02s/it] 46%|####6     | 46/100 [03:31<04:03,  4.51s/it] 47%|####6     | 47/100 [03:36<04:06,  4.64s/it] 48%|####8     | 48/100 [03:47<05:51,  6.76s/it] 49%|####9     | 49/100 [03:57<06:24,  7.55s/it] 50%|#####     | 50/100 [04:06<06:40,  8.01s/it]                                                {'loss': 0.1357, 'grad_norm': 1.0088058710098267, 'learning_rate': 0.00012079116908177593, 'epoch': 2.5}
+ 50%|#####     | 50/100 [04:06<06:40,  8.01s/it] 51%|#####1    | 51/100 [04:11<05:46,  7.07s/it] 52%|#####2    | 52/100 [04:22<06:46,  8.47s/it] 53%|#####3    | 53/100 [04:36<07:49, 10.00s/it] 54%|#####4    | 54/100 [04:45<07:27,  9.73s/it] 55%|#####5    | 55/100 [04:52<06:46,  9.03s/it]                                                {'loss': 0.1031, 'grad_norm': 1.3646231889724731, 'learning_rate': 0.00010348994967025012, 'epoch': 2.75}
+ 55%|#####5    | 55/100 [04:52<06:46,  9.03s/it] 56%|#####6    | 56/100 [05:00<06:18,  8.60s/it] 57%|#####6    | 57/100 [05:08<06:00,  8.39s/it] 58%|#####8    | 58/100 [05:16<05:45,  8.22s/it] 59%|#####8    | 59/100 [05:28<06:28,  9.47s/it] 60%|######    | 60/100 [05:37<06:12,  9.30s/it]                                                {'loss': 0.0858, 'grad_norm': 0.4465925991535187, 'learning_rate': 8.608268990399349e-05, 'epoch': 3.0}
+ 60%|######    | 60/100 [05:37<06:12,  9.30s/it] 61%|######1   | 61/100 [05:43<05:21,  8.25s/it] 62%|######2   | 62/100 [05:50<05:01,  7.94s/it] 63%|######3   | 63/100 [05:58<04:50,  7.84s/it] 64%|######4   | 64/100 [06:03<04:11,  6.99s/it] 65%|######5   | 65/100 [06:10<04:06,  7.05s/it]                                                {'loss': 0.0568, 'grad_norm': 0.6050621867179871, 'learning_rate': 6.909830056250527e-05, 'epoch': 3.25}
+ 65%|######5   | 65/100 [06:10<04:06,  7.05s/it] 66%|######6   | 66/100 [06:22<04:50,  8.54s/it] 67%|######7   | 67/100 [06:27<04:05,  7.43s/it] 68%|######8   | 68/100 [06:29<03:10,  5.95s/it] 69%|######9   | 69/100 [06:39<03:39,  7.07s/it] 70%|#######   | 70/100 [06:49<04:01,  8.07s/it]                                                {'loss': 0.0399, 'grad_norm': 0.6812397241592407, 'learning_rate': 5.305284372141095e-05, 'epoch': 3.5}
+ 70%|#######   | 70/100 [06:49<04:01,  8.07s/it] 71%|#######1  | 71/100 [06:58<03:59,  8.26s/it] 72%|#######2  | 72/100 [07:09<04:10,  8.95s/it] 73%|#######3  | 73/100 [07:18<04:02,  8.97s/it] 74%|#######4  | 74/100 [07:23<03:25,  7.90s/it] 75%|#######5  | 75/100 [07:27<02:46,  6.67s/it]                                                {'loss': 0.0561, 'grad_norm': 0.9275233149528503, 'learning_rate': 3.843385246743417e-05, 'epoch': 3.75}
+ 75%|#######5  | 75/100 [07:27<02:46,  6.67s/it] 76%|#######6  | 76/100 [07:33<02:36,  6.50s/it] 77%|#######7  | 77/100 [07:42<02:46,  7.24s/it] 78%|#######8  | 78/100 [07:51<02:52,  7.84s/it] 79%|#######9  | 79/100 [07:57<02:34,  7.35s/it] 80%|########  | 80/100 [08:06<02:33,  7.67s/it]                                                {'loss': 0.0498, 'grad_norm': 0.17879560589790344, 'learning_rate': 2.5685517452260567e-05, 'epoch': 4.0}
+ 80%|########  | 80/100 [08:06<02:33,  7.67s/it] 81%|########1 | 81/100 [08:16<02:38,  8.33s/it] 82%|########2 | 82/100 [08:22<02:20,  7.79s/it] 83%|########2 | 83/100 [08:31<02:17,  8.06s/it] 84%|########4 | 84/100 [08:39<02:11,  8.21s/it] 85%|########5 | 85/100 [08:51<02:16,  9.09s/it]                                                {'loss': 0.0422, 'grad_norm': 0.5005052089691162, 'learning_rate': 1.5195190384357404e-05, 'epoch': 4.25}
+ 85%|########5 | 85/100 [08:51<02:16,  9.09s/it] 86%|########6 | 86/100 [08:59<02:05,  8.93s/it] 87%|########7 | 87/100 [09:10<02:02,  9.42s/it] 88%|########8 | 88/100 [09:19<01:54,  9.53s/it] 89%|########9 | 89/100 [09:22<01:22,  7.51s/it] 90%|######### | 90/100 [09:30<01:16,  7.62s/it]                                                {'loss': 0.0416, 'grad_norm': 0.5242387056350708, 'learning_rate': 7.281614543321269e-06, 'epoch': 4.5}
+ 90%|######### | 90/100 [09:30<01:16,  7.62s/it] 91%|#########1| 91/100 [09:37<01:07,  7.51s/it] 92%|#########2| 92/100 [09:43<00:56,  7.01s/it] 93%|#########3| 93/100 [09:49<00:45,  6.53s/it] 94%|#########3| 94/100 [09:59<00:45,  7.55s/it] 95%|#########5| 95/100 [10:06<00:37,  7.53s/it]                                                {'loss': 0.0386, 'grad_norm': 0.8133764863014221, 'learning_rate': 2.1852399266194314e-06, 'epoch': 4.75}
+ 95%|#########5| 95/100 [10:06<00:37,  7.53s/it] 96%|#########6| 96/100 [10:16<00:32,  8.20s/it] 97%|#########7| 97/100 [10:18<00:19,  6.43s/it] 98%|#########8| 98/100 [10:27<00:14,  7.29s/it] 99%|#########9| 99/100 [10:35<00:07,  7.27s/it]100%|##########| 100/100 [10:39<00:00,  6.45s/it]                                                 {'loss': 0.0266, 'grad_norm': 0.12865789234638214, 'learning_rate': 6.09172980904238e-08, 'epoch': 5.0}
+100%|##########| 100/100 [10:39<00:00,  6.45s/it]                                                 {'train_runtime': 641.1122, 'train_samples_per_second': 2.496, 'train_steps_per_second': 0.156, 'train_loss': 0.44640532121062276, 'epoch': 5.0}
+100%|##########| 100/100 [10:41<00:00,  6.45s/it]100%|##########| 100/100 [10:41<00:00,  6.41s/it]
+{
+  "train_runtime": 641.1122,
+  "train_samples_per_second": 2.496,
+  "train_steps_per_second": 0.156,
+  "total_flos": 1248368526360576.0,
+  "train_loss": 0.44640532121062276,
+  "epoch": 5.0
+}
+### V2 EVAL STANDARD ###
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+The following generation flags are not valid and may be ignored: ['temperature', 'top_p', 'top_k']. Set `TRANSFORMERS_VERBOSITY=info` for more details.
+{
+  "examples": 80,
+  "json_parseable_rate": 1.0,
+  "schema_valid_rate": 1.0,
+  "equipment_id_accuracy": 1.0,
+  "severity_macro_f1": 0.9585367933723197,
+  "requires_human_review_accuracy": 0.9875,
+  "text_lexical_f1": 0.9403903442690208,
+  "latency_median_seconds": 14.475613500006148,
+  "latency_p95_seconds": 18.152176500007045,
+  "throughput_examples_per_second": 0.0787879664371081,
+  "composite_score": 98.10711896068901,
+  "accelerator_memory_max_bytes": 1258123776,
+  "model_id": "Qwen/Qwen3-0.6B",
+  "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+  "adapter": "work/runs/variation_2/adapter",
+  "data_sha256": "3529f8c15a1d4e778add2842f96245c2fcd22e29e5e0156aec890bc98434ee61"
+}
+########## A5 TERMINE ##########

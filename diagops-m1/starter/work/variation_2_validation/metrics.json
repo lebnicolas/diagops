@@ -1,0 +1,18 @@
+{
+  "examples": 80,
+  "json_parseable_rate": 1.0,
+  "schema_valid_rate": 1.0,
+  "equipment_id_accuracy": 1.0,
+  "severity_macro_f1": 0.9585367933723197,
+  "requires_human_review_accuracy": 0.9875,
+  "text_lexical_f1": 0.9403903442690208,
+  "latency_median_seconds": 14.475613500006148,
+  "latency_p95_seconds": 18.152176500007045,
+  "throughput_examples_per_second": 0.0787879664371081,
+  "composite_score": 98.10711896068901,
+  "accelerator_memory_max_bytes": 1258123776,
+  "model_id": "Qwen/Qwen3-0.6B",
+  "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+  "adapter": "work/runs/variation_2/adapter",
+  "data_sha256": "3529f8c15a1d4e778add2842f96245c2fcd22e29e5e0156aec890bc98434ee61"
+}

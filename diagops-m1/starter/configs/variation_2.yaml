@@ -1,0 +1,45 @@
+model:
+  id: "Qwen/Qwen3-0.6B"
+  revision: "c1899de289a04d12100db370d81485cdf75e47ca"
+  dtype: "bfloat16"
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+
+training:
+  seed: 42
+  max_length: 512
+  per_device_batch_size: 4
+  gradient_accumulation_steps: 4
+  epochs: 5
+  learning_rate: 0.0002
+  warmup_ratio: 0.1
+  weight_decay: 0.01
+  logging_steps: 5
+  save_strategy: "epoch"
+
+experiment:
+  hypothesis: >-
+    Si je porte l'entrainement de 3 a 5 passages sur les memes 320 exemples,
+    alors les metriques de forme (JSON parseable, schema valide) resteront
+    stables tandis que le score lexical baissera et que le macro-F1 de severity
+    stagnera, parce que 320 exemples sont trop peu nombreux pour absorber deux
+    passages supplementaires sans memorisation.
+  changed_variable: "training.epochs"
+  baseline_value: 3
+  new_value: 5
+  expected_effect: >-
+    Pas de gain net, voire une degradation. Cette variation ne doit pas depasser
+    la reference sur le score composite. Observation corroborante relevee sur le
+    run de reference : la perte s'aplatit deja sur le dernier passage
+    (0.21 -> 0.19 -> 0.18), signe que l'essentiel est appris avant la fin des
+    3 epochs.
+  written_before_run: true
+  protocol_commit: "aa0c036"

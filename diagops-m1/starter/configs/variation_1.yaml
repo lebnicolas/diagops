@@ -1,0 +1,47 @@
+model:
+  id: "Qwen/Qwen3-0.6B"
+  revision: "c1899de289a04d12100db370d81485cdf75e47ca"
+  dtype: "bfloat16"
+
+lora:
+  r: 16
+  alpha: 32
+  dropout: 0.05
+  target_modules:
+    - "q_proj"
+    - "k_proj"
+    - "v_proj"
+    - "o_proj"
+    - "gate_proj"
+    - "up_proj"
+    - "down_proj"
+
+training:
+  seed: 42
+  max_length: 512
+  per_device_batch_size: 4
+  gradient_accumulation_steps: 4
+  epochs: 3
+  learning_rate: 0.0002
+  warmup_ratio: 0.1
+  weight_decay: 0.01
+  logging_steps: 5
+  save_strategy: "epoch"
+
+experiment:
+  hypothesis: >-
+    Si je branche l'adaptateur egalement sur les couches feed-forward
+    (gate_proj, up_proj, down_proj) en plus des projections d'attention, alors
+    le score lexical des champs textuels progressera legerement (+0.02 a +0.05)
+    sans que le macro-F1 de severity s'ameliore de facon nette, parce que ces
+    couches portent davantage la restitution du vocabulaire que la decision de
+    classification.
+  changed_variable: "lora.target_modules"
+  baseline_value: "q_proj, k_proj, v_proj, o_proj"
+  new_value: "q_proj, k_proj, v_proj, o_proj, gate_proj, up_proj, down_proj"
+  expected_effect: >-
+    Gain marginal sur la reference : moins de 5 points de score composite. Un
+    gain superieur a 10 points invaliderait l'hypothese selon laquelle
+    l'apprentissage du format se joue d'abord dans l'attention.
+  written_before_run: true
+  protocol_commit: "aa0c036"
