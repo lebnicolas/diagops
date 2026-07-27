@@ -1,0 +1,94 @@
+name: diagops_data_pack
+status: in_progress
+distribution: learner_pack
+generation_scripts_distributed: false
+synthetic_data: true
+
+periods:
+  - id: "2026-S1"
+    module_min: "M0"
+    description: "Periode initiale mise a disposition progressivement."
+  - id: "2026-S2"
+    module_min: "M5"
+    description: "Periode supplementaire pour evaluation operationnelle."
+  - id: "2027-S1"
+    module_min: "M6"
+    description: "Periode supplementaire pour boucle de feedback."
+
+files:
+  - path: "2026-S1/reports/reports.jsonl"
+    entity: "reports"
+    module_min: "M0"
+    required: true
+    expected_rows: 500
+    delivery_status: generated_pending_human_review
+
+  - path: "2026-S1/annotations/diagops_train.jsonl"
+    entity: "annotated_diagnostics"
+    module_min: "M1"
+    required: true
+    expected_rows: 400
+    delivery_status: generated_pending_human_review
+
+  - path: "2026-S1/annotations/diagops_test.jsonl"
+    entity: "annotated_diagnostics"
+    module_min: "M1"
+    required: true
+    expected_rows: 100
+    delivery_status: generated_pending_human_review
+    human_review_required: 100_percent
+
+  - path: "2026-S1/equipment/equipment.csv"
+    entity: "equipment"
+    module_min: "M3"
+    required: true
+
+  - path: "2026-S1/sensors/sensor_readings.csv"
+    entity: "sensors"
+    module_min: "M3"
+    required: true
+
+  - path: "2026-S1/maintenance/maintenance_history.csv"
+    entity: "maintenance_history"
+    module_min: "M3"
+    required: true
+
+  - path: "2026-S1/events/events.csv"
+    entity: "events"
+    module_min: "M3"
+    required: true
+
+  - path: "2026-S2/sensors/sensor_readings.csv"
+    entity: "sensors"
+    module_min: "M5"
+    required: true
+
+  - path: "2026-S2/events/events.csv"
+    entity: "events"
+    module_min: "M5"
+    required: true
+
+  - path: "2027-S1/reports/reports.jsonl"
+    entity: "reports"
+    module_min: "M6"
+    required: true
+
+  - path: "2027-S1/feedback/feedback.csv"
+    entity: "feedback"
+    module_min: "M6"
+    required: true
+
+  - path: "images/manifest.csv"
+    entity: "images"
+    module_min: "M7"
+    required: true
+    source: "external_corpus_to_be_selected"
+
+integrity:
+  checksums_file: "checksums.sha256"
+  freeze_required_before_distribution: true
+
+notes:
+  - "The learner pack contains data only, not generation scripts."
+  - "No anonymized exercise output is distributed."
+  - "The M1 annotated subset is an input dataset, not a correction key."
