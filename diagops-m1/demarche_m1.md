@@ -346,7 +346,7 @@ moindre chiffre.
   dans la section « Gel ». C'est lui qui prouve que tu n'as pas écrit ta règle
   après avoir vu les chiffres.
 
-### A3 — Mesurer la baseline *(01:30–02:15)*
+### A3 — Mesurer la baseline *(01:30–02:15)* — **fait**
 
 - [ ] ```powershell
   python -m src.evaluate --config configs/baseline.yaml --data work/splits/validation.jsonl --output-dir work/baseline_validation
@@ -359,7 +359,7 @@ compté comme raté. Le starter ne répare volontairement rien — un JSON qu'il
 nettoyer avant usage n'est pas un JSON exploitable. C'est à expliquer, pas à
 contourner.
 
-### A4 — Entraîner et évaluer le LoRA de référence *(02:15–03:00)*
+### A4 — Entraîner et évaluer le LoRA de référence *(02:15–03:00)* — **fait**
 
 - [ ] ```powershell
   python -m src.train --config configs/lora_reference.yaml --train-data work/splits/train.jsonl --output-dir work/runs/lora_reference
@@ -373,7 +373,7 @@ qui rend la comparaison équitable. Ne pas y toucher.
 
 Ce run de référence reste **intact** pour tout le module.
 
-### A5 — Les deux variations *(03:00–04:00)*
+### A5 — Les deux variations *(03:00–04:00)* — **fait**
 
 - [ ] Copier `configs/variation_template.yaml` en `variation_1.yaml` et
   `variation_2.yaml`. Remplir le bloc `experiment` (hypothèse, réglage changé,
@@ -384,7 +384,7 @@ Ce run de référence reste **intact** pour tout le module.
 Pendant qu'un entraînement tourne, on n'attend pas : on prépare la grille
 d'analyse d'erreurs et on vérifie la reproductibilité du run précédent.
 
-### A6 — Comparer et analyser les erreurs *(04:00–05:00)*
+### A6 — Comparer et analyser les erreurs *(04:00–05:00)* — **fait, 17 cas**
 
 - [ ] Regrouper les 4 fichiers `metrics.json` dans `work/metrics_m1.csv` — une
   ligne par système, une colonne par métrique.
@@ -413,7 +413,7 @@ d'analyse d'erreurs et on vérifie la reproductibilité du run précédent.
   **fond** (mauvaise gravité, panne mal identifiée). Un LoRA corrige surtout les
   premières — c'est un vrai gain, mais ce n'est pas de la compréhension métier.
 
-### A7 — Revue contradictoire *(05:00–05:45)*
+### A7 — Revue contradictoire *(05:00–05:45)* — **SEUL POINT OUVERT**
 
 - [ ] Remplir `peer_review.md`. Le relecteur doit **essayer de démolir** au moins
   un point : mélange entre données d'apprentissage et de comparaison, consignes
@@ -425,13 +425,13 @@ d'analyse d'erreurs et on vérifie la reproductibilité du run précédent.
 > groupes. En solo, il faut un relecteur externe réel — un pair, le formateur.
 > Une auto-revue n'a pas la même valeur probante, et ça se verra à la soutenance.
 
-### A8 — Corriger et re-mesurer *(05:45–06:30)*
+### A8 — Corriger et re-mesurer *(05:45–06:30)* — **fait deux fois (fusion, banc de latence)**
 
 - [ ] Traiter l'objection : correction ou run ciblé, avec **preuve avant / preuve
   après**. C'est le point le plus souvent raté : l'objection doit produire un
   effet visible dans le dépôt, pas un paragraphe de réponse.
 
-### A9 — Décision intermédiaire *(06:30–07:00)*
+### A9 — Décision intermédiaire *(06:30–07:00)* — **fait : variation_1 retenue**
 
 - [ ] Écrire la décision : candidat **retenu / rejeté / à réexpérimenter**, en
   citant des chiffres précis. Synthèse de 5 minutes.
