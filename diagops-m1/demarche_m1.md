@@ -300,12 +300,19 @@ relecteur le découvre à ta place.
 
 **Preuve produite** : `work/environment.json` + `work/splits/split_manifest.json`
 
-### A2 — Écrire ta prédiction et figer le protocole *(00:45–01:30)*
+### A2 — Écrire ta prédiction et figer le protocole *(00:45–01:30)* — **fait et gelé le 27/07/2026**
 
 L'étape la plus discriminante du module. Elle se fait **avant** de voir le
 moindre chiffre.
 
-- [ ] Remplir `templates/protocol_m1.md` → `work/evidence/protocol_m1.md` :
+> **État** : protocole rédigé dans `starter/work/evidence/protocol_m1.md`,
+> commité en `aa0c036`, gelé en `67c873e`. Variations retenues :
+> `target_modules` + couches feed-forward (capacité), et `epochs: 3 → 5`
+> (optimisation). Le rang a été écarté — voir la justification dans le
+> protocole. Hypothèses, prédictions et règle de décision ne sont plus
+> modifiables.
+
+- [x] Remplir `templates/protocol_m1.md` → `work/evidence/protocol_m1.md` :
   - la question précise que l'expérience tranche ;
   - ton hypothèse en **si / alors / parce que** ;
   - tout ce que tu maintiens constant : modèle et version exacte, consignes
@@ -320,7 +327,7 @@ moindre chiffre.
   > d'une seule valeur. Adosse ta décision au JSON correct, au format valide, à
   > la gravité **détaillée par classe**, et au score textuel.
 
-- [ ] Choisir tes deux variations. Chacune ne change **qu'un seul réglage** par
+- [x] Choisir tes deux variations. Chacune ne change **qu'un seul réglage** par
   rapport à la référence (rang 16, alpha 32, dropout 0.05, 4 modules ciblés,
   3 epochs, learning rate 2e-4, longueur 512) :
 
@@ -335,7 +342,7 @@ moindre chiffre.
   modules) et une sur l'**optimisation** (epochs ou learning rate) — deux axes
   différents plutôt que deux points du même axe.
 
-- [ ] **Committer le protocole avant la première mesure.** Le hash du commit va
+- [x] **Committer le protocole avant la première mesure.** Le hash du commit va
   dans la section « Gel ». C'est lui qui prouve que tu n'as pas écrit ta règle
   après avoir vu les chiffres.
 

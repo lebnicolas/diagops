@@ -1,0 +1,482 @@
+[
+  {
+    "annotation_id": "ANN-2026S1-0250",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0095",
+    "max_jaccard_train": 1.0,
+    "severity": "medium",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0159",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0165",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0247",
+    "max_jaccard_train": 1.0,
+    "severity": "critical",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0229",
+    "max_jaccard_train": 1.0,
+    "severity": "medium",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0191",
+    "max_jaccard_train": 1.0,
+    "severity": "medium",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0123",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0258",
+    "max_jaccard_train": 1.0,
+    "severity": "medium",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0293",
+    "max_jaccard_train": 1.0,
+    "severity": "low",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0193",
+    "max_jaccard_train": 1.0,
+    "severity": "low",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0306",
+    "max_jaccard_train": 0.846,
+    "severity": "high",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0039",
+    "max_jaccard_train": 0.22,
+    "severity": "critical",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0339",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0348",
+    "max_jaccard_train": 0.905,
+    "severity": "high",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0365",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0044",
+    "max_jaccard_train": 1.0,
+    "severity": "critical",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0218",
+    "max_jaccard_train": 1.0,
+    "severity": "medium",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0100",
+    "max_jaccard_train": 1.0,
+    "severity": "low",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0054",
+    "max_jaccard_train": 1.0,
+    "severity": "critical",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0272",
+    "max_jaccard_train": 0.84,
+    "severity": "low",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0170",
+    "max_jaccard_train": 0.84,
+    "severity": "high",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0252",
+    "max_jaccard_train": 1.0,
+    "severity": "low",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0078",
+    "max_jaccard_train": 1.0,
+    "severity": "medium",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0010",
+    "max_jaccard_train": 0.211,
+    "severity": "medium",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0069",
+    "max_jaccard_train": 1.0,
+    "severity": "medium",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0199",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0003",
+    "max_jaccard_train": 0.3,
+    "severity": "high",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0368",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0373",
+    "max_jaccard_train": 1.0,
+    "severity": "low",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0260",
+    "max_jaccard_train": 1.0,
+    "severity": "low",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0254",
+    "max_jaccard_train": 1.0,
+    "severity": "critical",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0245",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0210",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0056",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0035",
+    "max_jaccard_train": 0.19,
+    "severity": "low",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0355",
+    "max_jaccard_train": 1.0,
+    "severity": "medium",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0281",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0060",
+    "max_jaccard_train": 1.0,
+    "severity": "low",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0244",
+    "max_jaccard_train": 1.0,
+    "severity": "critical",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0387",
+    "max_jaccard_train": 1.0,
+    "severity": "critical",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0290",
+    "max_jaccard_train": 0.913,
+    "severity": "high",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0231",
+    "max_jaccard_train": 1.0,
+    "severity": "medium",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0381",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0030",
+    "max_jaccard_train": 0.424,
+    "severity": "low",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0332",
+    "max_jaccard_train": 1.0,
+    "severity": "low",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0241",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0098",
+    "max_jaccard_train": 1.0,
+    "severity": "medium",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0323",
+    "max_jaccard_train": 0.917,
+    "severity": "high",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0144",
+    "max_jaccard_train": 1.0,
+    "severity": "critical",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0176",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0067",
+    "max_jaccard_train": 1.0,
+    "severity": "critical",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0352",
+    "max_jaccard_train": 1.0,
+    "severity": "low",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0046",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0228",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0145",
+    "max_jaccard_train": 0.9,
+    "severity": "high",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0214",
+    "max_jaccard_train": 1.0,
+    "severity": "critical",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0076",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0375",
+    "max_jaccard_train": 1.0,
+    "severity": "medium",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0336",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0089",
+    "max_jaccard_train": 1.0,
+    "severity": "medium",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0386",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0027",
+    "max_jaccard_train": 0.25,
+    "severity": "low",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0073",
+    "max_jaccard_train": 1.0,
+    "severity": "low",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0181",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0032",
+    "max_jaccard_train": 0.27,
+    "severity": "high",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0327",
+    "max_jaccard_train": 1.0,
+    "severity": "critical",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0131",
+    "max_jaccard_train": 1.0,
+    "severity": "medium",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0128",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0124",
+    "max_jaccard_train": 1.0,
+    "severity": "critical",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0249",
+    "max_jaccard_train": 1.0,
+    "severity": "medium",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0334",
+    "max_jaccard_train": 1.0,
+    "severity": "critical",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0011",
+    "max_jaccard_train": 0.265,
+    "severity": "medium",
+    "groupe": "nouveau"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0066",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0346",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0350",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0285",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0065",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0163",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  },
+  {
+    "annotation_id": "ANN-2026S1-0086",
+    "max_jaccard_train": 1.0,
+    "severity": "high",
+    "groupe": "vu"
+  }
+]

@@ -1,0 +1,80 @@
+{
+  "baseline|vu": {
+    "examples": 65,
+    "json_parseable_rate": 1.0,
+    "schema_valid_rate": 0.0,
+    "equipment_id_accuracy": 0.09230769230769231,
+    "severity_macro_f1": 0.0,
+    "requires_human_review_accuracy": 0.0,
+    "text_lexical_f1": 0.0,
+    "latency_median_seconds": 3.677685000002384,
+    "latency_p95_seconds": 8.341122900004848,
+    "throughput_examples_per_second": 0.23922105030036095,
+    "composite_score": 18.205128205128204
+  },
+  "baseline|nouveau": {
+    "examples": 15,
+    "json_parseable_rate": 1.0,
+    "schema_valid_rate": 0.0,
+    "equipment_id_accuracy": 0.06666666666666667,
+    "severity_macro_f1": 0.0,
+    "requires_human_review_accuracy": 0.0,
+    "text_lexical_f1": 0.0,
+    "latency_median_seconds": 4.083397499998682,
+    "latency_p95_seconds": 13.920058099989546,
+    "throughput_examples_per_second": 0.19593978028601186,
+    "composite_score": 17.77777777777778
+  },
+  "baseline|tous": {
+    "examples": 80,
+    "json_parseable_rate": 1.0,
+    "schema_valid_rate": 0.0,
+    "equipment_id_accuracy": 0.0875,
+    "severity_macro_f1": 0.0,
+    "requires_human_review_accuracy": 0.0,
+    "text_lexical_f1": 0.0,
+    "latency_median_seconds": 3.775908800002071,
+    "latency_p95_seconds": 8.341122900004848,
+    "throughput_examples_per_second": 0.2297072642467988,
+    "composite_score": 18.125
+  },
+  "lora_reference|vu": {
+    "examples": 65,
+    "json_parseable_rate": 1.0,
+    "schema_valid_rate": 1.0,
+    "equipment_id_accuracy": 1.0,
+    "severity_macro_f1": 0.7945564516129032,
+    "requires_human_review_accuracy": 1.0,
+    "text_lexical_f1": 0.6996887447447104,
+    "latency_median_seconds": 8.150270900005125,
+    "latency_p95_seconds": 14.960949899992556,
+    "throughput_examples_per_second": 0.10463610496447577,
+    "composite_score": 91.57075327262689
+  },
+  "lora_reference|nouveau": {
+    "examples": 15,
+    "json_parseable_rate": 1.0,
+    "schema_valid_rate": 0.9333333333333333,
+    "equipment_id_accuracy": 1.0,
+    "severity_macro_f1": 0.5138888888888888,
+    "requires_human_review_accuracy": 0.9333333333333333,
+    "text_lexical_f1": 0.5287588303222979,
+    "latency_median_seconds": 10.610424300000886,
+    "latency_p95_seconds": 16.677133000004687,
+    "throughput_examples_per_second": 0.09523153853154927,
+    "composite_score": 81.82190643129755
+  },
+  "lora_reference|tous": {
+    "examples": 80,
+    "json_parseable_rate": 1.0,
+    "schema_valid_rate": 0.9875,
+    "equipment_id_accuracy": 1.0,
+    "severity_macro_f1": 0.7583171401768962,
+    "requires_human_review_accuracy": 0.9875,
+    "text_lexical_f1": 0.6676393857905081,
+    "latency_median_seconds": 8.352226599992719,
+    "latency_p95_seconds": 15.067109600000549,
+    "throughput_examples_per_second": 0.10273383242139116,
+    "composite_score": 90.01594209945674
+  }
+}
