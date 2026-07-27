@@ -1,0 +1,9 @@
+{
+  "source": "..\\data_pack\\2026-S1\\annotations\\diagops_train.jsonl",
+  "source_sha256": "546b15828fdafbf0eecbc09fdd335dce053e5e93b9233c8baa47a231877cd4cc",
+  "seed": 42,
+  "train_rows": 320,
+  "validation_rows": 80,
+  "train_sha256": "4e33fa772f125708e754c99c6ac7c0b706053a4651207dd6b47ba9dc89932bc3",
+  "validation_sha256": "3529f8c15a1d4e778add2842f96245c2fcd22e29e5e0156aec890bc98434ee61"
+}

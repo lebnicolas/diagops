@@ -63,7 +63,7 @@ Sous-ensemble annote utilise en M1 pour entrainer et evaluer le modele DiagOps.
 | `report_id` | string | rapport source |
 | `equipment_id` | string ou null | equipement concerne, si identifiable |
 | `event_id` | string ou null | evenement associe, si connu |
-| `input_text` | string | texte donne au modele |
+| `input_text` | string | contexte donne au modele : identifiant equipement disponible, puis rapport technicien |
 | `expected_output` | object | JSON DiagOps attendu |
 | `split` | enum | `train` ou `test` |
 | `period` | string | periode source |
@@ -72,6 +72,10 @@ Volume cible :
 
 - `train` : environ 400 exemples ;
 - `test` : environ 100 exemples.
+
+L'identifiant d'equipement present dans le rapport structure est inclus dans
+`input_text`. La tache M1 ne demande donc pas d'inventer une cle interne a
+partir d'un nom d'usage tel que `Pompe P-204`.
 
 Mise a disposition initiale : M1.
 
