@@ -1,0 +1,46 @@
+{
+  "adaptateur": "work/runs/variation_1/adapter",
+  "adapter_merged": true,
+  "model_id": "Qwen/Qwen3-0.6B",
+  "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+  "exemples": [
+    {
+      "annotation_id": "ANN-2026S1-0250",
+      "input_text": "Identifiant equipement: EQ-PUMP-150\nRapport technicien: Signalement equipe apres-midi pour Pompe P-12: debit bas, intensite elevee et vibration inhabituelle; debit a 49 pourcent de la consigne. Production en attente d'un avis.",
+      "raw_output": "{\"equipment_id\":\"EQ-PUMP-150\",\"symptom\":\"debit bas avec intensite et vibration elevees\",\"severity\":\"high\",\"failure_hypothesis\":\"roue encrassee ou restriction hydraulique\",\"recommended_action\":\"controler vanne, aspiration et roue avant d'intervenir sur le moteur\",\"confidence\":0.8,\"evidence\":[\"rapport RPT-2026S1-0250\"],\"requires_human_review\":true}",
+      "parsed_output": {
+        "equipment_id": "EQ-PUMP-150",
+        "symptom": "debit bas avec intensite et vibration elevees",
+        "severity": "high",
+        "failure_hypothesis": "roue encrassee ou restriction hydraulique",
+        "recommended_action": "controler vanne, aspiration et roue avant d'intervenir sur le moteur",
+        "confidence": 0.8,
+        "evidence": [
+          "rapport RPT-2026S1-0250"
+        ],
+        "requires_human_review": true
+      },
+      "schema_valid": true,
+      "latency_seconds": 3.409
+    },
+    {
+      "annotation_id": "ANN-2026S1-0095",
+      "input_text": "Identifiant equipement: EQ-SENSOR-245\nRapport technicien: Capteur T-37 / poste nuit. valeur haute isolee non confirmee par le controle manuel. Au pupitre, ecart capteur-controle de 2 unites. Diagnostic a confirmer par maintenance.",
+      "raw_output": "{\"equipment_id\":\"EQ-SENSOR-245\",\"symptom\":\"mesure capteur incoherente\",\"severity\":\"medium\",\"failure_hypothesis\":\"derive du capteur ou erreur de transmission\",\"recommended_action\":\"verifier l'etalonnage et la chaine de transmission\",\"confidence\":0.59,\"evidence\":[\"rapport RPT-2026S1-0095\"],\"requires_human_review\":true}",
+      "parsed_output": {
+        "equipment_id": "EQ-SENSOR-245",
+        "symptom": "mesure capteur incoherente",
+        "severity": "medium",
+        "failure_hypothesis": "derive du capteur ou erreur de transmission",
+        "recommended_action": "verifier l'etalonnage et la chaine de transmission",
+        "confidence": 0.59,
+        "evidence": [
+          "rapport RPT-2026S1-0095"
+        ],
+        "requires_human_review": true
+      },
+      "schema_valid": true,
+      "latency_seconds": 3.251
+    }
+  ]
+}
