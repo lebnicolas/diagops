@@ -1,0 +1,62 @@
+{
+  "model_id": "Qwen/Qwen3-0.6B",
+  "model_revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+  "config": {
+    "model": {
+      "id": "Qwen/Qwen3-0.6B",
+      "revision": "c1899de289a04d12100db370d81485cdf75e47ca",
+      "dtype": "bfloat16"
+    },
+    "lora": {
+      "r": 16,
+      "alpha": 32,
+      "dropout": 0.05,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj"
+      ]
+    },
+    "training": {
+      "seed": 42,
+      "max_length": 512,
+      "per_device_batch_size": 4,
+      "gradient_accumulation_steps": 4,
+      "epochs": 5,
+      "learning_rate": 0.0001,
+      "warmup_ratio": 0.1,
+      "weight_decay": 0.01,
+      "logging_steps": 5,
+      "save_strategy": "epoch"
+    },
+    "experiment": {
+      "statut": "EXPERIENCE COMPLEMENTAIRE, posterieure au gel du protocole (67c873e) et a la decision intermediaire (25f4f42). Ne fait pas partie des trois candidats du Brief 1 et ne remet pas en cause la decision prise. Second test de falsification de la conclusion posee apres variation_3 : le plafond de generalisation est dans le corpus, pas dans le reglage. variation_3 a teste l'axe REGULARISATION (dropout) et n'a produit aucun effet. variation_4 teste l'axe OPTIMISATION (learning rate), qui reste ouvert.",
+      "reference_de_comparaison": "variation_2 (epochs 5, learning rate 2e-4). Une seule variable change entre les deux configurations : training.learning_rate. Tout le reste est identique, y compris le rang, alpha, le dropout, les modules cibles, le nombre d'epochs, la seed, le decoupage et les parametres de generation a l'evaluation. L'evaluation se fait adaptateur NON FUSIONNE, chemin sur lequel variation_2 a ete mesuree (composite 98.107) — changer de chemin introduirait une seconde variable.",
+      "changed_variable": "training.learning_rate",
+      "baseline_value": 0.0002,
+      "new_value": 0.0001,
+      "budget_optimisation": "320 exemples, lot effectif de 16 : 20 pas d'optimisation par epoch, soit 100 pas sur 5 epochs (contre 60 pour la reference). Le produit epochs x learning_rate vaut 5e-4 pour variation_4, contre 1e-3 pour variation_2 et 6e-4 pour la reference. variation_4 parcourt donc une distance totale INFERIEURE a celle de la reference, repartie sur davantage de pas plus petits. Ce n'est pas un entrainement \"plus long et plus doux\" : c'est un entrainement plus court en distance et plus fin en granularite.",
+      "hypothesis": "Si je divise par deux le learning rate de variation_2 sans rien changer d'autre, alors le composite du groupe \"vu\" reculera sous 100 tandis que le composite du groupe \"nouveau\" restera dans la bande 85.5-87.0 ou il stagne pour les trois montages deja mesures (86.26, 86.28, 85.92), parce que la memorisation des patrons croit avec la distance totale parcourue dans l'espace des poids — qui diminue ici de moitie — tandis que la generalisation est bornee par la diversite du corpus, qu'aucun hyperparametre ne modifie.",
+      "expected_effect": "Composite \"vu\" : 100.00 -> entre 97 et 99.5. Composite \"nouveau\" : 86.28 -> entre 85.5 et 87.0. Macro-F1 severity \"nouveau\" : 0.5615 -> entre 0.54 et 0.58. L'ecart vu-nouveau se reduira donc, mais par degradation du groupe \"vu\" et non par progression du groupe \"nouveau\" : c'est exactement le faux succes que le critere cumulatif de variation_3 excluait. Metriques de forme attendues stables : schema valide a 1.0, JSON parseable a 1.0.",
+      "critere_de_succes": "Cette experience n'a pas de \"succes\" au sens d'un candidat a promouvoir : elle cherche a FALSIFIER une conclusion. La these du plafond corpus est CONFIRMEE si le composite \"nouveau\" reste dans la bande 85.5-87.0. Elle est REFUTEE si le composite \"nouveau\" depasse 87.3, soit plus d'un point au-dessus de variation_2 : le reglage d'optimisation etait alors sous-exploite, la conclusion tiree de variation_3 etait prematuree, et la recommandation du Brief 1 doit etre revue avant l'ouverture du test final.",
+      "falsification": "Trois issues distinctes, toutes informatives. (1) \"nouveau\" stagne et \"vu\" recule : these confirmee, la memorisation suit le budget d'optimisation. (2) \"nouveau\" depasse 87.3 : these refutee, voir ci-dessus. (3) Les metriques de forme se degradent — schema valide sous 1.0 : le budget d'optimisation reduit ne suffit plus a apprendre le contrat de sortie, et l'experience mesure un sous-apprentissage, pas un effet d'optimisation. Dans ce troisieme cas les composites \"vu\" et \"nouveau\" ne sont pas interpretables comme un test de generalisation.",
+      "limite_connue": "Le groupe \"nouveau\" ne compte que 15 exemples, dont un seul de gravite critical. Un ecart inferieur a 2 points de composite sur ce groupe n'est pas interpretable finement — d'ou une bande de confirmation large (1.5 point) et un seuil de refutation place au-dela (1 point au-dessus de variation_2). L'experience cherche un signal de direction, pas une mesure. La stagnation deja observee sur trois montages renforce la lecture d'un plateau, mais ne la demontre pas : elle reste une convergence d'indices sur un echantillon trop petit.",
+      "written_before_run": true,
+      "protocol_commit": "aa0c036"
+    }
+  },
+  "effective_dtype": "bfloat16",
+  "config_sha256": "e35292a71fcbc76bff394ff91119f0d09822f92712a16ecf9bb5f99d3d35a59e",
+  "train_data": "work\\splits\\train.jsonl",
+  "train_data_sha256": "4e33fa772f125708e754c99c6ac7c0b706053a4651207dd6b47ba9dc89932bc3",
+  "train_rows": 320,
+  "train_metrics": {
+    "train_runtime": 590.9714,
+    "train_samples_per_second": 2.707,
+    "train_steps_per_second": 0.169,
+    "total_flos": 1248368526360576.0,
+    "train_loss": 0.6561387068033219,
+    "epoch": 5.0
+  }
+}
