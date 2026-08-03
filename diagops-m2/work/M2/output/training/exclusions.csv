@@ -1,0 +1,3 @@
+event_id,equipment_id,severity,motif_exclusion
+EVT-2026S1-0102,EQ-CONV-322,URGENT,severite hors enumeration
+EVT-2026S1-0180,EQ-ORPHAN-999,low,equipement non joignable

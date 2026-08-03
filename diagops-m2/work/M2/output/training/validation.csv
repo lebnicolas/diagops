@@ -1,0 +1,78 @@
+equipment_id,equipment_type,site_id,criticality,manufacturer,rated_power_kw,event_type,equipment_age_days,start_month,start_weekday,start_hour,severity
+EQ-CONV-003,conveyor,SITE-NORD,medium,Valcor,85.0,incident,5528.0,5,4,13,medium
+EQ-ROBOT-001,robot,SITE-NORD,medium,Valcor,41.0,intervention,6694.0,1,4,4,high
+EQ-CONV-001,conveyor,SITE-SUD,high,Valcor,75.4,observation,5282.0,1,5,3,medium
+EQ-PRESS-002,press,SITE-EST,low,Aster Industrie,104.0,incident,2063.0,3,5,18,critical
+EQ-OVEN-002,oven,SITE-EST,medium,Aster Industrie,191.4,incident,1246.0,3,3,8,critical
+EQ-ROBOT-001,robot,SITE-NORD,medium,Valcor,41.0,observation,6810.0,5,1,12,high
+EQ-CONV-003,conveyor,SITE-NORD,medium,Valcor,85.0,observation,5410.0,1,5,5,medium
+EQ-EXTRA-422,valve,SITE-NORD,medium,Aster Industrie,58.8,incident,6269.0,5,0,19,low
+EQ-SENSOR-105,sensor,SITE-SUD,high,Rotatek,86.4,alert,5870.0,6,5,10,medium
+EQ-COMP-369,compressor,SITE-SUD,medium,Rotatek,100.8,observation,5428.0,4,3,7,high
+EQ-PUMP-391,pump,SITE-NORD,medium,MecaNova,57.6,observation,2636.0,5,5,9,high
+EQ-ROBOT-135,robot,SITE-NORD,low,Valcor,56.5,alert,6211.0,1,2,6,high
+EQ-PRESS-157,press,SITE-NORD,high,Valcor,132.6,observation,3556.0,1,4,11,critical
+EQ-PUMP-190,pump,SITE-NORD,critical,Valcor,36.4,incident,3288.0,1,4,14,high
+EQ-SENSOR-245,sensor,SITE-NORD,low,Valcor,24.4,alert,6285.0,3,1,10,medium
+EQ-COMP-333,compressor,SITE-NORD,low,Thermis,109.8,alert,1311.0,2,5,0,high
+EQ-ROBOT-355,robot,SITE-SUD,medium,MecaNova,46.9,observation,1667.0,4,3,17,high
+EQ-MIX-399,mixer,SITE-NORD,medium,MecaNova,50.7,incident,3012.0,6,2,2,medium
+EQ-COMP-209,compressor,SITE-EST,critical,MecaNova,75.7,intervention,4888.0,2,5,3,high
+EQ-FAN-264,fan,SITE-SUD,high,Rotatek,51.3,incident,2199.0,1,1,0,critical
+EQ-OVEN-363,oven,SITE-SUD,low,Rotatek,155.0,intervention,991.0,2,0,1,low
+EQ-PUMP-107,pump,SITE-NORD,medium,Rotatek,58.4,observation,2576.0,1,3,8,high
+EQ-COMP-129,compressor,SITE-SUD,low,Valcor,97.2,incident,4981.0,5,6,11,high
+EQ-FAN-140,fan,SITE-SUD,medium,Rotatek,90.1,observation,1348.0,3,0,4,low
+EQ-ROBOT-195,robot,SITE-NORD,medium,Valcor,21.8,incident,3959.0,6,2,6,high
+EQ-OVEN-206,oven,SITE-NORD,medium,MecaNova,223.6,intervention,4096.0,4,5,3,high
+EQ-CHILL-228,chiller,SITE-EST,high,Aster Industrie,62.3,intervention,1412.0,5,3,15,high
+EQ-ROBOT-115,robot,SITE-NORD,high,MecaNova,45.2,incident,2036.0,5,4,8,high
+EQ-OVEN-346,oven,SITE-SUD,medium,Valcor,180.2,incident,4118.0,3,0,2,high
+EQ-ROBOT-178,robot,SITE-SUD,medium,Thermis,27.3,incident,1789.0,1,1,0,medium
+EQ-PUMP-211,pump,SITE-NORD,low,Rotatek,63.2,incident,6303.0,3,3,12,high
+EQ-CHILL-288,chiller,SITE-NORD,medium,Aster Industrie,84.0,incident,6794.0,5,6,7,high
+EQ-ROBOT-398,robot,SITE-SUD,high,Valcor,26.9,alert,6094.0,6,4,4,medium
+EQ-COMP-109,compressor,SITE-EST,medium,Thermis,93.3,incident,4280.0,1,6,19,high
+EQ-FAN-120,fan,SITE-OUEST,high,Thermis,66.6,observation,7095.0,3,6,23,low
+EQ-PRESS-274,press,SITE-SUD,high,Valcor,99.6,incident,1224.0,4,3,21,critical
+EQ-PUMP-351,pump,SITE-NORD,high,MecaNova,51.0,incident,6896.0,5,2,7,high
+EQ-PUMP-227,pump,SITE-NORD,high,Aster Industrie,41.6,incident,5641.0,4,6,11,high
+EQ-COMP-249,compressor,SITE-NORD,high,Thermis,77.1,incident,850.0,3,2,12,high
+EQ-FAN-260,fan,SITE-NORD,medium,MecaNova,74.3,intervention,2307.0,3,6,1,low
+EQ-CONV-282,conveyor,SITE-OUEST,medium,Aster Industrie,62.9,intervention,3038.0,1,6,4,medium
+EQ-COMP-293,compressor,SITE-SUD,critical,Aster Industrie,119.9,observation,7367.0,5,4,18,high
+EQ-PRESS-254,press,SITE-EST,medium,Thermis,69.4,observation,899.0,6,2,6,critical
+EQ-COMP-353,compressor,SITE-NORD,high,MecaNova,74.4,incident,765.0,5,6,15,high
+EQ-OVEN-386,oven,SITE-SUD,critical,Rotatek,154.1,incident,2150.0,5,2,1,high
+EQ-CONV-282,conveyor,SITE-OUEST,medium,Aster Industrie,62.9,incident,3104.0,3,2,14,medium
+EQ-CONV-196,conveyor,SITE-SUD,high,Aster Industrie,49.4,incident,6602.0,3,3,2,high
+EQ-SENSOR-105,sensor,SITE-SUD,high,Rotatek,86.4,incident,5806.0,4,4,20,medium
+EQ-COMP-369,compressor,SITE-SUD,medium,Rotatek,100.8,intervention,5392.0,3,2,21,high
+EQ-PUMP-391,pump,SITE-NORD,medium,MecaNova,57.6,intervention,2493.0,1,2,20,high
+EQ-ROBOT-135,robot,SITE-NORD,low,Valcor,56.5,intervention,6211.0,1,2,7,high
+EQ-PRESS-157,press,SITE-NORD,high,Valcor,132.6,observation,3580.0,2,0,10,critical
+EQ-PUMP-190,pump,SITE-NORD,critical,Valcor,36.4,incident,3356.0,3,2,4,high
+EQ-SENSOR-245,sensor,SITE-NORD,low,Valcor,24.4,alert,6241.0,1,6,12,medium
+EQ-MOTOR-322,motor,SITE-EST,medium,Aster Industrie,43.1,observation,4625.0,1,4,7,high
+EQ-VALVE-377,valve,SITE-SUD,high,Valcor,80.7,incident,5630.0,5,2,4,medium
+EQ-GEAR-121,gearbox,SITE-EST,medium,Valcor,69.5,alert,1520.0,1,3,10,high
+EQ-PACK-209,packaging_machine,SITE-EST,medium,MecaNova,52.4,intervention,6124.0,2,1,2,medium
+EQ-STEAM-385,steam_unit,SITE-NORD,medium,Rotatek,48.5,observation,4820.0,5,4,22,medium
+EQ-COMP-129,compressor,SITE-SUD,low,Valcor,97.2,observation,4915.0,3,3,3,medium
+EQ-ROBOT-173,robot,SITE-OUEST,medium,Thermis,52.0,incident,2953.0,3,5,22,medium
+EQ-ROBOT-195,robot,SITE-NORD,medium,Valcor,21.8,incident,3920.0,4,5,6,medium
+EQ-CAB-206,electrical_cabinet,SITE-SUD,critical,Rotatek,52.6,intervention,3829.0,1,2,15,medium
+EQ-MIX-294,mixer,SITE-NORD,low,MecaNova,58.2,alert,4117.0,5,0,0,medium
+EQ-MIX-305,mixer,SITE-SUD,medium,Rotatek,45.1,incident,5633.0,1,3,8,medium
+EQ-VALVE-338,valve,SITE-NORD,medium,Thermis,63.8,observation,5175.0,4,0,9,medium
+EQ-PUMP-192,pump,SITE-NORD,medium,Aster Industrie,24.5,observation,989.0,2,0,3,high
+EQ-ROBOT-379,robot,SITE-NORD,high,Valcor,37.6,incident,3082.0,4,6,20,critical
+EQ-OVEN-386,oven,SITE-SUD,critical,Rotatek,154.1,alert,2066.0,2,2,18,low
+EQ-CONV-003,conveyor,SITE-NORD,medium,Valcor,85.0,incident,5526.0,5,2,4,critical
+EQ-FAN-140,fan,SITE-SUD,medium,Rotatek,90.1,alert,1381.0,5,5,14,high
+EQ-PUMP-351,pump,SITE-NORD,high,MecaNova,51.0,intervention,6780.0,1,5,13,medium
+EQ-VALVE-338,valve,SITE-NORD,medium,Thermis,63.8,intervention,5208.0,5,5,21,high
+EQ-COMP-249,compressor,SITE-NORD,high,Thermis,77.1,observation,924.0,6,6,20,low
+EQ-PACK-209,packaging_machine,SITE-EST,medium,MecaNova,52.4,observation,6253.0,6,4,23,medium
+EQ-FAN-260,fan,SITE-NORD,medium,MecaNova,74.3,incident,2380.0,5,2,13,medium
+EQ-CHILL-288,chiller,SITE-NORD,medium,Aster Industrie,84.0,intervention,6757.0,3,4,17,medium
