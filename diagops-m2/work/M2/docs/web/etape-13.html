@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 13 — Le diagnostic et la décision</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --border: #e3dfd8;
+    --text: #22201d; --muted: #635e56; --accent: #8a5a2b;
+    --accent-soft: #f5ece1; --code-bg: #f4f2ee;
+    --ok: #2f6b45; --warn: #8c6110; --bad: #a33a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17161a; --surface: #1f1e23; --border: #35333b;
+      --text: #e8e6e3; --muted: #a29d97; --accent: #d9a066;
+      --accent-soft: #2a2520; --code-bg: #232228;
+      --ok: #7fbf95; --warn: #d9b169; --bad: #e08a7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 48rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+  .back { display: inline-block; font-size: .87rem; color: var(--accent); text-decoration: none; margin-bottom: 1.75rem; }
+  .back:hover { text-decoration: underline; }
+  .kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+  h1 { font-size: 1.85rem; line-height: 1.22; margin: 0 0 1rem; letter-spacing: -.015em; }
+  h2 { font-size: 1.22rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.02rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { max-width: 38rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+  li { margin-bottom: .4rem; }
+  .lead { font-size: 1.06rem; color: var(--muted); }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: var(--code-bg); padding: .12em .35em; border-radius: 3px; border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; margin: 0 0 1.25rem; line-height: 1.5;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: .84rem; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; background: var(--surface); }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; font-size: .82rem; letter-spacing: .02em; color: var(--muted); background: var(--bg); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .weak { color: var(--bad); font-weight: 600; }
+  .strong-ok { color: var(--ok); font-weight: 600; }
+  .note, .warnbox {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+  }
+  .warnbox { border-left-color: var(--bad); }
+  .note p, .warnbox p { margin: 0 0 .6rem; max-width: none; }
+  .note p:last-child, .warnbox p:last-child { margin-bottom: 0; }
+  .verdict {
+    border: 2px solid var(--accent); border-radius: 10px;
+    padding: 1.4rem 1.5rem; margin: 2rem 0; background: var(--accent-soft);
+  }
+  .verdict .label { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin: 0 0 .35rem; }
+  .verdict .value { font-size: 1.5rem; font-weight: 700; margin: 0; letter-spacing: -.02em; }
+  ol.conditions { counter-reset: c; list-style: none; padding-left: 0; }
+  ol.conditions li { counter-increment: c; padding-left: 2.2rem; position: relative; margin-bottom: .85rem; }
+  ol.conditions li::before {
+    content: counter(c); position: absolute; left: 0; top: .1rem;
+    width: 1.5rem; height: 1.5rem; border-radius: 50%;
+    background: var(--accent); color: var(--bg);
+    font-size: .8rem; font-weight: 700; display: flex; align-items: center; justify-content: center;
+  }
+  .takeaway {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.3rem; margin: 2.5rem 0 0;
+  }
+  .takeaway h3 { margin: 0 0 .5rem; font-size: .95rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); }
+  .takeaway p { margin: 0 0 .8rem; max-width: none; }
+  .takeaway p:last-child { margin-bottom: 0; }
+  nav.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: .9rem; }
+  nav.pager a { text-decoration: none; }
+  nav.pager a:hover { text-decoration: underline; }
+  nav.pager span { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="index.html">← Retour au sommaire</a>
+
+<p class="kicker">Étape 13 · fin du parcours</p>
+<h1>Le diagnostic et la décision</h1>
+<p class="lead">
+  Dix questions, une décision, et une chose à ne pas oublier : la décision porte sur
+  l'état des données, pas sur la qualité du modèle ni sur les causes des erreurs.
+</p>
+
+<h2>La structure du diagnostic</h2>
+
+<p>
+  Le brief impose dix questions, auxquelles répond
+  <code>docs/diagnostic_donnees.md</code>. Chacune doit citer un résultat observable — un
+  nombre, un taux, une règle, un identifiant — et non une impression.
+</p>
+<p>
+  Elles se lisent en trois blocs : <strong>comprendre</strong> (que contiennent les
+  fichiers, comment se relient-ils, sont-ils lisibles), <strong>constater</strong>
+  (identifiants, relations, règles métier, ce qui se corrige et ce qui doit être examiné,
+  données personnelles, couverture, erreurs du module précédent), puis
+  <strong>trancher</strong>.
+</p>
+<p>
+  Trois réponses portent la décision à elles seules. Les voici.
+</p>
+
+<h2>Le fait qui fait basculer la décision</h2>
+
+<p>
+  L'audit avait relevé <strong>26 identifiants dupliqués</strong> : 8 sur
+  <code>equipment</code>, 8 sur <code>events</code>, 10 sur <code>maintenance</code>.
+  Trois règles bloquantes en échec. Vu comme ça, le verdict s'écrivait tout seul : non
+  utilisables en l'état.
+</p>
+
+<div class="note">
+  <p>
+    <strong>Ces 26 lignes étaient toutes des doublons intégraux.</strong> Pas un seul cas
+    de « même identifiant, contenu différent » — celui qui aurait exigé un arbitrage
+    humain, parce que rien n'aurait permis de savoir laquelle garder.
+  </p>
+  <p>
+    La déduplication les résout <strong>sans perte et sans décision arbitraire</strong>.
+  </p>
+</div>
+
+<p>
+  C'est ici que le découpage décidé à <a href="etape-3.html">l'étape 3</a> paie. Deux
+  règles distinctes là où une seule aurait semblé suffire :
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Règle</th><th>Ce qu'elle détecte</th><th>Décision</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>*-KEY-002</code></td>
+      <td>identifiant présent deux fois</td>
+      <td>examen métier</td>
+    </tr>
+    <tr>
+      <td><code>*-KEY-003</code></td>
+      <td>ligne strictement identique à une autre</td>
+      <td>correction certaine</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Elles n'existaient que pour séparer ces deux situations. Sans ce rapprochement, le
+  diagnostic aurait conclu à 26 anomalies bloquantes irrésolues, et très probablement à
+  un rejet du jeu de données. Une distinction posée par écrit dix étapes plus tôt, sans
+  savoir qu'elle servirait, change ici la conclusion.
+</p>
+
+<h2>L'état après préparation</h2>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Indicateur</th><th class="num">Valeur</th></tr></thead>
+  <tbody>
+    <tr><td>Lignes après préparation</td><td class="num">2 727</td></tr>
+    <tr><td>Anomalies bloquantes restantes</td><td class="num weak">3</td></tr>
+    <tr><td>Lignes distinctes en quarantaine</td><td class="num">12</td></tr>
+    <tr><td>Part du jeu concernée</td><td class="num">0,44 %</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Les trois anomalies bloquantes sont des <strong>références orphelines</strong> :
+  <code>EVT-2026S1-0180</code>, <code>MNT-2026S1-0389</code> et
+  <code>MNT-2026S1-0545</code>. La dernière cumule deux défauts — elle désigne un
+  équipement qui n'existe pas, et cet équipement contredit celui de son propre événement.
+</p>
+
+<h2>La décision</h2>
+
+<div class="verdict">
+  <p class="label">Verdict</p>
+  <p class="value">Utilisables sous conditions</p>
+</div>
+
+<ol class="conditions">
+  <li>
+    <strong>Statuer sur les 3 références orphelines</strong> — les rattacher à un
+    équipement ou à un événement existant, ou les écarter explicitement.
+  </li>
+  <li>
+    <strong>Obtenir une réponse métier sur les 595 coûts de pièces sans pièce
+    déclarée</strong> — le motif structurel identifié à
+    <a href="etape-7.html">l'étape 7</a>. Consommables, forfait, ou défaut de saisie ?
+  </li>
+  <li>
+    <strong>Arbitrer les 12 lignes en quarantaine</strong> — dates contradictoires,
+    valeurs négatives, et le <code>URGENT</code> que l'audit s'est interdit de traduire.
+  </li>
+  <li>
+    <strong>Documenter les limites de couverture dans toute production ultérieure</strong>
+    — <code>SITE-OUEST</code> (16 équipements), les 12 types d'équipement sous le seuil,
+    et les 41 équipements muets dont 3 <code>critical</code> et 12 <code>high</code>.
+  </li>
+</ol>
+
+<h3>Une rubrique à part : signalement au fournisseur des données</h3>
+
+<p>
+  <code>SCHEMA.md</code> contredit le contrat exécutable sur trois colonnes. <strong>Ce
+  n'est pas une condition</strong> — les données, elles, sont correctes, et rien n'empêche
+  de les utiliser.
+</p>
+<p>
+  C'est un défaut de documentation. Il a déjà produit un faux diagnostic dans cet audit
+  (<a href="etape-12.html">étape 12</a>) et il en produira d'autres tant qu'il subsiste,
+  chez quiconque lira le mauvais document en premier. Le signaler fait partie du travail.
+</p>
+
+<h2>Ce que la décision ne dit pas</h2>
+
+<div class="warnbox">
+  <p>
+    <strong>Elle porte sur l'état des données, pas sur la promotion du modèle du module
+    précédent.</strong> Les erreurs de ce modèle ont servi à chercher des concentrations,
+    rien de plus. Aucune recommandation n'en découle quant à sa mise en service.
+  </p>
+  <p>
+    <strong>Aucune causalité n'est établie</strong> entre une caractéristique du parc et
+    une erreur du modèle. Les taux calculés par catégorie reposaient sur deux à treize
+    cas — ils décrivent, ils n'expliquent pas.
+  </p>
+</div>
+
+<h2>Bilan de clôture</h2>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Indicateur</th><th class="num">Valeur</th></tr></thead>
+  <tbody>
+    <tr><td>Règles de qualité au registre</td><td class="num">68</td></tr>
+    <tr><td>Tests au vert</td><td class="num">58</td></tr>
+    <tr><td>Lignes transformées sur 2 740</td><td class="num">18</td></tr>
+    <tr><td>Lignes supprimées sans trace</td><td class="num strong-ok">0</td></tr>
+    <tr><td>Fichiers reçus intacts (empreintes vérifiées)</td><td class="num strong-ok">3 / 3</td></tr>
+    <tr><td>Erreurs commises et corrigées en public</td><td class="num">5</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Les cinq erreurs, rassemblées</h2>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Étape</th><th>Erreur</th><th>Ce qui l'a révélée</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><a href="etape-6.html">6</a></td>
+      <td>quarantaine tronquée à 10 lignes par règle</td>
+      <td>un chiffre trop bas, vérifié au lieu d'être accepté</td>
+    </tr>
+    <tr>
+      <td><a href="etape-7.html">7</a></td>
+      <td>deux règles mal posées, dont une échouant sur 33 % de la table</td>
+      <td>la répartition trop régulière des échecs</td>
+    </tr>
+    <tr>
+      <td><a href="etape-9.html">9</a></td>
+      <td>protection sur-appliquée, détruisant la traçabilité</td>
+      <td>la relecture de ce que le brief exige des livrables</td>
+    </tr>
+    <tr>
+      <td><a href="etape-10.html">10</a></td>
+      <td>7 lignes prises pour des références cassées</td>
+      <td>l'examen de ce que contenaient réellement ces lignes</td>
+    </tr>
+    <tr>
+      <td><a href="etape-12.html">12</a></td>
+      <td>registre entier construit sur la mauvaise source</td>
+      <td>l'ouverture tardive d'un fichier livré depuis le début</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<div class="takeaway">
+  <h3>Ce qui reste vrai à la fin</h3>
+  <p>
+    Le résultat tient en une ligne : 12 lignes douteuses sur 2 727, et quatre conditions à
+    lever. Ce n'est pas ça qui compte le plus.
+  </p>
+  <p>
+    Ce qui compte, c'est que <strong>chacune des cinq erreurs a été trouvée par un
+    contrôle qu'on avait écrit soi-même</strong> — un test, une règle, une vérification de
+    cohérence — et non par quelqu'un qui relisait après coup. Un audit ne vaut pas par
+    l'absence d'erreur : il vaut par sa capacité à produire les siennes au grand jour,
+    datées, avec ce qui les a révélées.
+  </p>
+</div>
+
+<nav class="pager">
+  <a href="etape-12.html">← Étape 12 — La mauvaise source de vérité</a>
+  <a href="index.html">Retour au sommaire →</a>
+</nav>
+
+</div>
+</body>
+</html>

@@ -20,6 +20,8 @@ from .rules import (
     CRITICALITY_VALUES,
     DECLARED_LABEL_EQUIVALENCES,
     EVENT_TYPE_VALUES,
+    INTERVENTION_TYPE_VALUES,
+    OUTCOME_VALUES,
     SEVERITY_VALUES,
 )
 
@@ -269,11 +271,13 @@ def prepare_all(
         )
         logs.append(log)
 
-    # 2. Normalisation de casse sur les seules enumerations fermees.
+    # 2. Normalisation de casse sur les enumerations fermees par le contrat.
     for source, column, allowed, rule_id in (
         ("equipment", "criticality", CRITICALITY_VALUES, "EQP-CAS-001"),
         ("events", "event_type", EVENT_TYPE_VALUES, "EVT-CAS-001"),
         ("events", "severity", SEVERITY_VALUES, "EVT-CAS-002"),
+        ("maintenance", "intervention_type", INTERVENTION_TYPE_VALUES, "MNT-CAS-002"),
+        ("maintenance", "outcome", OUTCOME_VALUES, "MNT-CAS-003"),
     ):
         prepared[source], log = normalize_case_variants(
             prepared[source], column=column, allowed=allowed, source=source, rule_id=rule_id

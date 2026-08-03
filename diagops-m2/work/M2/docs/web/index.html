@@ -82,27 +82,27 @@
     leurs défauts, et décider — en le justifiant — s'ils sont utilisables.
   </p>
   <ul class="facts">
-    <li><strong>2 740</strong> lignes de données</li>
-    <li><strong>60</strong> règles de qualité</li>
-    <li><strong>47</strong> tests</li>
-    <li><strong>28</strong> lignes en quarantaine</li>
-    <li><strong>0</strong> ligne supprimée</li>
+    <li><strong>2 740</strong> lignes auditées</li>
+    <li><strong>68</strong> règles de qualité</li>
+    <li><strong>58</strong> tests</li>
+    <li><strong>12</strong> lignes en quarantaine</li>
+    <li><strong>5</strong> erreurs corrigées en public</li>
   </ul>
 </header>
 
 <p>
-  Ce journal raconte le travail dans l'ordre où il a été fait, avec ses erreurs.
-  Cinq d'entre elles sont volontairement mises en avant : un test du starter qui ne
-  pouvait pas passer sous Windows, un bug qui vidait la quarantaine des trois quarts
-  de son contenu, deux règles mal écrites qu'il a fallu réviser après les avoir
-  confrontées aux données, un principe de protection sur-appliqué au point de détruire
-  la preuve qu'il était censé accompagner, et un diagnostic de jointure sur le point
-  d'annoncer une rupture d'intégrité qui n'existait pas. C'est là que se joue
-  l'essentiel : <strong>un audit ne se juge pas à sa propreté, mais à sa capacité à se
-  corriger sans effacer ses traces.</strong>
+  Ce journal raconte le travail dans l'ordre où il a été fait, avec ses erreurs. Un test
+  du starter qui ne pouvait pas passer sous Windows, puis <strong>cinq erreurs de ma
+  main</strong> : un bug qui vidait la quarantaine des trois quarts de son contenu, deux
+  règles mal écrites qu'il a fallu réviser après les avoir confrontées aux données, un
+  principe de protection sur-appliqué au point de détruire la preuve qu'il était censé
+  accompagner, un diagnostic de jointure sur le point d'annoncer une rupture d'intégrité
+  qui n'existait pas, et pour finir un registre entier construit sur le mauvais document
+  de référence. C'est là que se joue l'essentiel : <strong>un audit ne se juge pas à sa
+  propreté, mais à sa capacité à se corriger sans effacer ses traces.</strong>
 </p>
 
-<h2>Les dix étapes</h2>
+<h2>Les treize étapes</h2>
 
 <ol class="steps">
 
@@ -234,6 +234,45 @@
         pour rien affirmer. Et une leçon plus sévère : les taux d'erreur les plus
         spectaculaires reposent sur deux à huit cas — c'est l'étape où l'on apprend ce
         qu'on n'a pas le droit de conclure.
+      </p>
+      <span class="more">Lire le détail →</span>
+    </a>
+  </li>
+
+  <li>
+    <a class="card" href="etape-11.html">
+      <span class="num">Étape 11</span>
+      <h3>Préparer les données et exporter</h3>
+      <p>
+        Six règles de correction certaine appliquées, huit opérations, dix-huit lignes
+        touchées. Et un point de conception qui ne se voit pas : dédupliquer avant de
+        normaliser la casse, sous peine de fabriquer un doublon puis de l'effacer.
+      </p>
+      <span class="more">Lire le détail →</span>
+    </a>
+  </li>
+
+  <li>
+    <a class="card" href="etape-12.html">
+      <span class="num">Étape 12</span>
+      <h3>La mauvaise source de vérité</h3>
+      <p>
+        Le travail était fini, les fichiers exportés. Puis on ouvre enfin le contrat
+        exécutable livré avec le module : les 62 règles reposaient sur le mauvais
+        document. 49 fausses anomalies, et une colonne que personne ne contrôlait.
+      </p>
+      <span class="more">Lire le détail →</span>
+    </a>
+  </li>
+
+  <li>
+    <a class="card" href="etape-13.html">
+      <span class="num">Étape 13</span>
+      <h3>Le diagnostic et la décision</h3>
+      <p>
+        Les 26 identifiants dupliqués étaient tous des doublons intégraux — une
+        distinction posée dix étapes plus tôt change ici la conclusion. Verdict :
+        utilisables sous conditions, avec quatre conditions nommées.
       </p>
       <span class="more">Lire le détail →</span>
     </a>

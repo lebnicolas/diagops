@@ -38,10 +38,29 @@ REGISTER_COLUMNS = [
     "decision_if_failed",
 ]
 
-# Valeurs de reference issues de data_pack/SCHEMA.md
-CRITICALITY_VALUES = ("low", "medium", "high", "critical")
-SEVERITY_VALUES = ("low", "medium", "high", "critical")
-EVENT_TYPE_VALUES = ("incident", "intervention", "observation", "alerte")
+# Domaines fermes : SOURCE UNIQUE = contracts/schemas.py, livre avec le starter.
+#
+# Ils etaient auparavant recopies ici depuis data_pack/SCHEMA.md. Deux
+# definitions concurrentes ont produit exactement ce qu'on attend d'elles : la
+# documentation annonce `alerte`, le contrat et les donnees disent `alert`, et
+# le registre a signale 49 anomalies inexistantes. On ne recopie plus, on
+# importe — voir REVISIONS du 03/08/2026.
+#
+# SCHEMA.md reste la reference pour tout ce que le contrat ne couvre pas :
+# colonnes attendues, types, nullabilite, relations.
+from contracts.schemas import (  # noqa: E402
+    CRITICALITIES,
+    EVENT_TYPES,
+    INTERVENTION_TYPES,
+    OUTCOMES,
+    SEVERITIES,
+)
+
+CRITICALITY_VALUES = tuple(sorted(CRITICALITIES))
+SEVERITY_VALUES = tuple(sorted(SEVERITIES))
+EVENT_TYPE_VALUES = tuple(sorted(EVENT_TYPES))
+INTERVENTION_TYPE_VALUES = tuple(sorted(INTERVENTION_TYPES))
+OUTCOME_VALUES = tuple(sorted(OUTCOMES))
 EXPECTED_PERIOD = "2026-S1"
 
 # Part a partir de laquelle une valeur inconnue cesse d'etre une anomalie pour
@@ -524,10 +543,64 @@ RULES: list[dict[str, str]] = [
         "rule_id": "MNT-CAT-001",
         "source": "maintenance",
         "column": "intervention_type",
-        "description": "Inventaire des types d'intervention et de leurs effectifs ; les libelles rares ou voisins sont signales.",
-        "justification": "Le schema annonce une chaine libre, sans liste fermee : on ne peut pas rejeter une valeur, seulement documenter ce qui existe.",
+        "description": "Inventaire des types d'intervention et de leurs effectifs.",
+        "justification": "Conserve pour documenter la repartition, meme si le domaine est desormais ferme par le contrat : un type prevu mais jamais observe est une information de couverture.",
         "severity": "mineure",
         "decision_if_failed": "signalement",
+    },
+    {
+        "rule_id": "MNT-CAT-004",
+        "source": "maintenance",
+        "column": "intervention_type",
+        "description": f"intervention_type inconnu de {INTERVENTION_TYPE_VALUES} et marginal.",
+        "justification": "AJOUTEE le 03/08/2026. Le domaine est ferme par contracts/schemas.py — le registre l'avait traite comme ouvert sur la foi de SCHEMA.md, qui annonce une chaine libre. Aucune regle d'appartenance ne portait sur cette colonne.",
+        "severity": "majeure",
+        "decision_if_failed": "quarantaine_examen_metier",
+    },
+    {
+        "rule_id": "MNT-NOM-001",
+        "source": "maintenance",
+        "column": "intervention_type",
+        "description": f"intervention_type inconnu de {INTERVENTION_TYPE_VALUES} mais porte par au moins {RECURRENCE_THRESHOLD:.0%} des lignes.",
+        "justification": "AJOUTEE le 03/08/2026 par coherence avec les autres enumerations fermees.",
+        "severity": "majeure",
+        "decision_if_failed": "signalement",
+    },
+    {
+        "rule_id": "MNT-CAS-002",
+        "source": "maintenance",
+        "column": "intervention_type",
+        "description": "intervention_type dont seule la casse ou l'espacement devie d'une valeur connue.",
+        "justification": "AJOUTEE le 03/08/2026 par coherence avec les autres enumerations fermees.",
+        "severity": "mineure",
+        "decision_if_failed": "correction_certaine",
+    },
+    {
+        "rule_id": "MNT-CAT-005",
+        "source": "maintenance",
+        "column": "outcome",
+        "description": f"outcome inconnu de {OUTCOME_VALUES} et marginal.",
+        "justification": "AJOUTEE le 03/08/2026. Colonne qui n'etait controlee par AUCUNE regle d'appartenance : SCHEMA.md l'annonce en chaine libre, le contrat la donne fermee. Elle s'est revelee propre, mais rien ne le garantissait.",
+        "severity": "majeure",
+        "decision_if_failed": "quarantaine_examen_metier",
+    },
+    {
+        "rule_id": "MNT-NOM-002",
+        "source": "maintenance",
+        "column": "outcome",
+        "description": f"outcome inconnu de {OUTCOME_VALUES} mais porte par au moins {RECURRENCE_THRESHOLD:.0%} des lignes.",
+        "justification": "AJOUTEE le 03/08/2026 par coherence.",
+        "severity": "majeure",
+        "decision_if_failed": "signalement",
+    },
+    {
+        "rule_id": "MNT-CAS-003",
+        "source": "maintenance",
+        "column": "outcome",
+        "description": "outcome dont seule la casse ou l'espacement devie d'une valeur connue.",
+        "justification": "AJOUTEE le 03/08/2026 par coherence.",
+        "severity": "mineure",
+        "decision_if_failed": "correction_certaine",
     },
     {
         "rule_id": "MNT-CAS-001",
@@ -690,6 +763,22 @@ DECLARED_LABEL_EQUIVALENCES: dict[str, dict[str, str]] = {
 
 
 REVISIONS: list[dict[str, str]] = [
+    {
+        "date": "2026-08-03",
+        "rule_id": "EVENT_TYPE_VALUES et domaines fermes, MNT-CAT-004/005, MNT-NOM-001/002, MNT-CAS-002/003",
+        "change": "les domaines fermes sont importes de contracts/schemas.py au lieu d'etre recopies depuis SCHEMA.md ; trois colonnes gagnent des regles d'appartenance",
+        "trigger": "decouverte tardive de starter/contracts/schemas.py, livre avec le module et jamais ouvert",
+        "reason": (
+            "Le registre avait ete construit sur le seul SCHEMA.md. Deux ecarts en decoulaient. "
+            "(1) EVENT_TYPE_VALUES portait `alerte`, alors que le contrat et les donnees disent `alert` : "
+            "49 anomalies signalees qui n'en etaient pas, et une revision entiere declenchee par ce faux positif. "
+            "(2) intervention_type et outcome etaient traites comme des categories OUVERTES parce que SCHEMA.md "
+            "les annonce en chaine libre. Le contrat les donne fermees. outcome n'etait controle par aucune regle "
+            "d'appartenance — il s'est revele propre, mais par chance et non par methode. "
+            "Correctif : source unique pour les domaines fermes. Une valeur de reference recopiee a deux endroits "
+            "finit toujours par diverger, et c'est le registre qui a paye."
+        ),
+    },
     {
         "date": "2026-08-03",
         "rule_id": "MNT-VAL-007",

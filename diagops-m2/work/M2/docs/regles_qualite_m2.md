@@ -53,8 +53,10 @@ documenter).
 Par décision d'échec : 3 `arret_audit`, 4 `quarantaine_rejet`,
 34 `quarantaine_examen_metier`, 6 `correction_certaine`, 13 `signalement`.
 
-> Le registre comptait **54 règles avant la première mesure**. Il en compte 60
-> après révision — voir la section « Révisions » en fin de document.
+> Le registre comptait **54 règles avant la première mesure**. Il en compte
+> **68** après trois révisions successives — voir la section « Révisions » en
+> fin de document. Les effectifs du tableau ci-dessus correspondent à l'état
+> initial ; l'état courant se lit avec `rule_register()`.
 
 Le déséquilibre est volontaire : **35 règles sur 54 renvoient à un examen
 métier**. À ce stade on ne sait presque rien du terrain, et une correction
@@ -223,6 +225,34 @@ attrapée.
 Les 644 lignes sorties de la quarantaine n'ont pas disparu : elles sont
 **signalées et chiffrées**, sans être écartées. C'est la différence entre un
 audit qui documente et un audit qui mutile.
+
+### Source unique des domaines fermés — 03/08/2026
+
+**Constat** : `starter/contracts/schemas.py`, livré avec le module, définit les
+cinq domaines fermés en Python. Le registre avait été construit sur le seul
+`SCHEMA.md`, sans ouvrir ce fichier.
+
+**Deux écarts en découlaient** :
+
+- `EVENT_TYPE_VALUES` portait `alerte`. Le contrat et les données disent
+  `alert`. Résultat : **49 anomalies signalées qui n'en étaient pas** — et une
+  révision entière (`CAT`/`NOM`/`CAS`) déclenchée par ce faux positif.
+- `intervention_type` et `outcome` étaient traités comme **ouverts**, parce que
+  `SCHEMA.md` les annonce en chaîne libre. Le contrat les donne fermés.
+  `outcome` n'était contrôlé par **aucune** règle d'appartenance. Il s'est
+  révélé propre — par chance, pas par méthode.
+
+**Décision** : les domaines fermés sont importés de `contracts/schemas.py`, plus
+jamais recopiés. `SCHEMA.md` reste la référence pour les colonnes, les types, la
+nullabilité et les relations. Six règles ajoutées (`MNT-CAT-004/005`,
+`MNT-NOM-001/002`, `MNT-CAS-002/003`), registre porté à **68**.
+
+**La leçon** : une valeur de référence dupliquée à deux endroits finit toujours
+par diverger, et c'est le contrôle qui paie. Le partage des rôles entre les deux
+sources est désormais écrit en tête du diagnostic.
+
+Effet mesuré : la règle `EVT-NOM-001` ne trouve plus rien, la condition
+« trancher la nomenclature » disparaît de la décision finale.
 
 ## Suite
 

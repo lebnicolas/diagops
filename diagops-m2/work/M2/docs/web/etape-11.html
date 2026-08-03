@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 11 — Préparer les données et exporter</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --border: #e3dfd8;
+    --text: #22201d; --muted: #635e56; --accent: #8a5a2b;
+    --accent-soft: #f5ece1; --code-bg: #f4f2ee;
+    --ok: #2f6b45; --warn: #8c6110; --bad: #a33a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17161a; --surface: #1f1e23; --border: #35333b;
+      --text: #e8e6e3; --muted: #a29d97; --accent: #d9a066;
+      --accent-soft: #2a2520; --code-bg: #232228;
+      --ok: #7fbf95; --warn: #d9b169; --bad: #e08a7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 48rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+  .back { display: inline-block; font-size: .87rem; color: var(--accent); text-decoration: none; margin-bottom: 1.75rem; }
+  .back:hover { text-decoration: underline; }
+  .kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+  h1 { font-size: 1.85rem; line-height: 1.22; margin: 0 0 1rem; letter-spacing: -.015em; }
+  h2 { font-size: 1.22rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.02rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { max-width: 38rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+  li { margin-bottom: .4rem; }
+  .lead { font-size: 1.06rem; color: var(--muted); }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: var(--code-bg); padding: .12em .35em; border-radius: 3px; border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; margin: 0 0 1.25rem; line-height: 1.5;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: .84rem; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; background: var(--surface); }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; font-size: .82rem; letter-spacing: .02em; color: var(--muted); background: var(--bg); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .weak { color: var(--bad); font-weight: 600; }
+  .strong-ok { color: var(--ok); font-weight: 600; }
+  .note, .warnbox {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+  }
+  .warnbox { border-left-color: var(--bad); }
+  .note p, .warnbox p { margin: 0 0 .6rem; max-width: none; }
+  .note p:last-child, .warnbox p:last-child { margin-bottom: 0; }
+  .takeaway {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.3rem; margin: 2.5rem 0 0;
+  }
+  .takeaway h3 { margin: 0 0 .5rem; font-size: .95rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); }
+  .takeaway p { margin: 0; max-width: none; }
+  nav.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: .9rem; }
+  nav.pager a { text-decoration: none; }
+  nav.pager a:hover { text-decoration: underline; }
+  nav.pager span { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="index.html">← Retour au sommaire</a>
+
+<p class="kicker">Étape 11</p>
+<h1>Préparer les données et exporter</h1>
+<p class="lead">
+  Tout a été mesuré, rien n'a encore été touché. Le moment est venu d'appliquer les
+  corrections — mais uniquement celles dont on peut démontrer qu'elles ne perdent rien.
+  Huit opérations, dix-huit lignes touchées.
+</p>
+
+<h2>Pourquoi si peu de corrections</h2>
+
+<p>
+  Sur 68 règles, six seulement portent la décision <code>correction_certaine</code>.
+  Toutes les autres renvoient à un examen humain ou à un simple signalement.
+</p>
+<p>
+  Le critère est exigeant, et il tient en une question : <strong>peut-on démontrer que la
+  correction ne perd aucune information et ne fait aucun choix arbitraire ?</strong> Si
+  la réponse demande une hypothèse sur ce que « voulait dire » la donnée, ce n'est plus
+  une correction — c'est une décision métier, et elle ne se prend pas dans un script.
+</p>
+
+<h2>Les huit opérations</h2>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Règle</th><th>Correction</th><th class="num">Lignes</th></tr></thead>
+  <tbody>
+    <tr><td><code>EQP-KEY-003</code></td><td>doublons intégraux supprimés</td><td class="num">4</td></tr>
+    <tr><td><code>EVT-KEY-003</code></td><td>doublons intégraux supprimés</td><td class="num">4</td></tr>
+    <tr><td><code>MNT-KEY-003</code></td><td>doublons intégraux supprimés</td><td class="num">5</td></tr>
+    <tr><td><code>EVT-CAS-001</code></td><td><code>Incident </code> → <code>incident</code></td><td class="num">1</td></tr>
+    <tr><td><code>EQP-CAS-002</code></td><td><code>Pump </code> → <code>pump</code></td><td class="num">1</td></tr>
+    <tr><td><code>MNT-CAS-001</code></td><td><code>Correctif</code> → <code>corrective</code></td><td class="num">1</td></tr>
+    <tr><td><code>MNT-PII-001</code></td><td>notes masquées</td><td class="num">2</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Table</th><th class="num">Avant</th><th class="num">Après</th></tr></thead>
+  <tbody>
+    <tr><td><code>equipment</code></td><td class="num">420</td><td class="num">416</td></tr>
+    <tr><td><code>events</code></td><td class="num">520</td><td class="num">516</td></tr>
+    <tr><td><code>maintenance_history</code></td><td class="num">1 800</td><td class="num">1 795</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Ce qui rend chacune certaine</h3>
+
+<ul>
+  <li>
+    <strong>Doublon intégral</strong> — toutes les colonnes sont égales. La copie
+    n'apporte strictement rien, et <code>keep='first'</code> rend le choix
+    déterministe : on garde la première occurrence, toujours la même.
+  </li>
+  <li>
+    <strong><code>Incident </code></strong> — la forme normalisée, une fois l'espace de
+    fin retiré et la casse abaissée, correspond exactement à une valeur du domaine. Aucune
+    interprétation n'est nécessaire.
+  </li>
+  <li>
+    <strong><code>Pump </code></strong> — même mécanique, sur une catégorie considérée
+    comme ouverte à ce moment-là. L'argument est renforcé par le rapport de force :
+    1 occurrence contre 56 pour <code>pump</code>.
+  </li>
+  <li>
+    <strong><code>Correctif</code></strong> — un mélange français/anglais dans une
+    colonne autrement anglophone. Corrigé sur décision de l'utilisateur, puis
+    <a href="etape-12.html">confirmé par le contrat à l'étape 12</a>, ce qui l'a fait
+    passer d'arbitrage assumé à déduction.
+  </li>
+</ul>
+
+<h2>Ce qui n'est pas corrigé</h2>
+
+<div class="note">
+  <p>
+    <strong><code>URGENT</code> reste tel quel.</strong> Sa forme normalisée —
+    <code>urgent</code> — n'appartient à aucune valeur du domaine. Le corriger
+    supposerait de deviner à quel niveau de sévérité il correspond : <code>high</code> ?
+    <code>critical</code> ? Rien ne permet de trancher.
+  </p>
+  <p>
+    <strong>Une règle de correction doit savoir s'arrêter.</strong> La ligne part en
+    quarantaine, un humain décidera.
+  </p>
+</div>
+
+<h2>L'ordre des opérations n'est pas neutre</h2>
+
+<p>
+  C'est le point de conception le plus subtil de l'étape. La déduplication passe
+  <strong>avant</strong> la normalisation de casse. Ce n'est pas un détail d'écriture.
+</p>
+<p>
+  Imaginons l'ordre inverse. On normalise d'abord : <code>Incident </code> devient
+  <code>incident</code>. Deux lignes qui différaient uniquement par ce champ deviennent
+  alors <strong>strictement identiques</strong>. La déduplication, appliquée ensuite, en
+  supprimerait une.
+</p>
+
+<pre><code>ORDRE INVERSE (fautif)
+  ligne A : EV-100 · incident   ┐ deux lignes distinctes
+  ligne B : EV-101 · Incident   ┘ à la source
+
+  normalisation → A : incident  ┐ devenues identiques
+                  B : incident  ┘ sur ce champ
+
+  déduplication → une des deux disparaît si tout le reste concorde</code></pre>
+
+<p>
+  On aurait <strong>fabriqué un doublon, puis effacé une ligne qui n'était pas en double
+  dans les données reçues</strong>. Une suppression provoquée par le traitement lui-même,
+  invisible dans le résultat, et impossible à justifier auprès de qui la découvrirait.
+</p>
+<p>
+  Un test verrouille l'ordre : deux événements ne différant que par la casse doivent
+  <strong>tous les deux survivre</strong> au pipeline. Si quelqu'un réorganise un jour les
+  étapes, le test tombe.
+</p>
+
+<h2>L'export</h2>
+
+<p>
+  Un script unique, <code>run_audit_m2.py</code>, rejoue toute la chaîne en une commande :
+  lecture, audit, préparation, export. C'est ce qui rend le travail reproductible par
+  quelqu'un d'autre — la condition posée par le brief.
+</p>
+<p>
+  Et il fait une chose de plus : il <strong>compare les empreintes SHA-256 des trois
+  fichiers sources avant et après</strong> son propre passage. Le critère bloquant
+  « ne pas modifier les données reçues » cesse d'être une promesse pour devenir une
+  assertion du script. S'il modifiait quoi que ce soit, il échouerait lui-même.
+</p>
+
+<pre><code>output/processed/equipment.csv              416 lignes
+output/processed/events.csv                 516 lignes
+output/processed/maintenance_history.csv   1795 lignes
+output/quarantine.csv                        60 entrées
+output/transformation_log.csv                 8 opérations
+output/check_results.csv                     68 règles</code></pre>
+
+<p class="lead" style="font-size:.95rem">
+  Ces chiffres sont ceux du <strong>dernier passage</strong> : le script a été rejoué
+  après la découverte racontée à <a href="etape-12.html">l'étape 12</a>, qui a porté le
+  registre de 62 à 68 règles.
+</p>
+
+<h3>UTF-8 et fins de ligne, explicitement</h3>
+
+<p>
+  L'écriture force l'encodage UTF-8 et les fins de ligne LF, au lieu de laisser la
+  bibliothèque décider selon le système. Un test inspecte les <strong>octets</strong> des
+  fichiers produits pour le vérifier.
+</p>
+
+<div class="note">
+  <p>
+    <strong>Troisième fois de la journée qu'un octet de fin de ligne pose
+    problème.</strong> Le test du starter qui ne pouvait pas passer sous Windows
+    (<a href="etape-1.html">étape 1</a>), le <code>.gitattributes</code> du dépôt, et
+    maintenant l'export.
+  </p>
+  <p>
+    La raison est toujours la même : une sortie dont le contenu binaire change selon la
+    machine n'est pas reproductible. Les empreintes ne concordent plus, les comparaisons
+    deviennent fausses, et personne ne comprend pourquoi.
+  </p>
+</div>
+
+<div class="takeaway">
+  <h3>À retenir</h3>
+  <p>
+    Une correction n'est « certaine » que si elle ne perd rien et ne devine rien — sinon
+    elle appartient à un humain. L'ordre des transformations fait partie de leur
+    définition : mal enchaînées, deux opérations justes produisent une suppression
+    injustifiable. Et un script qui vérifie lui-même n'avoir pas touché ses entrées vaut
+    mieux qu'une consigne dans un document.
+  </p>
+</div>
+
+<nav class="pager">
+  <a href="etape-10.html">← Étape 10 — Couverture et erreurs</a>
+  <a href="etape-12.html">Étape 12 — La mauvaise source de vérité →</a>
+</nav>
+
+</div>
+</body>
+</html>

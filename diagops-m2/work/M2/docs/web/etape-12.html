@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 12 — La mauvaise source de vérité</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --border: #e3dfd8;
+    --text: #22201d; --muted: #635e56; --accent: #8a5a2b;
+    --accent-soft: #f5ece1; --code-bg: #f4f2ee;
+    --ok: #2f6b45; --warn: #8c6110; --bad: #a33a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17161a; --surface: #1f1e23; --border: #35333b;
+      --text: #e8e6e3; --muted: #a29d97; --accent: #d9a066;
+      --accent-soft: #2a2520; --code-bg: #232228;
+      --ok: #7fbf95; --warn: #d9b169; --bad: #e08a7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 48rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+  .back { display: inline-block; font-size: .87rem; color: var(--accent); text-decoration: none; margin-bottom: 1.75rem; }
+  .back:hover { text-decoration: underline; }
+  .kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+  h1 { font-size: 1.85rem; line-height: 1.22; margin: 0 0 1rem; letter-spacing: -.015em; }
+  h2 { font-size: 1.22rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.02rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { max-width: 38rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+  li { margin-bottom: .4rem; }
+  .lead { font-size: 1.06rem; color: var(--muted); }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: var(--code-bg); padding: .12em .35em; border-radius: 3px; border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; margin: 0 0 1.25rem; line-height: 1.5;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: .84rem; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; background: var(--surface); }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; font-size: .82rem; letter-spacing: .02em; color: var(--muted); background: var(--bg); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .weak { color: var(--bad); font-weight: 600; }
+  .strong-ok { color: var(--ok); font-weight: 600; }
+  .note, .warnbox {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+  }
+  .warnbox { border-left-color: var(--bad); }
+  .note p, .warnbox p { margin: 0 0 .6rem; max-width: none; }
+  .note p:last-child, .warnbox p:last-child { margin-bottom: 0; }
+  .takeaway {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.3rem; margin: 2.5rem 0 0;
+  }
+  .takeaway h3 { margin: 0 0 .5rem; font-size: .95rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); }
+  .takeaway p { margin: 0; max-width: none; }
+  nav.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: .9rem; }
+  nav.pager a { text-decoration: none; }
+  nav.pager a:hover { text-decoration: underline; }
+  nav.pager span { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="index.html">← Retour au sommaire</a>
+
+<p class="kicker">Étape 12</p>
+<h1>La mauvaise source de vérité</h1>
+<p class="lead">
+  Les données étaient préparées, les fichiers exportés, le travail à peu près fini. C'est
+  là qu'on découvre que les 62 règles du registre reposaient sur un document qui n'était
+  pas le bon. Tout a été rejoué.
+</p>
+
+<h2>Le document qu'on n'avait jamais ouvert</h2>
+
+<p>
+  Depuis <a href="etape-3.html">l'étape 3</a>, tout le registre avait été construit à
+  partir d'un seul fichier : <code>data_pack/SCHEMA.md</code>. Un document en prose, qui
+  décrit les tables, les colonnes et les valeurs attendues.
+</p>
+<p>
+  Le module livre aussi <code>starter/contracts/schemas.py</code>. Un contrat
+  <strong>exécutable</strong>, où les domaines fermés sont écrits sous forme
+  d'ensembles :
+</p>
+
+<pre><code>SEVERITIES         = {"low", "medium", "high", "critical"}
+CRITICALITIES      = {"low", "medium", "high", "critical"}
+EVENT_TYPES        = {"incident", "intervention", "observation", "alert"}
+INTERVENTION_TYPES = {"inspection", "corrective", "preventive",
+                      "calibration", "replacement"}
+OUTCOMES           = {"resolved", "monitoring", "parts_ordered",
+                      "no_fault_found", "follow_up_required"}</code></pre>
+
+<p>
+  Il était là depuis le début. Il n'a jamais été ouvert.
+</p>
+
+<h2>Deux écarts, dont un invisible</h2>
+
+<h3>Le premier, visible : <code>alerte</code> contre <code>alert</code></h3>
+
+<p>
+  Mon <code>EVENT_TYPE_VALUES</code> portait <code>alerte</code>, recopié depuis
+  <code>SCHEMA.md</code>. Le contrat dit <code>alert</code>. Les données disent
+  <code>alert</code>.
+</p>
+
+<div class="warnbox">
+  <p>
+    <strong>J'avais donc signalé 49 anomalies qui n'en étaient pas.</strong> Les données
+    étaient conformes ; c'est ma valeur de référence qui était fausse.
+  </p>
+  <p>
+    Et le plus troublant : c'est ce faux positif qui avait déclenché toute la révision
+    <code>CAT</code> / <code>NOM</code> / <code>CAS</code> de
+    <a href="etape-7.html">l'étape 7</a>. Une révision juste sur le fond — le découpage
+    reste bon et sert toujours — provoquée par une erreur.
+  </p>
+</div>
+
+<h3>Le second, invisible et plus grave</h3>
+
+<p>
+  <code>SCHEMA.md</code> annonce <code>intervention_type</code> et <code>outcome</code>
+  comme des chaînes libres. Je les avais donc traités en catégories <strong>ouvertes</strong> :
+  inventaire des valeurs, signalement des libellés rares, et <strong>aucune règle
+  d'appartenance</strong>.
+</p>
+<p>
+  Le contrat les donne fermés, avec cinq valeurs chacun.
+</p>
+<p>
+  Conséquence : <strong><code>outcome</code> n'était contrôlé par aucune règle.</strong>
+  Il s'est révélé parfaitement propre — mais par chance, pas par méthode.
+</p>
+
+<div class="warnbox">
+  <p>
+    <strong>Un audit qui ne vérifie pas une colonne ne peut pas dire qu'elle est
+    bonne.</strong> Il peut seulement dire qu'il n'a rien regardé.
+  </p>
+  <p>
+    La différence est invisible dans le rapport : une colonne sans anomalie signalée et
+    une colonne jamais contrôlée se ressemblent trait pour trait.
+  </p>
+</div>
+
+<h2>Ce que donne la confrontation aux cinq domaines</h2>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Colonne</th><th>Valeur hors contrat</th><th class="num">Effectif</th></tr></thead>
+  <tbody>
+    <tr><td><code>severity</code></td><td><code>URGENT</code></td><td class="num">1</td></tr>
+    <tr><td><code>event_type</code></td><td><code>Incident </code> <em>(espace final)</em></td><td class="num">1</td></tr>
+    <tr><td><code>intervention_type</code></td><td><code>Correctif</code></td><td class="num">1</td></tr>
+    <tr><td><code>criticality</code></td><td>—</td><td class="num strong-ok">0</td></tr>
+    <tr><td><code>outcome</code></td><td>—</td><td class="num strong-ok">0</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  <strong>Une anomalie par colonne, jamais plus.</strong> Et les cinq valeurs de chaque
+  domaine sont toutes observées dans les données — aucune n'est absente.
+</p>
+<p>
+  Autrement dit : le jeu est nettement plus propre que ce que le diagnostic annonçait. Une
+  bonne partie de ce qu'on prenait pour des anomalies était un désaccord entre deux
+  documents du même livrable.
+</p>
+
+<h2>La correction</h2>
+
+<p>
+  Les domaines fermés sont désormais <strong>importés</strong> depuis
+  <code>contracts/schemas.py</code>. Plus jamais recopiés.
+</p>
+
+<pre><code># avant — une copie qui vieillit
+EVENT_TYPE_VALUES = ("incident", "intervention", "observation", "alerte")
+
+# après — la source de vérité, importée
+from contracts.schemas import EVENT_TYPES</code></pre>
+
+<p>
+  <code>SCHEMA.md</code> n'est pas écarté pour autant : il garde son rôle pour tout ce que
+  le contrat ne couvre pas — les colonnes, les types, la nullabilité, les relations entre
+  tables. Les deux documents sont utiles, mais chacun sur son périmètre.
+</p>
+<p>
+  Six règles ajoutées — <code>MNT-CAT-004/005</code>, <code>MNT-NOM-001/002</code>,
+  <code>MNT-CAS-002/003</code> — pour couvrir les deux colonnes laissées sans contrôle.
+  Le registre passe de <strong>62 à 68 règles</strong>.
+</p>
+
+<h2>La leçon</h2>
+
+<div class="note">
+  <p>
+    <strong>Une valeur de référence recopiée à deux endroits finit toujours par
+    diverger</strong> — et c'est le contrôle qui paie l'addition, pas le document.
+  </p>
+  <p>
+    Le registre était rigoureux : identifiants stables, justifications écrites, décisions
+    posées à l'avance, révisions datées. Il était rigoureux <strong>sur la mauvaise
+    source</strong>. Une méthode solide appliquée à une référence fausse produit des
+    résultats faux — avec une grande conviction, et sans jamais lever d'alerte.
+  </p>
+</div>
+
+<p>
+  La question à se poser au début d'un audit n'est donc pas seulement « quelles sont les
+  règles ? » mais <strong>« quel document fait foi, et l'ai-je tous ouverts ? »</strong>
+  Un contrat exécutable prime sur une description en prose : il ne peut pas se désynchroniser
+  du code qui l'utilise.
+</p>
+
+<h2>Effet mesuré</h2>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Élément</th><th>Avant</th><th>Après</th></tr></thead>
+  <tbody>
+    <tr><td>Règles au registre</td><td>62</td><td>68</td></tr>
+    <tr><td><code>EVT-NOM-001</code> (écart de nomenclature)</td><td>49 signalements</td><td class="strong-ok">plus rien</td></tr>
+    <tr><td><code>outcome</code></td><td>non contrôlé</td><td class="strong-ok">contrôlé, 0 anomalie</td></tr>
+    <tr><td>Condition « trancher la nomenclature »</td><td>dans la décision</td><td class="strong-ok">supprimée</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Un effet de bord intéressant, enfin : la correction <code>Correctif</code> →
+  <code>corrective</code> change de statut. C'était un <em>arbitrage métier assumé</em> à
+  <a href="etape-11.html">l'étape 11</a> — un choix qu'il fallait défendre.
+  <code>corrective</code> étant la valeur canonique du contrat, elle devient une
+  <strong>déduction</strong>. Le même geste, mais on n'a plus à le justifier : on le
+  démontre.
+</p>
+
+<div class="takeaway">
+  <h3>À retenir</h3>
+  <p>
+    Vérifier ses règles ne suffit pas : il faut vérifier d'où elles viennent. Un contrat
+    exécutable prime sur une description en prose, et une constante recopiée est une
+    divergence en attente. Le pire écart n'était pas les 49 faux positifs — c'était la
+    colonne que personne ne contrôlait, et dont rien, dans le rapport, ne signalait
+    l'absence de contrôle.
+  </p>
+</div>
+
+<nav class="pager">
+  <a href="etape-11.html">← Étape 11 — Préparer et exporter</a>
+  <a href="etape-13.html">Étape 13 — Diagnostic et décision →</a>
+</nav>
+
+</div>
+</body>
+</html>

@@ -28,7 +28,7 @@ events.csv,EVT-2026S1-0314,EVT-KEY-003,*,,Aucune ligne n'est un doublon exact d'
 events.csv,EVT-2026S1-0432,EVT-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre.,correction_certaine
 events.csv,EVT-2026S1-0180,EVT-REF-002,equipment_id,EQ-ORPHAN-999,equipment_id existe dans equipment.equipment_id.,quarantaine_examen_metier
 events.csv,EVT-2026S1-0265,EVT-CAS-001,event_type,Incident ,event_type dont seule la casse ou l'espacement devie d'une valeur connue.,correction_certaine
-events.csv,EVT-2026S1-0102,EVT-CAT-002,severity,URGENT,"severity inconnue de ('low', 'medium', 'high', 'critical') et marginale.",quarantaine_examen_metier
+events.csv,EVT-2026S1-0102,EVT-CAT-002,severity,URGENT,"severity inconnue de ('critical', 'high', 'low', 'medium') et marginale.",quarantaine_examen_metier
 events.csv,EVT-2026S1-0032,EVT-TMP-001,end_at,2026-04-09T17:50:00Z,"Si end_at est renseigne, start_at lui est anterieur ou egal.",quarantaine_examen_metier
 events.csv,EVT-2026S1-0467,EVT-TMP-003,start_at,2026-01-24T16:37:00Z,start_at est posterieur ou egal a la commissioning_date de l'equipement concerne.,quarantaine_examen_metier
 maintenance_history.csv,MNT-2026S1-0061,MNT-KEY-002,maintenance_id,MNT-2026S1-0061,maintenance_id est unique.,quarantaine_examen_metier
@@ -50,6 +50,7 @@ maintenance_history.csv,MNT-2026S1-0389,MNT-REF-001,event_id,EVT-ORPHAN-999,even
 maintenance_history.csv,MNT-2026S1-0545,MNT-REF-002,equipment_id,EQ-ORPHAN-998,equipment_id existe dans equipment.equipment_id.,quarantaine_examen_metier
 maintenance_history.csv,MNT-2026S1-0545,MNT-REF-003,equipment_id,EQ-ORPHAN-998,equipment_id est identique a l'equipment_id de l'evenement designe par event_id.,quarantaine_examen_metier
 maintenance_history.csv,MNT-2026S1-0912,MNT-CAS-001,intervention_type,Correctif,Libelles declares equivalents sur une categorie ouverte : 'Correctif' -> 'corrective'.,correction_certaine
+maintenance_history.csv,MNT-2026S1-0912,MNT-CAT-004,intervention_type,Correctif,"intervention_type inconnu de ('calibration', 'corrective', 'inspection', 'preventive', 'replacement') et marginal.",quarantaine_examen_metier
 maintenance_history.csv,MNT-2026S1-0621,MNT-TMP-001,closed_at,2026-06-14T14:55:00Z,"Si closed_at est renseigne, opened_at lui est anterieur ou egal.",quarantaine_examen_metier
 maintenance_history.csv,MNT-2026S1-0041,MNT-VAL-001,downtime_minutes,-45,downtime_minutes est superieur ou egal a zero.,quarantaine_examen_metier
 maintenance_history.csv,MNT-2026S1-0206,MNT-VAL-002,downtime_minutes,99999,downtime_minutes ne depasse pas 43200 minutes.,quarantaine_examen_metier
