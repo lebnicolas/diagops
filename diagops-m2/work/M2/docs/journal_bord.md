@@ -2,6 +2,10 @@
 
 Module 2 — auditer et préparer les données DiagOps. Session du 03/08/2026.
 
+Deux volets : le **présentiel** (auditer, préparer, décider) et le **distanciel**
+(statistiques descriptives avec Pandas et Seaborn). Le second est autonome — il
+repart des fichiers reçus, pas des tables préparées.
+
 ## Reprise M0–M1
 
 - **Référence commune M1 consultée** :
@@ -38,6 +42,8 @@ Module 2 — auditer et préparer les données DiagOps. Session du 03/08/2026.
 | 03/08 | Les valeurs hors énumération sont des anomalies de saisie isolées (`EVT-CAT-001`) | Compter par valeur | **Partiellement réfutée** — 49 `alert` réguliers contre 1 `Incident ` isolé | Règle scindée en trois : isolée / récurrente / casse |
 | 03/08 | Les erreurs M1 se concentrent sur certaines catégories d'équipement | Taux d'erreur par site, type, criticité, sévérité | **Non concluant** — un seul groupe dépasse 30 observations par découpage | Aucune conclusion ; hypothèse reportée |
 | 03/08 | La détection de données personnelles par motifs laissera passer des cas | Énumérer toutes les valeurs distinctes du champ | **Confirmée** — `Nadia B.` échappe à tout motif | Masquage du champ entier, pas par fragment |
+| 03/08 | *(distanciel)* La durée d'arrêt n'est corrélée à aucune autre variable — corrélation max 0,043 | Recalculer la matrice de Pearson après retrait des valeurs impossibles | **Réfutée** — la corrélation avec `labor_hours` passe de −0,002 à **0,848** | Deux lignes sur 1 800 masquaient la relation la plus forte du jeu ; conclusion précédente annulée |
+| 03/08 | *(distanciel)* La règle des 3 écarts-types et l'IQR signaleront les mêmes valeurs | Appliquer les deux méthodes à `downtime_minutes` | **Réfutée** — 5 valeurs pour l'IQR, **1 seule** pour les 3σ | L'IQR retenu comme méthode de détection ; la règle des 3σ documentée comme inopérante ici |
 
 ## Activités et preuves produites
 
@@ -56,6 +62,8 @@ Module 2 — auditer et préparer les données DiagOps. Session du 03/08/2026.
 | 03/08 | Révision 3 : import des domaines depuis `contracts/schemas.py` | `rules.REVISIONS` | — |
 | 03/08 | Diagnostic, note de décision, journal | `docs/` | — |
 | 03/08 | Site didactique — 13 étapes | `docs/web/` | — |
+| 03/08 | Jeu supervisé pour la prédiction de gravité | `dataset.py`, `output/training/`, `fcb87be` | — |
+| 03/08 | **Distanciel** — notebook statistiques Atlas | `notebooks/m2_statistiques_atlas.ipynb` + export HTML | — |
 
 **Revue contradictoire externe : non obtenue.** Le brief prévoit des échanges en
 séance sans constitution de groupes. Les objections consignées ici proviennent
@@ -80,7 +88,23 @@ auto-revue n'ayant pas le poids d'un relecteur tiers.
   tracé. L'exhaustivité de la vérification tient à la nature gabarit du champ ;
   elle ne serait pas transposable à du texte libre réel.
 
-### Décision 2 — statut des données pour M3
+### Décision 2 — traitement des valeurs extrêmes (distanciel)
+
+- **Options considérées** : tout conserver · écarter les 5 valeurs signalées par
+  l'IQR · n'écarter que celles dont l'impossibilité est démontrée.
+- **Preuve déterminante** : la confrontation aux horodatages. `MNT-2026S1-0206`
+  déclare 99 999 minutes alors que `opened_at` et `closed_at` sont séparés de
+  69 minutes ; `MNT-2026S1-0041` déclare une durée négative. Les 3 autres
+  valeurs signalées (380 à 480 min) n'ont **aucune** contradiction interne : ce
+  sont des interventions longues, pas des erreurs.
+- **Choix retenu** : écarter **2 lignes sur 1 800**, conserver les 3 autres.
+  Effet mesuré et publié — moyenne −26 %, écart-type −97 %, médiane inchangée.
+- **Limites et réversibilité** : réversible, le retrait est un filtre appliqué à
+  une copie. Le seuil de Tukey (1,5 × IQR) est une convention, pas une preuve :
+  il **signale**, il ne qualifie pas. C'est la confrontation à une autre colonne
+  qui a tranché, pas la statistique.
+
+### Décision 3 — statut des données pour M3
 
 - **Options considérées** : utilisables · utilisables sous conditions · non
   utilisables en l'état.
@@ -107,6 +131,9 @@ auto-revue n'ayant pas le poids d'un relecteur tiers.
   cas valides et invalides.
 - **Les règles ont été écrites avant les mesures**, et chaque révision
   ultérieure est datée avec ce qui l'a déclenchée.
+- **Le notebook du distanciel s'exécute de bout en bout** — 42 cellules,
+  0 erreur, 5 graphiques, chacun rattaché à une question et interprété. Vérifié
+  par exécution réelle (`nbconvert --execute`), pas par relecture.
 
 ### Ce qui reste incertain
 
@@ -145,8 +172,20 @@ j'avais écrit moi-même — aucune par une relecture après coup.
 | `MNT-VAL-007` rejetant un tiers de la table | Une règle métier inventée depuis un schéma ne peut pas mettre 33 % d'un jeu en quarantaine. La régularité de la répartition est le signal. |
 | Valeur observée rédigée dans la quarantaine | Sur-appliquer un principe de protection au point de détruire la preuve. La protection porte sur ce qui part en aval, pas sur la traçabilité de l'audit. |
 | Registre bâti sur `SCHEMA.md` sans ouvrir le contrat | Une méthode rigoureuse appliquée à la mauvaise source de vérité produit des résultats faux avec beaucoup d'assurance. 49 fausses anomalies, et une colonne — `outcome` — que rien ne contrôlait. |
+| « La durée d'arrêt n'a aucun signal » — conclusion tirée d'une matrice de corrélation calculée sans avoir regardé les distributions | **Regarder les distributions avant les corrélations.** Une matrice calculée sur des données non vérifiées ne mesure pas les relations entre variables : elle mesure l'influence des valeurs aberrantes. Deux lignes sur 1 800 avaient effacé un r de 0,85. |
 
-La dernière est la plus instructive : les 49 fausses anomalies se voyaient,
-`outcome` non contrôlé ne se voyait pas. Un audit ne peut pas dire qu'une
-colonne est bonne s'il ne l'a pas regardée — il peut seulement dire qu'il n'a
-rien vu.
+Deux d'entre elles se répondent, et c'est la leçon que je retiens de la journée.
+
+L'erreur sur le contrat : j'ai bâti un audit rigoureux **sur la mauvaise source
+de vérité**. L'erreur sur la corrélation : j'ai tiré une conclusion d'une mesure
+juste **sans avoir regardé les données derrière**.
+
+Dans les deux cas la méthode était bonne et le résultat faux, pour la même
+raison — une étape de vérification sautée en amont. Et dans les deux cas
+l'erreur était **invisible dans le résultat** : une matrice de corrélation à
+−0,002 a exactement la même allure qu'une absence réelle de relation, et une
+colonne non contrôlée ressemble trait pour trait à une colonne sans anomalie.
+
+C'est ce que je changerais si je recommençais : lire **tout** ce que le module
+fournit avant d'écrire la première règle, et tracer **toutes** les distributions
+avant de calculer la première corrélation.
