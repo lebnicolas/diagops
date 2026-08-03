@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 6 — Mesurer sur les vraies données</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --border: #e3dfd8;
+    --text: #22201d; --muted: #635e56; --accent: #8a5a2b;
+    --accent-soft: #f5ece1; --code-bg: #f4f2ee;
+    --ok: #2f6b45; --warn: #8c6110; --bad: #a33a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17161a; --surface: #1f1e23; --border: #35333b;
+      --text: #e8e6e3; --muted: #a29d97; --accent: #d9a066;
+      --accent-soft: #2a2520; --code-bg: #232228;
+      --ok: #7fbf95; --warn: #d9b169; --bad: #e08a7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 48rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+  .back { display: inline-block; font-size: .87rem; color: var(--accent); text-decoration: none; margin-bottom: 1.75rem; }
+  .back:hover { text-decoration: underline; }
+  .kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+  h1 { font-size: 1.85rem; line-height: 1.22; margin: 0 0 1rem; letter-spacing: -.015em; }
+  h2 { font-size: 1.22rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.02rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { max-width: 38rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+  li { margin-bottom: .4rem; }
+  .lead { font-size: 1.06rem; color: var(--muted); }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: var(--code-bg); padding: .12em .35em; border-radius: 3px; border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; margin: 0 0 1.25rem; line-height: 1.5;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: .84rem; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; background: var(--surface); }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; font-size: .82rem; letter-spacing: .02em; color: var(--muted); background: var(--bg); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .sev { font-size: .78rem; font-weight: 600; letter-spacing: .03em; }
+  .sev-b { color: var(--bad); }
+  .sev-m { color: var(--warn); }
+  .sev-n { color: var(--muted); }
+  .note, .warnbox {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+  }
+  .warnbox { border-left-color: var(--bad); }
+  .note p, .warnbox p { margin: 0 0 .6rem; max-width: none; }
+  .note p:last-child, .warnbox p:last-child { margin-bottom: 0; }
+  .takeaway {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.3rem; margin: 2.5rem 0 0;
+  }
+  .takeaway h3 { margin: 0 0 .5rem; font-size: .95rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); }
+  .takeaway p { margin: 0; max-width: none; }
+  nav.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: .9rem; }
+  nav.pager a { text-decoration: none; }
+  nav.pager a:hover { text-decoration: underline; }
+  nav.pager span { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="index.html">← Retour au sommaire</a>
+
+<p class="kicker">Étape 6</p>
+<h1>Mesurer sur les vraies données</h1>
+<p class="lead">
+  Premier passage des 54 règles sur les 2 740 lignes réelles. Mot d'ordre : on mesure,
+  on ne corrige rien. Et le premier défaut découvert n'est pas dans les données — il est
+  dans mon code.
+</p>
+
+<h2>Pourquoi mesurer avant de corriger</h2>
+
+<p>
+  La tentation naturelle, devant une anomalie, est de la réparer aussitôt. C'est une
+  mauvaise idée pour deux raisons.
+</p>
+<p>
+  D'abord, <strong>les valeurs bizarres sont un diagnostic sur la collecte</strong>. Un
+  pic de doublons révèle un import rejoué deux fois. Une colonne vide à 60 % révèle un
+  champ jamais rempli en production. Corrigé au fil de l'eau, le symptôme disparaît et
+  la cause reste en amont, prête à reproduire le problème à la livraison suivante.
+</p>
+<p>
+  Ensuite, on ne peut pas justifier une correction dont on ignore l'ampleur. Corriger
+  trois lignes et corriger six cents ne relèvent pas de la même décision, même si la
+  règle enfreinte est la même.
+</p>
+
+<h2>Le bug de la quarantaine</h2>
+
+<p>
+  Le premier passage annonce <strong>76 lignes en quarantaine</strong>. Le chiffre paraît
+  faible au regard des règles en échec. Vérification faite : il est faux.
+</p>
+<p>
+  Dans mon code, la fonction qui transforme un masque d'échecs en résultat tronquait la
+  liste des lignes fautives à dix, pour garder un affichage lisible :
+</p>
+
+<pre><code>failing_identifiers=identifiers[:sample_size],   # ← la faute
+observed_values=observed[:sample_size],</code></pre>
+
+<p>
+  Sauf que la quarantaine se construit à partir de cette même liste. Elle héritait donc
+  de l'échantillon. <strong>Une règle avec 595 échecs ne produisait que 10 lignes de
+  quarantaine.</strong>
+</p>
+<p>
+  La troncature n'était pas fausse en soi — elle était faite au mauvais endroit. Un
+  échantillon a sa place dans un tableau de synthèse destiné à être lu ; il n'a rien à
+  faire dans une quarantaine, dont la raison d'être est de conserver <em>toutes</em> les
+  anomalies.
+</p>
+
+<pre><code># Correction : les listes retournées sont complètes.
+# Le plafonnement d'affichage se fait au moment d'écrire
+# check_results, jamais ici.
+failing_identifiers=identifiers,
+observed_values=observed,</code></pre>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Quarantaine</th><th class="num">Avant correctif</th><th class="num">Après</th></tr></thead>
+  <tbody>
+    <tr><td>entrées</td><td class="num">76</td><td class="num">701</td></tr>
+    <tr><td>lignes distinctes concernées</td><td class="num">—</td><td class="num">670</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>Les 35 tests repassent après correction.</p>
+
+<h2>Ce que le premier passage rapporte</h2>
+
+<p>
+  Bonne nouvelle d'entrée : <strong>la structure tient</strong>. Volumes conformes (420 /
+  520 / 1 800), aucune colonne manquante, aucun horodatage illisible, aucune valeur
+  numérique non convertible. 31 règles sur 54 ne trouvent rien.
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr><th>Règle</th><th>Sévérité</th><th>Colonne</th><th class="num">Échecs</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>MNT-KEY-002</code></td><td class="sev sev-b">bloquante</td><td><code>maintenance_id</code></td><td class="num">10</td></tr>
+    <tr><td><code>EQP-KEY-002</code></td><td class="sev sev-b">bloquante</td><td><code>equipment_id</code></td><td class="num">8</td></tr>
+    <tr><td><code>EVT-KEY-002</code></td><td class="sev sev-b">bloquante</td><td><code>event_id</code></td><td class="num">8</td></tr>
+    <tr><td><code>EVT-REF-002</code></td><td class="sev sev-b">bloquante</td><td><code>equipment_id</code></td><td class="num">1</td></tr>
+    <tr><td><code>MNT-REF-001</code></td><td class="sev sev-b">bloquante</td><td><code>event_id</code></td><td class="num">1</td></tr>
+    <tr><td><code>MNT-REF-002</code></td><td class="sev sev-b">bloquante</td><td><code>equipment_id</code></td><td class="num">1</td></tr>
+    <tr><td><code>MNT-VAL-007</code></td><td class="sev sev-m">majeure</td><td><code>parts_cost_eur</code></td><td class="num">595</td></tr>
+    <tr><td><code>EVT-CAT-001</code></td><td class="sev sev-m">majeure</td><td><code>event_type</code></td><td class="num">50</td></tr>
+    <tr><td><code>MNT-KEY-003</code></td><td class="sev sev-m">majeure</td><td>ligne entière</td><td class="num">5</td></tr>
+    <tr><td><code>EQP-KEY-003</code></td><td class="sev sev-m">majeure</td><td>ligne entière</td><td class="num">4</td></tr>
+    <tr><td><code>EVT-KEY-003</code></td><td class="sev sev-m">majeure</td><td>ligne entière</td><td class="num">4</td></tr>
+    <tr><td><code>MNT-VAL-003</code></td><td class="sev sev-m">majeure</td><td><code>downtime_minutes</code></td><td class="num">2</td></tr>
+    <tr><td><code>MNT-PII-001</code></td><td class="sev sev-m">majeure</td><td><code>work_order_note</code></td><td class="num">2</td></tr>
+    <tr><td><code>EQP-TMP-001</code></td><td class="sev sev-m">majeure</td><td><code>commissioning_date</code></td><td class="num">1</td></tr>
+    <tr><td><code>EQP-VAL-001</code></td><td class="sev sev-m">majeure</td><td><code>rated_power_kw</code></td><td class="num">1</td></tr>
+    <tr><td><code>EVT-CAT-002</code></td><td class="sev sev-m">majeure</td><td><code>severity</code></td><td class="num">1</td></tr>
+    <tr><td><code>EVT-TMP-001</code></td><td class="sev sev-m">majeure</td><td><code>end_at</code></td><td class="num">1</td></tr>
+    <tr><td><code>EVT-TMP-003</code></td><td class="sev sev-m">majeure</td><td><code>start_at</code></td><td class="num">1</td></tr>
+    <tr><td><code>MNT-REF-003</code></td><td class="sev sev-m">majeure</td><td><code>equipment_id</code></td><td class="num">1</td></tr>
+    <tr><td><code>MNT-TMP-001</code></td><td class="sev sev-m">majeure</td><td><code>closed_at</code></td><td class="num">1</td></tr>
+    <tr><td><code>MNT-VAL-001</code></td><td class="sev sev-m">majeure</td><td><code>downtime_minutes</code></td><td class="num">1</td></tr>
+    <tr><td><code>MNT-VAL-005</code></td><td class="sev sev-m">majeure</td><td><code>parts_cost_eur</code></td><td class="num">1</td></tr>
+    <tr><td><code>MNT-VAL-002</code></td><td class="sev sev-n">mineure</td><td><code>downtime_minutes</code></td><td class="num">1</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Deux lignes détonnent</h2>
+
+<p>
+  Presque toutes les règles rapportent 1, 2, 4, 8 ou 10 échecs — l'ordre de grandeur
+  attendu d'anomalies posées volontairement dans un jeu pédagogique.
+</p>
+<p>
+  Deux font exception : <strong>595</strong> et <strong>50</strong>. À elles seules,
+  elles pèsent 645 des 701 entrées de quarantaine.
+</p>
+
+<div class="warnbox">
+  <p>
+    <strong>Quand une règle échoue sur un tiers d'une table, le premier suspect n'est
+    pas la table.</strong> Une anomalie de saisie ne se répand pas régulièrement sur 595
+    lignes. Ces deux chiffres ne décrivent probablement pas les données : ils décrivent
+    mes règles.
+  </p>
+  <p>C'est l'objet de l'étape suivante.</p>
+</div>
+
+<div class="takeaway">
+  <h3>À retenir</h3>
+  <p>
+    Mesurer avant de corriger, et se méfier de son propre outillage autant que des
+    données : ici le premier défaut trouvé était dans le code d'audit, pas dans les
+    fichiers audités. Un chiffre trop rond ou trop gros mérite toujours qu'on aille voir
+    d'où il sort.
+  </p>
+</div>
+
+<nav class="pager">
+  <a href="etape-5.html">← Étape 5 — Tester</a>
+  <a href="etape-7.html">Étape 7 — Réviser →</a>
+</nav>
+
+</div>
+</body>
+</html>

@@ -20,6 +20,7 @@ from . import checks
 from .checks import CheckOutcome
 from .rules import (
     CRITICALITY_VALUES,
+    DECLARED_LABEL_EQUIVALENCES,
     EQUIPMENT_REQUIRED_COLUMNS,
     EVENT_TYPE_VALUES,
     EVENTS_REQUIRED_COLUMNS,
@@ -142,6 +143,8 @@ def _specs(reference_date: pd.Timestamp) -> list[dict]:
          "column": "site_id"},
         {"rule_id": "EQP-CAT-003", "source": "equipment", "kind": "inventory",
          "column": "equipment_type"},
+        {"rule_id": "EQP-CAS-002", "source": "equipment", "kind": "declared_label",
+         "column": "equipment_type"},
         {"rule_id": "EQP-TMP-001", "source": "equipment", "kind": "date_bounds",
          "column": "commissioning_date", "maximum": today},
         {"rule_id": "EQP-TMP-002", "source": "equipment", "kind": "date_bounds",
@@ -211,6 +214,8 @@ def _specs(reference_date: pd.Timestamp) -> list[dict]:
         {"rule_id": "MNT-REF-003", "source": "maintenance", "kind": "custom",
          "column": "equipment_id", "function": _maintenance_equipment_mismatch},
         {"rule_id": "MNT-CAT-001", "source": "maintenance", "kind": "inventory",
+         "column": "intervention_type"},
+        {"rule_id": "MNT-CAS-001", "source": "maintenance", "kind": "declared_label",
          "column": "intervention_type"},
         {"rule_id": "MNT-CAT-002", "source": "maintenance", "kind": "inventory",
          "column": "outcome"},
@@ -370,6 +375,10 @@ def _run_spec(
         mask = checks.duplicated_rows(frame)
     elif kind == "in_set":
         mask = checks.not_in_set(frame, column, spec["allowed"])
+    elif kind == "declared_label":
+        mask = checks.has_declared_label(
+            frame, column, DECLARED_LABEL_EQUIVALENCES.get(column, {})
+        )
     elif kind == "closed_set":
         mask = checks.unknown_value_masks(
             frame, column, spec["allowed"], RECURRENCE_THRESHOLD, RECURRENCE_MINIMUM
@@ -420,6 +429,12 @@ def _run_spec(
     if kind == "pii" and outcome.failures:
         kinds = checks.personal_data_kinds(frame, spec["column"])
         detected = sorted({value for value in kinds[mask].tolist() if value})
+        # La valeur observee reste le texte brut. La quarantaine est un artefact
+        # d'audit destine a un relecteur humain : sans le texte, impossible de
+        # distinguer un vrai numero d'une reference technique mal detectee, donc
+        # impossible de trancher. Le brief exige d'ailleurs de conserver la
+        # valeur observee. La protection porte sur les tables preparees
+        # transmises a M3, ou la note est masquee (voir prepare.py).
         return CheckOutcome(
             rule_id=outcome.rule_id,
             source=outcome.source,

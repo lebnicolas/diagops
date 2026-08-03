@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 5 — Tester les contrôles</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --border: #e3dfd8;
+    --text: #22201d; --muted: #635e56; --accent: #8a5a2b;
+    --accent-soft: #f5ece1; --code-bg: #f4f2ee;
+    --ok: #2f6b45; --warn: #8c6110; --bad: #a33a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17161a; --surface: #1f1e23; --border: #35333b;
+      --text: #e8e6e3; --muted: #a29d97; --accent: #d9a066;
+      --accent-soft: #2a2520; --code-bg: #232228;
+      --ok: #7fbf95; --warn: #d9b169; --bad: #e08a7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 48rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+  .back { display: inline-block; font-size: .87rem; color: var(--accent); text-decoration: none; margin-bottom: 1.75rem; }
+  .back:hover { text-decoration: underline; }
+  .kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+  h1 { font-size: 1.85rem; line-height: 1.22; margin: 0 0 1rem; letter-spacing: -.015em; }
+  h2 { font-size: 1.22rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.02rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { max-width: 38rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+  li { margin-bottom: .4rem; }
+  .lead { font-size: 1.06rem; color: var(--muted); }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: var(--code-bg); padding: .12em .35em; border-radius: 3px; border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; margin: 0 0 1.25rem; line-height: 1.5;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: .84rem; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; background: var(--surface); }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; font-size: .82rem; letter-spacing: .02em; color: var(--muted); background: var(--bg); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .note, .warnbox {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+  }
+  .warnbox { border-left-color: var(--bad); }
+  .note p, .warnbox p { margin: 0 0 .6rem; max-width: none; }
+  .note p:last-child, .warnbox p:last-child { margin-bottom: 0; }
+  .takeaway {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.3rem; margin: 2.5rem 0 0;
+  }
+  .takeaway h3 { margin: 0 0 .5rem; font-size: .95rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); }
+  .takeaway p { margin: 0; max-width: none; }
+  nav.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: .9rem; }
+  nav.pager a { text-decoration: none; }
+  nav.pager a:hover { text-decoration: underline; }
+  nav.pager span { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="index.html">← Retour au sommaire</a>
+
+<p class="kicker">Étape 5</p>
+<h1>Tester les contrôles eux-mêmes</h1>
+<p class="lead">
+  Un contrôle qui ne signale rien peut être excellent — ou complètement cassé. Rien ne
+  distingue les deux situations à l'œil. D'où 35 tests, sur un jeu de neuf lignes dont
+  on connaît d'avance chaque anomalie.
+</p>
+
+<h2>Pourquoi tester un audit</h2>
+
+<p>
+  C'est le paradoxe de tout dispositif de détection : <strong>le silence est
+  ambigu</strong>. Quand une règle rapporte zéro échec, deux explications tiennent — les
+  données sont saines, ou la règle est inopérante. Un nom de colonne mal orthographié
+  suffit à rendre un contrôle définitivement muet.
+</p>
+<p>
+  La parade consiste à vérifier les deux directions :
+</p>
+<ul>
+  <li>
+    <strong>cas invalide</strong> — on plante une anomalie connue, le contrôle doit la
+    trouver ;
+  </li>
+  <li>
+    <strong>cas valide</strong> — on fournit une ligne saine, le contrôle doit se taire.
+  </li>
+</ul>
+<p>
+  Le second est aussi important que le premier. Un contrôle qui crie au loup en
+  permanence noie les vraies anomalies, et on finit par l'ignorer.
+</p>
+
+<h2>Le jeu d'essai</h2>
+
+<p>
+  Neuf lignes en tout — trois équipements, trois événements, trois interventions —
+  construites pour porter exactement les anomalies qu'on veut voir remonter :
+</p>
+
+<pre><code># criticité hors énumération + puissance négative
+{"equipment_id": "EQ-2", ..., "criticality": "urgent",
+ "rated_power_kw": -5.0},
+
+# identifiant dupliqué + date sentinelle
+{"equipment_id": "EQ-1", ..., "commissioning_date": "1900-01-01"},
+
+# équipement contredit par l'événement + coût sans pièce + note avec email
+{"maintenance_id": "MT-2", "event_id": "EV-1", "equipment_id": "EQ-2",
+ "parts_cost_eur": 80.0, "parts_replaced_count": 0,
+ "work_order_note": "Voir avec jean.dupont@example.com"},</code></pre>
+
+<p>
+  Neuf lignes suffisent parce qu'on ne cherche pas à simuler la réalité : on cherche à
+  savoir si chaque contrôle réagit à ce qui le concerne, et seulement à ça.
+</p>
+
+<h2>Ce que les tests vérifient</h2>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Test</th><th>Ce qu'il garantit</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>toutes les règles sont exécutées</td>
+      <td>aucune règle déclarée au registre ne reste orpheline dans le code</td>
+    </tr>
+    <tr>
+      <td>anomalies plantées détectées</td>
+      <td>chaque anomalie remonte, et avec le bon nombre d'occurrences</td>
+    </tr>
+    <tr>
+      <td>lignes saines silencieuses</td>
+      <td>pas de faux positif sur les lignes correctes</td>
+    </tr>
+    <tr>
+      <td>colonne absente = zéro échec</td>
+      <td>un contrôle sur une colonne manquante ne plante pas et n'invente rien</td>
+    </tr>
+    <tr>
+      <td>format de quarantaine</td>
+      <td>les sept colonnes imposées, dans l'ordre</td>
+    </tr>
+    <tr>
+      <td>ligne présente plusieurs fois</td>
+      <td>une ligne qui enfreint deux règles apparaît deux fois, chacune tracée</td>
+    </tr>
+    <tr>
+      <td>l'audit ne modifie pas les données</td>
+      <td>comparaison des trois tables avant / après exécution</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Le test le plus important</h3>
+
+<p>
+  Le dernier de la liste mérite qu'on s'y arrête. Le brief pose comme faute
+  éliminatoire la <em>modification des données reçues</em>. Plutôt que de compter sur la
+  discipline, la contrainte devient un test :
+</p>
+
+<pre><code>def test_audit_ne_modifie_pas_les_donnees(frames):
+    avant = {nom: f.copy(deep=True) for nom, f in frames.items()}
+    run_audit(frames, reference_date=REFERENCE_DATE)
+    for nom, f in frames.items():
+        pd.testing.assert_frame_equal(f, avant[nom])</code></pre>
+
+<p>
+  Si quelqu'un ajoute un jour un contrôle qui « nettoie au passage », le test échoue
+  immédiatement. C'est plus fiable qu'une consigne écrite dans un document que personne
+  ne relit.
+</p>
+
+<h2>Résultat</h2>
+
+<pre><code>$ pytest -q
+...................................      [100%]
+35 passed in 1.24s</code></pre>
+
+<div class="note">
+  <p>
+    <strong>Ces tests vont servir tout de suite.</strong> À l'étape 7, une correction
+    apportée au registre cassera l'un d'eux — et le test aura raison contre la
+    correction. C'est exactement ce pour quoi il a été écrit.
+  </p>
+</div>
+
+<div class="takeaway">
+  <h3>À retenir</h3>
+  <p>
+    Une règle silencieuse n'est pas une preuve de propreté tant qu'on n'a pas vérifié
+    qu'elle sait parler. Tester dans les deux sens — l'anomalie détectée <em>et</em> la
+    ligne saine ignorée — est ce qui rend un chiffre d'audit crédible.
+  </p>
+</div>
+
+<nav class="pager">
+  <a href="etape-4.html">← Étape 4 — Implémenter</a>
+  <a href="etape-6.html">Étape 6 — Mesurer →</a>
+</nav>
+
+</div>
+</body>
+</html>

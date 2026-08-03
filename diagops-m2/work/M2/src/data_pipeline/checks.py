@@ -245,6 +245,20 @@ def category_inventory(frame: pd.DataFrame, column: str) -> pd.DataFrame:
     )
 
 
+def has_declared_label(
+    frame: pd.DataFrame, column: str, equivalences: dict[str, str]
+) -> pd.Series:
+    """Lignes portant un libelle declare equivalent a un autre.
+
+    Contrepartie de detection des corrections declarees sur les categories
+    ouvertes : le registre annonce la correction, l'audit doit pouvoir compter
+    combien de lignes elle touche avant qu'elle soit appliquee.
+    """
+    if column not in frame.columns or not equivalences:
+        return _empty_mask(frame)
+    return frame[column].isin(list(equivalences))
+
+
 def near_duplicate_labels(frame: pd.DataFrame, column: str) -> list[tuple[str, ...]]:
     """Libelles distincts qui se confondent une fois normalises.
 

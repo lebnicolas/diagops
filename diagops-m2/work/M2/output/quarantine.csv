@@ -1,0 +1,60 @@
+source_file,row_identifier,rule_id,column,observed_value,reason,decision
+equipment.csv,EQ-CHILL-128,EQP-KEY-002,equipment_id,EQ-CHILL-128,equipment_id est unique.,quarantaine_examen_metier
+equipment.csv,EQ-CONV-222,EQP-KEY-002,equipment_id,EQ-CONV-222,equipment_id est unique.,quarantaine_examen_metier
+equipment.csv,EQ-OVEN-366,EQP-KEY-002,equipment_id,EQ-OVEN-366,equipment_id est unique.,quarantaine_examen_metier
+equipment.csv,EQ-ROBOT-390,EQP-KEY-002,equipment_id,EQ-ROBOT-390,equipment_id est unique.,quarantaine_examen_metier
+equipment.csv,EQ-CHILL-128,EQP-KEY-002,equipment_id,EQ-CHILL-128,equipment_id est unique.,quarantaine_examen_metier
+equipment.csv,EQ-CONV-222,EQP-KEY-002,equipment_id,EQ-CONV-222,equipment_id est unique.,quarantaine_examen_metier
+equipment.csv,EQ-OVEN-366,EQP-KEY-002,equipment_id,EQ-OVEN-366,equipment_id est unique.,quarantaine_examen_metier
+equipment.csv,EQ-ROBOT-390,EQP-KEY-002,equipment_id,EQ-ROBOT-390,equipment_id est unique.,quarantaine_examen_metier
+equipment.csv,EQ-CHILL-128,EQP-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre sur toutes ses colonnes.,correction_certaine
+equipment.csv,EQ-CONV-222,EQP-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre sur toutes ses colonnes.,correction_certaine
+equipment.csv,EQ-OVEN-366,EQP-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre sur toutes ses colonnes.,correction_certaine
+equipment.csv,EQ-ROBOT-390,EQP-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre sur toutes ses colonnes.,correction_certaine
+equipment.csv,EQ-CAB-239,EQP-CAS-002,equipment_type,Pump ,Libelles declares equivalents sur une categorie ouverte : 'Pump ' -> 'pump'.,correction_certaine
+equipment.csv,EQ-CONV-137,EQP-TMP-001,commissioning_date,2031-04-17,La mise en service n'est pas posterieure a la date du jour.,quarantaine_examen_metier
+equipment.csv,EQ-COMP-169,EQP-VAL-001,rated_power_kw,-12.5,La puissance nominale renseignee est strictement positive.,quarantaine_examen_metier
+events.csv,EVT-2026S1-0022,EVT-KEY-002,event_id,EVT-2026S1-0022,event_id est unique.,quarantaine_examen_metier
+events.csv,EVT-2026S1-0155,EVT-KEY-002,event_id,EVT-2026S1-0155,event_id est unique.,quarantaine_examen_metier
+events.csv,EVT-2026S1-0314,EVT-KEY-002,event_id,EVT-2026S1-0314,event_id est unique.,quarantaine_examen_metier
+events.csv,EVT-2026S1-0432,EVT-KEY-002,event_id,EVT-2026S1-0432,event_id est unique.,quarantaine_examen_metier
+events.csv,EVT-2026S1-0022,EVT-KEY-002,event_id,EVT-2026S1-0022,event_id est unique.,quarantaine_examen_metier
+events.csv,EVT-2026S1-0155,EVT-KEY-002,event_id,EVT-2026S1-0155,event_id est unique.,quarantaine_examen_metier
+events.csv,EVT-2026S1-0314,EVT-KEY-002,event_id,EVT-2026S1-0314,event_id est unique.,quarantaine_examen_metier
+events.csv,EVT-2026S1-0432,EVT-KEY-002,event_id,EVT-2026S1-0432,event_id est unique.,quarantaine_examen_metier
+events.csv,EVT-2026S1-0022,EVT-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre.,correction_certaine
+events.csv,EVT-2026S1-0155,EVT-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre.,correction_certaine
+events.csv,EVT-2026S1-0314,EVT-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre.,correction_certaine
+events.csv,EVT-2026S1-0432,EVT-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre.,correction_certaine
+events.csv,EVT-2026S1-0180,EVT-REF-002,equipment_id,EQ-ORPHAN-999,equipment_id existe dans equipment.equipment_id.,quarantaine_examen_metier
+events.csv,EVT-2026S1-0265,EVT-CAS-001,event_type,Incident ,event_type dont seule la casse ou l'espacement devie d'une valeur connue.,correction_certaine
+events.csv,EVT-2026S1-0102,EVT-CAT-002,severity,URGENT,"severity inconnue de ('low', 'medium', 'high', 'critical') et marginale.",quarantaine_examen_metier
+events.csv,EVT-2026S1-0032,EVT-TMP-001,end_at,2026-04-09T17:50:00Z,"Si end_at est renseigne, start_at lui est anterieur ou egal.",quarantaine_examen_metier
+events.csv,EVT-2026S1-0467,EVT-TMP-003,start_at,2026-01-24T16:37:00Z,start_at est posterieur ou egal a la commissioning_date de l'equipement concerne.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0061,MNT-KEY-002,maintenance_id,MNT-2026S1-0061,maintenance_id est unique.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0334,MNT-KEY-002,maintenance_id,MNT-2026S1-0334,maintenance_id est unique.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0778,MNT-KEY-002,maintenance_id,MNT-2026S1-0778,maintenance_id est unique.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-1201,MNT-KEY-002,maintenance_id,MNT-2026S1-1201,maintenance_id est unique.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-1601,MNT-KEY-002,maintenance_id,MNT-2026S1-1601,maintenance_id est unique.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0061,MNT-KEY-002,maintenance_id,MNT-2026S1-0061,maintenance_id est unique.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0334,MNT-KEY-002,maintenance_id,MNT-2026S1-0334,maintenance_id est unique.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0778,MNT-KEY-002,maintenance_id,MNT-2026S1-0778,maintenance_id est unique.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-1201,MNT-KEY-002,maintenance_id,MNT-2026S1-1201,maintenance_id est unique.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-1601,MNT-KEY-002,maintenance_id,MNT-2026S1-1601,maintenance_id est unique.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0061,MNT-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre.,correction_certaine
+maintenance_history.csv,MNT-2026S1-0334,MNT-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre.,correction_certaine
+maintenance_history.csv,MNT-2026S1-0778,MNT-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre.,correction_certaine
+maintenance_history.csv,MNT-2026S1-1201,MNT-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre.,correction_certaine
+maintenance_history.csv,MNT-2026S1-1601,MNT-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre.,correction_certaine
+maintenance_history.csv,MNT-2026S1-0389,MNT-REF-001,event_id,EVT-ORPHAN-999,event_id existe dans events.event_id.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0545,MNT-REF-002,equipment_id,EQ-ORPHAN-998,equipment_id existe dans equipment.equipment_id.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0545,MNT-REF-003,equipment_id,EQ-ORPHAN-998,equipment_id est identique a l'equipment_id de l'evenement designe par event_id.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0912,MNT-CAS-001,intervention_type,Correctif,Libelles declares equivalents sur une categorie ouverte : 'Correctif' -> 'corrective'.,correction_certaine
+maintenance_history.csv,MNT-2026S1-0621,MNT-TMP-001,closed_at,2026-06-14T14:55:00Z,"Si closed_at est renseigne, opened_at lui est anterieur ou egal.",quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0041,MNT-VAL-001,downtime_minutes,-45,downtime_minutes est superieur ou egal a zero.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0206,MNT-VAL-002,downtime_minutes,99999,downtime_minutes ne depasse pas 43200 minutes.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0206,MNT-VAL-003,downtime_minutes,99999,"Si les deux horodatages sont renseignes, downtime_minutes ne depasse pas l'ecart closed_at - opened_at.",quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0621,MNT-VAL-003,downtime_minutes,146,"Si les deux horodatages sont renseignes, downtime_minutes ne depasse pas l'ecart closed_at - opened_at.",quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-0703,MNT-VAL-005,parts_cost_eur,-350.0,parts_cost_eur renseigne est superieur ou egal a zero.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-1121,MNT-PII-001,work_order_note,Rappeler Nadia B. au 06 12 34 56 78.,"Recherche d'adresses electroniques, de numeros de telephone et de noms de personnes dans le texte libre.",quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-1334,MNT-PII-001,work_order_note,Compte rendu transmis à leo.martin@example.test.,"Recherche d'adresses electroniques, de numeros de telephone et de noms de personnes dans le texte libre.",quarantaine_examen_metier

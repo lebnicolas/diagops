@@ -197,6 +197,15 @@ RULES: list[dict[str, str]] = [
         "severity": "mineure",
         "decision_if_failed": "signalement",
     },
+    {
+        "rule_id": "EQP-CAS-002",
+        "source": "equipment",
+        "column": "equipment_type",
+        "description": "Libelles declares equivalents sur une categorie ouverte : 'Pump ' -> 'pump'.",
+        "justification": "AJOUTEE le 03/08/2026, sur decision utilisateur. La categorie est ouverte : aucun schema n'autorise a rejeter une valeur, la correspondance doit donc etre DECLAREE et non deduite. Ici la forme normalisee coincide ('pump' contre 'pump ' apres suppression de l'espace final) et l'ecart d'effectif est ecrasant, 1 contre 56.",
+        "severity": "mineure",
+        "decision_if_failed": "correction_certaine",
+    },
     # equipment — temporel
     {
         "rule_id": "EQP-TMP-001",
@@ -521,6 +530,15 @@ RULES: list[dict[str, str]] = [
         "decision_if_failed": "signalement",
     },
     {
+        "rule_id": "MNT-CAS-001",
+        "source": "maintenance",
+        "column": "intervention_type",
+        "description": "Libelles declares equivalents sur une categorie ouverte : 'Correctif' -> 'corrective'.",
+        "justification": "AJOUTEE le 03/08/2026, sur DECISION UTILISATEUR EXPLICITE. A la difference de EQP-CAS-002, ce n'est PAS une variante de casse : 'correctif' et 'corrective' different apres normalisation. C'est un melange francais/anglais, et l'equivalence releve d'un arbitrage metier, pas d'une deduction. Elle est tracee comme telle : un relecteur doit pouvoir la contester sans avoir a relire le code.",
+        "severity": "mineure",
+        "decision_if_failed": "correction_certaine",
+    },
+    {
         "rule_id": "MNT-CAT-002",
         "source": "maintenance",
         "column": "outcome",
@@ -662,6 +680,15 @@ RULES: list[dict[str, str]] = [
 ]
 
 
+# Equivalences de libelles DECLAREES sur des categories ouvertes.
+# Une categorie ouverte n'a pas d'enumeration de reference : la correspondance
+# ne peut donc pas se deduire, elle se decide et se declare ici.
+DECLARED_LABEL_EQUIVALENCES: dict[str, dict[str, str]] = {
+    "equipment_type": {"Pump ": "pump"},
+    "intervention_type": {"Correctif": "corrective"},
+}
+
+
 REVISIONS: list[dict[str, str]] = [
     {
         "date": "2026-08-03",
@@ -676,6 +703,13 @@ REVISIONS: list[dict[str, str]] = [
         "change": "scindee en EVT-CAT-001 (inconnue isolee), EVT-NOM-001 (inconnue recurrente), EVT-CAS-001 (variante de casse)",
         "trigger": "50 echecs melangeant 49 `alert` et 1 `Incident`",
         "reason": "Deux causes sans rapport sous une meme regle : un ecart de nomenclature entre SCHEMA.md (`alerte`) et la livraison (`alert`), et une anomalie de casse isolee. La seconde etait invisible derriere la premiere.",
+    },
+    {
+        "date": "2026-08-03",
+        "rule_id": "EQP-CAS-002, MNT-CAS-001",
+        "change": "ajout de deux corrections de libelles sur des categories ouvertes",
+        "trigger": "inventaire des categories ouvertes : 'Pump ' contre 'pump' (1 vs 56), 'Correctif' contre 'corrective' (1 vs 352)",
+        "reason": "Decision utilisateur. Les deux cas ne sont pas de meme nature et ne se defendent pas de la meme facon. 'Pump ' est une variante d'espacement dont la forme normalisee coincide avec un libelle existant. 'Correctif' est un melange de langues : les formes normalisees different, l'equivalence releve d'un arbitrage metier et non d'une deduction. Les deux sont declarees dans DECLARED_LABEL_EQUIVALENCES pour rester contestables sans relire le code.",
     },
     {
         "date": "2026-08-03",

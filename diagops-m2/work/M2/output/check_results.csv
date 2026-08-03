@@ -1,0 +1,63 @@
+rule_id,source,column,severity,rows_checked,failures,failure_rate,sample_row_identifiers,comment
+EQP-SCH-001,equipment,*,bloquante,420,0,0.0,,colonnes absentes : aucune
+EQP-SCH-002,equipment,commissioning_date,majeure,420,0,0.0,,
+EQP-SCH-003,equipment,rated_power_kw,majeure,420,0,0.0,,
+EQP-KEY-001,equipment,equipment_id,bloquante,420,0,0.0,,
+EQP-KEY-002,equipment,equipment_id,bloquante,420,8,0.019,"EQ-CHILL-128, EQ-CONV-222, EQ-OVEN-366, EQ-ROBOT-390, EQ-CHILL-128, EQ-CONV-222, EQ-OVEN-366, EQ-ROBOT-390",
+EQP-KEY-003,equipment,*,majeure,420,4,0.0095,"EQ-CHILL-128, EQ-CONV-222, EQ-OVEN-366, EQ-ROBOT-390",
+EQP-CAT-001,equipment,criticality,majeure,420,0,0.0,,
+EQP-NOM-001,equipment,criticality,majeure,420,0,0.0,,
+EQP-CAS-001,equipment,criticality,mineure,420,0,0.0,,
+EQP-CAT-002,equipment,site_id,mineure,420,0,0.0,,4 valeurs distinctes
+EQP-CAT-003,equipment,equipment_type,mineure,420,0,0.0,,"19 valeurs distinctes ; effectif <= 2 : Pump  ; libelles voisins : [('Pump ', 'pump')]"
+EQP-CAS-002,equipment,equipment_type,mineure,420,1,0.0024,EQ-CAB-239,
+EQP-TMP-001,equipment,commissioning_date,majeure,420,1,0.0024,EQ-CONV-137,
+EQP-TMP-002,equipment,commissioning_date,mineure,420,0,0.0,,
+EQP-VAL-001,equipment,rated_power_kw,majeure,420,1,0.0024,EQ-COMP-169,
+EQP-VAL-002,equipment,rated_power_kw,mineure,420,0,0.0,,
+EQP-NUL-001,equipment,manufacturer,mineure,420,0,0.0,,taux de valeurs absentes — manufacturer : 0.2%
+EQP-NUL-002,equipment,rated_power_kw,mineure,420,0,0.0,,taux de valeurs absentes — rated_power_kw : 0.2%
+EVT-SCH-001,events,*,bloquante,520,0,0.0,,colonnes absentes : aucune
+EVT-SCH-002,events,"start_at, end_at",majeure,520,0,0.0,,
+EVT-KEY-001,events,event_id,bloquante,520,0,0.0,,
+EVT-KEY-002,events,event_id,bloquante,520,8,0.0154,"EVT-2026S1-0022, EVT-2026S1-0155, EVT-2026S1-0314, EVT-2026S1-0432, EVT-2026S1-0022, EVT-2026S1-0155, EVT-2026S1-0314, EVT-2026S1-0432",
+EVT-KEY-003,events,*,majeure,520,4,0.0077,"EVT-2026S1-0022, EVT-2026S1-0155, EVT-2026S1-0314, EVT-2026S1-0432",
+EVT-REF-001,events,equipment_id,bloquante,520,0,0.0,,
+EVT-REF-002,events,equipment_id,bloquante,520,1,0.0019,EVT-2026S1-0180,
+EVT-CAT-001,events,event_type,majeure,520,0,0.0,,
+EVT-NOM-001,events,event_type,majeure,520,49,0.0942,"EVT-2026S1-0023, EVT-2026S1-0041, EVT-2026S1-0046, EVT-2026S1-0055, EVT-2026S1-0067, EVT-2026S1-0085, EVT-2026S1-0095, EVT-2026S1-0103, EVT-2026S1-0115, EVT-2026S1-0129",
+EVT-CAS-001,events,event_type,mineure,520,1,0.0019,EVT-2026S1-0265,
+EVT-CAT-002,events,severity,majeure,520,1,0.0019,EVT-2026S1-0102,
+EVT-NOM-002,events,severity,majeure,520,0,0.0,,
+EVT-CAS-002,events,severity,mineure,520,0,0.0,,
+EVT-CAT-003,events,period,majeure,520,0,0.0,,
+EVT-TMP-001,events,end_at,majeure,520,1,0.0019,EVT-2026S1-0032,
+EVT-TMP-002,events,start_at,majeure,520,0,0.0,,
+EVT-TMP-003,events,start_at,majeure,520,1,0.0019,EVT-2026S1-0467,
+EVT-NUL-001,events,end_at,mineure,520,0,0.0,,taux de valeurs absentes — end_at : 2.5%
+MNT-SCH-001,maintenance,*,bloquante,1800,0,0.0,,colonnes absentes : aucune
+MNT-SCH-002,maintenance,"opened_at, closed_at",majeure,1800,0,0.0,,
+MNT-SCH-003,maintenance,"downtime_minutes, labor_hours, parts_cost_eur, parts_replaced_count",majeure,1800,0,0.0,,
+MNT-KEY-001,maintenance,maintenance_id,bloquante,1800,0,0.0,,
+MNT-KEY-002,maintenance,maintenance_id,bloquante,1800,10,0.0056,"MNT-2026S1-0061, MNT-2026S1-0334, MNT-2026S1-0778, MNT-2026S1-1201, MNT-2026S1-1601, MNT-2026S1-0061, MNT-2026S1-0334, MNT-2026S1-0778, MNT-2026S1-1201, MNT-2026S1-1601",
+MNT-KEY-003,maintenance,*,majeure,1800,5,0.0028,"MNT-2026S1-0061, MNT-2026S1-0334, MNT-2026S1-0778, MNT-2026S1-1201, MNT-2026S1-1601",
+MNT-REF-001,maintenance,event_id,bloquante,1800,1,0.0006,MNT-2026S1-0389,
+MNT-REF-002,maintenance,equipment_id,bloquante,1800,1,0.0006,MNT-2026S1-0545,
+MNT-REF-003,maintenance,equipment_id,majeure,1800,1,0.0006,MNT-2026S1-0545,
+MNT-CAT-001,maintenance,intervention_type,mineure,1800,0,0.0,,6 valeurs distinctes ; effectif <= 2 : Correctif
+MNT-CAS-001,maintenance,intervention_type,mineure,1800,1,0.0006,MNT-2026S1-0912,
+MNT-CAT-002,maintenance,outcome,mineure,1800,0,0.0,,5 valeurs distinctes
+MNT-CAT-003,maintenance,period,majeure,1800,0,0.0,,
+MNT-TMP-001,maintenance,closed_at,majeure,1800,1,0.0006,MNT-2026S1-0621,
+MNT-TMP-002,maintenance,opened_at,majeure,1800,0,0.0,,
+MNT-TMP-003,maintenance,opened_at,majeure,1800,0,0.0,,
+MNT-VAL-001,maintenance,downtime_minutes,majeure,1800,1,0.0006,MNT-2026S1-0041,
+MNT-VAL-002,maintenance,downtime_minutes,mineure,1800,1,0.0006,MNT-2026S1-0206,
+MNT-VAL-003,maintenance,downtime_minutes,majeure,1800,2,0.0011,"MNT-2026S1-0206, MNT-2026S1-0621",
+MNT-VAL-004,maintenance,labor_hours,majeure,1800,0,0.0,,
+MNT-VAL-005,maintenance,parts_cost_eur,majeure,1800,1,0.0006,MNT-2026S1-0703,
+MNT-VAL-006,maintenance,parts_replaced_count,majeure,1800,0,0.0,,
+MNT-VAL-007,maintenance,parts_cost_eur,mineure,1800,595,0.3306,"MNT-2026S1-0009, MNT-2026S1-0012, MNT-2026S1-0014, MNT-2026S1-0015, MNT-2026S1-0017, MNT-2026S1-0020, MNT-2026S1-0027, MNT-2026S1-0028, MNT-2026S1-0030, MNT-2026S1-0033",
+MNT-NUL-001,maintenance,closed_at,mineure,1800,0,0.0,,taux de valeurs absentes — closed_at : 2.7%
+MNT-NUL-002,maintenance,"labor_hours, parts_cost_eur",mineure,1800,0,0.0,,taux de valeurs absentes — labor_hours : 0.1% ; parts_cost_eur : 1.5%
+MNT-PII-001,maintenance,work_order_note,majeure,1800,2,0.0011,"MNT-2026S1-1121, MNT-2026S1-1334","motifs declenches : email, telephone — verification humaine requise"

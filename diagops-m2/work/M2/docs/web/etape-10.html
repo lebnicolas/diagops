@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 10 — Couverture et concentration des erreurs</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --border: #e3dfd8;
+    --text: #22201d; --muted: #635e56; --accent: #8a5a2b;
+    --accent-soft: #f5ece1; --code-bg: #f4f2ee;
+    --ok: #2f6b45; --warn: #8c6110; --bad: #a33a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17161a; --surface: #1f1e23; --border: #35333b;
+      --text: #e8e6e3; --muted: #a29d97; --accent: #d9a066;
+      --accent-soft: #2a2520; --code-bg: #232228;
+      --ok: #7fbf95; --warn: #d9b169; --bad: #e08a7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 48rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+  .back { display: inline-block; font-size: .87rem; color: var(--accent); text-decoration: none; margin-bottom: 1.75rem; }
+  .back:hover { text-decoration: underline; }
+  .kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+  h1 { font-size: 1.85rem; line-height: 1.22; margin: 0 0 1rem; letter-spacing: -.015em; }
+  h2 { font-size: 1.22rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.02rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { max-width: 38rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+  li { margin-bottom: .4rem; }
+  .lead { font-size: 1.06rem; color: var(--muted); }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: var(--code-bg); padding: .12em .35em; border-radius: 3px; border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; margin: 0 0 1.25rem; line-height: 1.5;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: .84rem; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; background: var(--surface); }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; font-size: .82rem; letter-spacing: .02em; color: var(--muted); background: var(--bg); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .weak { color: var(--bad); font-weight: 600; }
+  .strong-ok { color: var(--ok); font-weight: 600; }
+  .note, .warnbox {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+  }
+  .warnbox { border-left-color: var(--bad); }
+  .note p, .warnbox p { margin: 0 0 .6rem; max-width: none; }
+  .note p:last-child, .warnbox p:last-child { margin-bottom: 0; }
+  .takeaway {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.3rem; margin: 2.5rem 0 0;
+  }
+  .takeaway h3 { margin: 0 0 .5rem; font-size: .95rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); }
+  .takeaway p { margin: 0; max-width: none; }
+  .todo { list-style: none; padding-left: 0; }
+  .todo li { padding-left: 1.6rem; position: relative; margin-bottom: .75rem; }
+  .todo li::before { content: "☐"; position: absolute; left: 0; color: var(--accent); }
+  nav.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: .9rem; }
+  nav.pager a { text-decoration: none; }
+  nav.pager a:hover { text-decoration: underline; }
+  nav.pager span { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="index.html">← Retour au sommaire</a>
+
+<p class="kicker">Étape 10</p>
+<h1>Couverture et concentration des erreurs</h1>
+<p class="lead">
+  Questions 8 et 9 du diagnostic. C'est l'étape où l'on apprend surtout
+  <strong>ce qu'on n'a pas le droit de conclure</strong> — et où les chiffres les plus
+  spectaculaires sont précisément ceux dont il ne faut rien tirer.
+</p>
+
+<h2>Pourquoi cette étape est un exercice de retenue</h2>
+
+<p>
+  Le brief pose deux questions apparemment simples. La huitième : certaines catégories
+  de sites, d'équipements, de criticité ou de sévérité sont-elles peu représentées ? La
+  neuvième : les erreurs historiques du module précédent semblent-elles plus fréquentes
+  dans certaines catégories ?
+</p>
+<p>
+  Il prévient <strong>deux fois</strong> qu'un effectif trop faible interdit toute
+  conclusion catégorique. Et il range la conclusion causale parmi ses
+  <strong>critères bloquants</strong> — présenter une corrélation comme une cause
+  disqualifie le travail.
+</p>
+<p>
+  Autrement dit : cette étape produit surtout des phrases négatives. « On ne peut pas
+  dire que… », « l'effectif ne permet pas de… ». C'est frustrant, et c'est exactement ce
+  qu'on attend d'un audit honnête.
+</p>
+
+<h2>Une correction, avant même de commencer</h2>
+
+<div class="warnbox">
+  <p>
+    <strong>Ma fonction comptait 7 lignes « non appariées »</strong> sur les 80 de la
+    matrice d'erreurs du module précédent. J'allais les présenter comme des références
+    cassées entre les deux modules — une rupture d'intégrité.
+  </p>
+  <p>
+    Ce sont des <code>equipment_id</code> nuls. Les cas où l'équipement n'était pas
+    identifiable dans le rapport d'origine, ceux qui attendaient précisément
+    <code>null</code> en sortie. <strong>Aucune référence pendante : l'intégrité entre
+    les modules est bonne.</strong>
+  </p>
+</div>
+
+<p>
+  Le diagnostic corrigé aurait pu s'arrêter là. Mais en regardant ces 7 cas de plus
+  près, on trouve quelque chose de plus dérangeant.
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr><th>Groupe</th><th class="num">Cas</th><th class="num">Taux d'erreur</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Cas sans équipement identifiable (écartés par la jointure)</td><td class="num">7</td><td class="num strong-ok">0 %</td></tr>
+    <tr><td>Cas rattachables à un équipement (conservés)</td><td class="num">73</td><td class="num">16,4 %</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Les écarter n'est donc <strong>pas neutre</strong> : la jointure retire uniquement des
+  cas que le modèle réussissait. Mécaniquement, toute concentration d'erreurs observée
+  après jointure s'en trouve <strong>gonflée</strong>.
+</p>
+<p>
+  Ce biais n'est pas dans les données. Il est introduit par l'analyse elle-même — par le
+  geste banal de joindre deux tables et de laisser tomber ce qui ne s'apparie pas.
+</p>
+
+<div class="note">
+  <p>
+    <strong>Le réflexe à en tirer.</strong> Vérifier le <em>taux</em> d'appariement d'une
+    jointure ne suffit pas. « 91 % des lignes appariées » rassure à tort. La vraie
+    question est : <strong>les lignes perdues ressemblent-elles à celles qu'on
+    garde ?</strong> Si elles en diffèrent sur ce qu'on mesure, le simple fait de joindre
+    a déjà déformé le résultat.
+  </p>
+</div>
+
+<h2>Question 8 — la couverture</h2>
+
+<h3>Sites : un sur quatre est trop petit</h3>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Site</th><th class="num">Équipements</th><th class="num">Part</th><th>Interprétable</th></tr></thead>
+  <tbody>
+    <tr><td><code>SITE-NORD</code></td><td class="num">176</td><td class="num">41,9 %</td><td>oui</td></tr>
+    <tr><td><code>SITE-SUD</code></td><td class="num">137</td><td class="num">32,6 %</td><td>oui</td></tr>
+    <tr><td><code>SITE-EST</code></td><td class="num">91</td><td class="num">21,7 %</td><td>oui</td></tr>
+    <tr><td><code>SITE-OUEST</code></td><td class="num weak">16</td><td class="num weak">3,8 %</td><td class="weak">non</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Rien de fiable ne se dira sur <code>SITE-OUEST</code>. Ce n'est pas un défaut de
+  qualité — les 16 lignes sont probablement correctes — c'est une limite de ce que le
+  jeu permet d'affirmer.
+</p>
+
+<h3>Types d'équipement : une longue traîne</h3>
+
+<p>
+  19 valeurs distinctes, dont <code>Pump</code> qui est la variante de casse de
+  <code>pump</code> — <strong>18 types réels</strong>. Et sur ces 19 libellés,
+  <strong>12 comptent moins de 30 observations</strong>.
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Au-dessus du seuil</th><th class="num">Obs.</th><th>Sous le seuil</th><th class="num">Obs.</th></tr></thead>
+  <tbody>
+    <tr><td><code>pump</code></td><td class="num">56</td><td><code>chiller</code></td><td class="num weak">24</td></tr>
+    <tr><td><code>robot</code></td><td class="num">45</td><td><code>mixer</code></td><td class="num weak">22</td></tr>
+    <tr><td><code>conveyor</code></td><td class="num">41</td><td><code>valve</code></td><td class="num weak">21</td></tr>
+    <tr><td><code>compressor</code></td><td class="num">38</td><td><code>sensor</code></td><td class="num weak">16</td></tr>
+    <tr><td><code>oven</code></td><td class="num">36</td><td><code>electrical_cabinet</code></td><td class="num weak">12</td></tr>
+    <tr><td><code>press</code></td><td class="num">34</td><td><code>dryer</code> · <code>gearbox</code></td><td class="num weak">8 · 8</td></tr>
+    <tr><td><code>fan</code></td><td class="num">34</td><td><code>motor</code> · <code>packaging_machine</code></td><td class="num weak">7 · 7</td></tr>
+    <tr><td></td><td class="num"></td><td><code>lift</code> · <code>steam_unit</code></td><td class="num weak">5 · 5</td></tr>
+    <tr><td></td><td class="num"></td><td><code>Pump</code> <em>(casse)</em></td><td class="num weak">1</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Sept familles seulement supportent une analyse par type. Les onze autres, prises
+  isolément, ne permettront aucun constat solide.
+</p>
+
+<h3>Criticité : le seul axe entièrement sain</h3>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Criticité</th><th class="num">Équipements</th><th>Interprétable</th></tr></thead>
+  <tbody>
+    <tr><td><code>medium</code></td><td class="num">174</td><td>oui</td></tr>
+    <tr><td><code>high</code></td><td class="num">122</td><td>oui</td></tr>
+    <tr><td><code>low</code></td><td class="num">76</td><td>oui</td></tr>
+    <tr><td><code>critical</code></td><td class="num">48</td><td>oui</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Sévérité des événements</h3>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Sévérité</th><th class="num">Événements</th></tr></thead>
+  <tbody>
+    <tr><td><code>high</code></td><td class="num">213</td></tr>
+    <tr><td><code>medium</code></td><td class="num">160</td></tr>
+    <tr><td><code>critical</code></td><td class="num">74</td></tr>
+    <tr><td><code>low</code></td><td class="num">72</td></tr>
+    <tr><td><code>URGENT</code> <em>(valeur isolée, cf. étape 8)</em></td><td class="num weak">1</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Le trou de couverture le plus parlant</h3>
+
+<p>
+  Il ne se voit dans aucun des tableaux précédents, parce qu'il ne se lit pas dans une
+  table isolée : <strong>41 équipements sur 420, soit 9,8 %, n'ont ni événement ni
+  intervention.</strong> Ils existent au parc, et ils sont muets.
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Criticité de l'équipement muet</th><th class="num">Nombre</th></tr></thead>
+  <tbody>
+    <tr><td><code>medium</code></td><td class="num">17</td></tr>
+    <tr><td><code>high</code></td><td class="num weak">12</td></tr>
+    <tr><td><code>low</code></td><td class="num">9</td></tr>
+    <tr><td><code>critical</code></td><td class="num weak">3</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  <strong>Quinze équipements jugés importants</strong> — 12 <code>high</code> et
+  3 <code>critical</code> — sur lesquels le module suivant n'aura strictement rien à
+  apprendre. À noter également : 49 équipements n'ont aucune intervention, dont les 41
+  ci-dessus.
+</p>
+<p>
+  Ce n'est pas une anomalie de qualité : aucune règle n'est enfreinte, aucune ligne n'est
+  fausse. C'est une <strong>limite du jeu</strong>, et à ce titre elle doit être écrite
+  noir sur blanc plutôt que découverte en aval.
+</p>
+
+<h2>Le seuil de 30, et pourquoi il est assumé</h2>
+
+<p>
+  Tous les tableaux ci-dessus portent une colonne <em>interprétable</em>, calculée à
+  partir d'une constante :
+</p>
+
+<pre><code># Seuil conventionnel : en dessous, un taux calculé sur le groupe
+# n'est pas commenté. Ce n'est pas une vérité statistique, c'est une
+# convention explicite — modifiable, et visible dans les sorties.
+MIN_EFFECTIF = 30</code></pre>
+
+<p>
+  Ce nombre ne démontre rien. Il n'existe aucun seuil au-delà duquel un chiffre
+  deviendrait subitement vrai. Son rôle est ailleurs : <strong>il force la mention de
+  l'incertitude à chaque tableau</strong>, automatiquement, au lieu de laisser au
+  rédacteur le soin de s'en souvenir.
+</p>
+<p>
+  Le rendre explicite et paramétrable vaut mieux que de le garder dans la tête de celui
+  qui écrit le rapport. Un relecteur peut le contester, le changer, et voir aussitôt ce
+  que ça déplace.
+</p>
+
+<h2>Question 9 — les erreurs du module précédent</h2>
+
+<p>
+  La matrice fournie contient 80 cas. Le décompte :
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Type d'erreur</th><th class="num">Cas</th></tr></thead>
+  <tbody>
+    <tr><td><code>none</code> — aucune erreur</td><td class="num">68</td></tr>
+    <tr><td><code>severity</code></td><td class="num">11</td></tr>
+    <tr><td><code>schema|severity|human_review</code></td><td class="num">1</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Soit <strong>12 erreurs de sévérité</strong>, 1 erreur de revue humaine et 1 schéma
+  invalide.
+</p>
+
+<h3>Le vrai résultat est dans la matrice de confusion</h3>
+
+<p>
+  Pas dans les découpages par catégorie — dans le détail de ce que le modèle a prédit à
+  la place de ce qui était attendu.
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Attendu</th><th>Prédit</th><th class="num">Cas</th></tr></thead>
+  <tbody>
+    <tr><td><code>critical</code></td><td><code>high</code></td><td class="num">7</td></tr>
+    <tr><td><code>critical</code></td><td><code>medium</code></td><td class="num">2</td></tr>
+    <tr><td><code>low</code></td><td><code>light</code> <em>(valeur inventée)</em></td><td class="num">1</td></tr>
+    <tr><td><code>low</code></td><td><code>medium</code></td><td class="num">1</td></tr>
+    <tr><td><code>medium</code></td><td><code>high</code></td><td class="num">1</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  <strong>9 erreurs sur 12 sont des <code>critical</code> sous-évalués.</strong> Le
+  modèle rétrograde systématiquement le niveau le plus grave — vers <code>high</code>
+  sept fois, vers <code>medium</code> deux fois.
+</p>
+<p>
+  Sur un outil de maintenance, c'est la direction dangereuse. Sous-estimer une panne
+  critique coûte plus cher que l'inverse : une intervention urgente est reportée, alors
+  qu'une fausse alerte ne coûte qu'un déplacement.
+</p>
+<p>
+  Détail supplémentaire : <code>light</code> n'appartient à aucune énumération du schéma.
+  Le modèle a <strong>inventé une valeur</strong>.
+</p>
+
+<h3>Les découpages par catégorie — et pourquoi ils ne concluent rien</h3>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Découpage</th><th>Le chiffre qui saute aux yeux</th><th class="num">Effectif</th></tr></thead>
+  <tbody>
+    <tr><td>Site</td><td><code>SITE-OUEST</code> : 50 % d'erreur</td><td class="num weak">2</td></tr>
+    <tr><td>Type d'équipement</td><td><code>fan</code> 57 % · <code>press</code> 50 %</td><td class="num weak">7 · 8</td></tr>
+    <tr><td>Criticité équipement</td><td><code>critical</code> : 28,6 %</td><td class="num weak">7</td></tr>
+    <tr><td>Sévérité événement</td><td><code>critical</code> : 69 %</td><td class="num weak">13</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Dans chacun de ces quatre découpages, <strong>un seul groupe dépasse 30
+  observations</strong> — <code>medium</code> 31, <code>SITE-NORD</code> 35,
+  <code>high</code> 34. Tous les taux spectaculaires ci-dessus reposent sur moins de dix
+  cas.
+</p>
+<p>
+  Prenez <code>SITE-OUEST</code> : deux lignes suffisent à afficher 50 %. Une seule
+  erreur de plus ou de moins fait passer le chiffre de 0 % à 100 %. Un taux calculé sur
+  deux observations n'est pas une mesure, c'est un accident d'arrondi.
+</p>
+
+<h3>Le seul contraste qui mérite d'être mentionné</h3>
+
+<p>
+  <strong>0 erreur sur 34 cas de sévérité attendue <code>high</code>, contre 9 sur
+  13 <code>critical</code>.</strong> L'écart est trop marqué pour être passé sous
+  silence — mais 13 cas ne démontrent rien. Il se mentionne, il ne se conclut pas.
+</p>
+
+<h3>Le glissement de vocabulaire à éviter</h3>
+
+<div class="warnbox">
+  <p>
+    « Taux d'erreur par sévérité attendue », c'est <strong>une ligne de matrice de
+    confusion</strong>, pas un effet de catégorie.
+  </p>
+  <p>
+    Écrire « les erreurs se concentrent sur les équipements critiques » serait faux. Ce
+    qu'on observe n'a rien à voir avec les équipements : <strong>le modèle rate la classe
+    <code>critical</code></strong>. C'est une propriété du modèle, pas une propriété du
+    parc.
+  </p>
+</div>
+
+<p>
+  La confusion est facile à faire parce que les deux phrases utilisent les mêmes mots.
+  Elles ne désignent pas la même chose : l'une parle d'endroits du monde industriel où
+  les erreurs s'accumuleraient, l'autre d'une classe que le modèle confond avec sa
+  voisine.
+</p>
+<p>
+  Et cette seconde lecture recoupe ce qu'on savait déjà : <code>critical</code> était la
+  classe la <strong>plus rare à l'entraînement</strong> — 60 exemples sur 400. Un modèle
+  voit peu une classe, il l'apprend mal.
+</p>
+<p>
+  La formulation qui tient, dans le rapport : <em>hypothèse à tester sur un échantillon
+  plus large</em>. Pas conclusion.
+</p>
+
+<h2>Ce qui garantit que c'est vrai</h2>
+
+<p>
+  Les calculs vivent dans <code>src/data_pipeline/coverage.py</code>, avec
+  <strong>6 nouveaux tests</strong>. Total : <strong>47 tests au vert</strong>.
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Test</th><th>Ce qu'il garantit</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>seuil respecté</td>
+      <td>
+        sur un jeu minuscule, avec <code>MIN_EFFECTIF</code> à 30, <strong>aucun groupe
+        n'est marqué interprétable</strong> — le garde-fou ne se contourne pas tout seul
+      </td>
+    </tr>
+    <tr>
+      <td>diagnostic de jointure</td>
+      <td>
+        le compte des lignes non rattachées est bien remonté, au lieu d'être avalé
+        silencieusement par la jointure
+      </td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Le second test est la traduction directe de l'erreur d'ouverture : ce qui a failli
+  passer inaperçu devient une valeur que le code doit publier.
+</p>
+
+<h2>Ce qui reste</h2>
+
+<ul class="todo">
+  <li>
+    <strong>Appliquer les 6 règles <code>correction_certaine</code></strong> — sur des
+    copies en mémoire, avec pour chacune l'état avant, l'état après, le nombre de lignes
+    touchées et la justification.
+  </li>
+  <li>
+    <strong>Exporter les livrables</strong> — les trois tables préparées et
+    <code>quarantine.csv</code>.
+  </li>
+  <li>
+    <strong>Répondre aux dix questions et trancher</strong> — données
+    <em>utilisables</em>, <em>utilisables sous conditions</em>, ou <em>non utilisables en
+    l'état</em>.
+  </li>
+</ul>
+
+<div class="takeaway">
+  <h3>À retenir</h3>
+  <p>
+    Un taux calculé sur sept cas n'est pas un résultat, quelle que soit son ampleur. Une
+    jointure qui perd des lignes différentes de celles qu'elle garde déforme la mesure
+    avant même qu'on la calcule. Et nommer correctement ce qu'on observe — « le modèle
+    rate une classe » plutôt que « les erreurs se concentrent quelque part » — change la
+    conclusion du tout au tout.
+  </p>
+</div>
+
+<nav class="pager">
+  <a href="etape-9.html">← Étape 9 — Données personnelles</a>
+  <a href="index.html">Retour au sommaire →</a>
+</nav>
+
+</div>
+</body>
+</html>

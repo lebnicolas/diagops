@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 4 — Implémenter les contrôles</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --border: #e3dfd8;
+    --text: #22201d; --muted: #635e56; --accent: #8a5a2b;
+    --accent-soft: #f5ece1; --code-bg: #f4f2ee;
+    --ok: #2f6b45; --warn: #8c6110; --bad: #a33a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17161a; --surface: #1f1e23; --border: #35333b;
+      --text: #e8e6e3; --muted: #a29d97; --accent: #d9a066;
+      --accent-soft: #2a2520; --code-bg: #232228;
+      --ok: #7fbf95; --warn: #d9b169; --bad: #e08a7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 48rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+  .back { display: inline-block; font-size: .87rem; color: var(--accent); text-decoration: none; margin-bottom: 1.75rem; }
+  .back:hover { text-decoration: underline; }
+  .kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+  h1 { font-size: 1.85rem; line-height: 1.22; margin: 0 0 1rem; letter-spacing: -.015em; }
+  h2 { font-size: 1.22rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.02rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { max-width: 38rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+  li { margin-bottom: .4rem; }
+  .lead { font-size: 1.06rem; color: var(--muted); }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: var(--code-bg); padding: .12em .35em; border-radius: 3px; border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; margin: 0 0 1.25rem; line-height: 1.5;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: .84rem; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; background: var(--surface); }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; font-size: .82rem; letter-spacing: .02em; color: var(--muted); background: var(--bg); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .note, .warnbox {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+  }
+  .warnbox { border-left-color: var(--bad); }
+  .note p, .warnbox p { margin: 0 0 .6rem; max-width: none; }
+  .note p:last-child, .warnbox p:last-child { margin-bottom: 0; }
+  .takeaway {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.3rem; margin: 2.5rem 0 0;
+  }
+  .takeaway h3 { margin: 0 0 .5rem; font-size: .95rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); }
+  .takeaway p { margin: 0; max-width: none; }
+  nav.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: .9rem; }
+  nav.pager a { text-decoration: none; }
+  nav.pager a:hover { text-decoration: underline; }
+  nav.pager span { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="index.html">← Retour au sommaire</a>
+
+<p class="kicker">Étape 4</p>
+<h1>Implémenter : 18 contrôles, pas 54</h1>
+<p class="lead">
+  Les 54 règles ne demandent pas 54 fonctions. Elles se ramènent à une poignée de
+  contrôles génériques qu'on paramètre — ce qui rend le code lisible et une nouvelle
+  règle gratuite à ajouter.
+</p>
+
+<h2>Pourquoi factoriser</h2>
+
+<p>
+  Écrire une fonction par règle produirait 54 fonctions dont 40 se ressembleraient à un
+  nom de colonne près. Personne ne relit ça, et chaque copie est une occasion
+  d'introduire une variante involontaire.
+</p>
+<p>
+  En regardant le registre, les répétitions sautent aux yeux : « cette colonne ne doit
+  pas être vide » revient cinq fois, « cette valeur doit appartenir à une liste » quatre
+  fois, « cette date doit précéder celle-là » trois fois. Ce sont les mêmes contrôles
+  appliqués à des colonnes différentes.
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Contrôle générique</th><th>Règles couvertes</th></tr></thead>
+  <tbody>
+    <tr><td>colonnes obligatoires présentes</td><td><code>*-SCH-001</code></td></tr>
+    <tr><td>valeur convertible (date, nombre, entier)</td><td><code>*-SCH-002/003</code></td></tr>
+    <tr><td>colonne non nulle</td><td><code>*-KEY-001</code>, <code>EVT-REF-001</code></td></tr>
+    <tr><td>identifiant unique</td><td><code>*-KEY-002</code></td></tr>
+    <tr><td>ligne intégralement dupliquée</td><td><code>*-KEY-003</code></td></tr>
+    <tr><td>valeur dans un ensemble fermé</td><td><code>*-CAT-001/002/003</code></td></tr>
+    <tr><td>inventaire d'une catégorie ouverte</td><td><code>MNT-CAT-001/002</code>, <code>EQP-CAT-002/003</code></td></tr>
+    <tr><td>clé étrangère résolue</td><td><code>EVT-REF-002</code>, <code>MNT-REF-001/002</code></td></tr>
+    <tr><td>ordre de deux dates</td><td><code>*-TMP-001</code></td></tr>
+    <tr><td>date dans un intervalle</td><td><code>*-TMP-002</code></td></tr>
+    <tr><td>durée déclarée vs écart réel</td><td><code>MNT-VAL-003</code></td></tr>
+    <tr><td>borne numérique min/max</td><td><code>*-VAL-*</code></td></tr>
+    <tr><td>incohérence entre deux colonnes</td><td><code>MNT-VAL-007</code></td></tr>
+    <tr><td>taux de valeurs absentes</td><td><code>*-NUL-*</code></td></tr>
+    <tr><td>motif dans du texte libre</td><td><code>MNT-PII-001</code></td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>La forme d'un contrôle</h2>
+
+<p>
+  Chaque contrôle est une <strong>fonction pure</strong> : elle reçoit un tableau, elle
+  renvoie un <em>masque</em> — une colonne de vrai/faux alignée sur les lignes, où
+  <code>True</code> signifie « cette ligne échoue ». Elle ne modifie rien, elle n'écrit
+  rien sur le disque.
+</p>
+
+<pre><code>def unresolved_reference(frame, column, reference_values):
+    """Clés étrangères renseignées mais absentes de la référence."""
+    known = set(reference_values)
+    present = ~is_null(frame, column)
+    return present &amp; ~frame[column].isin(known)</code></pre>
+
+<p>
+  Trois lignes. La même fonction sert pour <code>events → equipment</code>,
+  <code>maintenance → equipment</code> et <code>maintenance → events</code>. Ajouter une
+  quatrième relation ne demanderait aucun code neuf : une entrée dans le registre
+  suffirait.
+</p>
+
+<h2>Le principe « une cause = une règle »</h2>
+
+<p>
+  Détail apparemment mineur, conséquence lourde. Regardez la fin de la fonction
+  précédente : <code>present &amp; ...</code>. Les valeurs absentes sont exclues du
+  contrôle de référence.
+</p>
+<p>
+  Pourquoi ? Parce qu'une cellule vide est déjà signalée par le contrôle de nullité. Si
+  le contrôle de référence la signalait <em>aussi</em>, une seule cellule vide
+  produirait deux entrées de quarantaine. Même logique partout :
+</p>
+
+<ul>
+  <li>une valeur non convertible en nombre n'est pas <em>en plus</em> comptée hors bornes ;</li>
+  <li>une clé étrangère orpheline n'est pas <em>en plus</em> comptée comme contradiction ;</li>
+  <li>une date illisible n'est pas <em>en plus</em> comptée comme mal ordonnée.</li>
+</ul>
+
+<p>
+  Sans cette discipline, une poignée d'erreurs de saisie gonflerait le diagnostic à
+  plusieurs centaines d'anomalies apparentes, et la décision finale s'appuierait sur des
+  chiffres faux.
+</p>
+
+<h2>Trois contrôles qui sortent du moule</h2>
+
+<p>
+  Les contrôles génériques travaillent sur une table à la fois. Trois règles mettent en
+  cause <strong>deux tables</strong> et demandent une jointure préalable :
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Règle</th><th>Ce qu'elle compare</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>EVT-TMP-003</code></td>
+      <td>le début de l'événement contre la date de mise en service de son équipement</td>
+    </tr>
+    <tr>
+      <td><code>MNT-TMP-003</code></td>
+      <td>l'ouverture de l'intervention contre le début de son événement</td>
+    </tr>
+    <tr>
+      <td><code>MNT-REF-003</code></td>
+      <td>l'équipement de l'intervention contre celui de son événement</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Ces trois-là partagent une particularité : quand elles échouent, <strong>on ne sait
+  pas quelle table a tort</strong>. Une intervention ouverte avant son événement peut
+  venir d'une mauvaise date d'ouverture ou d'un mauvais début d'événement. D'où leur
+  décision commune : examen métier, jamais correction automatique.
+</p>
+
+<h2>Une décision de conception : la date de référence</h2>
+
+<p>
+  Plusieurs règles vérifient qu'une date n'est pas « dans le futur ». Le futur dépend du
+  jour où on lance l'audit — un résultat obtenu aujourd'hui ne serait pas reproductible
+  demain.
+</p>
+<p>
+  La date de référence est donc un <strong>paramètre explicite</strong>, pas un
+  <code>now()</code> enfoui dans le code, et elle est conservée dans le résultat.
+  Relancé avec la même date, l'audit rend exactement le même verdict.
+</p>
+
+<pre><code>result = run_audit(raw, reference_date=pd.Timestamp('2026-08-03'))</code></pre>
+
+<div class="takeaway">
+  <h3>À retenir</h3>
+  <p>
+    Un registre déclaratif branché sur des contrôles génériques sépare deux choses qui
+    n'ont pas la même durée de vie : <em>ce qu'on vérifie</em> (qui évolue avec la
+    connaissance du métier) et <em>comment on le vérifie</em> (qui bouge rarement).
+    Et chaque anomalie ne doit être comptée qu'une fois, par sa cause réelle.
+  </p>
+</div>
+
+<nav class="pager">
+  <a href="etape-3.html">← Étape 3 — Écrire les règles</a>
+  <a href="etape-5.html">Étape 5 — Tester →</a>
+</nav>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 1 — Monter l'espace de travail</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --border: #e3dfd8;
+    --text: #22201d; --muted: #635e56; --accent: #8a5a2b;
+    --accent-soft: #f5ece1; --code-bg: #f4f2ee;
+    --ok: #2f6b45; --warn: #8c6110; --bad: #a33a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17161a; --surface: #1f1e23; --border: #35333b;
+      --text: #e8e6e3; --muted: #a29d97; --accent: #d9a066;
+      --accent-soft: #2a2520; --code-bg: #232228;
+      --ok: #7fbf95; --warn: #d9b169; --bad: #e08a7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 48rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+  .back { display: inline-block; font-size: .87rem; color: var(--accent); text-decoration: none; margin-bottom: 1.75rem; }
+  .back:hover { text-decoration: underline; }
+  .kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+  h1 { font-size: 1.85rem; line-height: 1.22; margin: 0 0 1rem; letter-spacing: -.015em; }
+  h2 { font-size: 1.22rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.02rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { max-width: 38rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+  li { margin-bottom: .4rem; }
+  .lead { font-size: 1.06rem; color: var(--muted); }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: var(--code-bg); padding: .12em .35em; border-radius: 3px; border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; margin: 0 0 1.25rem; line-height: 1.5;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: .84rem; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; background: var(--surface); }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; font-size: .82rem; letter-spacing: .02em; color: var(--muted); background: var(--bg); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .note, .warnbox {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+  }
+  .warnbox { border-left-color: var(--bad); }
+  .note p, .warnbox p { margin: 0 0 .6rem; max-width: none; }
+  .note p:last-child, .warnbox p:last-child { margin-bottom: 0; }
+  .takeaway {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.3rem; margin: 2.5rem 0 0;
+  }
+  .takeaway h3 { margin: 0 0 .5rem; font-size: .95rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); }
+  .takeaway p { margin: 0; max-width: none; }
+  nav.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: .9rem; }
+  nav.pager a { text-decoration: none; }
+  nav.pager a:hover { text-decoration: underline; }
+  nav.pager span { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="index.html">← Retour au sommaire</a>
+
+<p class="kicker">Étape 1</p>
+<h1>Monter l'espace de travail</h1>
+<p class="lead">
+  Avant d'ouvrir le moindre fichier de données, il faut un environnement dans lequel
+  un résultat obtenu aujourd'hui pourra être retrouvé demain — et une copie de travail
+  qui ne salit pas ce qu'on a reçu.
+</p>
+
+<h2>Pourquoi cette étape</h2>
+
+<p>
+  Un audit produit des chiffres qui serviront à décider. Si ces chiffres dépendent de
+  la machine, de la version d'une bibliothèque ou de l'ordre dans lequel on a lancé les
+  choses, ils ne valent rien : personne, pas même soi-même trois semaines plus tard, ne
+  pourra les reproduire.
+</p>
+<p>
+  Deux précautions règlent l'essentiel. La première : <strong>séparer la référence de la
+  copie de travail</strong>. Ce qu'on a reçu reste intact quelque part, on travaille
+  ailleurs. La seconde : <strong>un environnement dédié</strong>, avec des versions de
+  bibliothèques figées, isolé du reste de la machine.
+</p>
+
+<h2>Ce qui a été fait</h2>
+
+<p>
+  Le formateur publie les modules dans un dépôt public,
+  <code>mahabot/atlas-cisia-s04</code>. Le module 2 y côtoie un <code>data_pack/</code>
+  commun à tous les modules et un dossier <code>tools/</code>. Le tout a été rapatrié en
+  local.
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr><th>Emplacement</th><th>Rôle</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>diagops-m2/starter/</code></td><td>La référence livrée. On n'y touche pas.</td></tr>
+    <tr><td><code>diagops-m2/work/M2/</code></td><td>La copie de travail. C'est là qu'on écrit.</td></tr>
+    <tr><td><code>diagops-m2/data_pack/</code></td><td>Les trois fichiers CSV et leur documentation.</td></tr>
+    <tr><td><code>diagops-m2/tools/</code></td><td>Utilitaires du dépôt pédagogique.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  L'environnement Python installe 11 bibliothèques à versions figées : pandas, numpy,
+  matplotlib, seaborn, scipy, scikit-learn, pandera, pydantic, pytest, jupyterlab,
+  nbconvert. Les chemins relatifs du starter (<code>../../data_pack/2026-S1</code>)
+  tombent juste depuis la copie de travail — vérifié avant d'aller plus loin.
+</p>
+
+<h2>Le premier lancement échoue</h2>
+
+<p>
+  Les tests fournis avec le starter sont censés passer. Résultat obtenu :
+  <strong>4 passés, 1 échoué</strong>.
+</p>
+
+<pre><code>FAILED tests/test_io.py::test_file_sha256_known_content
+AssertionError:
+- 38cc32b04546d8571adbe5542929faa4aefef0d904ca62340a55685844f1b64b
++ dfd23ca580acf6b2ced304c7ff200a3c282926fbe38bb8875303f64bbc6bbc90</code></pre>
+
+<p>
+  Le test écrit un petit fichier, calcule son empreinte SHA-256, et la compare à une
+  valeur écrite en dur. L'empreinte obtenue ne correspond pas.
+</p>
+
+<h3>Pourquoi — et ce n'est pas l'installation</h3>
+
+<p>
+  Le test écrit son fichier ainsi :
+</p>
+
+<pre><code>sample.write_text("diagops\n", encoding="utf-8")</code></pre>
+
+<p>
+  En mode texte, Windows traduit le saut de ligne <code>\n</code> en <code>\r\n</code>.
+  Le fichier fait donc <strong>9 octets au lieu de 8</strong>. Une empreinte SHA-256
+  change intégralement dès qu'un seul octet diffère. Vérification directe :
+</p>
+
+<pre><code>LF   b"diagops\n"    → 38cc32b04546d857...   (attendu par le test)
+CRLF b"diagops\r\n"  → dfd23ca580acf6b2...   (obtenu sous Windows)
+
+p.read_bytes()  →  b'diagops\r\n'</code></pre>
+
+<p>
+  La fonction <code>file_sha256()</code>, elle, est correcte : elle lit en binaire, par
+  blocs. C'est le test qui fabrique mal son fichier d'entrée. Il passe sous Linux et
+  macOS, il ne peut pas passer sous Windows.
+</p>
+
+<h3>La correction</h3>
+
+<pre><code># write_bytes et pas write_text : en mode texte, Windows traduit
+# "\n" en "\r\n" et le fichier fait 9 octets au lieu de 8 — le
+# checksum attendu devient inatteignable.
+sample.write_bytes(b"diagops\n")</code></pre>
+
+<p>
+  <code>write_bytes</code> plutôt que le paramètre <code>newline="\n"</code> : un test
+  de checksum n'a rien à faire en mode texte, autant que ce soit explicite. La
+  correction est appliquée <strong>uniquement dans la copie de travail</strong> — le
+  starter reste intact, ce qui permet de montrer le correctif sous forme de différence.
+</p>
+
+<pre><code>$ pytest -q
+.....                                    [100%]
+5 passed in 0.76s</code></pre>
+
+<div class="warnbox">
+  <p>
+    <strong>Ce que cette panne enseigne.</strong> Un contrôle dont le résultat dépend du
+    système d'exploitation n'est pas un contrôle : c'est une source de faux verdicts.
+    Ici l'enjeu dépasse le test — les empreintes servent justement à prouver que les
+    fichiers reçus n'ont pas bougé. Elles ne valent que si tout le monde les calcule en
+    binaire.
+  </p>
+</div>
+
+<div class="takeaway">
+  <h3>À retenir</h3>
+  <p>
+    Séparer la référence de la copie de travail permet de corriger sans effacer. Et un
+    échec de test, au premier lancement, n'accuse pas forcément l'installation : ici il
+    désignait un défaut réel de portabilité dans le code fourni.
+  </p>
+</div>
+
+<nav class="pager">
+  <span>Début du parcours</span>
+  <a href="etape-2.html">Étape 2 — Comprendre les données →</a>
+</nav>
+
+</div>
+</body>
+</html>

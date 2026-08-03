@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 7 — Réviser les règles</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --border: #e3dfd8;
+    --text: #22201d; --muted: #635e56; --accent: #8a5a2b;
+    --accent-soft: #f5ece1; --code-bg: #f4f2ee;
+    --ok: #2f6b45; --warn: #8c6110; --bad: #a33a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17161a; --surface: #1f1e23; --border: #35333b;
+      --text: #e8e6e3; --muted: #a29d97; --accent: #d9a066;
+      --accent-soft: #2a2520; --code-bg: #232228;
+      --ok: #7fbf95; --warn: #d9b169; --bad: #e08a7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 48rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+  .back { display: inline-block; font-size: .87rem; color: var(--accent); text-decoration: none; margin-bottom: 1.75rem; }
+  .back:hover { text-decoration: underline; }
+  .kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+  h1 { font-size: 1.85rem; line-height: 1.22; margin: 0 0 1rem; letter-spacing: -.015em; }
+  h2 { font-size: 1.22rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.02rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { max-width: 38rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+  li { margin-bottom: .4rem; }
+  .lead { font-size: 1.06rem; color: var(--muted); }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: var(--code-bg); padding: .12em .35em; border-radius: 3px; border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; margin: 0 0 1.25rem; line-height: 1.5;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: .84rem; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; background: var(--surface); }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; font-size: .82rem; letter-spacing: .02em; color: var(--muted); background: var(--bg); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .note, .warnbox {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+  }
+  .warnbox { border-left-color: var(--bad); }
+  .note p, .warnbox p { margin: 0 0 .6rem; max-width: none; }
+  .note p:last-child, .warnbox p:last-child { margin-bottom: 0; }
+  .takeaway {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.3rem; margin: 2.5rem 0 0;
+  }
+  .takeaway h3 { margin: 0 0 .5rem; font-size: .95rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); }
+  .takeaway p { margin: 0; max-width: none; }
+  nav.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: .9rem; }
+  nav.pager a { text-decoration: none; }
+  nav.pager a:hover { text-decoration: underline; }
+  nav.pager span { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="index.html">← Retour au sommaire</a>
+
+<p class="kicker">Étape 7</p>
+<h1>Réviser les règles qui se sont trompées</h1>
+<p class="lead">
+  Deux règles se sont révélées mal posées face aux données réelles. Les corriger est
+  légitime — à condition que la correction soit visible, datée et justifiée. Sinon on
+  ne révise pas : on maquille.
+</p>
+
+<h2>Réviser sans tricher</h2>
+
+<p>
+  Il y a une tension apparente avec l'étape 3. On a écrit les règles avant de voir les
+  données précisément pour que les données ne les déplacent pas. Et voilà qu'on les
+  déplace.
+</p>
+<p>
+  La différence tient en trois points. Une révision honnête <strong>dit ce qui l'a
+  déclenchée</strong> (le chiffre observé), <strong>dit pourquoi la règle initiale était
+  fausse</strong> (pas « gênante » — fausse), et <strong>laisse une trace datée</strong>.
+  Une révision malhonnête change le seuil en silence et présente le résultat final comme
+  s'il avait toujours été prévu.
+</p>
+<p>
+  Ici les révisions sont consignées dans le code lui-même, dans une liste
+  <code>REVISIONS</code> lisible à côté du registre.
+</p>
+
+<h2>Première règle : <code>MNT-VAL-007</code></h2>
+
+<p>
+  La règle disait : un coût de pièces strictement positif implique au moins une pièce
+  remplacée. Résultat : <strong>595 échecs sur 1 800 lignes, soit 33 %</strong>.
+</p>
+<p>
+  La répartition par type d'intervention est parlante :
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Type d'intervention</th><th class="num">Lignes en échec</th></tr></thead>
+  <tbody>
+    <tr><td>calibration</td><td class="num">135</td></tr>
+    <tr><td>inspection</td><td class="num">121</td></tr>
+    <tr><td>corrective</td><td class="num">114</td></tr>
+    <tr><td>preventive</td><td class="num">113</td></tr>
+    <tr><td>replacement</td><td class="num">112</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  <strong>Une anomalie ne se distribue pas comme ça.</strong> Une erreur de saisie se
+  concentre : sur un opérateur, sur une période, sur un type d'intervention. Une
+  répartition quasi uniforme sur les cinq catégories décrit un <em>motif structurel</em>
+  du jeu de données — ici, le coût et le compteur de pièces sont simplement indépendants.
+</p>
+<p>
+  La règle avait été inventée depuis le schéma, sans aucune connaissance du terrain. Or
+  ce cas de figure est parfaitement banal en maintenance : consommables, fluides,
+  forfait de déplacement, pièces non nomenclaturées.
+</p>
+
+<div class="warnbox">
+  <p>
+    <strong>Le pire est que le critère existait déjà.</strong> À l'étape 3, la règle
+    « <code>labor_hours</code> ≤ durée » avait été écartée d'avance au motif qu'elle
+    produirait du faux positif en masse. Le même raisonnement s'appliquait mot pour mot
+    à <code>MNT-VAL-007</code>. Il n'a pas été appliqué.
+  </p>
+</div>
+
+<p>
+  <strong>Décision :</strong> le constat reste publié — 33 % des interventions facturent
+  des pièces sans en déclarer, c'est une question à poser au métier. Le rejet est
+  retiré. La règle passe en <code>signalement</code>, sévérité <code>mineure</code>.
+</p>
+
+<h2>Seconde règle : <code>EVT-CAT-001</code></h2>
+
+<p>
+  50 échecs sur la colonne <code>event_type</code>. En regardant les valeurs
+  effectivement rencontrées :
+</p>
+
+<pre><code>event_type
+incident        233
+observation     119
+intervention    118
+alert            49   ← inconnue du schéma
+Incident          1   ← inconnue du schéma</code></pre>
+
+<p>
+  Deux causes sans le moindre rapport, sous une seule règle.
+</p>
+
+<h3>Cause A — un désaccord de vocabulaire</h3>
+
+<p>
+  Le <code>SCHEMA.md</code> annonce <code>alerte</code>, en français. Les données
+  écrivent <code>alert</code>, en anglais. Ce n'est pas une anomalie de donnée : c'est
+  une <strong>contradiction entre la documentation et la livraison</strong>, et elle
+  touche 9,4 % de la table de façon parfaitement régulière.
+</p>
+<p>
+  Mettre 49 lignes saines en quarantaine parce que deux documents ne s'accordent pas sur
+  un mot serait absurde. La bonne réponse est de signaler l'écart et de demander quelle
+  nomenclature fait foi.
+</p>
+
+<h3>Cause B — une vraie erreur de saisie</h3>
+
+<p>
+  <code>Incident</code> avec une majuscule : un cas isolé, une casse déviante. C'est
+  l'anomalie réelle — et elle était <strong>invisible</strong>, noyée dans les 49 autres.
+</p>
+
+<h3>La révision : trois règles au lieu d'une</h3>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Suffixe</th><th>Situation</th><th>Décision</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><code>CAT</code></td>
+      <td>valeur inconnue et <strong>isolée</strong></td>
+      <td><code>quarantaine_examen_metier</code></td>
+    </tr>
+    <tr>
+      <td><code>NOM</code></td>
+      <td>valeur inconnue et <strong>récurrente</strong></td>
+      <td><code>signalement</code> — écart de nomenclature</td>
+    </tr>
+    <tr>
+      <td><code>CAS</code></td>
+      <td>seule la casse ou l'espacement dévie</td>
+      <td><code>correction_certaine</code></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Point important : ce découpage est appliqué à <strong>toutes</strong> les énumérations
+  fermées — <code>criticality</code>, <code>event_type</code>, <code>severity</code> — et
+  pas seulement à celle où le problème est apparu. Une règle ne peut pas changer de forme
+  selon la colonne où elle a trouvé quelque chose ; ce serait ajuster l'outil au
+  résultat.
+</p>
+
+<h2>Une erreur dans la révision elle-même</h2>
+
+<p>
+  Reste à définir « récurrente ». Premier jet : au moins 5 % des lignes. Lancement des
+  tests :
+</p>
+
+<pre><code>FAILED tests/test_audit.py::test_anomalies_plantees_sont_detectees
+assert 0 == 1   #  EQP-CAT-001 attendait 1 échec, en trouve 0</code></pre>
+
+<p>
+  Le jeu d'essai de l'étape 5 contient trois équipements, dont un avec une criticité
+  <code>urgent</code> plantée exprès. Une valeur sur trois lignes pèse <strong>33 %</strong>.
+  Elle franchissait donc le seuil de 5 % et se retrouvait classée « écart de
+  nomenclature » au lieu d'« anomalie isolée ».
+</p>
+<p>
+  Le test avait raison contre la correction. Une part relative seule ne veut rien dire
+  sur une petite table. Correction de la correction : <strong>deux conditions
+  cumulatives</strong>.
+</p>
+
+<pre><code>recurrent_values = counts[
+    (shares >= recurrence_threshold)   # au moins 5 % des lignes
+    &amp; (counts >= recurrence_minimum)   # et au moins 10 occurrences
+].index</code></pre>
+
+<p>
+  Sur les données réelles, <code>alert</code> compte 49 occurrences pour 9,4 % : les deux
+  conditions sont remplies. <code>URGENT</code> compte 1 occurrence : isolée, comme
+  attendu. Sur le jeu d'essai, <code>urgent</code> compte 1 occurrence : isolée aussi. Les
+  35 tests repassent.
+</p>
+
+<h2>L'effet mesuré</h2>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th></th><th class="num">Avant révision</th><th class="num">Après</th></tr></thead>
+  <tbody>
+    <tr><td>Règles au registre</td><td class="num">54</td><td class="num">60</td></tr>
+    <tr><td>Entrées en quarantaine</td><td class="num">701</td><td class="num">57</td></tr>
+    <tr><td>Lignes distinctes concernées</td><td class="num">670</td><td class="num">28</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="note">
+  <p>
+    <strong>Les 644 lignes sorties de la quarantaine n'ont pas disparu.</strong> Elles
+    sont signalées et chiffrées dans le rapport, sans être écartées du jeu transmis.
+    C'est toute la différence entre un audit qui documente et un audit qui mutile.
+  </p>
+</div>
+
+<div class="takeaway">
+  <h3>À retenir</h3>
+  <p>
+    Un taux d'échec massif et régulier accuse la règle, pas les données. Une règle qui
+    mélange deux causes rend la plus rare invisible. Et une correction se teste comme le
+    reste : celle-ci était fausse, un test l'a arrêtée.
+  </p>
+</div>
+
+<nav class="pager">
+  <a href="etape-6.html">← Étape 6 — Mesurer</a>
+  <a href="etape-8.html">Étape 8 — Le bilan des anomalies →</a>
+</nav>
+
+</div>
+</body>
+</html>

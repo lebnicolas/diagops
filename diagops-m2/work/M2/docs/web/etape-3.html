@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 3 — Écrire les règles avant de mesurer</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --border: #e3dfd8;
+    --text: #22201d; --muted: #635e56; --accent: #8a5a2b;
+    --accent-soft: #f5ece1; --code-bg: #f4f2ee;
+    --ok: #2f6b45; --warn: #8c6110; --bad: #a33a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17161a; --surface: #1f1e23; --border: #35333b;
+      --text: #e8e6e3; --muted: #a29d97; --accent: #d9a066;
+      --accent-soft: #2a2520; --code-bg: #232228;
+      --ok: #7fbf95; --warn: #d9b169; --bad: #e08a7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 48rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+  .back { display: inline-block; font-size: .87rem; color: var(--accent); text-decoration: none; margin-bottom: 1.75rem; }
+  .back:hover { text-decoration: underline; }
+  .kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+  h1 { font-size: 1.85rem; line-height: 1.22; margin: 0 0 1rem; letter-spacing: -.015em; }
+  h2 { font-size: 1.22rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.02rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { max-width: 38rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+  li { margin-bottom: .4rem; }
+  .lead { font-size: 1.06rem; color: var(--muted); }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: var(--code-bg); padding: .12em .35em; border-radius: 3px; border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; margin: 0 0 1.25rem; line-height: 1.5;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: .84rem; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; background: var(--surface); }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; font-size: .82rem; letter-spacing: .02em; color: var(--muted); background: var(--bg); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .note, .warnbox {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+  }
+  .warnbox { border-left-color: var(--bad); }
+  .note p, .warnbox p { margin: 0 0 .6rem; max-width: none; }
+  .note p:last-child, .warnbox p:last-child { margin-bottom: 0; }
+  .takeaway {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.3rem; margin: 2.5rem 0 0;
+  }
+  .takeaway h3 { margin: 0 0 .5rem; font-size: .95rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); }
+  .takeaway p { margin: 0; max-width: none; }
+  nav.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: .9rem; }
+  nav.pager a { text-decoration: none; }
+  nav.pager a:hover { text-decoration: underline; }
+  nav.pager span { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="index.html">← Retour au sommaire</a>
+
+<p class="kicker">Étape 3</p>
+<h1>Écrire les règles avant de regarder les données</h1>
+<p class="lead">
+  54 règles posées à partir de la documentation seule, chacune avec son identifiant, sa
+  justification et la décision prévue en cas d'échec. Aucune valeur des fichiers n'a
+  été consultée à ce stade.
+</p>
+
+<h2>Pourquoi dans cet ordre</h2>
+
+<p>
+  Une règle formulée <em>après</em> avoir vu les données a tendance à épouser ce qu'on
+  vient de trouver. On place le seuil juste au-dessus du cas gênant. On requalifie en
+  « acceptable » ce qu'on ne sait pas traiter. Le glissement est insidieux parce qu'il
+  ne ressemble pas à de la triche : à chaque instant, chaque petit ajustement paraît
+  raisonnable.
+</p>
+<p>
+  En posant la règle <strong>et sa décision d'échec</strong> à l'avance, le chiffre ne
+  peut plus déplacer la frontière. Il la franchit ou il ne la franchit pas.
+</p>
+<p>
+  Cela ne fige rien définitivement — une règle peut être révisée après mesure, et c'est
+  précisément ce qui arrivera à l'étape 7. Mais la révision se voit, elle est datée, et
+  elle doit se justifier.
+</p>
+
+<h2>Comment une règle est écrite</h2>
+
+<p>Sept champs, dont trois qui font tout le travail :</p>
+
+<pre><code>rule_id             EVT-REF-002
+source              events
+column              equipment_id
+description         equipment_id existe dans equipment.equipment_id
+justification       Relation annoncée par le brief. Une référence
+                    orpheline signale un parc incomplet ou un
+                    identifiant erroné ; dans les deux cas
+                    l'événement n'est pas interprétable.
+severity            bloquante
+decision_if_failed  quarantaine_examen_metier</code></pre>
+
+<p>
+  L'identifiant suit une convention lisible :
+  <code>&lt;SOURCE&gt;-&lt;FAMILLE&gt;-&lt;NNN&gt;</code>. Les sources sont
+  <code>EQP</code>, <code>EVT</code>, <code>MNT</code>.
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Famille</th><th>Ce qu'elle contrôle</th></tr></thead>
+  <tbody>
+    <tr><td><code>SCH</code></td><td>structure : colonnes présentes, types lisibles</td></tr>
+    <tr><td><code>KEY</code></td><td>identifiants : présence, unicité, doublons de lignes</td></tr>
+    <tr><td><code>REF</code></td><td>références d'une table vers une autre</td></tr>
+    <tr><td><code>CAT</code></td><td>catégories : valeurs autorisées, inventaires</td></tr>
+    <tr><td><code>TMP</code></td><td>cohérence des dates entre elles</td></tr>
+    <tr><td><code>VAL</code></td><td>valeurs numériques impossibles</td></tr>
+    <tr><td><code>NUL</code></td><td>valeurs manquantes</td></tr>
+    <tr><td><code>PII</code></td><td>données personnelles dans du texte libre</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Sévérité et décision : deux choses différentes</h3>
+
+<p>
+  La <strong>sévérité</strong> dit la gravité — <code>bloquante</code>,
+  <code>majeure</code>, <code>mineure</code>. La <strong>décision</strong> dit quoi
+  faire, et c'est elle qui engage :
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Décision</th><th>Sens</th></tr></thead>
+  <tbody>
+    <tr><td><code>arret_audit</code></td><td>la source est inexploitable, on ne poursuit pas</td></tr>
+    <tr><td><code>correction_certaine</code></td><td>correction reproductible et non ambiguë, tracée</td></tr>
+    <tr><td><code>quarantaine_rejet</code></td><td>la ligne est écartée du jeu transmis</td></tr>
+    <tr><td><code>quarantaine_examen_metier</code></td><td>la ligne est isolée, un humain tranche</td></tr>
+    <tr><td><code>signalement</code></td><td>constat chiffré, aucune ligne écartée</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h2>Le registre initial : 54 règles</h2>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Source</th><th class="num">Bloquantes</th><th class="num">Majeures</th><th class="num">Mineures</th><th class="num">Total</th></tr></thead>
+  <tbody>
+    <tr><td><code>equipment</code></td><td class="num">3</td><td class="num">6</td><td class="num">6</td><td class="num">15</td></tr>
+    <tr><td><code>events</code></td><td class="num">5</td><td class="num">8</td><td class="num">1</td><td class="num">14</td></tr>
+    <tr><td><code>maintenance_history</code></td><td class="num">5</td><td class="num">15</td><td class="num">5</td><td class="num">25</td></tr>
+    <tr><td><strong>Total</strong></td><td class="num"><strong>13</strong></td><td class="num"><strong>29</strong></td><td class="num"><strong>12</strong></td><td class="num"><strong>54</strong></td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Par décision : 3 <code>arret_audit</code>, 4 <code>quarantaine_rejet</code>,
+  <strong>35 <code>quarantaine_examen_metier</code></strong>,
+  3 <code>correction_certaine</code>, 9 <code>signalement</code>.
+</p>
+
+<div class="note">
+  <p>
+    <strong>Ce déséquilibre est volontaire.</strong> 35 règles sur 54 renvoient à un
+    examen humain, 3 seulement à une correction automatique. À ce stade on ne sait
+    presque rien du terrain, et corriger d'après un schéma seul reviendrait à la
+    « correction silencieuse » — la faute la plus grave d'un audit, parce qu'elle est
+    invisible dans le résultat.
+  </p>
+</div>
+
+<h2>Les quatre bornes inventées</h2>
+
+<p>
+  Le schéma ne donne aucune borne numérique. Il a fallu en poser. Chacune vise une
+  <strong>erreur de saisie mécanique</strong> — pas un jugement métier :
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Règle</th><th>Borne</th><th>Ce qu'elle cherche</th></tr></thead>
+  <tbody>
+    <tr><td><code>EQP-TMP-002</code></td><td>mise en service ≥ 1950-01-01</td><td>les dates sentinelles type <code>1900-01-01</code></td></tr>
+    <tr><td><code>EQP-VAL-002</code></td><td>puissance ≤ 10 000 kW</td><td>des watts saisis dans une colonne en kW</td></tr>
+    <tr><td><code>MNT-VAL-002</code></td><td>arrêt ≤ 43 200 min (30 j)</td><td>des secondes saisies dans une colonne en minutes</td></tr>
+    <tr><td><code>MNT-VAL-004</code></td><td>main d'œuvre ≤ 2 000 h</td><td>au-delà d'une année-homme sur une intervention</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Toutes en <code>quarantaine_examen_metier</code>, <strong>jamais en rejet</strong> :
+  une valeur hors borne est <em>suspecte</em>, pas fausse. Une borne arbitraire qui
+  supprimerait des lignes serait indéfendable.
+</p>
+
+<h2>Deux règles écartées d'avance</h2>
+
+<p>
+  Écrire une règle est facile ; savoir laquelle ne pas écrire l'est moins. Deux
+  candidates ont été rejetées avant même d'être codées :
+</p>
+
+<ul>
+  <li>
+    <strong><code>labor_hours</code> ≤ durée de l'intervention.</strong> Plusieurs
+    techniciens peuvent intervenir simultanément : 6 heures de main d'œuvre sur une
+    intervention de 2 heures est parfaitement normal. La règle aurait produit du faux
+    positif en masse.
+  </li>
+  <li>
+    <strong>pièces remplacées ⇒ coût &gt; 0.</strong> Une pièce prise sur un stock
+    interne peut ne pas être valorisée. Seul le sens inverse a été retenu — facturer
+    sans remplacer paraissait incohérent.
+  </li>
+</ul>
+
+<div class="warnbox">
+  <p>
+    <strong>Ce sens inverse était pourtant faux aussi.</strong> Le critère qui a servi à
+    écarter la première règle — « attention au faux positif de masse » — n'a pas été
+    appliqué à la seconde. Elle échouera sur 595 lignes sur 1 800. La suite à
+    <a href="etape-7.html">l'étape 7</a>.
+  </p>
+</div>
+
+<div class="takeaway">
+  <h3>À retenir</h3>
+  <p>
+    Écrire la règle <em>et</em> sa décision d'échec avant la mesure empêche le résultat
+    de déplacer la frontière. Et une règle inventée depuis un schéma, sans connaissance
+    du terrain, doit par défaut renvoyer à un humain — pas corriger toute seule.
+  </p>
+</div>
+
+<nav class="pager">
+  <a href="etape-2.html">← Étape 2 — Comprendre les données</a>
+  <a href="etape-4.html">Étape 4 — Implémenter →</a>
+</nav>
+
+</div>
+</body>
+</html>

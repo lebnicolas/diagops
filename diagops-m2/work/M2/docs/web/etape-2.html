@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 2 — Comprendre les données</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --border: #e3dfd8;
+    --text: #22201d; --muted: #635e56; --accent: #8a5a2b;
+    --accent-soft: #f5ece1; --code-bg: #f4f2ee;
+    --ok: #2f6b45; --warn: #8c6110; --bad: #a33a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17161a; --surface: #1f1e23; --border: #35333b;
+      --text: #e8e6e3; --muted: #a29d97; --accent: #d9a066;
+      --accent-soft: #2a2520; --code-bg: #232228;
+      --ok: #7fbf95; --warn: #d9b169; --bad: #e08a7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 48rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+  .back { display: inline-block; font-size: .87rem; color: var(--accent); text-decoration: none; margin-bottom: 1.75rem; }
+  .back:hover { text-decoration: underline; }
+  .kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+  h1 { font-size: 1.85rem; line-height: 1.22; margin: 0 0 1rem; letter-spacing: -.015em; }
+  h2 { font-size: 1.22rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.02rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { max-width: 38rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+  li { margin-bottom: .4rem; }
+  .lead { font-size: 1.06rem; color: var(--muted); }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: var(--code-bg); padding: .12em .35em; border-radius: 3px; border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; margin: 0 0 1.25rem; line-height: 1.5;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: .84rem; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; background: var(--surface); }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; font-size: .82rem; letter-spacing: .02em; color: var(--muted); background: var(--bg); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .note, .warnbox {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+  }
+  .warnbox { border-left-color: var(--bad); }
+  .note p, .warnbox p { margin: 0 0 .6rem; max-width: none; }
+  .note p:last-child, .warnbox p:last-child { margin-bottom: 0; }
+  .takeaway {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.3rem; margin: 2.5rem 0 0;
+  }
+  .takeaway h3 { margin: 0 0 .5rem; font-size: .95rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); }
+  .takeaway p { margin: 0; max-width: none; }
+  nav.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: .9rem; }
+  nav.pager a { text-decoration: none; }
+  nav.pager a:hover { text-decoration: underline; }
+  nav.pager span { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="index.html">← Retour au sommaire</a>
+
+<p class="kicker">Étape 2</p>
+<h1>Comprendre ce que contiennent les fichiers</h1>
+<p class="lead">
+  On ne peut pas juger la qualité de données qu'on n'a pas comprises. Avant tout
+  contrôle, il faut pouvoir dire en une phrase ce que représente une ligne dans chaque
+  fichier.
+</p>
+
+<h2>Pourquoi cette étape</h2>
+
+<p>
+  La question la plus utile devant un fichier inconnu est la plus simple :
+  <strong>« que représente une ligne ? »</strong> On appelle ça le <em>grain</em> de la
+  table. Tant qu'on ne l'a pas énoncé, tout le reste est bancal — on ne sait pas si un
+  doublon est une anomalie ou une situation normale, ni ce qu'un comptage compte
+  vraiment.
+</p>
+<p>
+  Vient ensuite la <em>clé</em> : la colonne censée identifier une ligne sans ambiguïté.
+  Puis les <em>relations</em> : comment une table en désigne une autre. Ces trois
+  éléments — grain, clé, relations — suffisent à écrire l'essentiel des contrôles.
+</p>
+
+<div class="note">
+  <p>
+    <strong>Attention à la nature du document.</strong> Le fichier <code>SCHEMA.md</code>
+    livré avec les données décrit ce qui est <em>annoncé</em>. Ce n'est pas une
+    description de ce que les fichiers contiennent réellement — c'est un contrat, et
+    tout l'objet de l'audit est de vérifier s'il est tenu.
+  </p>
+</div>
+
+<h2>Les trois tables</h2>
+
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr>
+      <th>Table</th><th>Une ligne représente</th><th>Clé annoncée</th><th class="num">Lignes</th><th class="num">Colonnes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>equipment</code></td>
+      <td>un équipement du parc industriel</td>
+      <td><code>equipment_id</code></td>
+      <td class="num">420</td><td class="num">7</td>
+    </tr>
+    <tr>
+      <td><code>events</code></td>
+      <td>un événement survenu sur un équipement — incident, intervention, observation, alerte</td>
+      <td><code>event_id</code></td>
+      <td class="num">520</td><td class="num">7</td>
+    </tr>
+    <tr>
+      <td><code>maintenance_history</code></td>
+      <td>une intervention de maintenance</td>
+      <td><code>maintenance_id</code></td>
+      <td class="num">1 800</td><td class="num">13</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Les volumes réels correspondent exactement aux volumes annoncés, et aucune colonne
+  n'est manquante. C'est le premier constat de l'audit, et il est bon à prendre : la
+  structure tient.
+</p>
+
+<h2>Les relations</h2>
+
+<p>
+  Le brief annonce trois liens entre les tables :
+</p>
+
+<pre><code>events.equipment_id              → equipment.equipment_id
+maintenance_history.equipment_id → equipment.equipment_id
+maintenance_history.event_id     → events.event_id</code></pre>
+
+<p>
+  Lues ensemble, elles dessinent une chaîne : une intervention se rattache à un
+  événement, qui se rattache à un équipement.
+</p>
+
+<pre><code>maintenance_history  ──event_id──▶  events  ──equipment_id──▶  equipment
+         │                                                          ▲
+         └──────────────────── equipment_id ────────────────────────┘</code></pre>
+
+<h2>La redondance — et ce qu'elle permet</h2>
+
+<p>
+  En regardant ce schéma, quelque chose saute aux yeux : <strong>l'équipement d'une
+  intervention est désignable par deux chemins différents</strong>. Directement, par la
+  colonne <code>equipment_id</code> de l'intervention. Indirectement, en passant par
+  l'événement auquel elle est rattachée.
+</p>
+<p>
+  Les deux chemins devraient toujours donner le même résultat. S'ils divergent, il y a
+  une <em>contradiction interne</em> — et rien, dans les données, ne dit lequel des deux
+  a raison.
+</p>
+<p>
+  Ce contrôle n'est écrit nulle part dans la documentation. Il naît uniquement du fait
+  que deux relations, annoncées séparément, se recoupent. Il donnera la règle
+  <code>MNT-REF-003</code>, qui trouvera effectivement un cas dans les données réelles.
+</p>
+
+<div class="note">
+  <p>
+    <strong>Une autre limite déjà visible.</strong> Le schéma prévoit trois périodes de
+    livraison (<code>2026-S1</code>, <code>2026-S2</code>, <code>2027-S1</code>) mais la
+    livraison n'en contient qu'une. Toute conclusion tirée de ces données ne vaudra que
+    pour un semestre — c'est une limite à énoncer, pas à dissimuler.
+  </p>
+</div>
+
+<div class="takeaway">
+  <h3>À retenir</h3>
+  <p>
+    Grain, clé, relations : trois questions qui tiennent en une phrase chacune, et qui
+    conditionnent tous les contrôles suivants. Et le meilleur contrôle du lot n'était
+    écrit dans aucun document — il vient de la lecture croisée de deux relations
+    documentées séparément.
+  </p>
+</div>
+
+<nav class="pager">
+  <a href="etape-1.html">← Étape 1 — Monter l'espace</a>
+  <a href="etape-3.html">Étape 3 — Écrire les règles →</a>
+</nav>
+
+</div>
+</body>
+</html>

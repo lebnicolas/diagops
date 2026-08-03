@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 8 — Le bilan des anomalies</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --border: #e3dfd8;
+    --text: #22201d; --muted: #635e56; --accent: #8a5a2b;
+    --accent-soft: #f5ece1; --code-bg: #f4f2ee;
+    --ok: #2f6b45; --warn: #8c6110; --bad: #a33a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17161a; --surface: #1f1e23; --border: #35333b;
+      --text: #e8e6e3; --muted: #a29d97; --accent: #d9a066;
+      --accent-soft: #2a2520; --code-bg: #232228;
+      --ok: #7fbf95; --warn: #d9b169; --bad: #e08a7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 48rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+  .back { display: inline-block; font-size: .87rem; color: var(--accent); text-decoration: none; margin-bottom: 1.75rem; }
+  .back:hover { text-decoration: underline; }
+  .kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+  h1 { font-size: 1.85rem; line-height: 1.22; margin: 0 0 1rem; letter-spacing: -.015em; }
+  h2 { font-size: 1.22rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.02rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { max-width: 38rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+  li { margin-bottom: .4rem; }
+  .lead { font-size: 1.06rem; color: var(--muted); }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: var(--code-bg); padding: .12em .35em; border-radius: 3px; border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; margin: 0 0 1.25rem; line-height: 1.5;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: .84rem; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; background: var(--surface); }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; font-size: .82rem; letter-spacing: .02em; color: var(--muted); background: var(--bg); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .note, .warnbox {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+  }
+  .warnbox { border-left-color: var(--bad); }
+  .note p, .warnbox p { margin: 0 0 .6rem; max-width: none; }
+  .note p:last-child, .warnbox p:last-child { margin-bottom: 0; }
+  .takeaway {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.3rem; margin: 2.5rem 0 0;
+  }
+  .takeaway h3 { margin: 0 0 .5rem; font-size: .95rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); }
+  .takeaway p { margin: 0; max-width: none; }
+  .todo { list-style: none; padding-left: 0; }
+  .todo li { padding-left: 1.6rem; position: relative; margin-bottom: .75rem; }
+  .todo li::before { content: "☐"; position: absolute; left: 0; color: var(--accent); }
+  nav.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: .9rem; }
+  nav.pager a { text-decoration: none; }
+  nav.pager a:hover { text-decoration: underline; }
+  nav.pager span { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="index.html">← Retour au sommaire</a>
+
+<p class="kicker">Étape 8</p>
+<h1>Le bilan des anomalies</h1>
+<p class="lead">
+  Le diagnostic de qualité est mesuré, les règles sont stabilisées. Voici, famille par
+  famille, ce que l'audit a réellement trouvé dans les 2 740 lignes — et comment chaque
+  constat sera traité.
+</p>
+
+<h2>L'état à ce stade</h2>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Indicateur</th><th class="num">Valeur</th></tr></thead>
+  <tbody>
+    <tr><td>Lignes auditées</td><td class="num">2 740</td></tr>
+    <tr><td>Règles au registre</td><td class="num">60</td></tr>
+    <tr><td>Règles sans aucun échec</td><td class="num">36</td></tr>
+    <tr><td>Entrées en quarantaine</td><td class="num">57</td></tr>
+    <tr><td>Lignes distinctes concernées</td><td class="num">28</td></tr>
+    <tr><td>Tests au vert</td><td class="num">35</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Les 57 entrées se répartissent en <strong>43 renvoyées à un examen métier</strong> et
+  <strong>14 corrigeables de façon certaine</strong>. Une même ligne peut apparaître
+  plusieurs fois si elle enfreint plusieurs règles — d'où 57 entrées pour 28 lignes.
+</p>
+
+<h2>Les anomalies trouvées</h2>
+
+<h3>Identifiants et doublons</h3>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Constat</th><th class="num">Cas</th><th>Traitement</th></tr></thead>
+  <tbody>
+    <tr><td><code>maintenance_id</code> dupliqués</td><td class="num">10</td><td>examen métier</td></tr>
+    <tr><td><code>equipment_id</code> dupliqués</td><td class="num">8</td><td>examen métier</td></tr>
+    <tr><td><code>event_id</code> dupliqués</td><td class="num">8</td><td>examen métier</td></tr>
+    <tr><td>lignes intégralement dupliquées (5 + 4 + 4)</td><td class="num">13</td><td>correction certaine</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  La distinction est essentielle. Une <strong>ligne strictement identique</strong> à une
+  autre peut être supprimée sans rien perdre : l'opération est reproductible et sans
+  ambiguïté. Un <strong>même identifiant porté par deux lignes différentes</strong> est
+  un tout autre problème — rien ne dit laquelle garder, et choisir automatiquement
+  serait une correction silencieuse.
+</p>
+
+<h3>Relations entre tables</h3>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Constat</th><th class="num">Cas</th></tr></thead>
+  <tbody>
+    <tr><td>références orphelines (événement ou intervention pointant un inexistant)</td><td class="num">3</td></tr>
+    <tr><td>contradiction équipement / événement — <code>MNT-REF-003</code></td><td class="num">1</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Le second cas est celui repéré à <a href="etape-2.html">l'étape 2</a> : une
+  intervention qui désigne un équipement, rattachée à un événement qui en désigne un
+  autre. Aucun document ne demandait ce contrôle — il vient de la lecture croisée de deux
+  relations documentées séparément.
+</p>
+
+<h3>Dates</h3>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Constat</th><th class="num">Cas</th></tr></thead>
+  <tbody>
+    <tr><td>événement antérieur à la mise en service de son équipement</td><td class="num">1</td></tr>
+    <tr><td>événement terminé avant d'avoir commencé</td><td class="num">1</td></tr>
+    <tr><td>intervention clôturée avant son ouverture</td><td class="num">1</td></tr>
+    <tr><td>mise en service dans le futur</td><td class="num">1</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Valeurs impossibles</h3>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Constat</th><th class="num">Cas</th></tr></thead>
+  <tbody>
+    <tr><td>puissance nominale négative</td><td class="num">1</td></tr>
+    <tr><td>durée d'arrêt négative</td><td class="num">1</td></tr>
+    <tr><td>coût de pièces négatif</td><td class="num">1</td></tr>
+    <tr><td>durée d'arrêt supérieure à 30 jours</td><td class="num">1</td></tr>
+    <tr><td>durée déclarée supérieure à l'écart réel entre ouverture et clôture</td><td class="num">2</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Catégories</h3>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Constat</th><th class="num">Cas</th><th>Traitement</th></tr></thead>
+  <tbody>
+    <tr><td><code>severity</code> = <code>URGENT</code></td><td class="num">1</td><td>examen métier</td></tr>
+    <tr><td><code>event_type</code> = <code>Incident</code></td><td class="num">1</td><td>correction certaine (casse)</td></tr>
+    <tr><td><code>intervention_type</code> = <code>Correctif</code></td><td class="num">1</td><td>signalé (catégorie ouverte)</td></tr>
+    <tr><td><code>event_type</code> = <code>alert</code></td><td class="num">49</td><td>signalé — écart de nomenclature</td></tr>
+  </tbody>
+</table>
+</div>
+
+<h3>Données personnelles</h3>
+
+<p>
+  <strong>2 notes</strong> de bon de travail déclenchent un motif de donnée personnelle
+  dans le champ de texte libre <code>work_order_note</code>. La détection est automatique
+  et <em>indicative</em> : elle produit des faux positifs — une référence technique peut
+  ressembler à un numéro de téléphone — et des faux négatifs — un nom seul, sans
+  civilité, passe au travers. Elle sert à cibler une relecture humaine, pas à conclure.
+</p>
+<p>
+  C'est le seul constat de ce bilan qui appelle un traitement immédiat, avant même les
+  corrections de qualité : <a href="etape-9.html">l'étape 9 lui est consacrée</a>.
+</p>
+
+<h3>Ce que les inventaires racontent</h3>
+
+<ul>
+  <li>
+    <strong>19 valeurs distinctes</strong> pour <code>equipment_type</code> sur 420
+    équipements, dont <code>Pump </code> et <code>pump</code> — deux libellés que seul un
+    espace de fin sépare. Ils éclatent artificiellement les effectifs d'une même famille.
+  </li>
+  <li>
+    <strong>Taux de valeurs absentes très faibles</strong> : <code>manufacturer</code>
+    0,2 %, <code>end_at</code> 2,5 %, <code>closed_at</code> 2,7 %. Pour les deux
+    dernières, un vide n'est même pas une anomalie : il signifie « en cours ».
+  </li>
+</ul>
+
+<h2>Ce que ce bilan déclenche</h2>
+
+<p>
+  Les constats se répartissent en trois traitements, et un seul est urgent.
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Traitement</th><th>Quand</th></tr></thead>
+  <tbody>
+    <tr>
+      <td><strong>Les données personnelles</strong> — 2 notes</td>
+      <td>immédiatement : tant qu'elles sont là, aucune table ne peut partir en aval</td>
+    </tr>
+    <tr>
+      <td><strong>Les 14 corrections certaines</strong> — doublons stricts, casse</td>
+      <td>ensuite, avec état avant / après pour chacune</td>
+    </tr>
+    <tr>
+      <td><strong>Les 43 cas en examen métier</strong></td>
+      <td>ils restent en quarantaine ; c'est un humain qui tranche, pas l'audit</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Le premier fait l'objet de <a href="etape-9.html">l'étape 9</a>. Il passe devant les
+  autres pour une raison simple : une correction de qualité mal appliquée se rejoue, une
+  donnée personnelle diffusée ne se rattrape pas.
+</p>
+
+<div class="takeaway">
+  <h3>À retenir</h3>
+  <p>
+    28 lignes sur 2 740 posent problème, et aucune n'a été supprimée : elles sont
+    isolées, motivées, traçables. Le livrable d'un audit n'est pas un jeu de données
+    propre — c'est un jeu de données <em>dont on connaît les défauts</em>, avec de quoi
+    refaire le raisonnement.
+  </p>
+</div>
+
+<nav class="pager">
+  <a href="etape-7.html">← Étape 7 — Réviser</a>
+  <a href="etape-9.html">Étape 9 — Données personnelles →</a>
+</nav>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Étape 9 — Traiter les données personnelles</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --border: #e3dfd8;
+    --text: #22201d; --muted: #635e56; --accent: #8a5a2b;
+    --accent-soft: #f5ece1; --code-bg: #f4f2ee;
+    --ok: #2f6b45; --warn: #8c6110; --bad: #a33a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17161a; --surface: #1f1e23; --border: #35333b;
+      --text: #e8e6e3; --muted: #a29d97; --accent: #d9a066;
+      --accent-soft: #2a2520; --code-bg: #232228;
+      --ok: #7fbf95; --warn: #d9b169; --bad: #e08a7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 48rem; margin: 0 auto; padding: 2rem 1.25rem 5rem; }
+  .back { display: inline-block; font-size: .87rem; color: var(--accent); text-decoration: none; margin-bottom: 1.75rem; }
+  .back:hover { text-decoration: underline; }
+  .kicker { font-size: .78rem; letter-spacing: .09em; text-transform: uppercase; color: var(--accent); font-weight: 600; margin: 0 0 .5rem; }
+  h1 { font-size: 1.85rem; line-height: 1.22; margin: 0 0 1rem; letter-spacing: -.015em; }
+  h2 { font-size: 1.22rem; margin: 2.5rem 0 .75rem; letter-spacing: -.01em; padding-bottom: .4rem; border-bottom: 1px solid var(--border); }
+  h3 { font-size: 1.02rem; margin: 1.75rem 0 .5rem; }
+  p, ul, ol { max-width: 38rem; }
+  p { margin: 0 0 1rem; }
+  ul, ol { margin: 0 0 1rem; padding-left: 1.35rem; }
+  li { margin-bottom: .4rem; }
+  .lead { font-size: 1.06rem; color: var(--muted); }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: var(--code-bg); padding: .12em .35em; border-radius: 3px; border: 1px solid var(--border);
+  }
+  pre {
+    background: var(--code-bg); border: 1px solid var(--border); border-radius: 8px;
+    padding: .9rem 1rem; overflow-x: auto; margin: 0 0 1.25rem; line-height: 1.5;
+  }
+  pre code { background: none; border: none; padding: 0; font-size: .84rem; }
+  .tablewrap { overflow-x: auto; margin: 0 0 1.5rem; border: 1px solid var(--border); border-radius: 8px; }
+  table { border-collapse: collapse; width: 100%; font-size: .9rem; background: var(--surface); }
+  th, td { text-align: left; padding: .55rem .8rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+  th { font-weight: 600; font-size: .82rem; letter-spacing: .02em; color: var(--muted); background: var(--bg); }
+  tr:last-child td { border-bottom: none; }
+  td.num, th.num { text-align: right; font-variant-numeric: tabular-nums; }
+  .note, .warnbox {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.5rem 0;
+  }
+  .warnbox { border-left-color: var(--bad); }
+  .note p, .warnbox p { margin: 0 0 .6rem; max-width: none; }
+  .note p:last-child, .warnbox p:last-child { margin-bottom: 0; }
+  .takeaway {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 8px;
+    padding: 1.1rem 1.3rem; margin: 2.5rem 0 0;
+  }
+  .takeaway h3 { margin: 0 0 .5rem; font-size: .95rem; text-transform: uppercase; letter-spacing: .07em; color: var(--accent); }
+  .takeaway p { margin: 0; max-width: none; }
+  .todo { list-style: none; padding-left: 0; }
+  .todo li { padding-left: 1.6rem; position: relative; margin-bottom: .75rem; }
+  .todo li::before { content: "☐"; position: absolute; left: 0; color: var(--accent); }
+  nav.pager { display: flex; justify-content: space-between; gap: 1rem; margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); font-size: .9rem; }
+  nav.pager a { text-decoration: none; }
+  nav.pager a:hover { text-decoration: underline; }
+  nav.pager span { color: var(--muted); }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<a class="back" href="index.html">← Retour au sommaire</a>
+
+<p class="kicker">Étape 9</p>
+<h1>Traiter les données personnelles</h1>
+<p class="lead">
+  Deux notes sur 1 800 contiennent un numéro de téléphone et une adresse électronique.
+  Les repérer était la partie facile. Décider quoi en faire — et surtout savoir
+  <em>où</em> le masquage doit s'appliquer — occupe toute cette étape.
+</p>
+
+<h2>Pourquoi cette étape</h2>
+
+<p>
+  L'audit de qualité (<a href="etape-6.html">étape 6</a>) avait levé la règle
+  <code>MNT-PII-001</code> sur 2 lignes : le champ de texte libre
+  <code>work_order_note</code> contenait des informations se rapportant à des personnes.
+  Un champ de commentaire est exactement l'endroit où ce genre de donnée arrive sans
+  avoir été prévu — personne ne l'a conçu pour ça, mais tout le monde y écrit.
+</p>
+<p>
+  Le brief demande trois choses distinctes : <strong>repérer</strong>,
+  <strong>distinguer la détection automatique de la vérification humaine</strong>, puis
+  <strong>justifier</strong> ce qu'on conserve, ce qu'on masque, ce qu'on écarte.
+</p>
+<p>
+  Le principe qui guide la décision s'appelle la <em>minimisation</em> : on ne garde que
+  ce qui est nécessaire à la finalité poursuivie. La finalité, ici, c'est le diagnostic
+  de pannes industrielles. Un numéro de téléphone n'y sert à rien.
+</p>
+
+<h2>La vérification humaine — et pourquoi elle est exhaustive</h2>
+
+<p>
+  Un motif automatique ne prouve rien tout seul : il produit des faux positifs (une
+  référence technique ressemble à un numéro) et des faux négatifs (un nom sans civilité
+  passe au travers). Il faut donc regarder.
+</p>
+<p>
+  Or le champ réserve une bonne surprise. Sur 1 800 lignes, il ne contient que
+  <strong>7 valeurs distinctes</strong> : c'est un champ à gabarit, cinq phrases types
+  recopiées des centaines de fois.
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th class="num">Occurrences</th><th>Note</th></tr></thead>
+  <tbody>
+    <tr><td class="num">385</td><td>Cause non confirmée, mesures complémentaires nécessaires.</td></tr>
+    <tr><td class="num">371</td><td>Réglage effectué, surveillance demandée à la prochaine ronde.</td></tr>
+    <tr><td class="num">358</td><td>Pièce remplacée puis remise en service progressive.</td></tr>
+    <tr><td class="num">352</td><td>Contrôle visuel et essai fonctionnel réalisés.</td></tr>
+    <tr><td class="num">332</td><td>Intervention préventive conforme au plan.</td></tr>
+    <tr><td class="num">1</td><td>Rappeler Nadia B. au 06 12 34 56 78.</td></tr>
+    <tr><td class="num">1</td><td>Compte rendu transmis à leo.martin@example.test.</td></tr>
+  </tbody>
+</table>
+</div>
+
+<div class="note">
+  <p>
+    <strong>La différence qui change tout.</strong> Lire 7 valeurs, ce n'est pas
+    « regarder quelques lignes au hasard » : c'est lire <em>l'intégralité</em> du contenu
+    possible du champ. La vérification est donc <strong>exhaustive, pas
+    échantillonnée</strong> — et cela permet une affirmation autrement plus forte :
+    <em>aucun faux négatif n'est possible</em>. Il n'existe aucune huitième formulation
+    qui aurait pu échapper au motif automatique.
+  </p>
+  <p>
+    Un échantillon, lui, ne permet jamais de conclure sur ce qu'on n'a pas regardé. C'est
+    précisément le genre de raisonnement qui rend un audit défendable ou fragile.
+  </p>
+</div>
+
+<h3>Les deux cas, en détail</h3>
+
+<p>
+  Un point mérite d'être noté : <code>example.test</code> est un domaine réservé par la
+  <strong>RFC 2606</strong>, qui existe pour la documentation et les tests et ne peut pas
+  être enregistré. Et <code>06 12 34 56 78</code> est une suite. Les deux valeurs sont
+  manifestement fabriquées pour l'exercice.
+</p>
+<p>
+  Ça ne change rien au traitement. Un audit ne trie pas les données personnelles selon
+  qu'elles lui paraissent vraies : il applique la même règle à toutes. La conclusion
+  écrite dans le rapport signale l'observation, sans en tirer de dispense.
+</p>
+
+<h2>La décision : masquer le champ, garder la ligne</h2>
+
+<p>
+  Les deux lignes concernées portent des données de maintenance parfaitement valides :
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr><th>Intervention</th><th>Type</th><th class="num">Durée</th><th class="num">Coût pièces</th></tr>
+  </thead>
+  <tbody>
+    <tr><td><code>MNT-2026S1-1121</code></td><td>calibration</td><td class="num">141 min</td><td class="num">211,93 €</td></tr>
+    <tr><td><code>MNT-2026S1-1334</code></td><td>preventive</td><td class="num">55 min</td><td class="num">194,04 €</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Deux mouvements opposés, donc, qu'il faut tenir ensemble. La minimisation impose de
+  retirer ce qui n'est pas nécessaire à la finalité : le téléphone et l'adresse partent.
+  Mais rien ne justifie de jeter deux interventions saines à cause d'un champ de
+  commentaire — ce serait perdre de l'information utile pour un motif qui ne la concerne
+  pas.
+</p>
+<p>
+  <strong>Résultat : 1 800 lignes conservées sur 1 800.</strong> Seul le contenu de
+  <code>work_order_note</code> est remplacé, sur ces deux lignes.
+</p>
+
+<h2>Pourquoi masquer le champ entier, et pas les fragments</h2>
+
+<p>
+  C'est le point le plus intéressant de l'étape, et le jeu de données fournit lui-même
+  l'argument.
+</p>
+<p>
+  Le réflexe naturel serait de masquer chirurgicalement ce que le motif a trouvé : on
+  remplace le numéro, on garde le reste. Appliqué à la première note, ça donne :
+</p>
+
+<pre><code>Rappeler Nadia B. au 06 12 34 56 78.
+        ↓  masquage par motif
+Rappeler Nadia B. au [TELEPHONE MASQUE].</code></pre>
+
+<p>
+  Le numéro a disparu. <strong>Le prénom et l'initiale du nom sont toujours là</strong> —
+  et aucun motif ne les attrape, puisqu'aucune civilité ne les précède. Le détecteur de
+  noms cherche <code>M.</code>, <code>Mme</code>, <code>Dr</code> ; « Nadia B. » arrive
+  nue dans la phrase.
+</p>
+
+<div class="warnbox">
+  <p>
+    <strong>Une ligne qui <em>paraît</em> assainie et porte encore un nom en clair est
+    pire qu'une ligne non traitée.</strong> La seconde inspire la prudence ; la première
+    inspire une confiance injustifiée. C'est la fausse assurance qui fait les fuites.
+  </p>
+</div>
+
+<p>
+  D'où le choix du remplacement intégral. On ne cherche pas à sauver un texte qu'on ne
+  peut pas garantir :
+</p>
+
+<pre><code>[NOTE MASQUEE — DONNEE PERSONNELLE]</code></pre>
+
+<p>
+  Le raisonnement général : un masquage par motif ne peut être sûr que si l'on sait
+  énumérer <em>toutes</em> les formes de données personnelles présentes. Sur du texte
+  libre, personne ne le peut. Masquer le champ entier ne demande, lui, aucune hypothèse.
+</p>
+
+<h2>Où le masquage s'applique — et où il ne doit surtout pas</h2>
+
+<p>
+  Le traitement produit trois artefacts. Ils n'ont ni le même lecteur, ni la même
+  destination — et c'est ce qui décide de ce qu'ils contiennent.
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead>
+    <tr><th>Artefact</th><th>Contenu de la note</th><th>Destination</th></tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Quarantaine</td>
+      <td><strong>en clair</strong></td>
+      <td>un relecteur humain, à l'intérieur de l'audit</td>
+    </tr>
+    <tr>
+      <td>Journal de transformation</td>
+      <td><strong>avant en clair</strong> → après masqué</td>
+      <td>vérifier ce qui a été fait, et pouvoir le défaire</td>
+    </tr>
+    <tr>
+      <td>Table préparée</td>
+      <td><code>[NOTE MASQUEE — DONNEE PERSONNELLE]</code></td>
+      <td>transmise en aval, au module suivant</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<pre><code>QUARANTAINE (relecteur humain)
+MNT-2026S1-1121   Rappeler Nadia B. au 06 12 34 56 78.
+MNT-2026S1-1334   Compte rendu transmis à leo.martin@example.test.
+
+JOURNAL DE TRANSFORMATION (avant → après)
+[MNT-2026S1-1121] Rappeler Nadia B. au 06 12 34 56 78.     → [NOTE MASQUEE — DONNEE PERSONNELLE]
+[MNT-2026S1-1334] Compte rendu transmis à leo.martin@...   → [NOTE MASQUEE — DONNEE PERSONNELLE]
+
+TABLE PRÉPARÉE (transmise en aval)
+MNT-2026S1-1121   [NOTE MASQUEE — DONNEE PERSONNELLE]
+MNT-2026S1-1334   [NOTE MASQUEE — DONNEE PERSONNELLE]</code></pre>
+
+<p>
+  <strong>Le masquage ne concerne que la table préparée.</strong> C'est le seul artefact
+  qui part en aval, le seul qui alimentera un traitement ultérieur. La protection se joue
+  là, et nulle part ailleurs.
+</p>
+
+<h3>L'erreur : sur-appliquer la protection jusqu'à détruire la preuve</h3>
+
+<div class="warnbox">
+  <p>
+    <strong>Premier réflexe, et il était mauvais :</strong> masquer <em>aussi</em> dans la
+    quarantaine et dans le journal, en n'y écrivant que le motif déclencheur —
+    <code>&lt;motif: telephone&gt;</code> au lieu du texte.
+  </p>
+  <p>
+    Ça paraissait plus prudent. En réalité, ça ne protégeait rien et ça cassait
+    l'essentiel.
+  </p>
+</div>
+
+<p>
+  Le brief est explicite sur ce que ces deux fichiers doivent contenir : pour chaque
+  anomalie, « <strong>la règle, la valeur observée et la décision</strong> » ; pour chaque
+  transformation, <strong>l'état initial</strong>. Remplacer la valeur observée par une
+  étiquette supprime précisément ce qu'un relecteur doit voir pour trancher.
+</p>
+
+<ul>
+  <li>
+    Devant <code>&lt;motif: telephone&gt;</code>, <strong>impossible de distinguer un vrai
+    numéro d'une référence technique mal détectée</strong> — donc impossible de valider ou
+    d'infirmer la détection. La quarantaine existe justement pour qu'un humain arbitre ;
+    vidée de son contenu, elle ne sert plus à rien.
+  </li>
+  <li>
+    Sans état initial dans le journal, <strong>la transformation n'est ni vérifiable ni
+    réversible</strong>. On ne peut plus démontrer que le masquage a porté sur ce qu'on
+    dit, ni revenir en arrière si la détection s'avère fausse.
+  </li>
+</ul>
+
+<p>
+  Le raisonnement qui remet les choses en place tient en une phrase : <strong>le fichier
+  de quarantaine est un artefact d'audit destiné à un humain, il n'alimente aucun
+  traitement en aval.</strong> Sa circulation se gouverne comme celle de n'importe quel
+  document de travail contenant des données sensibles — par les droits d'accès, pas par
+  l'amputation de son contenu.
+</p>
+
+<div class="note">
+  <p>
+    <strong>La morale est plus intéressante que la faute.</strong> Un principe de
+    protection appliqué sans regarder à qui s'adresse chaque document finit par supprimer
+    la traçabilité tout en ne protégeant personne. « Masquer partout » n'est pas une
+    politique : il faut savoir <em>ce qui sort</em>, et vers qui.
+  </p>
+</div>
+
+<h2>Ce qui garantit que c'est vrai</h2>
+
+<p>
+  Le traitement vit dans <code>src/data_pipeline/prepare.py</code>, accompagné de
+  <strong>7 nouveaux tests</strong> dans <code>test_prepare.py</code>. Total :
+  <strong>42 tests au vert</strong>.
+</p>
+
+<div class="tablewrap">
+<table>
+  <thead><tr><th>Test</th><th>Ce qu'il garantit</th></tr></thead>
+  <tbody>
+    <tr>
+      <td>masquage effectif en aval</td>
+      <td>
+        dans la table préparée, les deux notes portent le marqueur et aucun fragment
+        (<code>Nadia</code>, <code>06 12 34 56 78</code>, <code>leo.martin</code>,
+        <code>example.test</code>) ne subsiste
+      </td>
+    </tr>
+    <tr>
+      <td>traçabilité préservée</td>
+      <td>
+        dans le journal, <code>before</code> contient bien la note d'origine et
+        <code>after</code> porte le marqueur
+      </td>
+    </tr>
+    <tr>
+      <td>idempotence</td>
+      <td>
+        relancer le masquage sur une table déjà traitée ne produit aucune
+        transformation — le pipeline peut être rejoué sans dégât
+      </td>
+    </tr>
+    <tr>
+      <td>source intacte</td>
+      <td>la table d'origine n'est pas modifiée par le traitement</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+
+<p>
+  Les deux premiers se contrediraient s'ils portaient sur le même fichier. C'est
+  exactement l'intérêt : l'un exige que le texte ait disparu <em>là où ça compte</em>,
+  l'autre qu'il ait été conservé <em>là où il sert de preuve</em>. Écrits ensemble, ils
+  interdisent aussi bien la fuite en aval que l'effacement de la traçabilité.
+</p>
+<p>
+  Le test de traçabilité est d'ailleurs l'inverse de celui que j'avais écrit en premier :
+  il vérifiait l'absence du texte dans le journal, il vérifie désormais sa présence.
+</p>
+
+<h2>La suite</h2>
+
+<p>
+  Les données personnelles étant traitées, les tables peuvent circuler à l'intérieur de
+  l'audit. Restent les deux questions d'analyse — la couverture des catégories et les
+  concentrations d'erreurs du module précédent —, puis les corrections de qualité et la
+  décision finale.
+</p>
+<p>
+  <a href="etape-10.html">L'étape 10</a> aborde les deux questions d'analyse. Elle est
+  d'un genre particulier : c'est celle où l'on découvre surtout ce qu'on n'a pas le droit
+  de conclure.
+</p>
+
+<div class="takeaway">
+  <h3>À retenir</h3>
+  <p>
+    Un champ à faible cardinalité permet une vérification exhaustive, et une vérification
+    exhaustive autorise une affirmation qu'un échantillon ne permettra jamais. Masquer par
+    motif laisse en clair ce que les motifs ignorent. Et protéger ce qui part en aval
+    n'est pas la même chose qu'effacer la traçabilité de l'audit : la seconde ne protège
+    personne, et casse la vérifiabilité du travail.
+  </p>
+</div>
+
+<nav class="pager">
+  <a href="etape-8.html">← Étape 8 — Le bilan des anomalies</a>
+  <a href="etape-10.html">Étape 10 — Couverture et erreurs →</a>
+</nav>
+
+</div>
+</body>
+</html>

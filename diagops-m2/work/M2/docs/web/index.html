@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Auditer des données — journal de bord M2</title>
+<style>
+  :root {
+    --bg: #fbfaf8; --surface: #ffffff; --border: #e3dfd8;
+    --text: #22201d; --muted: #635e56; --accent: #8a5a2b;
+    --accent-soft: #f5ece1; --code-bg: #f4f2ee;
+    --ok: #2f6b45; --warn: #8c6110; --bad: #a33a2c;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #17161a; --surface: #1f1e23; --border: #35333b;
+      --text: #e8e6e3; --muted: #a29d97; --accent: #d9a066;
+      --accent-soft: #2a2520; --code-bg: #232228;
+      --ok: #7fbf95; --warn: #d9b169; --bad: #e08a7b;
+    }
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 17px; line-height: 1.65;
+  }
+  .wrap { max-width: 52rem; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
+  header.top { border-bottom: 1px solid var(--border); padding-bottom: 1.75rem; margin-bottom: 2.5rem; }
+  .kicker {
+    font-size: .78rem; letter-spacing: .09em; text-transform: uppercase;
+    color: var(--accent); font-weight: 600; margin: 0 0 .6rem;
+  }
+  h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 .75rem; letter-spacing: -.015em; }
+  h2 { font-size: 1.25rem; margin: 2.75rem 0 .75rem; letter-spacing: -.01em; }
+  p { margin: 0 0 1rem; max-width: 40rem; }
+  .lead { font-size: 1.08rem; color: var(--muted); max-width: 40rem; }
+  a { color: var(--accent); }
+  code {
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+    font-size: .88em; background: var(--code-bg); padding: .12em .35em;
+    border-radius: 3px; border: 1px solid var(--border);
+  }
+  .facts { display: flex; flex-wrap: wrap; gap: .5rem; margin: 1.5rem 0 0; padding: 0; list-style: none; }
+  .facts li {
+    background: var(--surface); border: 1px solid var(--border);
+    border-radius: 999px; padding: .3rem .85rem; font-size: .85rem; color: var(--muted);
+  }
+  .facts strong { color: var(--text); font-variant-numeric: tabular-nums; }
+  ol.steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 1rem; }
+  .card {
+    display: block; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 10px; padding: 1.25rem 1.4rem; text-decoration: none; color: inherit;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card .num {
+    display: inline-block; font-size: .75rem; font-weight: 700; letter-spacing: .08em;
+    color: var(--accent); background: var(--accent-soft); border-radius: 4px;
+    padding: .15rem .5rem; margin-bottom: .6rem;
+  }
+  .card h3 { margin: 0 0 .5rem; font-size: 1.1rem; letter-spacing: -.01em; }
+  .card p { margin: 0; color: var(--muted); font-size: .95rem; max-width: none; }
+  .card .more { display: block; margin-top: .75rem; font-size: .87rem; color: var(--accent); font-weight: 500; }
+  .note {
+    border-left: 3px solid var(--accent); background: var(--accent-soft);
+    padding: .9rem 1.1rem; border-radius: 0 6px 6px 0; margin: 1.75rem 0;
+  }
+  .note p { margin: 0; max-width: none; }
+  footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--border); color: var(--muted); font-size: .87rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="top">
+  <p class="kicker">Module 2 · DiagOps</p>
+  <h1>Auditer des données avant de s'en servir</h1>
+  <p class="lead">
+    Trois fichiers arrivent. Personne ne garantit qu'ils sont propres. Avant de les
+    transmettre à l'étape suivante, il faut comprendre ce qu'ils contiennent, mesurer
+    leurs défauts, et décider — en le justifiant — s'ils sont utilisables.
+  </p>
+  <ul class="facts">
+    <li><strong>2 740</strong> lignes de données</li>
+    <li><strong>60</strong> règles de qualité</li>
+    <li><strong>47</strong> tests</li>
+    <li><strong>28</strong> lignes en quarantaine</li>
+    <li><strong>0</strong> ligne supprimée</li>
+  </ul>
+</header>
+
+<p>
+  Ce journal raconte le travail dans l'ordre où il a été fait, avec ses erreurs.
+  Cinq d'entre elles sont volontairement mises en avant : un test du starter qui ne
+  pouvait pas passer sous Windows, un bug qui vidait la quarantaine des trois quarts
+  de son contenu, deux règles mal écrites qu'il a fallu réviser après les avoir
+  confrontées aux données, un principe de protection sur-appliqué au point de détruire
+  la preuve qu'il était censé accompagner, et un diagnostic de jointure sur le point
+  d'annoncer une rupture d'intégrité qui n'existait pas. C'est là que se joue
+  l'essentiel : <strong>un audit ne se juge pas à sa propreté, mais à sa capacité à se
+  corriger sans effacer ses traces.</strong>
+</p>
+
+<h2>Les dix étapes</h2>
+
+<ol class="steps">
+
+  <li>
+    <a class="card" href="etape-1.html">
+      <span class="num">Étape 1</span>
+      <h3>Monter l'espace de travail</h3>
+      <p>
+        Récupérer le module, isoler une copie de travail, installer l'environnement.
+        Dès le premier lancement, un test fourni par le formateur échoue — et ce n'est
+        pas la faute de l'installation : il compare le SHA-256 d'un fichier que Windows
+        n'écrit pas comme Linux.
+      </p>
+      <span class="more">Lire le détail →</span>
+    </a>
+  </li>
+
+  <li>
+    <a class="card" href="etape-2.html">
+      <span class="num">Étape 2</span>
+      <h3>Comprendre ce que contiennent les fichiers</h3>
+      <p>
+        Que représente une ligne ? Quelle colonne identifie cette ligne de manière
+        unique ? Comment les trois tables se relient-elles ? Une redondance apparaît :
+        l'équipement d'une intervention est désignable par deux chemins différents.
+      </p>
+      <span class="more">Lire le détail →</span>
+    </a>
+  </li>
+
+  <li>
+    <a class="card" href="etape-3.html">
+      <span class="num">Étape 3</span>
+      <h3>Écrire les règles avant de regarder les données</h3>
+      <p>
+        54 règles posées à partir de la documentation seule, chacune avec son identifiant,
+        sa justification et sa décision en cas d'échec. Écrite après coup, une règle a
+        tendance à épouser ce qu'on vient de trouver.
+      </p>
+      <span class="more">Lire le détail →</span>
+    </a>
+  </li>
+
+  <li>
+    <a class="card" href="etape-4.html">
+      <span class="num">Étape 4</span>
+      <h3>Implémenter : 18 contrôles, pas 54</h3>
+      <p>
+        Les 54 règles se ramènent à une poignée de contrôles génériques paramétrés.
+        Chacun est une fonction pure qui renvoie la liste des lignes fautives, sans rien
+        modifier ni écrire.
+      </p>
+      <span class="more">Lire le détail →</span>
+    </a>
+  </li>
+
+  <li>
+    <a class="card" href="etape-5.html">
+      <span class="num">Étape 5</span>
+      <h3>Tester les contrôles eux-mêmes</h3>
+      <p>
+        Un contrôle qui ne détecte rien peut être excellent — ou cassé. 35 tests sur un
+        jeu de neuf lignes aux anomalies plantées exprès, avec des cas valides autant
+        que des cas invalides.
+      </p>
+      <span class="more">Lire le détail →</span>
+    </a>
+  </li>
+
+  <li>
+    <a class="card" href="etape-6.html">
+      <span class="num">Étape 6</span>
+      <h3>Mesurer sur les vraies données</h3>
+      <p>
+        Premier passage sur les 2 740 lignes. Un bug apparaît dans mon propre code : la
+        quarantaine ne contenait que 76 anomalies au lieu de 701, parce que je tronquais
+        la liste au mauvais endroit.
+      </p>
+      <span class="more">Lire le détail →</span>
+    </a>
+  </li>
+
+  <li>
+    <a class="card" href="etape-7.html">
+      <span class="num">Étape 7</span>
+      <h3>Réviser les règles qui se sont trompées</h3>
+      <p>
+        Une règle qui échoue sur un tiers de la table ne décrit pas une anomalie. Une
+        autre mélangeait un défaut de documentation et une vraie erreur de saisie. Les
+        deux sont corrigées — et la correction est datée.
+      </p>
+      <span class="more">Lire le détail →</span>
+    </a>
+  </li>
+
+  <li>
+    <a class="card" href="etape-8.html">
+      <span class="num">Étape 8</span>
+      <h3>Le bilan des anomalies</h3>
+      <p>
+        Famille par famille, ce que l'audit a réellement trouvé : identifiants, doublons,
+        relations rompues, dates impossibles, catégories déviantes. 28 lignes sur 2 740,
+        et aucune supprimée.
+      </p>
+      <span class="more">Lire le détail →</span>
+    </a>
+  </li>
+
+  <li>
+    <a class="card" href="etape-9.html">
+      <span class="num">Étape 9</span>
+      <h3>Traiter les données personnelles</h3>
+      <p>
+        Deux notes contiennent un téléphone et une adresse mail. Le champ n'ayant que
+        7 valeurs distinctes, la vérification humaine est exhaustive — et le masquage
+        révèle une question plus subtile : dans quel fichier doit-il s'appliquer, et dans
+        lequel serait-il destructeur ?
+      </p>
+      <span class="more">Lire le détail →</span>
+    </a>
+  </li>
+
+  <li>
+    <a class="card" href="etape-10.html">
+      <span class="num">Étape 10</span>
+      <h3>Couverture et concentration des erreurs</h3>
+      <p>
+        41 équipements muets, un site à 16 lignes, douze types d'équipement trop rares
+        pour rien affirmer. Et une leçon plus sévère : les taux d'erreur les plus
+        spectaculaires reposent sur deux à huit cas — c'est l'étape où l'on apprend ce
+        qu'on n'a pas le droit de conclure.
+      </p>
+      <span class="more">Lire le détail →</span>
+    </a>
+  </li>
+
+</ol>
+
+<div class="note">
+  <p>
+    <strong>Le vocabulaire de départ.</strong> <em>Auditer</em> des données, c'est les
+    examiner sans les modifier. <em>Mettre en quarantaine</em>, c'est isoler une ligne
+    douteuse en gardant la trace de ce qu'on lui reproche, plutôt que de la supprimer.
+    Une <em>règle</em> est un contrôle nommé, avec une justification écrite et une
+    décision prévue à l'avance en cas d'échec.
+  </p>
+</div>
+
+<footer>
+  Journal de bord — module 2, audit et préparation des données DiagOps.
+  Les chiffres cités proviennent des exécutions réelles sur le jeu <code>2026-S1</code>.
+</footer>
+
+</div>
+</body>
+</html>
