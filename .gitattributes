@@ -1,0 +1,29 @@
+# Fins de ligne forcees en LF, y compris sur les copies de travail Windows.
+#
+# Sans cette regle, core.autocrlf=true convertit les fichiers en CRLF a chaque
+# checkout. Le contenu stocke reste en LF, mais les octets sur le disque
+# changent — et avec eux les empreintes SHA-256. Les checksums livres dans
+# data_pack/checksums.sha256 ne correspondraient plus aux fichiers extraits,
+# et le controle d'integrite de l'audit echouerait sans qu'aucune donnee ait
+# ete modifiee.
+#
+# Meme cause que le test test_io.py du starter M2, qui echouait sous Windows
+# parce que write_text traduisait "\n" en "\r\n".
+#
+# Reprend la configuration du depot pedagogique amont (mahabot/atlas-cisia-s04).
+
+* text=auto eol=lf
+
+*.csv   text eol=lf
+*.json  text eol=lf
+*.jsonl text eol=lf
+*.ipynb text eol=lf
+*.md    text eol=lf
+*.py    text eol=lf
+*.yaml  text eol=lf
+*.yml   text eol=lf
+
+*.pdf  binary
+*.png  binary
+*.jpg  binary
+*.jpeg binary
