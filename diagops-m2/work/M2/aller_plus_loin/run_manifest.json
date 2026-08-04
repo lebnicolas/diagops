@@ -1,0 +1,161 @@
+{
+  "run": {
+    "reference_date": "2026-08-04",
+    "decision": "REJECTED",
+    "conformity": [
+      {
+        "batch_id": "diagops-2026-S1-m2-published",
+        "observed": "ACCEPTED_WITH_WARNINGS",
+        "expected": null,
+        "conforms": true,
+        "explanation": "ACCEPTED_WITH_WARNINGS — aucune decision anterieure, le lot passe"
+      },
+      {
+        "batch_id": "diagops-2026-S1-m2-candidate-r2",
+        "observed": "REJECTED",
+        "expected": "REJECTED",
+        "conforms": true,
+        "explanation": "REJECTED — conforme a la decision actee"
+      }
+    ]
+  },
+  "policy": {
+    "version": "1.0.0",
+    "file": "quality_rules.yaml",
+    "sha256": "cfc552c4ebc289d0e793615b3c1bcbb34957a196755732fb01f5d048f112c96b",
+    "recurrence_population": "context",
+    "recurrence_share": 0.05,
+    "recurrence_minimum": 10
+  },
+  "baseline": {
+    "batch_id": "diagops-2026-S1-m2-published",
+    "label": "Socle M2 publie",
+    "files": {
+      "equipment": {
+        "path": "equipment/equipment.csv",
+        "sha256": "d8c51e4cb152107fa5c7a27ae00f96afb19d83f8d92a9c220d0d1f4528c885a0",
+        "rows": 420
+      },
+      "events": {
+        "path": "events/events.csv",
+        "sha256": "4a7d3b5178562a5666e20baad4fe2103f72532296edaf7b26109c2a6edd6872a",
+        "rows": 520
+      },
+      "maintenance": {
+        "path": "maintenance/maintenance_history.csv",
+        "sha256": "635d354bb8ce13b617c5289920ab5a2237191b220b667b0c339a47ce12f247c1",
+        "rows": 1800
+      }
+    },
+    "status": "ACCEPTED_WITH_WARNINGS",
+    "counts": {
+      "error": 0,
+      "warning": 25,
+      "info": 1
+    },
+    "rules_triggered": [
+      "MNT-KEY-002",
+      "EQP-KEY-002",
+      "EVT-KEY-002",
+      "MNT-KEY-003",
+      "EQP-KEY-003",
+      "EVT-KEY-003",
+      "MNT-VAL-003",
+      "MNT-PII-001",
+      "EQP-CAS-002",
+      "EQP-TMP-001",
+      "EQP-VAL-001",
+      "EVT-REF-002",
+      "EVT-CAS-001",
+      "EVT-CAT-002",
+      "EVT-TMP-001",
+      "EVT-TMP-003",
+      "MNT-REF-001",
+      "MNT-REF-002",
+      "MNT-REF-003",
+      "MNT-CAS-001",
+      "MNT-CAT-004",
+      "MNT-TMP-001",
+      "MNT-VAL-001",
+      "MNT-VAL-002",
+      "MNT-VAL-005",
+      "MNT-VAL-007"
+    ]
+  },
+  "candidate": {
+    "batch_id": "diagops-2026-S1-m2-candidate-r2",
+    "label": "Livraison candidate M2 — lot 02",
+    "files": {
+      "equipment": {
+        "path": "m2_candidate_release/equipment_update.csv",
+        "sha256": "eb9a812b5824d0a0d1d3a569d08c9c09006d8d182660028f3fda41417a0543bb",
+        "rows": 30
+      },
+      "events": {
+        "path": "m2_candidate_release/events_batch_02.csv",
+        "sha256": "ba148ca398fd472147d389829cbe2a42032b598ccf7793725528654eb8874571",
+        "rows": 80
+      },
+      "maintenance": {
+        "path": "m2_candidate_release/maintenance_batch_02.csv",
+        "sha256": "513f9bf579a18b05f6c0abe347042ef5e003e72d5e932b269822e1716e8fd297",
+        "rows": 220
+      }
+    },
+    "status": "REJECTED",
+    "counts": {
+      "error": 4,
+      "warning": 22,
+      "info": 5
+    },
+    "rules_triggered": [
+      "MNT-TMP-003",
+      "EQP-KEY-001",
+      "INC-KEY-003",
+      "INC-KEY-004",
+      "MNT-REF-003",
+      "MNT-REF-002",
+      "EQP-KEY-002",
+      "EVT-KEY-002",
+      "MNT-KEY-002",
+      "MNT-PII-001",
+      "EQP-SCH-002",
+      "EQP-KEY-003",
+      "EQP-CAT-001",
+      "EQP-VAL-001",
+      "EVT-REF-002",
+      "EVT-CAT-001",
+      "EVT-CAS-002",
+      "EVT-TMP-001",
+      "MNT-SCH-003",
+      "MNT-REF-001",
+      "MNT-CAT-004",
+      "MNT-CAT-005",
+      "MNT-TMP-001",
+      "MNT-VAL-001",
+      "MNT-VAL-003",
+      "MNT-VAL-006",
+      "MNT-VAL-007",
+      "INC-KEY-002",
+      "INC-CAT-001",
+      "INC-CAT-001",
+      "INC-SCH-001"
+    ],
+    "details": {
+      "new_category_values": {
+        "equipment.equipment_type": [
+          "hydraulic_unit"
+        ],
+        "equipment.site_id": [
+          "SITE-CENTRE"
+        ]
+      },
+      "structural_updates": {},
+      "source_files": {
+        "equipment": "equipment.csv",
+        "events": "events.csv",
+        "maintenance": "maintenance_history.csv"
+      }
+    }
+  }
+}

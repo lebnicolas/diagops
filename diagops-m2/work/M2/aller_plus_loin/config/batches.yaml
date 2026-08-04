@@ -1,0 +1,70 @@
+# Catalogue des lots qualifiables
+#
+# Separe des regles : `quality_rules.yaml` dit comment juger, ce fichier dit
+# quoi lire. Ajouter une livraison n'oblige donc pas a toucher a la politique,
+# et changer un seuil n'oblige pas a redecrire les lots.
+#
+# Les chemins sont relatifs a la racine du data pack, resolue par --data-dir
+# (defaut : data_pack/2026-S1/). Aucun de ces fichiers n'est jamais ecrit.
+
+baseline:
+  batch_id: "diagops-2026-S1-m2-published"
+  label: "Socle M2 publie"
+  description: >-
+    Donnees deja publiees et auditees pendant le brief presentiel. Servent de
+    reference de comparaison et de controle de non-regression : la politique
+    doit rester applicable a ce qui a deja ete accepte.
+  sources:
+    equipment: equipment/equipment.csv
+    events: events/events.csv
+    maintenance: maintenance/maintenance_history.csv
+
+candidates:
+  - batch_id: "diagops-2026-S1-m2-candidate-r2"
+    label: "Livraison candidate M2 — lot 02"
+    description: >-
+      Recue apres la publication du socle M2. Contient des ajouts et des mises
+      a jour. Volumes et evolutions ci-dessous sont ceux ANNONCES par le
+      fournisseur dans RELEASE_NOTES.md ; ils sont enregistres ici pour etre
+      confrontes au contenu reel, pas pour etre crus.
+    notes: m2_candidate_release/RELEASE_NOTES.md
+    checksums: m2_candidate_release/checksums.sha256
+
+    # Statut ATTENDU, c'est-a-dire la decision deja prise sur ce lot.
+    #
+    # Sans ce champ, un lot doit sortir ACCEPTED ou ACCEPTED_WITH_WARNINGS,
+    # faute de quoi la qualification echoue — comportement normal d'une
+    # livraison neuve.
+    #
+    # Ici la decision est actee : rejet et relivraison demandee au fournisseur
+    # le 04/08/2026 (voir decision_livraison.md). Le lot reste dans le depot,
+    # tel qu'il a ete recu, et la chaine d'integration verifie desormais que
+    # son statut n'a pas bouge — plutot que de signaler indefiniment un echec
+    # dont la conclusion est deja tiree.
+    #
+    # La verification est symetrique : si ce lot cessait d'etre REJECTED, la
+    # qualification echouerait aussi. Un lot qui change de statut oblige a
+    # relire la decision, dans les deux sens.
+    expected_status: REJECTED
+    sources:
+      equipment: m2_candidate_release/equipment_update.csv
+      events: m2_candidate_release/events_batch_02.csv
+      maintenance: m2_candidate_release/maintenance_batch_02.csv
+
+    # Volumes annonces — confrontes au reel par INC-VOL-001.
+    announced_rows:
+      equipment: 30
+      events: 80
+      maintenance: 220
+
+    # Colonnes supplementaires DECLAREES dans les notes de livraison.
+    # Une colonne en trop absente de cette liste declenche INC-SCH-002.
+    announced_columns:
+      maintenance: [source_system]
+
+    # Sources pour lesquelles une cle deja presente dans le publie est une
+    # operation de mise a jour attendue, et non une collision.
+    # Annonce : « une mise a jour d'equipement peut employer un identifiant
+    # deja present dans le parc ».
+    update_by_key:
+      equipment: equipment_id

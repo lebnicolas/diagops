@@ -1,0 +1,10 @@
+# Dependances de la qualification, declarees explicitement.
+#
+# Le brief exige qu'une autre personne puisse cloner, installer et reproduire
+# les resultats annonces. PyYAML etait deja present dans le venv M2, tire par
+# jupyterlab : compter dessus aurait fait dependre la chaine d'un paquet que
+# rien ne declare, et la CI serait tombee sur une machine propre.
+pandas==2.3.1
+numpy==2.3.2
+PyYAML==6.0.3
+pytest==8.4.1

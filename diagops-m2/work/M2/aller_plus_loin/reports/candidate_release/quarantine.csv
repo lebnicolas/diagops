@@ -1,0 +1,119 @@
+source_file,row_identifier,rule_id,column,observed_value,reason,decision
+equipment.csv,EQ-M2X-009,EQP-SCH-002,commissioning_date,15/03/2020,Chaque valeur non nulle se lit comme une date.,quarantaine_examen_metier
+equipment.csv,nan,EQP-KEY-001,equipment_id,nan,equipment_id est renseigne sur toutes les lignes.,quarantaine_rejet
+equipment.csv,EQ-M2X-002,EQP-KEY-002,equipment_id,EQ-M2X-002,equipment_id est unique.,quarantaine_examen_metier
+equipment.csv,EQ-M2X-002,EQP-KEY-002,equipment_id,EQ-M2X-002,equipment_id est unique.,quarantaine_examen_metier
+equipment.csv,EQ-M2X-002,EQP-KEY-003,*,,Aucune ligne n'est un doublon exact d'une autre sur toutes ses colonnes.,correction_certaine
+equipment.csv,EQ-M2X-007,EQP-CAT-001,criticality,urgent,"criticality inconnue de ('critical', 'high', 'low', 'medium') et marginale.",quarantaine_examen_metier
+equipment.csv,EQ-M2X-008,EQP-VAL-001,rated_power_kw,-12.0,La puissance nominale renseignee est strictement positive.,quarantaine_examen_metier
+events.csv,EVT-2026S1-B002,EVT-KEY-002,event_id,EVT-2026S1-B002,event_id est unique.,quarantaine_examen_metier
+events.csv,EVT-2026S1-B002,EVT-KEY-002,event_id,EVT-2026S1-B002,event_id est unique.,quarantaine_examen_metier
+events.csv,EVT-2026S1-B004,EVT-REF-002,equipment_id,EQ-UNKNOWN-999,equipment_id existe dans equipment.equipment_id.,quarantaine_examen_metier
+events.csv,EVT-2026S1-B006,EVT-CAT-001,event_type,inspection,"event_type inconnu de ('alert', 'incident', 'intervention', 'observation') et marginal.",quarantaine_examen_metier
+events.csv,EVT-2026S1-B007,EVT-CAS-002,severity,CRITICAL,severity dont seule la casse ou l'espacement devie d'une valeur connue.,correction_certaine
+events.csv,EVT-2026S1-B005,EVT-TMP-001,end_at,2026-05-01T07:00:00Z,"Si end_at est renseigne, start_at lui est anterieur ou egal.",quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0034,MNT-SCH-003,"downtime_minutes, labor_hours, parts_cost_eur, parts_replaced_count",402,Chaque valeur non nulle se lit comme un nombre ; downtime_minutes et parts_replaced_count sont entiers.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0002,MNT-KEY-002,maintenance_id,MNT-2026S1-B0002,maintenance_id est unique.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0002,MNT-KEY-002,maintenance_id,MNT-2026S1-B0002,maintenance_id est unique.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0004,MNT-REF-001,event_id,EVT-UNKNOWN-999,event_id existe dans events.event_id.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0004,MNT-REF-002,equipment_id,EQ-UNKNOWN-999,equipment_id existe dans equipment.equipment_id.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0084,MNT-REF-002,equipment_id,EQ-UNKNOWN-999,equipment_id existe dans equipment.equipment_id.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0164,MNT-REF-002,equipment_id,EQ-UNKNOWN-999,equipment_id existe dans equipment.equipment_id.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0002,MNT-REF-003,equipment_id,EQ-M2X-002,equipment_id est identique a l'equipment_id de l'evenement designe par event_id.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0005,MNT-REF-003,equipment_id,EQ-M2X-024,equipment_id est identique a l'equipment_id de l'evenement designe par event_id.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0082,MNT-REF-003,equipment_id,EQ-M2X-002,equipment_id est identique a l'equipment_id de l'evenement designe par event_id.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0162,MNT-REF-003,equipment_id,EQ-M2X-002,equipment_id est identique a l'equipment_id de l'evenement designe par event_id.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0030,MNT-CAT-004,intervention_type,remote_diagnostic,"intervention_type inconnu de ('calibration', 'corrective', 'inspection', 'preventive', 'replacement') et marginal.",quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0032,MNT-CAT-005,outcome,pending_review,"outcome inconnu de ('follow_up_required', 'monitoring', 'no_fault_found', 'parts_ordered', 'resolved') et marginal.",quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0007,MNT-TMP-001,closed_at,2026-05-01T00:00:00Z,"Si closed_at est renseigne, opened_at lui est anterieur ou egal.",quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0002,MNT-TMP-003,opened_at,2026-05-03T16:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0005,MNT-TMP-003,opened_at,2026-05-04T07:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0006,MNT-TMP-003,opened_at,2026-05-04T12:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0007,MNT-TMP-003,opened_at,2026-05-04T17:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0009,MNT-TMP-003,opened_at,2026-05-05T03:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0010,MNT-TMP-003,opened_at,2026-05-05T08:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0011,MNT-TMP-003,opened_at,2026-05-05T13:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0012,MNT-TMP-003,opened_at,2026-05-05T18:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0013,MNT-TMP-003,opened_at,2026-05-05T23:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0014,MNT-TMP-003,opened_at,2026-05-06T04:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0015,MNT-TMP-003,opened_at,2026-05-06T09:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0016,MNT-TMP-003,opened_at,2026-05-06T14:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0017,MNT-TMP-003,opened_at,2026-05-06T19:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0018,MNT-TMP-003,opened_at,2026-05-07T00:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0019,MNT-TMP-003,opened_at,2026-05-07T05:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0020,MNT-TMP-003,opened_at,2026-05-07T10:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0021,MNT-TMP-003,opened_at,2026-05-07T15:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0022,MNT-TMP-003,opened_at,2026-05-07T20:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0023,MNT-TMP-003,opened_at,2026-05-08T01:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0024,MNT-TMP-003,opened_at,2026-05-08T06:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0025,MNT-TMP-003,opened_at,2026-05-08T11:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0026,MNT-TMP-003,opened_at,2026-05-08T16:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0027,MNT-TMP-003,opened_at,2026-05-08T21:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0028,MNT-TMP-003,opened_at,2026-05-09T02:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0029,MNT-TMP-003,opened_at,2026-05-09T07:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0030,MNT-TMP-003,opened_at,2026-05-09T12:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0031,MNT-TMP-003,opened_at,2026-05-09T17:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0032,MNT-TMP-003,opened_at,2026-05-09T22:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0033,MNT-TMP-003,opened_at,2026-05-10T03:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0034,MNT-TMP-003,opened_at,2026-05-10T08:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0035,MNT-TMP-003,opened_at,2026-05-10T13:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0036,MNT-TMP-003,opened_at,2026-05-10T18:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0037,MNT-TMP-003,opened_at,2026-05-10T23:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0038,MNT-TMP-003,opened_at,2026-05-11T04:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0039,MNT-TMP-003,opened_at,2026-05-11T09:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0040,MNT-TMP-003,opened_at,2026-05-11T14:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0041,MNT-TMP-003,opened_at,2026-05-11T19:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0042,MNT-TMP-003,opened_at,2026-05-12T00:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0043,MNT-TMP-003,opened_at,2026-05-12T05:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0044,MNT-TMP-003,opened_at,2026-05-12T10:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0045,MNT-TMP-003,opened_at,2026-05-12T15:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0046,MNT-TMP-003,opened_at,2026-05-12T20:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0047,MNT-TMP-003,opened_at,2026-05-13T01:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0048,MNT-TMP-003,opened_at,2026-05-13T06:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0049,MNT-TMP-003,opened_at,2026-05-13T11:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0050,MNT-TMP-003,opened_at,2026-05-13T16:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0051,MNT-TMP-003,opened_at,2026-05-13T21:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0052,MNT-TMP-003,opened_at,2026-05-14T02:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0053,MNT-TMP-003,opened_at,2026-05-14T07:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0054,MNT-TMP-003,opened_at,2026-05-14T12:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0055,MNT-TMP-003,opened_at,2026-05-14T17:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0056,MNT-TMP-003,opened_at,2026-05-14T22:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0057,MNT-TMP-003,opened_at,2026-05-15T03:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0058,MNT-TMP-003,opened_at,2026-05-15T08:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0059,MNT-TMP-003,opened_at,2026-05-15T13:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0060,MNT-TMP-003,opened_at,2026-05-15T18:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0061,MNT-TMP-003,opened_at,2026-05-15T23:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0062,MNT-TMP-003,opened_at,2026-05-16T04:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0063,MNT-TMP-003,opened_at,2026-05-16T09:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0064,MNT-TMP-003,opened_at,2026-05-16T14:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0065,MNT-TMP-003,opened_at,2026-05-16T19:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0066,MNT-TMP-003,opened_at,2026-05-17T00:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0067,MNT-TMP-003,opened_at,2026-05-17T05:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0068,MNT-TMP-003,opened_at,2026-05-17T10:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0069,MNT-TMP-003,opened_at,2026-05-17T15:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0070,MNT-TMP-003,opened_at,2026-05-17T20:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0071,MNT-TMP-003,opened_at,2026-05-18T01:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0072,MNT-TMP-003,opened_at,2026-05-18T06:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0073,MNT-TMP-003,opened_at,2026-05-18T11:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0074,MNT-TMP-003,opened_at,2026-05-18T16:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0075,MNT-TMP-003,opened_at,2026-05-18T21:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0076,MNT-TMP-003,opened_at,2026-05-19T02:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0077,MNT-TMP-003,opened_at,2026-05-19T07:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0078,MNT-TMP-003,opened_at,2026-05-19T12:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0079,MNT-TMP-003,opened_at,2026-05-19T17:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0080,MNT-TMP-003,opened_at,2026-05-19T22:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0151,MNT-TMP-003,opened_at,2026-06-03T17:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0152,MNT-TMP-003,opened_at,2026-06-03T22:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0153,MNT-TMP-003,opened_at,2026-06-04T03:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0154,MNT-TMP-003,opened_at,2026-06-04T08:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0155,MNT-TMP-003,opened_at,2026-06-04T13:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0156,MNT-TMP-003,opened_at,2026-06-04T18:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0157,MNT-TMP-003,opened_at,2026-06-04T23:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0158,MNT-TMP-003,opened_at,2026-06-05T04:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0159,MNT-TMP-003,opened_at,2026-06-05T09:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0160,MNT-TMP-003,opened_at,2026-06-05T14:30:00Z,opened_at est posterieur ou egal au start_at de l'evenement designe.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0006,MNT-VAL-001,downtime_minutes,-45,downtime_minutes est superieur ou egal a zero.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0007,MNT-VAL-003,downtime_minutes,191,"Si les deux horodatages sont renseignes, downtime_minutes ne depasse pas l'ecart closed_at - opened_at.",quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0033,MNT-VAL-006,parts_replaced_count,-1,parts_replaced_count est un entier superieur ou egal a zero.,quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0008,MNT-PII-001,work_order_note,Compte rendu transmis à ines.dupont@example.test.,"Recherche d'adresses electroniques, de numeros de telephone et de noms de personnes dans le texte libre.",quarantaine_examen_metier
+maintenance_history.csv,MNT-2026S1-B0009,MNT-PII-001,work_order_note,Rappeler Malik au 06 98 76 54 32.,"Recherche d'adresses electroniques, de numeros de telephone et de noms de personnes dans le texte libre.",quarantaine_examen_metier

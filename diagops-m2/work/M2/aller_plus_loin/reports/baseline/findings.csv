@@ -1,0 +1,27 @@
+rule_id,source,column,level,rows_checked,failures,failure_rate,escalated,comment,sample_row_identifiers
+MNT-KEY-002,maintenance,maintenance_id,warning,1800,10,0.0056,False,maintenance_id est unique.,"MNT-2026S1-0061, MNT-2026S1-0334, MNT-2026S1-0778, MNT-2026S1-1201, MNT-2026S1-1601, MNT-2026S1-0061, MNT-2026S1-0334, MNT-2026S1-0778, MNT-2026S1-1201, MNT-2026S1-1601"
+EQP-KEY-002,equipment,equipment_id,warning,420,8,0.019,False,equipment_id est unique.,"EQ-CHILL-128, EQ-CONV-222, EQ-OVEN-366, EQ-ROBOT-390, EQ-CHILL-128, EQ-CONV-222, EQ-OVEN-366, EQ-ROBOT-390"
+EVT-KEY-002,events,event_id,warning,520,8,0.0154,False,event_id est unique.,"EVT-2026S1-0022, EVT-2026S1-0155, EVT-2026S1-0314, EVT-2026S1-0432, EVT-2026S1-0022, EVT-2026S1-0155, EVT-2026S1-0314, EVT-2026S1-0432"
+MNT-KEY-003,maintenance,*,warning,1800,5,0.0028,False,Aucune ligne n'est un doublon exact d'une autre.,"MNT-2026S1-0061, MNT-2026S1-0334, MNT-2026S1-0778, MNT-2026S1-1201, MNT-2026S1-1601"
+EQP-KEY-003,equipment,*,warning,420,4,0.0095,False,Aucune ligne n'est un doublon exact d'une autre sur toutes ses colonnes.,"EQ-CHILL-128, EQ-CONV-222, EQ-OVEN-366, EQ-ROBOT-390"
+EVT-KEY-003,events,*,warning,520,4,0.0077,False,Aucune ligne n'est un doublon exact d'une autre.,"EVT-2026S1-0022, EVT-2026S1-0155, EVT-2026S1-0314, EVT-2026S1-0432"
+MNT-VAL-003,maintenance,downtime_minutes,warning,1800,2,0.0011,False,"Si les deux horodatages sont renseignes, downtime_minutes ne depasse pas l'ecart closed_at - opened_at.","MNT-2026S1-0206, MNT-2026S1-0621"
+MNT-PII-001,maintenance,work_order_note,warning,1800,2,0.0011,False,"Donnees personnelles dans le texte libre. Quelques occurrences se traitent au cas par cas. Au-dela de 10 %, le champ est utilise comme main courante nominative et la livraison pose un probleme de conformite qui depasse la qualite de donnee.","MNT-2026S1-1121, MNT-2026S1-1334"
+EQP-CAS-002,equipment,equipment_type,warning,420,1,0.0024,False,Libelles declares equivalents sur une categorie ouverte : 'Pump ' -> 'pump'.,EQ-CAB-239
+EQP-TMP-001,equipment,commissioning_date,warning,420,1,0.0024,False,La mise en service n'est pas posterieure a la date du jour.,EQ-CONV-137
+EQP-VAL-001,equipment,rated_power_kw,warning,420,1,0.0024,False,La puissance nominale renseignee est strictement positive.,EQ-COMP-169
+EVT-REF-002,events,equipment_id,warning,520,1,0.0019,False,"Un evenement rattache a un equipement inconnu du parc. Isole, c'est une ligne fausse. Au-dela de 2 %, le lot ne parle pas du meme parc.",EVT-2026S1-0180
+EVT-CAS-001,events,event_type,warning,520,1,0.0019,False,event_type dont seule la casse ou l'espacement devie d'une valeur connue.,EVT-2026S1-0265
+EVT-CAT-002,events,severity,warning,520,1,0.0019,False,"severity inconnue de ('critical', 'high', 'low', 'medium') et marginale.",EVT-2026S1-0102
+EVT-TMP-001,events,end_at,warning,520,1,0.0019,False,"Si end_at est renseigne, start_at lui est anterieur ou egal.",EVT-2026S1-0032
+EVT-TMP-003,events,start_at,warning,520,1,0.0019,False,Meme plafond par coherence : une regle ne change pas de forme selon la table ou elle a trouve quelque chose.,EVT-2026S1-0467
+MNT-REF-001,maintenance,event_id,warning,1800,1,0.0006,False,"Meme raisonnement que EVT-REF-002, sur le rattachement a l'evenement.",MNT-2026S1-0389
+MNT-REF-002,maintenance,equipment_id,warning,1800,1,0.0006,False,Meme raisonnement que EVT-REF-002.,MNT-2026S1-0545
+MNT-REF-003,maintenance,equipment_id,warning,1800,1,0.0006,False,"Contradiction interne entre l'equipement porte par l'intervention et celui porte par son evenement. Systematique, c'est un defaut de construction de l'export, pas des lignes isolees.",MNT-2026S1-0545
+MNT-CAS-001,maintenance,intervention_type,warning,1800,1,0.0006,False,Libelles declares equivalents sur une categorie ouverte : 'Correctif' -> 'corrective'.,MNT-2026S1-0912
+MNT-CAT-004,maintenance,intervention_type,warning,1800,1,0.0006,False,"intervention_type inconnu de ('calibration', 'corrective', 'inspection', 'preventive', 'replacement') et marginal.",MNT-2026S1-0912
+MNT-TMP-001,maintenance,closed_at,warning,1800,1,0.0006,False,"Si closed_at est renseigne, opened_at lui est anterieur ou egal.",MNT-2026S1-0621
+MNT-VAL-001,maintenance,downtime_minutes,warning,1800,1,0.0006,False,downtime_minutes est superieur ou egal a zero.,MNT-2026S1-0041
+MNT-VAL-002,maintenance,downtime_minutes,warning,1800,1,0.0006,False,downtime_minutes ne depasse pas 43200 minutes.,MNT-2026S1-0206
+MNT-VAL-005,maintenance,parts_cost_eur,warning,1800,1,0.0006,False,parts_cost_eur renseigne est superieur ou egal a zero.,MNT-2026S1-0703
+MNT-VAL-007,maintenance,parts_cost_eur,info,1800,595,0.3306,False,"Interventions facturant des pieces sans en declarer. Mesure le 03/08/2026 a 595 lignes sur 1 800, reparties uniformement sur les cinq types d'intervention : motif structurel du jeu, pas anomalie. Reste publie, ne bloque pas. Arbitrage metier toujours en attente.","MNT-2026S1-0009, MNT-2026S1-0012, MNT-2026S1-0014, MNT-2026S1-0015, MNT-2026S1-0017, MNT-2026S1-0020, MNT-2026S1-0027, MNT-2026S1-0028, MNT-2026S1-0030, MNT-2026S1-0033"

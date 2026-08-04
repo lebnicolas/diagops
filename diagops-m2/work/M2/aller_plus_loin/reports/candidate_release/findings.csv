@@ -1,0 +1,32 @@
+rule_id,source,column,level,rows_checked,failures,failure_rate,escalated,comment,sample_row_identifiers
+MNT-TMP-003,maintenance,opened_at,error,220,86,0.3909,True,"taux d'echec 39.09% au-dela du plafond 5.00% — regression globale, pas anomalie de ligne","MNT-2026S1-B0002, MNT-2026S1-B0005, MNT-2026S1-B0006, MNT-2026S1-B0007, MNT-2026S1-B0009, MNT-2026S1-B0010, MNT-2026S1-B0011, MNT-2026S1-B0012, MNT-2026S1-B0013, MNT-2026S1-B0014"
+EQP-KEY-001,equipment,equipment_id,error,30,1,0.0333,False,equipment_id est renseigne sur toutes les lignes.,nan
+INC-KEY-003,events,event_id,error,80,1,0.0125,False,1 cle(s) deja presente(s) dans le publie — aucune collision attendue sur un lot d'ajouts,EVT-2026S1-0001
+INC-KEY-004,maintenance,maintenance_id,error,220,1,0.0045,False,1 cle(s) deja presente(s) dans le publie — aucune collision attendue sur un lot d'ajouts,MNT-2026S1-0001
+MNT-REF-003,maintenance,equipment_id,warning,220,4,0.0182,False,"Contradiction interne entre l'equipement porte par l'intervention et celui porte par son evenement. Systematique, c'est un defaut de construction de l'export, pas des lignes isolees.","MNT-2026S1-B0002, MNT-2026S1-B0005, MNT-2026S1-B0082, MNT-2026S1-B0162"
+MNT-REF-002,maintenance,equipment_id,warning,220,3,0.0136,False,Meme raisonnement que EVT-REF-002.,"MNT-2026S1-B0004, MNT-2026S1-B0084, MNT-2026S1-B0164"
+EQP-KEY-002,equipment,equipment_id,warning,30,2,0.0667,False,equipment_id est unique.,"EQ-M2X-002, EQ-M2X-002"
+EVT-KEY-002,events,event_id,warning,80,2,0.025,False,event_id est unique.,"EVT-2026S1-B002, EVT-2026S1-B002"
+MNT-KEY-002,maintenance,maintenance_id,warning,220,2,0.0091,False,maintenance_id est unique.,"MNT-2026S1-B0002, MNT-2026S1-B0002"
+MNT-PII-001,maintenance,work_order_note,warning,220,2,0.0091,False,"Donnees personnelles dans le texte libre. Quelques occurrences se traitent au cas par cas. Au-dela de 10 %, le champ est utilise comme main courante nominative et la livraison pose un probleme de conformite qui depasse la qualite de donnee.","MNT-2026S1-B0008, MNT-2026S1-B0009"
+EQP-SCH-002,equipment,commissioning_date,warning,30,1,0.0333,False,Chaque valeur non nulle se lit comme une date.,EQ-M2X-009
+EQP-KEY-003,equipment,*,warning,30,1,0.0333,False,Aucune ligne n'est un doublon exact d'une autre sur toutes ses colonnes.,EQ-M2X-002
+EQP-CAT-001,equipment,criticality,warning,30,1,0.0333,False,"criticality inconnue de ('critical', 'high', 'low', 'medium') et marginale.",EQ-M2X-007
+EQP-VAL-001,equipment,rated_power_kw,warning,30,1,0.0333,False,La puissance nominale renseignee est strictement positive.,EQ-M2X-008
+EVT-REF-002,events,equipment_id,warning,80,1,0.0125,False,"Un evenement rattache a un equipement inconnu du parc. Isole, c'est une ligne fausse. Au-dela de 2 %, le lot ne parle pas du meme parc.",EVT-2026S1-B004
+EVT-CAT-001,events,event_type,warning,80,1,0.0125,False,"event_type inconnu de ('alert', 'incident', 'intervention', 'observation') et marginal.",EVT-2026S1-B006
+EVT-CAS-002,events,severity,warning,80,1,0.0125,False,severity dont seule la casse ou l'espacement devie d'une valeur connue.,EVT-2026S1-B007
+EVT-TMP-001,events,end_at,warning,80,1,0.0125,False,"Si end_at est renseigne, start_at lui est anterieur ou egal.",EVT-2026S1-B005
+MNT-SCH-003,maintenance,"downtime_minutes, labor_hours, parts_cost_eur, parts_replaced_count",warning,220,1,0.0045,False,Chaque valeur non nulle se lit comme un nombre ; downtime_minutes et parts_replaced_count sont entiers.,MNT-2026S1-B0034
+MNT-REF-001,maintenance,event_id,warning,220,1,0.0045,False,"Meme raisonnement que EVT-REF-002, sur le rattachement a l'evenement.",MNT-2026S1-B0004
+MNT-CAT-004,maintenance,intervention_type,warning,220,1,0.0045,False,"intervention_type inconnu de ('calibration', 'corrective', 'inspection', 'preventive', 'replacement') et marginal.",MNT-2026S1-B0030
+MNT-CAT-005,maintenance,outcome,warning,220,1,0.0045,False,"outcome inconnu de ('follow_up_required', 'monitoring', 'no_fault_found', 'parts_ordered', 'resolved') et marginal.",MNT-2026S1-B0032
+MNT-TMP-001,maintenance,closed_at,warning,220,1,0.0045,False,"Si closed_at est renseigne, opened_at lui est anterieur ou egal.",MNT-2026S1-B0007
+MNT-VAL-001,maintenance,downtime_minutes,warning,220,1,0.0045,False,downtime_minutes est superieur ou egal a zero.,MNT-2026S1-B0006
+MNT-VAL-003,maintenance,downtime_minutes,warning,220,1,0.0045,False,"Si les deux horodatages sont renseignes, downtime_minutes ne depasse pas l'ecart closed_at - opened_at.",MNT-2026S1-B0007
+MNT-VAL-006,maintenance,parts_replaced_count,warning,220,1,0.0045,False,parts_replaced_count est un entier superieur ou egal a zero.,MNT-2026S1-B0033
+MNT-VAL-007,maintenance,parts_cost_eur,info,220,45,0.2045,False,"Interventions facturant des pieces sans en declarer. Mesure le 03/08/2026 a 595 lignes sur 1 800, reparties uniformement sur les cinq types d'intervention : motif structurel du jeu, pas anomalie. Reste publie, ne bloque pas. Arbitrage metier toujours en attente.","MNT-2026S1-B0005, MNT-2026S1-B0010, MNT-2026S1-B0015, MNT-2026S1-B0020, MNT-2026S1-B0025, MNT-2026S1-B0030, MNT-2026S1-B0033, MNT-2026S1-B0035, MNT-2026S1-B0040, MNT-2026S1-B0045"
+INC-KEY-002,equipment,equipment_id,info,30,4,0.1333,False,4 cle(s) deja presente(s) dans le publie — operation de mise a jour annoncee,"EQ-CAB-101, EQ-CAB-112, EQ-CAB-123, EQ-CAB-134"
+INC-CAT-001,equipment,equipment_type,info,30,1,0.0333,False,valeurs inedites : hydraulic_unit,EQ-M2X-010
+INC-CAT-001,equipment,site_id,info,30,1,0.0333,False,valeurs inedites : SITE-CENTRE,EQ-M2X-006
+INC-SCH-001,maintenance,source_system,info,220,1,0.0045,False,colonnes : source_system,source_system

@@ -1,0 +1,276 @@
+# Politique de qualification des livraisons DiagOps
+#
+# Ce fichier decide ce qui BLOQUE une livraison, ce qui demande un arbitrage
+# humain et ce qui se trace sans rien empecher. Il est lisible et modifiable
+# sans toucher au code : c'est la seule facon de changer d'avis sur un seuil
+# sans reecrire la solution.
+#
+# Le registre technique des regles reste dans src/data_pipeline/rules.py — il
+# dit CE QUI est mesure. Ce fichier dit CE QUE le resultat implique.
+
+policy_version: "1.0.0"
+
+# ----------------------------------------------------------------------
+# Les trois niveaux, tels que definis par le brief
+# ----------------------------------------------------------------------
+levels:
+  error: "la livraison ne peut pas etre integree"
+  warning: "une decision humaine ou une condition est necessaire"
+  info: "l'evolution doit etre tracee mais ne bloque pas le lot"
+
+# Statut global deduit des niveaux rencontres.
+status_rules:
+  any_error: REJECTED
+  any_warning: ACCEPTED_WITH_WARNINGS
+  otherwise: ACCEPTED
+
+# ----------------------------------------------------------------------
+# Traduction par defaut : decision M2 -> niveau de qualification
+# ----------------------------------------------------------------------
+#
+# Le registre M2 raisonne en « que fait-on de la ligne ». La qualification
+# raisonne en « que fait-on du lot ». Les deux vocabulaires ne se recouvrent
+# pas, la correspondance doit donc etre ecrite, pas devinee.
+decision_levels:
+  # La source n'est pas exploitable : plus rien de ce qui suit n'a de sens.
+  arret_audit: error
+
+  # La ligne est irrecuperable et sort du jeu. Une livraison dont on doit
+  # jeter des lignes n'est pas une livraison propre.
+  quarantaine_rejet: error
+
+  # Un humain doit trancher. C'est la definition exacte de `warning`.
+  quarantaine_examen_metier: warning
+
+  # La correction est sure et reproductible, mais elle TRANSFORME la
+  # livraison. Accepter un lot qu'il a fallu corriger n'est pas la meme chose
+  # qu'accepter un lot propre : la correction devient une condition
+  # d'integration, donc un avertissement.
+  correction_certaine: warning
+
+  # Constat chiffre, aucune ligne ecartee.
+  signalement: info
+
+# ----------------------------------------------------------------------
+# Seuils globaux
+# ----------------------------------------------------------------------
+thresholds:
+  # Une valeur hors enumeration cesse d'etre une anomalie et devient un ecart
+  # de nomenclature au-dela de ces deux conditions, cumulatives.
+  recurrence_share: 0.05
+  recurrence_minimum: 10
+
+  # Population sur laquelle ces deux conditions se calculent.
+  #   context   = publie + candidat (defaut)
+  #   batch     = le lot examine seul
+  #
+  # `context` a ete retenu le 04/08/2026. La question « cette valeur est-elle
+  # une nomenclature legitime ? » porte sur le corpus, pas sur l'echantillon
+  # recu. Avec `batch`, la meme valeur dans le meme fichier changeait de classe
+  # selon le perimetre : 90 occurrences necessaires sur 1 800 lignes
+  # d'historique, 11 sur un lot de 220, hors d'atteinte sur un lot de 30.
+  #
+  # Contrepartie assumee : la qualification d'un lot depend alors de l'etat du
+  # publie. Le manifeste enregistre donc les empreintes de la baseline en plus
+  # de celles du lot, sans quoi le resultat n'est pas rejouable.
+  recurrence_population: context
+
+  # Periodes acceptees dans la colonne `period`.
+  expected_periods:
+    - "2026-S1"
+
+# ----------------------------------------------------------------------
+# Surcharges par regle
+# ----------------------------------------------------------------------
+#
+# Une regle absente de cette section prend le niveau de sa decision M2.
+# Deux leviers :
+#
+#   level             remplace le niveau par defaut
+#   max_failure_rate  part d'echecs au-dela de laquelle le constat cesse
+#                     d'etre une anomalie de ligne pour devenir une regression
+#                     globale, et passe alors a `escalate_to`
+#
+# C'est ce second levier qui repond a la question 5 du brief. Une reference
+# orpheline isolee est une ligne a examiner. Quarante pour cent de references
+# orphelines ne sont pas quatre cents lignes a examiner : c'est un lot construit
+# sur un autre referentiel, et le lot entier est en cause.
+rules:
+  EVT-REF-002:
+    level: warning
+    max_failure_rate: 0.02
+    escalate_to: error
+    note: >-
+      Un evenement rattache a un equipement inconnu du parc. Isole, c'est une
+      ligne fausse. Au-dela de 2 %, le lot ne parle pas du meme parc.
+
+  MNT-REF-001:
+    level: warning
+    max_failure_rate: 0.02
+    escalate_to: error
+    note: "Meme raisonnement que EVT-REF-002, sur le rattachement a l'evenement."
+
+  MNT-REF-002:
+    level: warning
+    max_failure_rate: 0.02
+    escalate_to: error
+    note: "Meme raisonnement que EVT-REF-002."
+
+  MNT-REF-003:
+    level: warning
+    max_failure_rate: 0.05
+    escalate_to: error
+    note: >-
+      Contradiction interne entre l'equipement porte par l'intervention et
+      celui porte par son evenement. Systematique, c'est un defaut de
+      construction de l'export, pas des lignes isolees.
+
+  MNT-TMP-003:
+    level: warning
+    max_failure_rate: 0.05
+    escalate_to: error
+    note: >-
+      Intervention ouverte avant le debut de son evenement declencheur.
+      Isolee, c'est une saisie fausse. Systematique, les deux tables n'ont pas
+      ete horodatees ensemble et le lot est mal construit. Meme plafond que
+      MNT-REF-003 : meme famille de controle croise, meme raisonnement.
+
+  EVT-TMP-003:
+    level: warning
+    max_failure_rate: 0.05
+    escalate_to: error
+    note: >-
+      Meme plafond par coherence : une regle ne change pas de forme selon la
+      table ou elle a trouve quelque chose.
+
+  # EQP-KEY-002 — pas de surcharge, et c'est une decision.
+  #
+  # Ecrite d'abord en `error` avec un plafond a zero, au motif que l'unicite
+  # d'une cle primaire dans un lot est absolue. Mesure ensuite : le socle
+  # publie porte 4 doublons d'equipment_id (8 lignes, 1,9 %), connus, en
+  # quarantaine, arbitrage metier toujours en attente depuis le 03/08. La
+  # politique rejetait donc ce qui avait deja ete accepte, et n'avait plus
+  # aucune valeur pour juger une livraison.
+  #
+  # Le seul plafond qui aurait « fonctionne » se situait entre 1,9 % (publie)
+  # et 6,7 % (candidat) : un seuil cale sur les deux valeurs observees, donc
+  # sans portee au-dela d'elles. Renonce.
+  #
+  # Retenu : le niveau par defaut de `quarantaine_examen_metier`, soit
+  # `warning`, comme MNT-KEY-002 et EVT-KEY-002. Un doublon de cle demande
+  # toujours un arbitrage humain — leur nombre change le cout de l'arbitrage,
+  # pas sa nature. Le recouvrement avec l'historique est une question
+  # differente, traitee par INC-KEY-002 : une mise a jour d'equipement porte
+  # legitimement un identifiant deja connu.
+
+  MNT-VAL-007:
+    level: info
+    note: >-
+      Interventions facturant des pieces sans en declarer. Mesure le 03/08/2026
+      a 595 lignes sur 1 800, reparties uniformement sur les cinq types
+      d'intervention : motif structurel du jeu, pas anomalie. Reste publie,
+      ne bloque pas. Arbitrage metier toujours en attente.
+
+  MNT-PII-001:
+    level: warning
+    max_failure_rate: 0.10
+    escalate_to: error
+    note: >-
+      Donnees personnelles dans le texte libre. Quelques occurrences se
+      traitent au cas par cas. Au-dela de 10 %, le champ est utilise comme
+      main courante nominative et la livraison pose un probleme de conformite
+      qui depasse la qualite de donnee.
+
+  EQP-CAT-002:
+    level: info
+    note: "Inventaire des sites. Mesure, ne juge pas."
+
+  EQP-CAT-003:
+    level: info
+    note: "Inventaire des familles d'equipement. Mesure, ne juge pas."
+
+  MNT-CAT-001:
+    level: info
+    note: "Inventaire des types d'intervention. Mesure, ne juge pas."
+
+  MNT-CAT-002:
+    level: info
+    note: "Inventaire des resultats d'intervention. Mesure, ne juge pas."
+
+# ----------------------------------------------------------------------
+# Regles propres a une livraison incrementale
+# ----------------------------------------------------------------------
+#
+# Aucune n'existait en M2 : le brief presentiel ne connaissait qu'un lot
+# unique, qui etait a lui seul tout l'univers. Elles ne se declenchent que
+# lorsqu'un lot est qualifie CONTRE un publie.
+incremental_rules:
+  INC-SCH-001:
+    level: info
+    description: "Colonne supplementaire annoncee par les notes de livraison."
+    justification: >-
+      Une evolution de contrat declaree se trace, elle ne bloque pas. Cas de
+      `source_system` sur la maintenance.
+
+  INC-SCH-002:
+    level: warning
+    description: "Colonne supplementaire NON annoncee."
+    justification: >-
+      Le controle M2 ne regardait que les colonnes absentes. Une colonne en
+      trop ne declenchait rien : une evolution de contrat silencieuse passait
+      entierement inapercue. C'est le genre d'ecart qui ne se voit pas dans le
+      resultat.
+
+  INC-VOL-001:
+    level: warning
+    description: "Nombre de lignes lues different du nombre annonce."
+    justification: >-
+      Les notes de livraison annoncent des volumes en precisant qu'ils ne
+      prouvent rien. Un ecart signale une troncature, un mauvais export ou une
+      erreur de comptage du fournisseur — dans les trois cas il faut le savoir
+      avant de regarder le contenu.
+
+  INC-KEY-002:
+    level: info
+    description: "equipment_id du lot deja present dans le parc publie."
+    justification: >-
+      Annonce par les notes de livraison comme une operation de mise a jour.
+      Ce n'est donc pas un doublon. Le compte reste publie : integrer trente
+      ajouts ou trente mises a jour n'a pas les memes consequences.
+
+  INC-KEY-003:
+    level: error
+    description: "event_id du lot deja present dans les evenements publies."
+    justification: >-
+      Les notes annoncent des AJOUTS, sans collision attendue. Une cle qui
+      revient signifie soit un renvoi du meme lot, soit deux evenements
+      distincts partageant un identifiant. Integrer dedoublerait ou ecraserait
+      de l'historique.
+
+  INC-KEY-004:
+    level: error
+    description: "maintenance_id du lot deja present dans l'historique publie."
+    justification: "Meme raisonnement que INC-KEY-003, avec un enjeu chiffre : couts et durees se cumulent."
+
+  INC-UPD-001:
+    level: warning
+    description: "Mise a jour d'equipement modifiant site_id ou commissioning_date."
+    justification: >-
+      Changer le site d'une machine ou sa date de mise en service reecrit
+      l'interpretation de tout son historique d'evenements. Un controle
+      temporel valide hier peut devenir faux. Ce n'est pas une correction
+      anodine, un humain doit le viser.
+
+  INC-CAT-001:
+    level: info
+    description: "Valeur de categorie ouverte jamais observee dans le publie."
+    justification: >-
+      Sur une categorie ouverte, aucun schema n'autorise a rejeter une valeur
+      nouvelle. Elle se signale pour que la nomenclature reste sous controle,
+      elle ne bloque pas.
+
+# Colonnes des categories ouvertes surveillees par INC-CAT-001.
+watched_open_categories:
+  equipment: [equipment_type, site_id, manufacturer]
+  events: []
+  maintenance: []

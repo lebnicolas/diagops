@@ -189,3 +189,106 @@ colonne non contrôlée ressemble trait pour trait à une colonne sans anomalie.
 C'est ce que je changerais si je recommençais : lire **tout** ce que le module
 fournit avant d'écrire la première règle, et tracer **toutes** les distributions
 avant de calculer la première corrélation.
+
+---
+
+# Complément « Pour aller plus loin » — 04/08/2026
+
+Publié en amont le 04/08 au matin. Vingt heures annoncées : quatorze de
+qualification, six de GitHub Actions. Facultatif, et sans effet sur l'accès au
+M3 — qui n'est toujours pas publié.
+
+L'exercice change la question posée. En M2, un lot unique était à lui seul tout
+l'univers : on l'auditait, on le préparait, on décidait. Ici une deuxième
+livraison arrive, et il faut décider si elle peut rejoindre la première.
+
+## Ce qui a résisté et ce qui a cédé
+
+Sur les 68 contrôles du registre, **45 se rejouent tels quels**. Ils ont un
+point commun : ils jugent une ligne, ou une colonne, sans rien avoir besoin de
+savoir du reste du monde. Types, bornes, ordre des dates, valeurs absentes,
+doublons exacts, données personnelles.
+
+**Dix-huit dépendaient du contexte ou d'une constante**, et c'est là que le
+travail était.
+
+Le plus instructif n'est pas la référence orpheline — celui-là se voit tout de
+suite, un lot candidat dont les 80 événements portent sur des machines du
+catalogue publié produirait 80 faux orphelins bloquants, impossible à manquer.
+
+Le plus instructif, ce sont les trois contrôles croisés entre tables. Eux ne
+produisaient **pas** de faux positifs : quand le rapprochement échouait, la
+date de référence sortait absente et la règle passait. Ils ne se seraient pas
+plaints, ils se seraient **éteints**. Un contrôle qui ne trouve rien parce
+qu'il ne cherche plus ressemble exactement à un contrôle qui ne trouve rien
+parce qu'il n'y a rien.
+
+C'est la même famille d'erreur que le `SCHEMA.md` du 03/08 et que la matrice de
+corrélation : **invisible dans le résultat**.
+
+## Le biais de taille de lot
+
+Le registre M2 classait une valeur hors énumération en « écart de nomenclature »
+plutôt qu'en anomalie si elle pesait au moins 5 % des lignes **et** apparaissait
+au moins 10 fois. Les deux conditions se calculaient sur la taille du lot
+examiné.
+
+| Population | Occurrences nécessaires |
+|---|---:|
+| Historique maintenance, 1 800 lignes | 90 |
+| Lot candidat maintenance, 220 lignes | 11 |
+| Lot candidat équipements, 30 lignes | 10, soit 33 % — hors d'atteinte |
+
+La même valeur, dans le même fichier, changeait de classe selon le périmètre
+qu'on lui donnait. Retenu : la récurrence se compte sur **publié + candidat**,
+parce que la question « cette valeur est-elle une nomenclature légitime ? »
+porte sur le corpus et non sur l'échantillon reçu. Contrepartie assumée et
+tracée : la qualification d'un lot dépend alors de l'état du publié, donc le
+manifeste enregistre les empreintes des deux.
+
+## Deux erreurs de la journée
+
+**La politique rejetait le socle publié.** J'avais écrit l'unicité de la clé
+primaire en règle bloquante, au motif qu'elle est absolue. Mesure ensuite : le
+socle porte 4 doublons d'`equipment_id`, connus, en quarantaine depuis le
+03/08, arbitrage métier toujours en attente. Ma politique rejetait donc ce qui
+avait déjà été accepté — et une politique qui rejette le passé ne peut rien
+dire de l'avenir.
+
+Le réflexe a été de chercher un plafond. Il se serait situé entre 1,9 % (le
+publié) et 6,7 % (le candidat) : un seuil calé sur les deux seules valeurs
+observées, donc sans portée au-delà d'elles. J'ai renoncé et gardé le niveau
+par défaut. C'est exactement le piège que le brief nomme — écrire des contrôles
+« spécifiques aux anomalies déjà observées ».
+
+**Mes propres tests sont tombés dans le biais que je venais de corriger.** Lots
+de test à trois lignes : une anomalie unique pesait 33 % et franchissait tous
+les plafonds de la politique. Deux tests échouaient pour une raison qui n'avait
+rien à voir avec ce qu'ils vérifiaient. Passés à soixante lignes, une anomalie
+isolée pèse 1,7 % et l'escalade redevient quelque chose qu'on déclenche exprès.
+
+## Ce que la livraison a donné
+
+| Lot | Statut | Erreurs | Avertissements | Informations |
+|---|---|---:|---:|---:|
+| Socle publié | `ACCEPTED_WITH_WARNINGS` | 0 | 25 | 1 |
+| Livraison candidate | `REJECTED` | 4 | 22 | 5 |
+
+Quatre constats bloquants : 86 interventions sur 220 ouvertes **avant** leur
+propre événement (0 sur 1 814 dans le publié), deux clés déjà publiées
+réutilisées pour des contenus entièrement différents, un équipement sans
+identifiant. Densité d'anomalies quatre fois supérieure au socle : 9,4 % du
+volume contre 2,2 %.
+
+**Décision : rejet, relivraison demandée.** Aucune des quatre erreurs ne se
+corrige sans inventer de la donnée. Détail dans
+`aller_plus_loin/decision_livraison.md`.
+
+## Ce qui reste ouvert
+
+- Toujours aucune revue contradictoire externe, en M1, en M2, et ici.
+- Les seuils de plafond (2 %, 5 %, 10 %) sont des choix argumentés, pas des
+  mesures. Ils sont dans le YAML pour être contestés.
+- La politique n'a été éprouvée que sur une seule livraison candidate.
+- Les 595 interventions du socle facturant des pièces sans en déclarer
+  attendent toujours un arbitrage métier. Le lot candidat en ajoute 45.
