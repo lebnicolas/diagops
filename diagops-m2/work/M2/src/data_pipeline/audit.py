@@ -88,6 +88,56 @@ NON_QUARANTINE_DECISIONS = {"arret_audit", "signalement"}
 SAMPLE_SIZE = 10
 
 
+@dataclass(frozen=True)
+class AuditOptions:
+    """Parametres d'un passage d'audit.
+
+    AJOUTE le 04/08/2026 pour la qualification de livraisons incrementales.
+    Les valeurs par defaut reproduisent exactement le comportement du brief
+    presentiel : un lot unique, qui se suffit a lui-meme.
+
+    `context_frames` — tables dans lesquelles le lot examine s'insere, soit
+    l'union du publie et du candidat. Deux controles en dependent et n'ont pas
+    de sens sans elles quand le lot est incremental :
+
+    - les references. `EVT-REF-002` cherche l'`equipment_id` d'un evenement
+      dans les equipements du **meme** dictionnaire de frames. Un lot candidat
+      de 80 evenements qui pointent vers un parc historique de 420 machines
+      produirait 80 faux orphelins bloquants ;
+    - la recurrence des valeurs hors enumeration (voir
+      `checks.unknown_value_masks`).
+
+    Sans `context_frames`, le lot est son propre contexte — c'est le cas M2.
+
+    `population_frames` est distinct a dessein. Resoudre une reference dans le
+    contexte est toujours correct : un evenement candidat porte sur une machine
+    du catalogue, point. Compter les valeurs d'une categorie dans le contexte
+    est en revanche un choix de politique, qu'un lecteur doit pouvoir contester
+    sans que cela remette en cause la resolution des references.
+    """
+
+    context_frames: dict[str, pd.DataFrame] | None = None
+    population_frames: dict[str, pd.DataFrame] | None = None
+    expected_periods: tuple[str, ...] = (EXPECTED_PERIOD,)
+    recurrence_threshold: float = RECURRENCE_THRESHOLD
+    recurrence_minimum: int = RECURRENCE_MINIMUM
+
+    def reference(self, source: str, frames: dict[str, pd.DataFrame]) -> pd.DataFrame:
+        """Table utilisee pour resoudre une reference vers `source`."""
+        if self.context_frames and source in self.context_frames:
+            return self.context_frames[source]
+        return frames[source]
+
+    def population(self, source: str, column: str) -> pd.Series | None:
+        """Population sur laquelle compter les valeurs d'une categorie."""
+        if not self.population_frames:
+            return None
+        frame = self.population_frames.get(source)
+        if frame is None or column not in frame.columns:
+            return None
+        return frame[column]
+
+
 @dataclass
 class AuditResult:
     """Sortie complete d'un passage d'audit."""
@@ -115,13 +165,14 @@ class AuditResult:
 # ----------------------------------------------------------------------
 
 
-def _specs(reference_date: pd.Timestamp) -> list[dict]:
+def _specs(reference_date: pd.Timestamp, options: AuditOptions | None = None) -> list[dict]:
     """Branche chaque rule_id du registre sur un controle de `checks.py`.
 
     `reference_date` est passee explicitement pour que deux executions du meme
     audit au meme instant donnent le meme resultat.
     """
     today = reference_date.isoformat()
+    periods = (options or AuditOptions()).expected_periods
 
     return [
         # -------------------------------------------------- equipment
@@ -186,7 +237,7 @@ def _specs(reference_date: pd.Timestamp) -> list[dict]:
         {"rule_id": "EVT-CAS-002", "source": "events", "kind": "closed_set",
          "column": "severity", "allowed": SEVERITY_VALUES, "bucket": "case_variant"},
         {"rule_id": "EVT-CAT-003", "source": "events", "kind": "in_set",
-         "column": "period", "allowed": (EXPECTED_PERIOD,)},
+         "column": "period", "allowed": periods},
         {"rule_id": "EVT-TMP-001", "source": "events", "kind": "date_order",
          "earlier": "start_at", "later": "end_at", "column": "end_at"},
         {"rule_id": "EVT-TMP-002", "source": "events", "kind": "date_bounds",
@@ -234,7 +285,7 @@ def _specs(reference_date: pd.Timestamp) -> list[dict]:
         {"rule_id": "MNT-CAT-002", "source": "maintenance", "kind": "inventory",
          "column": "outcome"},
         {"rule_id": "MNT-CAT-003", "source": "maintenance", "kind": "in_set",
-         "column": "period", "allowed": (EXPECTED_PERIOD,)},
+         "column": "period", "allowed": periods},
         {"rule_id": "MNT-TMP-001", "source": "maintenance", "kind": "date_order",
          "earlier": "opened_at", "later": "closed_at", "column": "closed_at"},
         {"rule_id": "MNT-TMP-002", "source": "maintenance", "kind": "date_bounds",
@@ -270,9 +321,19 @@ def _specs(reference_date: pd.Timestamp) -> list[dict]:
 # ----------------------------------------------------------------------
 
 
-def _event_before_commissioning(frames: dict[str, pd.DataFrame]) -> pd.Series:
-    """EVT-TMP-003 — evenement anterieur a la mise en service de l'equipement."""
-    events, equipment = frames["events"], frames["equipment"]
+def _event_before_commissioning(
+    frames: dict[str, pd.DataFrame], options: AuditOptions | None = None
+) -> pd.Series:
+    """EVT-TMP-003 — evenement anterieur a la mise en service de l'equipement.
+
+    L'equipement se cherche dans le contexte, pas dans le lot : un evenement
+    candidat porte sur une machine deja presente au catalogue. Sans cela le
+    controle ne tombe pas en faux positif, il s'eteint — le rapprochement
+    echoue, la date de mise en service est absente, et la regle passe.
+    """
+    options = options or AuditOptions()
+    events = frames["events"]
+    equipment = options.reference("equipment", frames)
     if "equipment_id" not in events.columns or "commissioning_date" not in equipment.columns:
         return pd.Series(False, index=events.index, dtype=bool)
     mapping = equipment.drop_duplicates("equipment_id").set_index("equipment_id")[
@@ -285,9 +346,17 @@ def _event_before_commissioning(frames: dict[str, pd.DataFrame]) -> pd.Series:
     return commissioning.notna() & start.notna() & (start < commissioning)
 
 
-def _maintenance_before_event(frames: dict[str, pd.DataFrame]) -> pd.Series:
-    """MNT-TMP-003 — intervention ouverte avant le debut de son evenement."""
-    maintenance, events = frames["maintenance"], frames["events"]
+def _maintenance_before_event(
+    frames: dict[str, pd.DataFrame], options: AuditOptions | None = None
+) -> pd.Series:
+    """MNT-TMP-003 — intervention ouverte avant le debut de son evenement.
+
+    Meme raison que `_event_before_commissioning` : l'evenement declencheur
+    d'une intervention candidate peut appartenir a l'historique.
+    """
+    options = options or AuditOptions()
+    maintenance = frames["maintenance"]
+    events = options.reference("events", frames)
     if "event_id" not in maintenance.columns or "start_at" not in events.columns:
         return pd.Series(False, index=maintenance.index, dtype=bool)
     mapping = events.drop_duplicates("event_id").set_index("event_id")["start_at"]
@@ -298,9 +367,13 @@ def _maintenance_before_event(frames: dict[str, pd.DataFrame]) -> pd.Series:
     return event_start.notna() & opened.notna() & (opened < event_start)
 
 
-def _maintenance_equipment_mismatch(frames: dict[str, pd.DataFrame]) -> pd.Series:
+def _maintenance_equipment_mismatch(
+    frames: dict[str, pd.DataFrame], options: AuditOptions | None = None
+) -> pd.Series:
     """MNT-REF-003 — equipement de l'intervention different de celui de l'evenement."""
-    maintenance, events = frames["maintenance"], frames["events"]
+    options = options or AuditOptions()
+    maintenance = frames["maintenance"]
+    events = options.reference("events", frames)
     if "event_id" not in events.columns:
         return pd.Series(False, index=maintenance.index, dtype=bool)
     return checks.inconsistent_join(
@@ -318,8 +391,12 @@ def _maintenance_equipment_mismatch(frames: dict[str, pd.DataFrame]) -> pd.Serie
 
 
 def _run_spec(
-    spec: dict, frames: dict[str, pd.DataFrame], inventories: dict[str, pd.DataFrame]
+    spec: dict,
+    frames: dict[str, pd.DataFrame],
+    inventories: dict[str, pd.DataFrame],
+    options: AuditOptions | None = None,
 ) -> CheckOutcome:
+    options = options or AuditOptions()
     source = spec["source"]
     frame = frames[source]
     identifier = ROW_IDENTIFIER[source]
@@ -395,10 +472,15 @@ def _run_spec(
         )
     elif kind == "closed_set":
         mask = checks.unknown_value_masks(
-            frame, column, spec["allowed"], RECURRENCE_THRESHOLD, RECURRENCE_MINIMUM
+            frame,
+            column,
+            spec["allowed"],
+            options.recurrence_threshold,
+            options.recurrence_minimum,
+            population=options.population(source, column),
         )[spec["bucket"]]
     elif kind == "foreign_key":
-        reference = frames[spec["reference"]]
+        reference = options.reference(spec["reference"], frames)
         values = (
             reference[spec["reference_column"]]
             if spec["reference_column"] in reference.columns
@@ -426,7 +508,7 @@ def _run_spec(
     elif kind == "pii":
         mask = checks.contains_personal_data(frame, column)
     elif kind == "custom":
-        mask = spec["function"](frames)
+        mask = spec["function"](frames, options)
     else:
         raise ValueError(f"Controle inconnu : {kind}")
 
@@ -464,16 +546,19 @@ def _run_spec(
 
 
 def run_audit(
-    frames: dict[str, pd.DataFrame], reference_date: pd.Timestamp | None = None
+    frames: dict[str, pd.DataFrame],
+    reference_date: pd.Timestamp | None = None,
+    options: AuditOptions | None = None,
 ) -> AuditResult:
     """Execute toutes les regles du registre sans modifier les donnees."""
     reference_date = reference_date or pd.Timestamp.utcnow().normalize().tz_localize(None)
+    options = options or AuditOptions()
     register = rule_register().set_index("rule_id")
     inventories: dict[str, pd.DataFrame] = {}
     outcomes: list[CheckOutcome] = []
 
-    for spec in _specs(reference_date):
-        outcomes.append(_run_spec(spec, frames, inventories))
+    for spec in _specs(reference_date, options):
+        outcomes.append(_run_spec(spec, frames, inventories, options))
 
     results = pd.DataFrame(
         [

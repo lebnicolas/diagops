@@ -181,6 +181,7 @@ def unknown_value_masks(
     allowed: Sequence[str],
     recurrence_threshold: float = 0.05,
     recurrence_minimum: int = 10,
+    population: pd.Series | None = None,
 ) -> dict[str, pd.Series]:
     """Separe trois situations distinctes derriere une meme valeur hors enumeration.
 
@@ -201,6 +202,17 @@ def unknown_value_masks(
       donnee des trois.
 
     Les trois masques sont disjoints.
+
+    `population` — AJOUTE le 04/08/2026 pour la qualification de livraisons
+    incrementales. Les masques portent toujours sur `frame`, mais le comptage
+    qui separe `recurrent` de `isolated` se fait sur cette population de
+    reference si elle est fournie. Sans elle, le denominateur est la taille du
+    lot examine : la meme valeur, dans le meme fichier, changeait de classe
+    selon le perimetre qu'on lui donnait. Sur 1 800 lignes d'historique il
+    fallait 90 occurrences pour qu'une valeur cesse d'etre une anomalie, sur un
+    lot candidat de 220 il en fallait 11, et sur 30 lignes le seuil etait hors
+    d'atteinte. La question « cette valeur est-elle une nomenclature legitime ? »
+    porte sur le corpus, pas sur l'echantillon recu.
     """
     empty = _empty_mask(frame)
     if column not in frame.columns:
@@ -215,8 +227,16 @@ def unknown_value_masks(
     case_variant = present & ~values.isin(allowed_exact) & normalized.isin(allowed_normalized)
     unknown = present & ~normalized.isin(allowed_normalized)
 
-    counts = normalized.where(unknown).value_counts(dropna=True)
-    shares = counts / len(frame)
+    if population is None:
+        counted, counted_unknown, population_size = normalized, unknown, len(frame)
+    else:
+        counted = population.astype(str).str.strip().str.casefold()
+        counted_present = population.notna() & (population.astype(str).str.strip() != "")
+        counted_unknown = counted_present & ~counted.isin(allowed_normalized)
+        population_size = len(population)
+
+    counts = counted.where(counted_unknown).value_counts(dropna=True)
+    shares = counts / population_size if population_size else counts * 0.0
     recurrent_values = set(
         counts[(shares >= recurrence_threshold) & (counts >= recurrence_minimum)].index
     )
