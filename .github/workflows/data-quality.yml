@@ -1,0 +1,91 @@
+name: Qualite des donnees DiagOps
+
+# Rejoue les tests puis la qualification des donnees, pour que les controles ne
+# dependent plus d'un poste de travail. Le fichier est a la racine du depot
+# parce que GitHub ne detecte pas un workflow place sous work/M2/ ; tout le
+# reste du complement vit dans diagops-m2/work/M2/aller_plus_loin/.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+# Aucune ecriture n'est necessaire : la chaine lit des donnees et publie un
+# resume. Elle n'integre rien, ne commite rien, ne cree aucune release.
+permissions:
+  contents: read
+
+env:
+  WORKDIR: diagops-m2/work/M2
+
+jobs:
+  qualification:
+    name: Tests et qualification
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Copie propre du depot
+        uses: actions/checkout@v4
+
+      - name: Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Dependances declarees
+        # Depuis requirements.txt uniquement. Le venv local avait PyYAML par
+        # ricochet de jupyterlab : s'appuyer dessus aurait fait tomber la chaine
+        # sur une machine propre.
+        working-directory: ${{ env.WORKDIR }}
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r aller_plus_loin/requirements.txt
+
+      - name: Empreinte des donnees avant execution
+        # Preuve, et non declaration d'intention : ce releve est confronte au
+        # meme calcul apres la qualification.
+        run: |
+          find diagops-m2/data_pack -type f -exec sha256sum {} + | sort -k2 > /tmp/data_pack_avant.txt
+          wc -l < /tmp/data_pack_avant.txt
+
+      - name: Tests
+        working-directory: ${{ env.WORKDIR }}
+        run: python -m pytest -q
+
+      - name: Non-regression sur le socle publie
+        # Passe en premier et separement : si la politique ne s'applique plus a
+        # ce qui a deja ete accepte, inutile d'aller juger une livraison neuve.
+        working-directory: ${{ env.WORKDIR }}
+        run: python aller_plus_loin/qualify.py --baseline-only
+
+      - name: Qualification de la livraison candidate
+        id: qualification
+        working-directory: ${{ env.WORKDIR }}
+        run: python aller_plus_loin/qualify.py --summary "$GITHUB_STEP_SUMMARY"
+
+      - name: Les donnees publiees n'ont pas bouge
+        # `if: always()` — la verification a d'autant plus de valeur quand
+        # l'etape precedente a echoue.
+        if: always()
+        run: |
+          find diagops-m2/data_pack -type f -exec sha256sum {} + | sort -k2 > /tmp/data_pack_apres.txt
+          if ! diff -q /tmp/data_pack_avant.txt /tmp/data_pack_apres.txt > /dev/null; then
+            echo "::error::data_pack a ete modifie pendant la qualification"
+            diff /tmp/data_pack_avant.txt /tmp/data_pack_apres.txt || true
+            exit 1
+          fi
+          echo "data_pack inchange."
+
+      - name: Rapports detailles
+        # Conserves meme en cas de rejet : un rejet qu'on ne peut pas
+        # diagnostiquer sans relancer le workflow ne sert a rien.
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: rapports-qualification
+          path: |
+            ${{ env.WORKDIR }}/aller_plus_loin/reports/**
+            ${{ env.WORKDIR }}/aller_plus_loin/run_manifest.json
+          retention-days: 30
+          if-no-files-found: error
