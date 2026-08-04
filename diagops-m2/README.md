@@ -8,6 +8,9 @@ dans `../data_pack/` et le travail est initialisé dans `../work/M2/`.
 
 - `brief1_module2.md` : brief présentiel moderne, 14 h ;
 - `brief1_module2_online.md` : brief online aligné sur le programme Atlas, 6 h ;
+- `pour_aller_plus_loin_module2.md` : complément facultatif de 20 h consacré à
+  la qualification d'une nouvelle livraison et à son automatisation avec
+  GitHub Actions ;
 - `../data_pack/2026-S1/` : données ouvertes de M0 à M2 ;
 - `../data_pack/2026-S1/reference_runs/m1_for_m2/` : état de référence commun
   permettant de commencer M2 sans dépendre de l'achèvement des productions M1 ;
@@ -20,6 +23,19 @@ Les rapports, annotations et contrats déjà remis en M0 et M1 ne sont pas
 dupliqués. Ils restent utiles pour le brief présentiel lorsqu'ils sont
 disponibles, mais la référence de continuité fournit les résultats M1
 indispensables à l'enquête.
+
+Le complément facultatif utilise en plus
+`../data_pack/2026-S1/m2_candidate_release/`. Cette livraison est fournie telle
+qu'elle a été reçue et ne doit pas être intégrée automatiquement aux données
+publiées.
+
+## Parcours
+
+| Parcours | Charge | Statut |
+|---|---:|---|
+| Brief présentiel moderne | 14 h | obligatoire |
+| Brief online Atlas | 6 h | obligatoire |
+| Pour aller plus loin | 20 h | facultatif, sans effet sur l'accès à M3 |
 
 ## Organisation
 

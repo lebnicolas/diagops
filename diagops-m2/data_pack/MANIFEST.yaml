@@ -3,7 +3,7 @@ status: in_progress
 distribution: learner_pack
 generation_scripts_distributed: false
 synthetic_data: true
-current_release: diagops-2026-S1-m2-v1
+current_release: diagops-2026-S1-m2-v2
 
 periods:
   - id: "2026-S1"
@@ -80,6 +80,15 @@ files:
     quality_review: continuity_pack_checksums_and_scope_review_v1
     scope: "Common M1 reference used to start M2 independently of personal M1 completion."
 
+  - path: "2026-S1/m2_candidate_release/"
+    entity: "m2_candidate_release"
+    module_min: "M2"
+    required: false
+    delivery_status: ready_for_distribution
+    quality_review: controlled_candidate_release_and_trainer_oracle_v1
+    release_id: diagops-2026-S1-m2-candidate-r2
+    scope: "Optional 14-hour M2 extension: qualify a new delivery without opening M3 sensor data."
+
   - path: "2026-S2/sensors/sensor_readings.csv"
     entity: "sensors"
     module_min: "M5"
@@ -116,3 +125,4 @@ notes:
   - "The M1 annotated subset is an input dataset, not a correction key."
   - "M2 opens equipment, events and maintenance history; sensors remain closed until M3."
   - "M2 tables intentionally contain controlled pedagogical anomalies documented only in the trainer area."
+  - "The optional M2 candidate release is intentionally unqualified; its presence does not authorize integration into the published tables."

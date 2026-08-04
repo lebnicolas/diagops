@@ -23,9 +23,16 @@ toutes les productions personnelles de M1 ne sont pas achevées.
 |---|---|---:|
 | `brief1_module2.md` | auditer et préparer les données, puis rendre une décision argumentée | **14 h** |
 | `brief1_module2_online.md` | explorer les données avec Pandas, Seaborn et les statistiques descriptives Atlas | **6 h** |
+| `pour_aller_plus_loin_module2.md` | qualifier une nouvelle livraison et industrialiser ses contrôles avec GitHub Actions | **20 h facultatives** |
 
 Les deux briefs sont autonomes. Les cinq apprenants reçoivent le même sujet et
 les mêmes ressources, puis travaillent chacun dans leur propre environnement.
+
+Le complément « Pour aller plus loin » s'adresse aux apprenants ayant terminé
+les activités principales. Il approfondit C1 à C3 par la gestion d'une nouvelle
+livraison, puis par son intégration dans le dépôt GitHub privé, sans ouvrir les
+données capteurs ni modifier les prérequis de M3. La charge obligatoire du
+module reste de 20 h ; la charge maximale avec ce complément est de 40 h.
 
 ## Compétences travaillées
 
@@ -138,3 +145,15 @@ statistique des variables et de leurs limites.
 
 M3 pourra ajouter les mesures capteurs en réutilisant les contrôles établis ou
 en documentant leur évolution.
+
+## Approfondissement facultatif
+
+Le lot `data_pack/2026-S1/m2_candidate_release/` permet de confronter les
+contrôles M2 à une nouvelle livraison. L'apprenant compare les versions,
+distingue erreur et évolution légitime, rend les règles configurables, vérifie
+les non-régressions et produit une décision d'intégration reproductible. Un
+laboratoire GitHub Actions permet ensuite d'exécuter les tests et la
+qualification dans le dépôt privé, de publier un résumé et de conserver les
+rapports comme artefacts.
+
+Ce travail n'est pas utilisé pour établir la référence commune M2 vers M3.

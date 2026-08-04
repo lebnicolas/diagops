@@ -149,6 +149,27 @@ Evenements permettant de relier les rapports, capteurs, interventions et images.
 Mise a disposition initiale : M2. Volume distribue : 520 lignes, anomalies
 pedagogiques incluses.
 
+## Livraison candidate M2
+
+Le dossier `2026-S1/m2_candidate_release/` est une livraison incrémentale à
+qualifier. Les règles d'intégration ne sont pas identiques pour les trois
+fichiers :
+
+- `equipment_update.csv` peut contenir de nouveaux équipements ou des mises à
+  jour d'identifiants déjà présents ;
+- `events_batch_02.csv` contient des événements destinés à être ajoutés sans
+  collision de `event_id` ;
+- `maintenance_batch_02.csv` contient des interventions destinées à être
+  ajoutées sans collision de `maintenance_id`.
+
+Les deux premiers fichiers reprennent les colonnes de leur entité. Le fichier
+de maintenance annonce en plus la colonne facultative `source_system`, de type
+string, qui identifie le système ayant exporté la ligne. L'acceptation de cette
+évolution et la qualification du contenu font partie du complément M2.
+
+La livraison candidate ne doit pas être confondue avec la version publiée des
+tables et ne doit pas être intégrée automatiquement.
+
 ### `feedback`
 
 Retours des techniciens apres utilisation de DiagOps.

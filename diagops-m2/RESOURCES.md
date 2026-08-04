@@ -22,6 +22,27 @@ comparées à cette référence, mais ne sont pas requises pour commencer.
 Ces fichiers font partie du dossier M2 ; aucune archive ni copie du data pack
 global n'est nécessaire.
 
+## Complément « Pour aller plus loin »
+
+- `data_pack/2026-S1/m2_candidate_release/` — livraison à qualifier ;
+- `data_pack/2026-S1/m2_candidate_release/RELEASE_NOTES.md` — nature des
+  fichiers, volumes annoncés et évolutions déclarées ;
+- GitHub Actions — documentation officielle :
+  <https://docs.github.com/actions> ;
+- GitHub Skills — catalogue des laboratoires : <https://skills.github.com/> ;
+- GitHub Skills — Test with Actions :
+  <https://github.com/skills/test-with-actions> ;
+- GitHub Actions — artefacts de workflow :
+  <https://docs.github.com/actions/using-workflows/storing-workflow-data-as-artifacts> ;
+- GitHub Actions — sécurisation des workflows :
+  <https://docs.github.com/actions/security-guides/security-hardening-for-github-actions> ;
+- YAML — spécification : <https://yaml.org/spec/>.
+
+La qualification doit d'abord fonctionner localement. Pour terminer le
+complément facultatif, l'apprenant réalise ensuite le laboratoire GitHub Skills
+indiqué, ou un équivalent validé par le formateur, puis applique GitHub Actions
+à DiagOps dans son dépôt privé.
+
 ## Programme Atlas
 
 - `S02/M2/data-pour-l-ia-6924c8bbbfdfc957869223.pdf` — statistiques

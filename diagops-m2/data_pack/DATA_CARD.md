@@ -76,6 +76,22 @@ apprenants.
 Les donnees capteurs ne sont pas ouvertes en M2. Elles restent reservees au
 travail temporel et multi-source de M3.
 
+## Livraison candidate facultative M2
+
+La révision `diagops-2026-S1-m2-v2` ajoute le dossier
+`2026-S1/m2_candidate_release/` pour le complément « Pour aller plus loin ».
+Il contient un lot incrémental d'équipements, d'événements et d'interventions à
+qualifier avant toute intégration.
+
+Ce lot est volontairement distinct des tables publiées : il peut contenir des
+erreurs, des évolutions de schéma, des catégories nouvelles et des changements
+de qualité globale. Sa présence dans le data pack ne signifie pas qu'il est
+accepté. Les notes de livraison décrivent uniquement les évolutions annoncées ;
+l'inventaire formateur des écarts n'est pas distribué.
+
+Ce complément ne contient aucune donnée capteur et n'anticipe pas le périmètre
+temporel de M3.
+
 ## Référence de continuité M1 vers M2
 
 Le dossier `2026-S1/reference_runs/m1_for_m2/` fournit un run M1 commun :
