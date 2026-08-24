@@ -1,0 +1,6 @@
+sensor,value_ref,occurrences
+temperature_c,-999.0,4
+current_a,-999.0,2
+pressure_bar,-999.0,2
+rpm,-999.0,2
+vibration_mm_s,-999.0,2

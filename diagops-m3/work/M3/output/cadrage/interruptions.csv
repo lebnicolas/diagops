@@ -1,0 +1,7 @@
+equipment_id,timestamp,sensor_name,value,unit,period,timestamp_utc,ecart_heures,mesure_precedente,mesures_manquantes,origine
+EQ-CAB-134,2026-01-02T00:00:00Z,current_a,23.23,A,2026-S1,2026-01-02 00:00:00+00:00,114.0,2025-12-28 06:00:00+00:00,18,artefact_mesure_isolee
+EQ-MIX-159,2026-03-29T00:00:00Z,current_a,22.63,A,2026-S1,2026-03-29 00:00:00+00:00,270.0,2026-03-17 18:00:00+00:00,44,interruption_reelle
+EQ-PUMP-001,2026-07-02T00:00:00Z,pressure_bar,5.66,bar,2026-S1,2026-07-02 00:00:00+00:00,30.0,2026-06-30 18:00:00+00:00,4,artefact_mesure_isolee
+EQ-PUMP-001,2026-01-02T02:00:00Z,vibration_mm_s,2.93,mm/s,2026-S1,2026-01-02 02:00:00+00:00,86.0,2025-12-29 12:00:00+00:00,13,artefact_mesure_isolee
+EQ-PUMP-171,2026-07-04T12:00:00Z,temperature_c,64.53,°C,2026-S1,2026-07-04 12:00:00+00:00,90.0,2026-06-30 18:00:00+00:00,14,artefact_mesure_isolee
+EQ-PUMP-171,2026-07-03T06:00:00Z,vibration_mm_s,2.93,mm/s,2026-S1,2026-07-03 06:00:00+00:00,60.0,2026-06-30 18:00:00+00:00,9,artefact_mesure_isolee

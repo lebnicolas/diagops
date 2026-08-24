@@ -1,0 +1,6 @@
+equipment_id,timestamp,sensor_name,value,unit,period,timestamp_utc
+EQ-CAB-134,2025-12-28T06:00:00Z,current_a,24.48,A,2026-S1,2025-12-28 06:00:00+00:00
+EQ-PUMP-001,2025-12-29T12:00:00Z,vibration_mm_s,2.71,mm/s,2026-S1,2025-12-29 12:00:00+00:00
+EQ-PUMP-001,2026-07-02T00:00:00Z,pressure_bar,5.66,bar,2026-S1,2026-07-02 00:00:00+00:00
+EQ-PUMP-171,2026-07-03T06:00:00Z,vibration_mm_s,2.93,mm/s,2026-S1,2026-07-03 06:00:00+00:00
+EQ-PUMP-171,2026-07-04T12:00:00Z,temperature_c,64.53,°C,2026-S1,2026-07-04 12:00:00+00:00

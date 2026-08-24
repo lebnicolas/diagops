@@ -1,0 +1,2 @@
+equipment_id,timestamp,sensor_name,value,unit,period,sensor,timestamp_utc,value_num,value_ref,unit_ref,converti,ecart,precedent,instant_precedent,ecart_sigma
+EQ-FAN-304,2026-05-11T12:00:00Z,vibration_mm_s,3.03,mm/s,2026-S1,vibration_mm_s,2026-05-11 12:00:00+00:00,3.03,3.03,mm/s,False,-4.359999999999999,7.39,2026-05-11 06:00:00+00:00,8.406088181687915

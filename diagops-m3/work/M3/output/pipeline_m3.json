@@ -1,0 +1,84 @@
+{
+  "sources": {
+    "sensors_recues": 50401,
+    "equipment": 416,
+    "events": 514,
+    "maintenance": 1788
+  },
+  "regles": {
+    "total": 34,
+    "heritees_M2": 19,
+    "ajoutees_M3": 15,
+    "par_statut": {
+      "conservee": 16,
+      "etendue": 3,
+      "nouvelle": 15
+    },
+    "actives": 34
+  },
+  "mesures": {
+    "lignes_recues": 50401,
+    "noms_normalises": 40,
+    "capteurs_inconnus": 0,
+    "horodatages_sans_fuseau": 720,
+    "horodatages_illisibles": 0,
+    "unites_converties": 804,
+    "unites_non_conformes_restantes": 0,
+    "sentinelles_neutralisees": 12,
+    "valeurs_manquantes": 40,
+    "etiquettes_normalisees": 30,
+    "hors_periode": 5,
+    "lignes_hors_grille": 720,
+    "series_hors_grille": 1,
+    "lignes_equipement_inconnu": 30,
+    "equipements_inconnus": 1,
+    "doublons_stricts_supprimes": 6,
+    "lignes_cle_divergente_exclues": 8,
+    "lignes_figees_exclues": 80,
+    "depassements_plage": 10,
+    "series_en_derive_signalees": 1,
+    "sauts_signales": 1,
+    "reprises_apres_interruption": 10,
+    "lignes_preparees": 50277
+  },
+  "quarantaine_unifiee": {
+    "total": 1833,
+    "heritee_M2": 35,
+    "ajoutee_M3": 1798,
+    "par_decision": {
+      "valeur_normalisee": 1597,
+      "exclue": 127,
+      "champ_neutralise": 57,
+      "conserve_signale": 31,
+      "doublon_supprime": 19,
+      "pseudonymise": 2
+    },
+    "par_source": {
+      "sensor_readings.csv": 1798,
+      "maintenance_history.csv": 18,
+      "equipment.csv": 9,
+      "events.csv": 8
+    }
+  },
+  "non_regression": {
+    "equipment": {
+      "lignes_avant": 416,
+      "lignes_apres": 416,
+      "colonnes_identiques": true,
+      "contenu_identique": true
+    },
+    "events": {
+      "lignes_avant": 514,
+      "lignes_apres": 514,
+      "colonnes_identiques": true,
+      "contenu_identique": true
+    },
+    "maintenance": {
+      "lignes_avant": 1788,
+      "lignes_apres": 1788,
+      "colonnes_identiques": true,
+      "contenu_identique": true
+    },
+    "non_regression": true
+  }
+}

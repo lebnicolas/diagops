@@ -1,0 +1,2 @@
+equipment_id,sensor,palier,valeur,releves,debut,fin,duree_heures
+EQ-PUMP-171,vibration_mm_s,43396,2.59,80,2026-04-12 00:00:00+00:00,2026-05-01 18:00:00+00:00,474.0

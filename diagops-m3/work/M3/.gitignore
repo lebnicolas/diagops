@@ -1,0 +1,14 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# `output/` reste versionne : le brief attend en livrables la table de mesures
+# preparee, les agregats, le rapprochement et la quarantaine unifiee, qui y sont
+# ecrits. Le starter M3 les ignorait ; le M2 les versionnait. On garde la
+# convention M2.
+# La base de donnees de l'online reste exclue : le brief precise qu'elle n'est
+# pas un livrable et doit pouvoir etre reconstruite par le code.
+*.db
+*.sqlite3
+*.pyc

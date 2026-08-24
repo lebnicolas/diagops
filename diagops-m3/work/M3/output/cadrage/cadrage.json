@@ -1,0 +1,294 @@
+{
+  "source_donnees": "C:\\devs\\formation-Simplon\\projets\\diagops-m3\\data_pack\\2026-S1",
+  "identite": {
+    "fichier": "C:\\devs\\formation-Simplon\\projets\\diagops-m3\\data_pack\\2026-S1\\sensors\\sensor_readings.csv",
+    "sha256": "455b85fe1c1514c90ae33db92337c0dae2958f1f7dbbd155140827a7fd2b1e1d",
+    "octets": 3156683,
+    "lignes": 50401,
+    "colonnes": [
+      "equipment_id",
+      "timestamp",
+      "sensor_name",
+      "value",
+      "unit",
+      "period"
+    ]
+  },
+  "series": {
+    "nombre": 72,
+    "longueur_min": 30,
+    "longueur_mediane": 720,
+    "longueur_max": 722,
+    "capteurs_par_equipement": {
+      "2": 30,
+      "1": 5,
+      "3": 1,
+      "4": 1
+    }
+  },
+  "horodatage": {
+    "formes": {
+      "9999-99-99T99:99:99Z": 49681,
+      "9999-99-99 99:99:99": 720
+    },
+    "illisibles": 0,
+    "sans_fuseau": 720,
+    "series_sans_fuseau": [
+      "EQ-COMP-233 / temperature_c"
+    ],
+    "hors_grille": 720,
+    "series_hors_grille": [
+      "EQ-PUMP-001 / vibration_mm_s"
+    ],
+    "heures_hors_grille": [
+      2,
+      8,
+      14,
+      20
+    ]
+  },
+  "periode": {
+    "annoncee": "2026-S1",
+    "premiere_mesure": "2025-12-28 06:00:00+00:00",
+    "derniere_mesure": "2026-07-04 12:00:00+00:00",
+    "etendue_jours": 188.25,
+    "par_mois": {
+      "2025-12": 2,
+      "2026-01": 8400,
+      "2026-02": 7874,
+      "2026-03": 8638,
+      "2026-04": 8402,
+      "2026-05": 8681,
+      "2026-06": 8401,
+      "2026-07": 3
+    },
+    "hors_bornes": 5,
+    "hors_bornes_avant": 2,
+    "hors_bornes_apres": 3,
+    "etiquette_period_autre": {
+      "2026-S2": 30
+    },
+    "etiquette_fausse_mais_date_dans_S1": 30,
+    "equipements_etiquette_fausse": [
+      "EQ-OVEN-123"
+    ]
+  },
+  "echantillonnage": {
+    "pas_annonce_heures": 6,
+    "ecarts_mesures": 50329,
+    "ecarts_au_pas_nominal": 50313,
+    "part_au_pas_nominal": 99.9682,
+    "ecarts_nuls_doublons_de_cle": 10,
+    "ecarts_deviants": 16,
+    "trous": 6,
+    "trous_artefacts": 5,
+    "trous_reels": 1,
+    "mesures_manquantes_trous_reels": 44,
+    "ecart_max_heures": 270.0,
+    "distribution_ecarts": {
+      "0 h": 10,
+      "6 h": 50313,
+      "30 h": 1,
+      "60 h": 1,
+      "86 h": 1,
+      "90 h": 1,
+      "114 h": 1,
+      "270 h": 1
+    }
+  },
+  "unites": {
+    "capteurs_distincts_bruts": 6,
+    "capteurs_distincts_normalises": 5,
+    "noms_non_normalises": {
+      "TEMPERATURE_C ": 40
+    },
+    "unites_distinctes": 7,
+    "lignes_unite_non_conforme": 804,
+    "couples_non_conformes": {
+      "'pressure_bar' en 'kPa' (attendu 'bar')": 720,
+      "'temperature_c' en 'K' (attendu '°C')": 84
+    },
+    "valeurs_non_numeriques": 40,
+    "valeurs_vides": 40
+  },
+  "cle_logique": {
+    "cle_logique": [
+      "equipment_id",
+      "timestamp",
+      "sensor_name"
+    ],
+    "lignes_en_cle_dupliquee": 20,
+    "cles_dupliquees": 10,
+    "lignes_doublon_strict": 12,
+    "cles_doublon_strict": 6,
+    "lignes_valeur_divergente": 8,
+    "cles_valeur_divergente": 4
+  },
+  "couverture": {
+    "ventilation": {
+      "site_id": {
+        "SITE-EST": {
+          "parc": 91,
+          "instrumentes": 5,
+          "taux_pct": 5.49
+        },
+        "SITE-NORD": {
+          "parc": 173,
+          "instrumentes": 21,
+          "taux_pct": 12.14
+        },
+        "SITE-OUEST": {
+          "parc": 16,
+          "instrumentes": 0,
+          "taux_pct": 0.0
+        },
+        "SITE-SUD": {
+          "parc": 136,
+          "instrumentes": 10,
+          "taux_pct": 7.35
+        }
+      },
+      "site_id_sans_aucune_mesure": [
+        "SITE-OUEST"
+      ],
+      "equipment_type": {
+        "chiller": {
+          "parc": 23,
+          "instrumentes": 5,
+          "taux_pct": 21.74
+        },
+        "compressor": {
+          "parc": 38,
+          "instrumentes": 5,
+          "taux_pct": 13.16
+        },
+        "conveyor": {
+          "parc": 40,
+          "instrumentes": 4,
+          "taux_pct": 10.0
+        },
+        "dryer": {
+          "parc": 8,
+          "instrumentes": 0,
+          "taux_pct": 0.0
+        },
+        "electrical_cabinet": {
+          "parc": 12,
+          "instrumentes": 1,
+          "taux_pct": 8.33
+        },
+        "fan": {
+          "parc": 34,
+          "instrumentes": 5,
+          "taux_pct": 14.71
+        },
+        "gearbox": {
+          "parc": 8,
+          "instrumentes": 0,
+          "taux_pct": 0.0
+        },
+        "lift": {
+          "parc": 5,
+          "instrumentes": 0,
+          "taux_pct": 0.0
+        },
+        "mixer": {
+          "parc": 22,
+          "instrumentes": 3,
+          "taux_pct": 13.64
+        },
+        "motor": {
+          "parc": 7,
+          "instrumentes": 0,
+          "taux_pct": 0.0
+        },
+        "oven": {
+          "parc": 35,
+          "instrumentes": 5,
+          "taux_pct": 14.29
+        },
+        "packaging_machine": {
+          "parc": 7,
+          "instrumentes": 0,
+          "taux_pct": 0.0
+        },
+        "press": {
+          "parc": 34,
+          "instrumentes": 0,
+          "taux_pct": 0.0
+        },
+        "pump": {
+          "parc": 57,
+          "instrumentes": 4,
+          "taux_pct": 7.02
+        },
+        "robot": {
+          "parc": 44,
+          "instrumentes": 1,
+          "taux_pct": 2.27
+        },
+        "sensor": {
+          "parc": 16,
+          "instrumentes": 1,
+          "taux_pct": 6.25
+        },
+        "steam_unit": {
+          "parc": 5,
+          "instrumentes": 2,
+          "taux_pct": 40.0
+        },
+        "valve": {
+          "parc": 21,
+          "instrumentes": 0,
+          "taux_pct": 0.0
+        }
+      },
+      "equipment_type_sans_aucune_mesure": [
+        "dryer",
+        "gearbox",
+        "lift",
+        "motor",
+        "packaging_machine",
+        "press",
+        "valve"
+      ],
+      "criticality": {
+        "critical": {
+          "parc": 46,
+          "instrumentes": 14,
+          "taux_pct": 30.43
+        },
+        "high": {
+          "parc": 122,
+          "instrumentes": 14,
+          "taux_pct": 11.48
+        },
+        "low": {
+          "parc": 75,
+          "instrumentes": 1,
+          "taux_pct": 1.33
+        },
+        "medium": {
+          "parc": 173,
+          "instrumentes": 7,
+          "taux_pct": 4.05
+        }
+      },
+      "criticality_sans_aucune_mesure": []
+    },
+    "base_retenue": "reference_runs/m2_for_m3/processed/equipment.csv",
+    "parc_reference": 416,
+    "parc_brut": 416,
+    "ecart_reference_vs_brut": {
+      "retires": [],
+      "ajoutes": []
+    },
+    "equipements_mesures": 37,
+    "instrumentes_connus": 36,
+    "inconnus_du_parc": [
+      "EQ-ORPHAN-777"
+    ],
+    "non_instrumentes": 380,
+    "taux_instrumentation_pct": 8.65
+  }
+}

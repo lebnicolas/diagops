@@ -1,0 +1,9 @@
+sensor_name,unit,lignes,nom_normalise,unite_attendue,conforme,nom_non_normalise
+TEMPERATURE_C ,°C,40,temperature_c,°C,True,True
+current_a,A,10760,current_a,A,True,False
+pressure_bar,bar,8644,pressure_bar,bar,True,False
+pressure_bar,kPa,720,pressure_bar,bar,False,False
+rpm,rpm,5760,rpm,rpm,True,False
+temperature_c,K,84,temperature_c,°C,False,False
+temperature_c,°C,15030,temperature_c,°C,True,False
+vibration_mm_s,mm/s,9363,vibration_mm_s,mm/s,True,False

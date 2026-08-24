@@ -1,0 +1,166 @@
+{
+  "normalisation_unites": {
+    "pressure_bar : kPa -> bar": {
+      "lignes": 720,
+      "avant_min": 506.0,
+      "avant_max": 650.0,
+      "apres_min": 5.06,
+      "apres_max": 6.5
+    },
+    "temperature_c : K -> °C": {
+      "lignes": 84,
+      "avant_min": 321.28,
+      "avant_max": 337.64,
+      "apres_min": 48.13,
+      "apres_max": 64.49
+    },
+    "unites_non_conformes_non_converties": {}
+  },
+  "sentinelles": {
+    "critere": "valeur negative — physiquement impossible pour ces cinq grandeurs",
+    "lignes_sentinelles": 12,
+    "valeurs_rencontrees": {
+      "-999": 12
+    },
+    "codes_usuels_presents": {
+      "-999": 12
+    },
+    "par_capteur": {
+      "temperature_c": 4,
+      "rpm": 2,
+      "pressure_bar": 2,
+      "vibration_mm_s": 2,
+      "current_a": 2
+    },
+    "equipements_touches": [
+      "EQ-COMP-249",
+      "EQ-COMP-396",
+      "EQ-CONV-003",
+      "EQ-FAN-002",
+      "EQ-FAN-304",
+      "EQ-MIX-379",
+      "EQ-OVEN-386",
+      "EQ-PUMP-001",
+      "EQ-ROBOT-358",
+      "EQ-STEAM-352"
+    ],
+    "valeurs_manquantes_hors_sentinelles": 40,
+    "effet_sur_les_statistiques": {
+      "ecart_type_avec_sentinelles": {
+        "current_a": 14.196,
+        "pressure_bar": 14.708,
+        "rpm": 137.668,
+        "temperature_c": 17.861,
+        "vibration_mm_s": 14.653
+      },
+      "ecart_type_sans_sentinelles": {
+        "current_a": 2.669,
+        "pressure_bar": 0.573,
+        "rpm": 130.024,
+        "temperature_c": 4.909,
+        "vibration_mm_s": 0.405
+      }
+    }
+  },
+  "lignes_retenues_pour_les_controles": 50389,
+  "plages_par_capteur": {
+    "current_a": {
+      "unite": "A",
+      "min": 16.0,
+      "p01": 18.13,
+      "median": 23.07,
+      "p99": 30.815,
+      "max": 34.11,
+      "ecart_type": 2.669
+    },
+    "pressure_bar": {
+      "unite": "bar",
+      "min": 4.56,
+      "p01": 5.046,
+      "median": 6.31,
+      "p99": 7.565,
+      "max": 8.12,
+      "ecart_type": 0.573
+    },
+    "rpm": {
+      "unite": "rpm",
+      "min": 1104.53,
+      "p01": 1183.852,
+      "median": 1440.75,
+      "p99": 1695.335,
+      "max": 1736.9,
+      "ecart_type": 130.024
+    },
+    "temperature_c": {
+      "unite": "°C",
+      "min": 42.33,
+      "p01": 45.967,
+      "median": 57.84,
+      "p99": 67.55,
+      "max": 74.27,
+      "ecart_type": 4.909
+    },
+    "vibration_mm_s": {
+      "unite": "mm/s",
+      "min": 1.65,
+      "p01": 2.02,
+      "median": 2.84,
+      "p99": 3.8,
+      "max": 9.76,
+      "ecart_type": 0.405
+    }
+  },
+  "capteurs_figes": {
+    "seuil_releves_consecutifs": 8,
+    "paliers_detectes": 1,
+    "series_concernees": [
+      "EQ-PUMP-171 / vibration_mm_s"
+    ],
+    "plus_long_palier": {
+      "serie": "EQ-PUMP-171 / vibration_mm_s",
+      "valeur": 2.59,
+      "releves": 80,
+      "duree_heures": 474.0,
+      "debut": "2026-04-12 00:00:00+00:00",
+      "fin": "2026-05-01 18:00:00+00:00"
+    }
+  },
+  "derive_lente": {
+    "seuil_correlation": 0.3,
+    "justification_seuil": "distribution des 71 series : mediane 0,022, p75 0,037, deuxieme plus forte correlation 0,103. Le seuil isole ce qui sort de la population, il n'est pas fixe a priori.",
+    "distribution_correlations": {
+      "mediane": 0.0216,
+      "p75": 0.0371,
+      "p95": 0.0712,
+      "max": 0.5046
+    },
+    "series_evaluees": 71,
+    "candidats": 1,
+    "detail": [
+      {
+        "serie": "EQ-CHILL-248 / temperature_c",
+        "correlation_temps": 0.5046,
+        "pente_par_jour": 0.04657,
+        "amplitude_totale": 8.371,
+        "debut_moyenne_10pct": 52.654,
+        "fin_moyenne_10pct": 61.565
+      }
+    ]
+  },
+  "sauts_brutaux": {
+    "seuil_sigma": 8.0,
+    "sauts_detectes": 1,
+    "series_concernees": [
+      "EQ-FAN-304 / vibration_mm_s"
+    ],
+    "detail": [
+      {
+        "serie": "EQ-FAN-304 / vibration_mm_s",
+        "instant": "2026-05-11 12:00:00+00:00",
+        "precedent": 7.39,
+        "valeur": 3.03,
+        "ecart_sigma": 8.4
+      }
+    ]
+  }
+}
