@@ -1,0 +1,2282 @@
+[
+  {
+    "equipment_id": "EQ-CAB-101",
+    "equipment_type": "electrical_cabinet",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CAB-145",
+    "equipment_type": "electrical_cabinet",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CAB-239",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CHILL-104",
+    "equipment_type": "chiller",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CHILL-148",
+    "equipment_type": "chiller",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CHILL-208",
+    "equipment_type": "chiller",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CHILL-268",
+    "equipment_type": "chiller",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CHILL-288",
+    "equipment_type": "chiller",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CHILL-308",
+    "equipment_type": "chiller",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CHILL-348",
+    "equipment_type": "chiller",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CHILL-368",
+    "equipment_type": "chiller",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CHILL-371",
+    "equipment_type": "chiller",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CHILL-388",
+    "equipment_type": "chiller",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CHILL-393",
+    "equipment_type": "chiller",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-COMP-001",
+    "equipment_type": "compressor",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-COMP-003",
+    "equipment_type": "compressor",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-COMP-107",
+    "equipment_type": "compressor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-COMP-109",
+    "equipment_type": "compressor",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-COMP-133",
+    "equipment_type": "compressor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-COMP-149",
+    "equipment_type": "compressor",
+    "site_id": "SITE-OUEST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-COMP-229",
+    "equipment_type": "compressor",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-COMP-269",
+    "equipment_type": "compressor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-COMP-313",
+    "equipment_type": "compressor",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-COMP-329",
+    "equipment_type": "compressor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-COMP-369",
+    "equipment_type": "compressor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-COMP-393",
+    "equipment_type": "compressor",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-002",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-004",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-005",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-102",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-OUEST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-116",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-126",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-148",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-162",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-170",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-176",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-236",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-242",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-256",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-276",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-282",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-OUEST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-316",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-322",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-362",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CONV-382",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-401",
+    "equipment_type": "robot",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-402",
+    "equipment_type": "chiller",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-405",
+    "equipment_type": "dryer",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-406",
+    "equipment_type": "robot",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-407",
+    "equipment_type": "gearbox",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-411",
+    "equipment_type": "electrical_cabinet",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-414",
+    "equipment_type": "oven",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-417",
+    "equipment_type": "motor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-422",
+    "equipment_type": "valve",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-FAN-001",
+    "equipment_type": "fan",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-FAN-100",
+    "equipment_type": "fan",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-FAN-124",
+    "equipment_type": "fan",
+    "site_id": "SITE-OUEST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-FAN-140",
+    "equipment_type": "fan",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-FAN-144",
+    "equipment_type": "fan",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-FAN-220",
+    "equipment_type": "fan",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-FAN-260",
+    "equipment_type": "fan",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-FAN-280",
+    "equipment_type": "fan",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-FAN-300",
+    "equipment_type": "fan",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-FAN-320",
+    "equipment_type": "fan",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-FAN-344",
+    "equipment_type": "fan",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-FAN-364",
+    "equipment_type": "fan",
+    "site_id": "SITE-OUEST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-FAN-380",
+    "equipment_type": "fan",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-GEAR-121",
+    "equipment_type": "gearbox",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-GEAR-154",
+    "equipment_type": "gearbox",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-LIFT-286",
+    "equipment_type": "lift",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-LIFT-330",
+    "equipment_type": "lift",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-MIX-001",
+    "equipment_type": "mixer",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-MIX-119",
+    "equipment_type": "mixer",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-MIX-283",
+    "equipment_type": "mixer",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-MIX-299",
+    "equipment_type": "mixer",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-MIX-305",
+    "equipment_type": "mixer",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-MIX-319",
+    "equipment_type": "mixer",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-MIX-399",
+    "equipment_type": "mixer",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-MOTOR-322",
+    "equipment_type": "motor",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-MOTOR-333",
+    "equipment_type": "motor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-MOTOR-344",
+    "equipment_type": "motor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-OVEN-002",
+    "equipment_type": "oven",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-OVEN-143",
+    "equipment_type": "oven",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-OVEN-146",
+    "equipment_type": "oven",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-OVEN-163",
+    "equipment_type": "oven",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-OVEN-166",
+    "equipment_type": "oven",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-OVEN-203",
+    "equipment_type": "oven",
+    "site_id": "SITE-OUEST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-OVEN-206",
+    "equipment_type": "oven",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-OVEN-263",
+    "equipment_type": "oven",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-OVEN-306",
+    "equipment_type": "oven",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-OVEN-323",
+    "equipment_type": "oven",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-OVEN-346",
+    "equipment_type": "oven",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-OVEN-383",
+    "equipment_type": "oven",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PACK-198",
+    "equipment_type": "packaging_machine",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PACK-209",
+    "equipment_type": "packaging_machine",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-117",
+    "equipment_type": "press",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-134",
+    "equipment_type": "press",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-174",
+    "equipment_type": "press",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-194",
+    "equipment_type": "press",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-197",
+    "equipment_type": "press",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-214",
+    "equipment_type": "press",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-254",
+    "equipment_type": "press",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-257",
+    "equipment_type": "press",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-294",
+    "equipment_type": "press",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-297",
+    "equipment_type": "press",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-317",
+    "equipment_type": "press",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-337",
+    "equipment_type": "press",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-377",
+    "equipment_type": "press",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-394",
+    "equipment_type": "press",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PRESS-397",
+    "equipment_type": "press",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-003",
+    "equipment_type": "pump",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-005",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-107",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-127",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-131",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-150",
+    "equipment_type": "pump",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-167",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-187",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-192",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-214",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-225",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-247",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-267",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-311",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-327",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-330",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-331",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-347",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-370",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-387",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-PUMP-391",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-001",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-002",
+    "equipment_type": "robot",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-003",
+    "equipment_type": "robot",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-118",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-138",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-158",
+    "equipment_type": "robot",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-173",
+    "equipment_type": "robot",
+    "site_id": "SITE-OUEST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-178",
+    "equipment_type": "robot",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-184",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-195",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-218",
+    "equipment_type": "robot",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-235",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-275",
+    "equipment_type": "robot",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-278",
+    "equipment_type": "robot",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-298",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-315",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-318",
+    "equipment_type": "robot",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-338",
+    "equipment_type": "robot",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-346",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-355",
+    "equipment_type": "robot",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-390",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-395",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-SENSOR-125",
+    "equipment_type": "sensor",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-SENSOR-165",
+    "equipment_type": "sensor",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-SENSOR-205",
+    "equipment_type": "sensor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-SENSOR-225",
+    "equipment_type": "sensor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-SENSOR-265",
+    "equipment_type": "sensor",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-SENSOR-325",
+    "equipment_type": "sensor",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-SENSOR-345",
+    "equipment_type": "sensor",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-STEAM-363",
+    "equipment_type": "steam_unit",
+    "site_id": "SITE-SUD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-STEAM-385",
+    "equipment_type": "steam_unit",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-VALVE-178",
+    "equipment_type": "valve",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-VALVE-189",
+    "equipment_type": "valve",
+    "site_id": "SITE-EST",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-VALVE-338",
+    "equipment_type": "valve",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-VALVE-349",
+    "equipment_type": "valve",
+    "site_id": "SITE-NORD",
+    "criticality": "medium"
+  },
+  {
+    "equipment_id": "EQ-CAB-112",
+    "equipment_type": "electrical_cabinet",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-CAB-123",
+    "equipment_type": "electrical_cabinet",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-CAB-228",
+    "equipment_type": "electrical_cabinet",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-COMP-129",
+    "equipment_type": "compressor",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-COMP-153",
+    "equipment_type": "compressor",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-COMP-193",
+    "equipment_type": "compressor",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-COMP-273",
+    "equipment_type": "compressor",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-COMP-289",
+    "equipment_type": "compressor",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-COMP-333",
+    "equipment_type": "compressor",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-COMP-389",
+    "equipment_type": "compressor",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-CONV-122",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-CONV-136",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-CONV-142",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-CONV-159",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-CONV-182",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-CONV-202",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-CONV-216",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-CONV-222",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-CONV-342",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-DRYER-242",
+    "equipment_type": "dryer",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-DRYER-275",
+    "equipment_type": "dryer",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-409",
+    "equipment_type": "packaging_machine",
+    "site_id": "SITE-OUEST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-410",
+    "equipment_type": "oven",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-415",
+    "equipment_type": "electrical_cabinet",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-420",
+    "equipment_type": "dryer",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-423",
+    "equipment_type": "valve",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-424",
+    "equipment_type": "sensor",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-426",
+    "equipment_type": "valve",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-428",
+    "equipment_type": "packaging_machine",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-FAN-004",
+    "equipment_type": "fan",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-FAN-104",
+    "equipment_type": "fan",
+    "site_id": "SITE-OUEST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-FAN-160",
+    "equipment_type": "fan",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-FAN-184",
+    "equipment_type": "fan",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-FAN-200",
+    "equipment_type": "fan",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-GEAR-165",
+    "equipment_type": "gearbox",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-LIFT-308",
+    "equipment_type": "lift",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-MIX-139",
+    "equipment_type": "mixer",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-MIX-261",
+    "equipment_type": "mixer",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-MIX-294",
+    "equipment_type": "mixer",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-OVEN-103",
+    "equipment_type": "oven",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-OVEN-106",
+    "equipment_type": "oven",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-OVEN-226",
+    "equipment_type": "oven",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-OVEN-303",
+    "equipment_type": "oven",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-OVEN-363",
+    "equipment_type": "oven",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PRESS-002",
+    "equipment_type": "press",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PRESS-003",
+    "equipment_type": "press",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PRESS-137",
+    "equipment_type": "press",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PRESS-177",
+    "equipment_type": "press",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PRESS-237",
+    "equipment_type": "press",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PRESS-314",
+    "equipment_type": "press",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PRESS-334",
+    "equipment_type": "press",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PUMP-111",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PUMP-147",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PUMP-203",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PUMP-211",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PUMP-230",
+    "equipment_type": "pump",
+    "site_id": "SITE-OUEST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PUMP-231",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PUMP-251",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PUMP-287",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PUMP-290",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-PUMP-307",
+    "equipment_type": "pump",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-135",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-155",
+    "equipment_type": "robot",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-198",
+    "equipment_type": "robot",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-255",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-295",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-375",
+    "equipment_type": "robot",
+    "site_id": "SITE-EST",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-SENSOR-245",
+    "equipment_type": "sensor",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-SENSOR-365",
+    "equipment_type": "sensor",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-SENSOR-385",
+    "equipment_type": "sensor",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-VALVE-167",
+    "equipment_type": "valve",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-VALVE-200",
+    "equipment_type": "valve",
+    "site_id": "SITE-NORD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-VALVE-366",
+    "equipment_type": "valve",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-VALVE-399",
+    "equipment_type": "valve",
+    "site_id": "SITE-SUD",
+    "criticality": "low"
+  },
+  {
+    "equipment_id": "EQ-CAB-217",
+    "equipment_type": "electrical_cabinet",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-CHILL-002",
+    "equipment_type": "chiller",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-CHILL-228",
+    "equipment_type": "chiller",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-CHILL-328",
+    "equipment_type": "chiller",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-CHILL-382",
+    "equipment_type": "chiller",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-COMP-118",
+    "equipment_type": "compressor",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-COMP-169",
+    "equipment_type": "compressor",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-COMP-173",
+    "equipment_type": "compressor",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-COMP-213",
+    "equipment_type": "compressor",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-COMP-253",
+    "equipment_type": "compressor",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-COMP-309",
+    "equipment_type": "compressor",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-COMP-349",
+    "equipment_type": "compressor",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-COMP-353",
+    "equipment_type": "compressor",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-COMP-373",
+    "equipment_type": "compressor",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-CONV-001",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-CONV-137",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-CONV-156",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-CONV-196",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-CONV-302",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-CONV-356",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-CONV-396",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-DRYER-231",
+    "equipment_type": "dryer",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-DRYER-253",
+    "equipment_type": "dryer",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-DRYER-264",
+    "equipment_type": "dryer",
+    "site_id": "SITE-OUEST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-403",
+    "equipment_type": "motor",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-404",
+    "equipment_type": "valve",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-412",
+    "equipment_type": "valve",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-413",
+    "equipment_type": "electrical_cabinet",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-416",
+    "equipment_type": "press",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-418",
+    "equipment_type": "oven",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-419",
+    "equipment_type": "valve",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-421",
+    "equipment_type": "compressor",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-425",
+    "equipment_type": "gearbox",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-427",
+    "equipment_type": "gearbox",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-FAN-120",
+    "equipment_type": "fan",
+    "site_id": "SITE-OUEST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-FAN-164",
+    "equipment_type": "fan",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-FAN-180",
+    "equipment_type": "fan",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-FAN-224",
+    "equipment_type": "fan",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-FAN-240",
+    "equipment_type": "fan",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-FAN-244",
+    "equipment_type": "fan",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-FAN-264",
+    "equipment_type": "fan",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-FAN-324",
+    "equipment_type": "fan",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-FAN-340",
+    "equipment_type": "fan",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-FAN-384",
+    "equipment_type": "fan",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-GEAR-132",
+    "equipment_type": "gearbox",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-LIFT-297",
+    "equipment_type": "lift",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-MIX-179",
+    "equipment_type": "mixer",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-MIX-199",
+    "equipment_type": "mixer",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-MIX-239",
+    "equipment_type": "mixer",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-MIX-272",
+    "equipment_type": "mixer",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-MIX-279",
+    "equipment_type": "mixer",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-MIX-339",
+    "equipment_type": "mixer",
+    "site_id": "SITE-OUEST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-MIX-359",
+    "equipment_type": "mixer",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-MOTOR-311",
+    "equipment_type": "motor",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-MOTOR-355",
+    "equipment_type": "motor",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-OVEN-126",
+    "equipment_type": "oven",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-OVEN-183",
+    "equipment_type": "oven",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-OVEN-186",
+    "equipment_type": "oven",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-OVEN-243",
+    "equipment_type": "oven",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-OVEN-286",
+    "equipment_type": "oven",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-OVEN-326",
+    "equipment_type": "oven",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PACK-176",
+    "equipment_type": "packaging_machine",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PACK-187",
+    "equipment_type": "packaging_machine",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PRESS-001",
+    "equipment_type": "press",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PRESS-154",
+    "equipment_type": "press",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PRESS-157",
+    "equipment_type": "press",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PRESS-217",
+    "equipment_type": "press",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PRESS-234",
+    "equipment_type": "press",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PRESS-274",
+    "equipment_type": "press",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PRESS-277",
+    "equipment_type": "press",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PRESS-354",
+    "equipment_type": "press",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PRESS-357",
+    "equipment_type": "press",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PRESS-374",
+    "equipment_type": "press",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-004",
+    "equipment_type": "pump",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-110",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-130",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-151",
+    "equipment_type": "pump",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-170",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-181",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-191",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-207",
+    "equipment_type": "pump",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-210",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-227",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-270",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-291",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-310",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-351",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-367",
+    "equipment_type": "pump",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-371",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-PUMP-390",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-115",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-162",
+    "equipment_type": "robot",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-175",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-215",
+    "equipment_type": "robot",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-238",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-335",
+    "equipment_type": "robot",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-368",
+    "equipment_type": "robot",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-379",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-398",
+    "equipment_type": "robot",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-SENSOR-105",
+    "equipment_type": "sensor",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-SENSOR-285",
+    "equipment_type": "sensor",
+    "site_id": "SITE-EST",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-STEAM-374",
+    "equipment_type": "steam_unit",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-VALVE-110",
+    "equipment_type": "valve",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-VALVE-156",
+    "equipment_type": "valve",
+    "site_id": "SITE-NORD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-VALVE-316",
+    "equipment_type": "valve",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-VALVE-327",
+    "equipment_type": "valve",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-VALVE-377",
+    "equipment_type": "valve",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-VALVE-388",
+    "equipment_type": "valve",
+    "site_id": "SITE-SUD",
+    "criticality": "high"
+  },
+  {
+    "equipment_id": "EQ-CAB-206",
+    "equipment_type": "electrical_cabinet",
+    "site_id": "SITE-SUD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-CAB-250",
+    "equipment_type": "electrical_cabinet",
+    "site_id": "SITE-NORD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-CHILL-108",
+    "equipment_type": "chiller",
+    "site_id": "SITE-SUD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-CHILL-128",
+    "equipment_type": "chiller",
+    "site_id": "SITE-NORD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-COMP-140",
+    "equipment_type": "compressor",
+    "site_id": "SITE-OUEST",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-COMP-189",
+    "equipment_type": "compressor",
+    "site_id": "SITE-OUEST",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-COMP-209",
+    "equipment_type": "compressor",
+    "site_id": "SITE-EST",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-COMP-293",
+    "equipment_type": "compressor",
+    "site_id": "SITE-SUD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-CONV-296",
+    "equipment_type": "conveyor",
+    "site_id": "SITE-NORD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-EXTRA-408",
+    "equipment_type": "dryer",
+    "site_id": "SITE-NORD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-FAN-360",
+    "equipment_type": "fan",
+    "site_id": "SITE-SUD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-GEAR-143",
+    "equipment_type": "gearbox",
+    "site_id": "SITE-NORD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-LIFT-319",
+    "equipment_type": "lift",
+    "site_id": "SITE-SUD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-MIX-002",
+    "equipment_type": "mixer",
+    "site_id": "SITE-NORD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-MIX-219",
+    "equipment_type": "mixer",
+    "site_id": "SITE-EST",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-OVEN-246",
+    "equipment_type": "oven",
+    "site_id": "SITE-NORD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-OVEN-266",
+    "equipment_type": "oven",
+    "site_id": "SITE-EST",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-OVEN-283",
+    "equipment_type": "oven",
+    "site_id": "SITE-EST",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-OVEN-343",
+    "equipment_type": "oven",
+    "site_id": "SITE-NORD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-PACK-220",
+    "equipment_type": "packaging_machine",
+    "site_id": "SITE-EST",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-PRESS-114",
+    "equipment_type": "press",
+    "site_id": "SITE-EST",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-PUMP-002",
+    "equipment_type": "pump",
+    "site_id": "SITE-OUEST",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-PUMP-190",
+    "equipment_type": "pump",
+    "site_id": "SITE-NORD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-PUMP-250",
+    "equipment_type": "pump",
+    "site_id": "SITE-EST",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-PUMP-271",
+    "equipment_type": "pump",
+    "site_id": "SITE-SUD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-151",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-258",
+    "equipment_type": "robot",
+    "site_id": "SITE-NORD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-357",
+    "equipment_type": "robot",
+    "site_id": "SITE-EST",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-ROBOT-378",
+    "equipment_type": "robot",
+    "site_id": "SITE-SUD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-SENSOR-145",
+    "equipment_type": "sensor",
+    "site_id": "SITE-NORD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-SENSOR-185",
+    "equipment_type": "sensor",
+    "site_id": "SITE-NORD",
+    "criticality": "critical"
+  },
+  {
+    "equipment_id": "EQ-VALVE-360",
+    "equipment_type": "valve",
+    "site_id": "SITE-NORD",
+    "criticality": "critical"
+  }
+]

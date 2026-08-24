@@ -1,0 +1,32 @@
+{
+  "etape": "chargement des tables M2",
+  "duree_s": 5.55,
+  "tables": [
+    {
+      "table": "equipment",
+      "read": 416,
+      "inserted": 416,
+      "rejected": 0,
+      "reasons": {}
+    },
+    {
+      "table": "events",
+      "read": 514,
+      "inserted": 514,
+      "rejected": 0,
+      "reasons": {}
+    },
+    {
+      "table": "maintenance_history",
+      "read": 1788,
+      "inserted": 1788,
+      "rejected": 0,
+      "reasons": {}
+    }
+  ],
+  "totaux": {
+    "lues": 2718,
+    "inserees": 2718,
+    "rejetees": 0
+  }
+}

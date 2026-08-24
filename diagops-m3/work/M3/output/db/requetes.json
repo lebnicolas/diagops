@@ -1,0 +1,242 @@
+{
+  "etape": "requetes",
+  "requetes": [
+    {
+      "code": "Q12",
+      "titre": "Nombre de mesures par equipement et par capteur",
+      "lignes": 70,
+      "duree_ms": 23.96,
+      "extrait": [
+        {
+          "equipment_id": "EQ-CAB-134",
+          "sensor_name": "current_a",
+          "mesures": 721
+        },
+        {
+          "equipment_id": "EQ-PUMP-001",
+          "sensor_name": "pressure_bar",
+          "mesures": 721
+        },
+        {
+          "equipment_id": "EQ-PUMP-001",
+          "sensor_name": "vibration_mm_s",
+          "mesures": 721
+        },
+        {
+          "equipment_id": "EQ-CAB-134",
+          "sensor_name": "temperature_c",
+          "mesures": 720
+        },
+        {
+          "equipment_id": "EQ-CHILL-001",
+          "sensor_name": "pressure_bar",
+          "mesures": 720
+        }
+      ]
+    },
+    {
+      "code": "Q13",
+      "titre": "Premiere et derniere mesure de chaque serie",
+      "lignes": 70,
+      "duree_ms": 29.55,
+      "extrait": [
+        {
+          "equipment_id": "EQ-CAB-134",
+          "sensor_name": "current_a",
+          "premiere": "2025-12-28 06:00:00.000000",
+          "derniere": "2026-06-30 18:00:00.000000",
+          "mesures": 721
+        },
+        {
+          "equipment_id": "EQ-CAB-134",
+          "sensor_name": "temperature_c",
+          "premiere": "2026-01-02 00:00:00.000000",
+          "derniere": "2026-06-30 18:00:00.000000",
+          "mesures": 720
+        },
+        {
+          "equipment_id": "EQ-CHILL-001",
+          "sensor_name": "pressure_bar",
+          "premiere": "2026-01-02 00:00:00.000000",
+          "derniere": "2026-06-30 18:00:00.000000",
+          "mesures": 720
+        },
+        {
+          "equipment_id": "EQ-CHILL-001",
+          "sensor_name": "temperature_c",
+          "premiere": "2026-01-02 00:00:00.000000",
+          "derniere": "2026-06-30 18:00:00.000000",
+          "mesures": 720
+        },
+        {
+          "equipment_id": "EQ-CHILL-115",
+          "sensor_name": "pressure_bar",
+          "premiere": "2026-01-02 00:00:00.000000",
+          "derniere": "2026-06-30 18:00:00.000000",
+          "mesures": 720
+        }
+      ]
+    },
+    {
+      "code": "Q14",
+      "titre": "Equipements du parc sans aucune mesure",
+      "lignes": 380,
+      "duree_ms": 5.02,
+      "extrait": [
+        {
+          "equipment_id": "EQ-CAB-101",
+          "equipment_type": "electrical_cabinet",
+          "site_id": "SITE-SUD",
+          "criticality": "medium"
+        },
+        {
+          "equipment_id": "EQ-CAB-145",
+          "equipment_type": "electrical_cabinet",
+          "site_id": "SITE-EST",
+          "criticality": "medium"
+        },
+        {
+          "equipment_id": "EQ-CAB-239",
+          "equipment_type": "pump",
+          "site_id": "SITE-SUD",
+          "criticality": "medium"
+        },
+        {
+          "equipment_id": "EQ-CHILL-104",
+          "equipment_type": "chiller",
+          "site_id": "SITE-SUD",
+          "criticality": "medium"
+        },
+        {
+          "equipment_id": "EQ-CHILL-148",
+          "equipment_type": "chiller",
+          "site_id": "SITE-EST",
+          "criticality": "medium"
+        }
+      ]
+    },
+    {
+      "code": "Q-COUV",
+      "titre": "Taux d'instrumentation par criticite",
+      "lignes": 4,
+      "duree_ms": 6.7,
+      "extrait": [
+        {
+          "criticality": "critical",
+          "parc": 46,
+          "instrumentes": 14,
+          "taux_pct": 30.43
+        },
+        {
+          "criticality": "high",
+          "parc": 122,
+          "instrumentes": 14,
+          "taux_pct": 11.48
+        },
+        {
+          "criticality": "medium",
+          "parc": 173,
+          "instrumentes": 7,
+          "taux_pct": 4.05
+        },
+        {
+          "criticality": "low",
+          "parc": 75,
+          "instrumentes": 1,
+          "taux_pct": 1.33
+        }
+      ]
+    },
+    {
+      "code": "Q-VIB",
+      "titre": "Vibrations les plus fortes, avec le contexte de l'equipement",
+      "lignes": 8,
+      "duree_ms": 0.31,
+      "extrait": [
+        {
+          "equipment_id": "EQ-FAN-304",
+          "equipment_type": "fan",
+          "criticality": "high",
+          "timestamp": "2026-05-10 18:00:00.000000",
+          "value": 9.76,
+          "unit": "mm/s"
+        },
+        {
+          "equipment_id": "EQ-FAN-304",
+          "equipment_type": "fan",
+          "criticality": "high",
+          "timestamp": "2026-05-10 12:00:00.000000",
+          "value": 9.28,
+          "unit": "mm/s"
+        },
+        {
+          "equipment_id": "EQ-FAN-304",
+          "equipment_type": "fan",
+          "criticality": "high",
+          "timestamp": "2026-05-10 06:00:00.000000",
+          "value": 8.03,
+          "unit": "mm/s"
+        },
+        {
+          "equipment_id": "EQ-FAN-304",
+          "equipment_type": "fan",
+          "criticality": "high",
+          "timestamp": "2026-05-11 06:00:00.000000",
+          "value": 7.39,
+          "unit": "mm/s"
+        },
+        {
+          "equipment_id": "EQ-FAN-304",
+          "equipment_type": "fan",
+          "criticality": "high",
+          "timestamp": "2026-05-11 00:00:00.000000",
+          "value": 7.23,
+          "unit": "mm/s"
+        }
+      ]
+    },
+    {
+      "code": "Q-EVT",
+      "titre": "Evenements critiques sur equipement instrumente, avec le nombre de mesures dans les 48 h qui precedent",
+      "lignes": 9,
+      "duree_ms": 0.44,
+      "extrait": [
+        {
+          "event_id": "EVT-2026S1-0039",
+          "equipment_id": "EQ-PUMP-006",
+          "severity": "critical",
+          "start_at": "2026-04-29 12:10:00.000000",
+          "mesures_48h_avant": 16
+        },
+        {
+          "event_id": "EVT-2026S1-0044",
+          "equipment_id": "EQ-FAN-284",
+          "severity": "critical",
+          "start_at": "2026-02-23 21:47:00.000000",
+          "mesures_48h_avant": 16
+        },
+        {
+          "event_id": "EVT-2026S1-0264",
+          "equipment_id": "EQ-FAN-304",
+          "severity": "critical",
+          "start_at": "2026-02-27 06:12:00.000000",
+          "mesures_48h_avant": 16
+        },
+        {
+          "event_id": "EVT-2026S1-0344",
+          "equipment_id": "EQ-FAN-284",
+          "severity": "critical",
+          "start_at": "2026-01-10 10:34:00.000000",
+          "mesures_48h_avant": 16
+        },
+        {
+          "event_id": "EVT-2026S1-0494",
+          "equipment_id": "EQ-CAB-134",
+          "severity": "critical",
+          "start_at": "2026-01-25 19:27:00.000000",
+          "mesures_48h_avant": 16
+        }
+      ]
+    }
+  ]
+}

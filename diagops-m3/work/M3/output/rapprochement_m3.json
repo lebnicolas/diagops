@@ -1,0 +1,86 @@
+{
+  "fenetre_heures": {
+    "avant": 48.0,
+    "apres": 24.0
+  },
+  "evenements": {
+    "total": 514,
+    "sur_equipement_instrumente": 89,
+    "sur_equipement_non_instrumente": 425,
+    "avec_au_moins_une_mesure": 89,
+    "sans_aucune_mesure": 425,
+    "sans_mesure_bien_qu_instrumente": 0
+  },
+  "mesures_par_evenement": {
+    "min": 12,
+    "mediane": 30,
+    "moyenne": 29.3,
+    "max": 52
+  },
+  "mesures": {
+    "preparees": 50277,
+    "dans_au_moins_une_fenetre": 2574,
+    "hors_de_toute_fenetre": 47703,
+    "part_appariee_pct": 5.12
+  },
+  "duplication": {
+    "lignes_de_rapprochement": 2610,
+    "mesures_distinctes": 2574,
+    "facteur": 1.014,
+    "mesures_dans_plusieurs_fenetres": 36,
+    "appartenance_maximale": 2
+  },
+  "agregats": {
+    "grain": "event_id x equipment_id x sensor_name",
+    "lignes": 175,
+    "completude_mediane_pct": 100.0,
+    "evenements_couverts": 89
+  },
+  "sensibilite_fenetre": [
+    {
+      "avant_h": 12.0,
+      "apres_h": 6.0,
+      "evenements_apparies": 89,
+      "mesures_appariees": 1045,
+      "part_mesures_pct": 2.08,
+      "mediane_mesures_par_evenement": 12,
+      "facteur_duplication": 1.0
+    },
+    {
+      "avant_h": 24.0,
+      "apres_h": 12.0,
+      "evenements_apparies": 89,
+      "mesures_appariees": 1560,
+      "part_mesures_pct": 3.1,
+      "mediane_mesures_par_evenement": 18,
+      "facteur_duplication": 1.005
+    },
+    {
+      "avant_h": 48.0,
+      "apres_h": 24.0,
+      "evenements_apparies": 89,
+      "mesures_appariees": 2574,
+      "part_mesures_pct": 5.12,
+      "mediane_mesures_par_evenement": 30,
+      "facteur_duplication": 1.014
+    },
+    {
+      "avant_h": 72.0,
+      "apres_h": 48.0,
+      "evenements_apparies": 89,
+      "mesures_appariees": 3884,
+      "part_mesures_pct": 7.73,
+      "mediane_mesures_par_evenement": 46,
+      "facteur_duplication": 1.03
+    },
+    {
+      "avant_h": 168.0,
+      "apres_h": 72.0,
+      "evenements_apparies": 89,
+      "mesures_appariees": 7024,
+      "part_mesures_pct": 13.97,
+      "mediane_mesures_par_evenement": 86,
+      "facteur_duplication": 1.062
+    }
+  ]
+}

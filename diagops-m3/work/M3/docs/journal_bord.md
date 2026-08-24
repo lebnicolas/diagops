@@ -42,6 +42,8 @@ maj: 2026-08-24
 | 24/08 | Une dérive lente se détecte à une corrélation ≥ 0,7 | Régresser valeur sur temps, série par série | **Fausse** — 0 candidat, alors que la `DATA_CARD` en annonce une | Seuil refixé à 0,30 **d'après la distribution** (médiane 0,022, 2ᵉ max 0,103) → 1 candidat |
 | 24/08 | La dérive de `EQ-CHILL-248` est linéaire sur 6 mois | Moyenne mensuelle | **Fausse** — stable à ~52,5 °C de janvier à avril, puis 55,1 en mai et 60,6 en juin | La régression signalait la bonne série pour la mauvaise raison ; c'est une rampe tardive, encore en cours |
 | 24/08 | Un remplacement recalerait une dérive d'origine capteur | Comparer les 7 j avant / après `MNT-2026S1-0147` (15/03) | **Non concluant** — écart −1,20 °C, dans le bruit ; l'intervention précède le début de la dérive | Cas classé **indécidable**, et l'incertitude est documentée |
+| 24/08 | La largeur de la fenêtre de rapprochement conditionne ce qui est observable | Rejouer le rapprochement sur 5 fenêtres, de 12/6 h à 168/72 h | **Fausse** — 89 événements appariés dans les 5 cas ; seul le volume de mesures change (1 045 → 7 024) | Fenêtre 48/24 h retenue ; le choix n'est pas déterminant, l'instrumentation l'est |
+| 24/08 | Les épisodes de vibration les plus forts sont captés par le rapprochement | Compter les mesures > 5 mm/s appariées | **Fausse** — 8 au total, **2 appariées, 6 non** ; les 6 sont l'épisode `EQ-FAN-304`, pic 9,76 compris | Porté à la décision comme limite structurelle, non corrigeable par la fenêtre |
 
 ## Activités et preuves produites
 
@@ -58,6 +60,8 @@ maj: 2026-08-24
 | 24/08 | Axe 4 — pipeline multi-source : 34 règles, quarantaine unifiée, non-régression bloquante | `src/pipeline_m3.py`, `run_pipeline_m3.py`, `docs/registre_regles.md` | — |
 | 24/08 | 36 cas de vérification écrits pour la pipeline — un valide et un invalide par règle, 4 cas temporels, la non-régression | `tests/test_pipeline_m3.py` — **56 tests au vert** | — |
 | 24/08 | Deux épisodes de vibration inédits révélés par le critère de plage robuste, tous deux corrélés à un incident `critical` | `docs/diagnostic_multisource.md`, cas 3 bis | — |
+| 24/08 | Axe 5 — rapprochement mesures ↔ événements : fenêtre justifiée, cardinalité, duplication, agrégats, sensibilité | `run_rapprochement_m3.py`, `output/alignment/`, `output/aggregates/` | — |
+| 24/08 | Vérifié que la contradiction `SCHEMA.md` signalée en M2 persiste dans le M3 publié le 24/08 | à remonter au formateur | — |
 
 ## Décisions
 
@@ -144,17 +148,58 @@ observations de nature différente ne peuvent pas recevoir le même traitement.
 
 ## Brief online
 
-Non commencé. Le brief online (SQLAlchemy, Alembic, 6 h) est indépendant du
-présentiel et sera traité séparément.
+Terminé. Détail complet dans `docs/persistance_m3.md`.
 
-- Modèle et types retenus : —
-- Migrations écrites et testées : —
-- Stratégie d'idempotence et coût observé : —
-- Index ajouté et effet mesuré : —
+- **Modèle et types retenus** : relationnel pour les deux familles de données,
+  contre Parquet et base séries temporelles. Le critère décisif n'est pas la
+  performance — à 50 000 lignes pandas suffirait — mais l'**intégrité** : ce
+  module a montré que la source contredit ses propres règles, et une contrainte
+  en base résiste à un import écrit par quelqu'un d'autre. Types notables :
+  `Numeric(12,2)` et non `Float` pour les montants ; `DateTime(timezone=True)`
+  partout, pour ne pas reperdre le fuseau que l'axe 2 a coûté du travail à
+  fixer ; six `CHECK` portant les domaines fermés, dont `value >= 0` qui
+  interdit à la sentinelle `-999` d'entrer en base.
+- **Migrations écrites et testées** : trois. Schéma initial, ajout de
+  `sensor_readings` sur base **chargée**, puis remplacement de l'index. Les trois
+  `downgrade` exécutés et leur effet destructeur mesuré par comptage : le 3→2 est
+  sans perte, le 2→1 détruit les 50 277 mesures, le 1→base détruit les 2 718
+  lignes M2. Base entièrement reconstruite depuis zéro pour vérifier.
+- **Stratégie d'idempotence et coût observé** : `INSERT ... ON CONFLICT DO
+  NOTHING` sur la clé logique, par lots de 1 000. Deux passages : 50 277 insérées
+  puis **0**, table inchangée. Coût assumé — le second passage ne coûte pas moins
+  cher (4,1 s contre 3,3 s), il faut relire tout le fichier pour découvrir que
+  rien n'est nouveau. Un import réellement incrémental exigerait un marqueur de
+  progression que la source ne fournit pas.
+- **Index ajouté et effet mesuré** : `(sensor_name, value)`, **gain ×79,7**
+  (4,30 → 0,054 ms), le tri temporaire disparaît du plan.
+
+### Décision 6 — Un index retiré après mesure
+
+- **Options considérées** : (a) garder `(equipment_id, timestamp)`, déclaré en
+  premier pour le motif « un équipement sur une plage de temps » ; (b) le
+  retirer.
+- **Preuve déterminante** : gain mesuré **×1,00 — aucun**. La contrainte
+  d'unicité crée `sqlite_autoindex_sensor_readings_1` sur
+  `(equipment_id, timestamp, sensor_name)`, dont les deux premières colonnes
+  couvrent exactement ce motif. L'indexation elle-même vaut ×48, mais cet
+  index-là n'y contribuait pas.
+- **Choix retenu** : (b), par une troisième migration, et remplacement par
+  `(sensor_name, value)` justifié par une requête réellement exécutée.
+- **Ce que ça apprend** : un index n'est pas justifié par le raisonnement qui
+  l'a inspiré, seulement par la mesure. Celui-là paraissait évident.
+
+### Hypothèses du brief online
+
+| Date | Hypothèse | Mesure prévue | Résultat | Décision |
+|---|---|---|---|---|
+| 24/08 | Les clés étrangères déclarées s'appliquent | Insérer une mesure orpheline sur un moteur sans `PRAGMA foreign_keys=ON` | **Fausse sans le PRAGMA** — la ligne est acceptée | `build_engine()` l'active ; le test est discriminant, il échouerait si le réglage disparaissait |
+| 24/08 | Un index sur `(equipment_id, timestamp)` accélère l'accès par série | Comparer les plans et les temps avec, sans, et sans aucun index | **Fausse** — ×1,00 ; l'index de la contrainte d'unicité fait déjà le travail | Index retiré et remplacé (décision 6) |
+| 24/08 | Les mesures de temps d'index sont fiables | Vérifier le plan annoncé après `DROP INDEX` | **Fausse deux fois** — le pool réutilise la connexion SQLite et son cache de plans ; l'`EXPLAIN` renvoyait le plan d'avant | `engine.dispose()` avant chaque mesure |
+| 24/08 | 0 rejet au chargement prouve que les contraintes fonctionnent | Écrire des cas qui les franchissent | **Fausse** — un zéro ne distingue pas « données propres » de « base qui n'applique rien » | 16 cas de vérification dédiés |
 
 ## Bilan M3
 
-*(provisoire — le module est en cours)*
+*(module terminé — brief présentiel et brief online)*
 
 - **Ce que je sais démontrer** : le grain, la clé logique et sa non-unicité
   chiffrée ; la période réelle contre la période annoncée ; le pas d'échantillonnage

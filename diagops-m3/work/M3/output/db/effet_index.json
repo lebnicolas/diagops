@@ -1,0 +1,47 @@
+{
+  "etape": "effet de l'index",
+  "index_retenu": {
+    "nom": "ix_sensor_readings_sensor_value",
+    "colonnes": [
+      "sensor_name",
+      "value"
+    ],
+    "requete": "SELECT equipment_id, timestamp, value FROM sensor_readings WHERE sensor_name = 'vibration_mm_s' AND value > 5.0 ORDER BY value DESC",
+    "mesures": {
+      "avec_index": {
+        "plan": "SEARCH sensor_readings USING INDEX ix_sensor_readings_sensor_value (sensor_name=? AND value>?)",
+        "duree_mediane_ms": 0.054
+      },
+      "sans_aucun_index": {
+        "plan": "SCAN sensor_readings | USE TEMP B-TREE FOR ORDER BY",
+        "duree_mediane_ms": 4.3033
+      }
+    },
+    "gain": 79.69
+  },
+  "index_ecarte_apres_mesure": {
+    "nom": "ix_sensor_readings_equipment_time",
+    "colonnes": [
+      "equipment_id",
+      "timestamp"
+    ],
+    "requete": "SELECT COUNT(*), AVG(value) FROM sensor_readings WHERE equipment_id = 'EQ-FAN-304' AND timestamp BETWEEN '2026-05-01 00:00:00+00:00' AND '2026-05-31 23:59:59+00:00'",
+    "mesures": {
+      "index_unicite_seul": {
+        "plan": "SEARCH sensor_readings USING INDEX sqlite_autoindex_sensor_readings_1 (equipment_id=? AND timestamp>? AND timestamp<?)",
+        "duree_mediane_ms": 0.0836
+      },
+      "avec_index_dedie": {
+        "plan": "SEARCH sensor_readings USING INDEX ix_sensor_readings_equipment_time (equipment_id=? AND timestamp>? AND timestamp<?)",
+        "duree_mediane_ms": 0.0834
+      },
+      "sans_aucun_index": {
+        "plan": "SCAN sensor_readings",
+        "duree_mediane_ms": 4.0142
+      }
+    },
+    "gain_de_l_index_dedie": 1.0,
+    "gain_de_l_indexation": 48.02,
+    "conclusion": "redondant avec sqlite_autoindex_sensor_readings_1, cree par la contrainte d'unicite sur (equipment_id, timestamp, sensor_name)"
+  }
+}

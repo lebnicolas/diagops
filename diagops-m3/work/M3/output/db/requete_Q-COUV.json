@@ -1,0 +1,26 @@
+[
+  {
+    "criticality": "critical",
+    "parc": 46,
+    "instrumentes": 14,
+    "taux_pct": 30.43
+  },
+  {
+    "criticality": "high",
+    "parc": 122,
+    "instrumentes": 14,
+    "taux_pct": 11.48
+  },
+  {
+    "criticality": "medium",
+    "parc": 173,
+    "instrumentes": 7,
+    "taux_pct": 4.05
+  },
+  {
+    "criticality": "low",
+    "parc": 75,
+    "instrumentes": 1,
+    "taux_pct": 1.33
+  }
+]

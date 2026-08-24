@@ -1,0 +1,352 @@
+[
+  {
+    "equipment_id": "EQ-CAB-134",
+    "sensor_name": "current_a",
+    "mesures": 721
+  },
+  {
+    "equipment_id": "EQ-PUMP-001",
+    "sensor_name": "pressure_bar",
+    "mesures": 721
+  },
+  {
+    "equipment_id": "EQ-PUMP-001",
+    "sensor_name": "vibration_mm_s",
+    "mesures": 721
+  },
+  {
+    "equipment_id": "EQ-CAB-134",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CHILL-001",
+    "sensor_name": "pressure_bar",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CHILL-001",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CHILL-115",
+    "sensor_name": "pressure_bar",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CHILL-168",
+    "sensor_name": "pressure_bar",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CHILL-168",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CHILL-188",
+    "sensor_name": "pressure_bar",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CHILL-188",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CHILL-248",
+    "sensor_name": "pressure_bar",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CHILL-248",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-COMP-002",
+    "sensor_name": "pressure_bar",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-COMP-002",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-COMP-113",
+    "sensor_name": "pressure_bar",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-COMP-113",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-COMP-233",
+    "sensor_name": "pressure_bar",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-COMP-233",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-COMP-249",
+    "sensor_name": "pressure_bar",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CONV-003",
+    "sensor_name": "current_a",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CONV-003",
+    "sensor_name": "rpm",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CONV-262",
+    "sensor_name": "current_a",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CONV-262",
+    "sensor_name": "rpm",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CONV-336",
+    "sensor_name": "current_a",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CONV-336",
+    "sensor_name": "rpm",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CONV-376",
+    "sensor_name": "current_a",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CONV-376",
+    "sensor_name": "rpm",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-FAN-002",
+    "sensor_name": "current_a",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-FAN-002",
+    "sensor_name": "rpm",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-FAN-002",
+    "sensor_name": "vibration_mm_s",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-FAN-003",
+    "sensor_name": "rpm",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-FAN-003",
+    "sensor_name": "vibration_mm_s",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-FAN-204",
+    "sensor_name": "vibration_mm_s",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-FAN-284",
+    "sensor_name": "rpm",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-FAN-284",
+    "sensor_name": "vibration_mm_s",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-FAN-304",
+    "sensor_name": "rpm",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-FAN-304",
+    "sensor_name": "vibration_mm_s",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-MIX-159",
+    "sensor_name": "vibration_mm_s",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-MIX-259",
+    "sensor_name": "current_a",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-MIX-259",
+    "sensor_name": "vibration_mm_s",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-MIX-379",
+    "sensor_name": "current_a",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-MIX-379",
+    "sensor_name": "vibration_mm_s",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-OVEN-001",
+    "sensor_name": "current_a",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-OVEN-001",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-OVEN-123",
+    "sensor_name": "current_a",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-OVEN-123",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-OVEN-223",
+    "sensor_name": "current_a",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-OVEN-223",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-OVEN-366",
+    "sensor_name": "current_a",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-OVEN-386",
+    "sensor_name": "current_a",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-OVEN-386",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-PUMP-001",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-PUMP-006",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-PUMP-006",
+    "sensor_name": "vibration_mm_s",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-PUMP-171",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-PUMP-350",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-PUMP-350",
+    "sensor_name": "vibration_mm_s",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-ROBOT-358",
+    "sensor_name": "current_a",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-ROBOT-358",
+    "sensor_name": "vibration_mm_s",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-SENSOR-305",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-STEAM-341",
+    "sensor_name": "pressure_bar",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-STEAM-341",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-STEAM-352",
+    "sensor_name": "pressure_bar",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-STEAM-352",
+    "sensor_name": "temperature_c",
+    "mesures": 720
+  },
+  {
+    "equipment_id": "EQ-CHILL-115",
+    "sensor_name": "temperature_c",
+    "mesures": 719
+  },
+  {
+    "equipment_id": "EQ-COMP-396",
+    "sensor_name": "pressure_bar",
+    "mesures": 719
+  },
+  {
+    "equipment_id": "EQ-OVEN-366",
+    "sensor_name": "temperature_c",
+    "mesures": 719
+  },
+  {
+    "equipment_id": "EQ-MIX-159",
+    "sensor_name": "current_a",
+    "mesures": 676
+  },
+  {
+    "equipment_id": "EQ-PUMP-171",
+    "sensor_name": "vibration_mm_s",
+    "mesures": 641
+  }
+]

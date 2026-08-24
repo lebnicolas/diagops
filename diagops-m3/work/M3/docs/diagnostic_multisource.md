@@ -1,20 +1,19 @@
 ---
 module: M3
 brief: présentiel — étendre la pipeline DiagOps aux mesures capteurs
-etat: en cours — axes 1 à 4 terminés (cadrage, audit temporel, erreur vs réel, règles et non-régression)
+etat: brief présentiel terminé — axes 1 à 8, douze questions traitées
 maj: 2026-08-24
 ---
 
 # Diagnostic multi-source DiagOps — M3
 
-> État de ce document : les axes **1** (cadrage), **2** (audit temporel),
-> **3** (erreur contre mesure réelle) et **4** (règles et non-régression) sont
-> terminés. Ils répondent aux questions 1, 2, 3, 5, 6 et 7 du brief. Les axes 5
-> à 8 sont annoncés mais pas encore instruits ; ils sont explicitement marqués
-> comme tels en fin de document.
+> État de ce document : **les huit axes du brief présentiel sont traités**, et
+> les douze questions du diagnostic reçoivent une réponse. Les axes 6, 7 et 8
+> ont leur document dédié, listé en fin de page.
 > Aucun chiffre de ce document n'est saisi à la main : tous proviennent de
-> `output/cadrage/cadrage.json`, `output/audit/audit_temporel.json` et
-> `output/pipeline_m3.json`, produits par les trois scripts `run_*.py`.
+> `output/cadrage/cadrage.json`, `output/audit/audit_temporel.json`,
+> `output/pipeline_m3.json` et `output/rapprochement_m3.json`, produits par les
+> quatre scripts `run_*.py`.
 
 ## Point de départ retenu
 
@@ -47,9 +46,9 @@ rapprochement temporel (axe 5).
 |---|---|
 | Environnement | Python 3.12.10, `.venv` dédié dans `work/M3/`, `requirements.lock` du starter |
 | Bibliothèques | pandas 2.3.1 ; primitives temporelles du starter (`src/data_pipeline/timeseries.py`) |
-| Commandes de rejeu | `python run_cadrage_m3.py`, `run_audit_temporel_m3.py`, `run_pipeline_m3.py`, depuis `work/M3/` |
-| Temps d'exécution | 4,4 s + 1,4 s + 2,9 s = **8,7 s** pour la chaîne complète, médianes sur 3 exécutions (dont ~2 s de démarrage par script) |
-| Sorties | `output/cadrage/`, `output/audit/`, `output/processed/`, `output/quarantine.csv`, `output/registre_regles.csv` |
+| Commandes de rejeu | `run_cadrage_m3.py`, `run_audit_temporel_m3.py`, `run_pipeline_m3.py`, `run_rapprochement_m3.py`, depuis `work/M3/` |
+| Temps d'exécution | 4,4 + 1,4 + 2,9 + 0,7 = **9,4 s** pour la chaîne complète, médianes sur 3 exécutions (dont ~2 s de démarrage par script) |
+| Sorties | `output/cadrage/`, `output/audit/`, `output/processed/`, `output/alignment/`, `output/aggregates/`, `output/quarantine.csv`, `output/registre_regles.csv` |
 | Données | lues en lecture seule ; aucun fichier de `data_pack/` n'est modifié |
 
 La séparation entre les scripts est volontaire. `run_cadrage_m3.py` et
@@ -674,23 +673,236 @@ mesurable, et le défaut restait invisible.
 
 ---
 
-## Sections non encore instruites
+# Rapprochement mesures ↔ événements (axe 5)
 
-Les sections suivantes appartiennent aux axes 5 à 8 et ne sont **pas** traitées à
-ce stade. Elles sont listées pour que l'état d'avancement du document soit
-lisible sans avoir à le deviner.
+Produit par `run_rapprochement_m3.py` — **0,7 s**. Il part des **mesures
+préparées** par l'axe 4, pas des mesures brutes.
 
-- **Existence, disponibilité et accès** (axe 1, volet documentaire) — producteur
-  de la source, fréquence de livraison, format, conduite à tenir si une livraison
-  manque, et solution de remplacement pour les 380 équipements non couverts.
-- **Rapprochement mesures ↔ événements** (axe 5) — fenêtre, cardinalité, grain
-  d'agrégation.
-- **Flux de traitement et cycle de vie** (axe 6).
-- **Couverture et risques** (axe 7) — la note dédiée reprendra les chiffres de
-  couverture ci-dessus.
-- **Décision** (axe 8) — statut, conditions avant M4, coût de rejeu.
+Une mesure et un événement ne partagent aucune clé : seul le couple
+« équipement + temps » les rapproche. Le rapprochement repose donc entièrement
+sur une fenêtre d'observation, qui est un **choix**, pas un paramètre technique.
 
-## Limites de ce qui est établi à ce stade
+## Question 8 — Quelle fenêtre, et pourquoi celle-là
+
+**Fenêtre retenue : 48 h avant le début de l'événement, 24 h après sa fin.**
+
+Justifiée par les données, pas par convention :
+
+- **48 h avant** — les trois épisodes de vibration identifiés à l'axe 3 montent
+  pendant **18 à 30 h** avant l'incident déclaré (`EQ-FAN-204` : montée à partir
+  du 15/02 06:00, incident le 16/02 11:29). 48 h les couvre tous les trois avec
+  de la marge, soit 8 relevés au pas de 6 h.
+- **24 h après** — ces mêmes épisodes retombent au niveau nominal en 12 à 24 h.
+- **La fenêtre englobe l'événement**, du début à la fin : un événement dure
+  **19,2 h en médiane** (max 36 h, 13 sans `end_at` sur 514). Une fenêtre
+  ancrée sur le seul instant de début en amputerait la moitié.
+
+### Le choix de la fenêtre n'est pas déterminant — et c'est démontré
+
+Plutôt que d'affirmer que la fenêtre est raisonnable, le script rejoue le
+rapprochement sur cinq largeurs :
+
+| Avant | Après | Événements appariés | Mesures appariées | Part | Médiane / événement | Duplication |
+|---:|---:|---:|---:|---:|---:|---:|
+| 12 h | 6 h | **89** | 1 045 | 2,08 % | 12 | 1,000 |
+| 24 h | 12 h | **89** | 1 560 | 3,10 % | 18 | 1,005 |
+| **48 h** | **24 h** | **89** | **2 574** | **5,12 %** | **30** | **1,014** |
+| 72 h | 48 h | **89** | 3 884 | 7,73 % | 46 | 1,030 |
+| 168 h | 72 h | **89** | 7 024 | 13,97 % | 86 | 1,062 |
+
+**Le nombre d'événements appariés reste 89 quelle que soit la fenêtre**, d'un
+facteur 14 entre la plus étroite et la plus large. Élargir n'apporte aucun
+événement nouveau : cela ajoute seulement des mesures autour des mêmes.
+
+Ce qui décide de ce qui est observable, ce n'est donc pas la fenêtre —
+c'est **l'instrumentation**. Le choix de 48 h/24 h est arbitraire dans sa valeur
+exacte, mais sans effet sur la conclusion structurante.
+
+## Cardinalité, dans les deux sens
+
+**Côté événements :**
+
+| | |
+|---|---:|
+| Événements au total | 514 |
+| sur équipement instrumenté | **89** |
+| sur équipement non instrumenté | 425 |
+| **avec au moins une mesure** | **89** |
+| sans aucune mesure | 425 |
+| **sans mesure bien qu'instrumenté** | **0** |
+
+Le rapprochement est **complet sur son périmètre** : 89 appariés sur 89
+possibles. Les 425 événements sans mesure le sont **tous** parce que leur
+équipement n'a pas de capteur — aucun ne manque par défaut de fenêtre.
+Autrement dit : **83 % des événements du parc sont hors de portée** de toute
+analyse fondée sur les mesures.
+
+Mesures par événement : min 12, **médiane 30**, moyenne 29,3, max 52.
+
+**Côté mesures :**
+
+| | |
+|---|---:|
+| Mesures préparées | 50 277 |
+| dans au moins une fenêtre | 2 574 |
+| **hors de toute fenêtre** | **47 703** |
+| Part appariée | **5,12 %** |
+
+Près de 95 % des mesures ne tombent dans aucune fenêtre. C'est attendu — les
+événements sont rares et les capteurs relèvent en continu — mais il faut
+l'énoncer : le rapprochement ne décrit que 5 % du signal disponible.
+
+## Le rapprochement duplique-t-il des mesures ?
+
+Contrôlé, parce qu'une jointure temporelle peut multiplier les lignes sans le
+dire quand deux fenêtres se recouvrent :
+
+| | |
+|---|---:|
+| Lignes de rapprochement | 2 610 |
+| Mesures distinctes | 2 574 |
+| **Facteur de duplication** | **1,014** |
+| Mesures présentes dans 2 fenêtres | 36 |
+| Appartenance maximale | 2 |
+
+**36 mesures sont comptées deux fois** — 1,4 % de l'ensemble. La duplication est
+donc réelle mais marginale, et aucune mesure n'appartient à plus de deux
+fenêtres. Elle est signalée plutôt que corrigée : dédoublonner reviendrait à
+choisir arbitrairement à quel événement rattacher une mesure qui, de fait,
+tombe dans la fenêtre des deux.
+
+## Question 9 — Le grain d'agrégation, et ce qu'il fait perdre
+
+**Grain retenu : `event_id × equipment_id × sensor_name`** — 175 lignes, une par
+capteur et par événement, couvrant les 89 événements et les 5 capteurs.
+
+Indicateurs par ligne : nombre de mesures, mesures renseignées, complétude,
+minimum, maximum, moyenne, écart-type, première et dernière mesure.
+
+Complétude : **médiane 100 %**, minimum 93,8 %.
+
+Extrait — les cinq plus fortes vibrations agrégées :
+
+| Événement | Équipement | Type | Sévérité | Mesures | Min | **Max** | Moyenne | σ |
+|---|---|---|---|---:|---:|---:|---:|---:|
+| `EVT-2026S1-0039` | `EQ-PUMP-006` | incident | **critical** | 15 | 3,28 | **5,11** | 4,169 | 0,574 |
+| `EVT-2026S1-0364` | `EQ-FAN-204` | incident | **critical** | 18 | 2,76 | **5,05** | 3,944 | 0,715 |
+| `EVT-2026S1-0064` | `EQ-FAN-204` | incident | critical | 14 | 2,53 | 4,62 | 3,738 | 0,601 |
+| `EVT-2026S1-0050` | `EQ-PUMP-350` | incident | high | 18 | 2,78 | 4,48 | 3,727 | 0,475 |
+| `EVT-2026S1-0344` | `EQ-FAN-284` | alert | critical | 17 | 2,46 | 4,47 | 3,486 | 0,622 |
+
+Les deux épisodes confirmés de l'axe 3 arrivent en tête, tous deux sur des
+incidents `critical`. Le rapprochement produit donc bien le signal attendu là où
+il existe.
+
+### Ce que ce grain fait perdre — trois pertes, dont une décisive
+
+**1. L'ordre, donc la causalité apparente.** Un agrégat `min / max / moyenne /
+écart-type` sur une fenêtre ne dit pas **quand** le maximum a eu lieu. Impossible
+de distinguer une vibration qui monte **avant** l'incident — un précurseur,
+exploitable pour anticiper — d'une vibration qui monte **après** — une
+conséquence, sans valeur prédictive. Les deux produisent le même agrégat. Un
+grain par sous-fenêtre (avant / pendant / après) lèverait l'ambiguïté ; c'est la
+première chose à ajouter si M4 vise de la prédiction.
+
+**2. La forme.** La rampe caractéristique — montée graduelle, pic, décroissance —
+disparaît. C'est pourtant elle qui a permis, à l'axe 3, de distinguer une
+dégradation réelle d'un défaut de capteur. Un maximum isolé ne porte pas cette
+information.
+
+**3. La dispersion réelle.** L'écart-type d'une fenêtre de 30 mesures mélange le
+bruit normal du capteur et la variation liée à l'événement, sans permettre de les
+séparer.
+
+## Le constat le plus lourd — le rapprochement rate le cas le plus grave
+
+`EQ-FAN-304` est apparié à des événements : 58 lignes de rapprochement. Mais son
+maximum **apparié** est de **4,30 mm/s**, alors que son pic réel atteint **9,76**.
+
+Vérification faite mesure par mesure :
+
+| Instant | Valeur | Dans une fenêtre ? |
+|---|---:|---|
+| 10/05 00:00 | 5,76 | **non** |
+| 10/05 06:00 | 8,03 | **non** |
+| 10/05 12:00 | 9,28 | **non** |
+| 10/05 18:00 | **9,76** | **non** |
+| 11/05 00:00 | 7,23 | **non** |
+| 11/05 06:00 | 7,39 | **non** |
+
+Et à l'échelle du corpus entier :
+
+| | |
+|---|---:|
+| Mesures de vibration au-dessus de 5 mm/s | **8** |
+| dont appariées à un événement | **2** |
+| **dont non appariées** | **6** |
+
+**Les six mesures non appariées sont exactement l'épisode de `EQ-FAN-304`, pic
+compris.** Trois quarts des vibrations les plus fortes du corpus — et la plus
+forte de toutes, deux fois supérieure aux autres — sont invisibles à toute
+analyse fondée sur les événements déclarés.
+
+Ce n'est pas un défaut du rapprochement : il fonctionne, il est complet sur son
+périmètre et sa duplication est maîtrisée. C'est un **défaut de la source des
+étiquettes**. Un modèle supervisé entraîné sur ces événements apprendrait des
+épisodes modérés à 5 mm/s en ignorant complètement le cas à 9,76 — et un modèle
+évalué sur ce corpus serait *récompensé* pour l'ignorer.
+
+C'est la conclusion à transmettre à M4, et elle ne se corrige pas par un
+meilleur réglage de fenêtre.
+
+---
+
+# Axes 6, 7 et 8 — documents dédiés
+
+Ces trois axes ont leur propre document, pour rester lisibles par leurs
+destinataires respectifs sans avoir à traverser tout le diagnostic.
+
+| Axe | Document | Contenu |
+|---|---|---|
+| **1** *(volet documentaire)* et **6** | [`flux_et_cycle_de_vie.md`](flux_et_cycle_de_vie.md) | Destinataires, schéma du flux avec les points d'écartement, suivi d'une ligne de bout en bout, commande de rejeu, cycle de vie, **existence / disponibilité / accès** et solution de remplacement pour les 380 équipements non couverts, règle de conservation, description du jeu mise à jour |
+| **7** | [`couverture_et_risques.md`](couverture_et_risques.md) | Couverture par site, type et criticité ; périmètre de validité ; risque « personnes » **mesuré et non supposé** ; conservation du volume ; suivi proposé |
+| **8** | [`decision_transmission_m4.md`](decision_transmission_m4.md) | Statut, ce qui est vérifié / transformé / incertain, cinq conditions avant M4, coût de rejeu et seuils de bascule |
+| **4** | [`registre_regles.md`](registre_regles.md) | 34 règles statuées, arbitrages tracés, non-régression, quarantaine unifiée |
+
+## Réponses aux questions 4, 10, 11 et 12
+
+Les huit autres questions sont traitées dans les sections ci-dessus.
+
+**Q4 — Existence, disponibilité, accès, et remplacement pour les équipements non
+couverts.** Détail dans `flux_et_cycle_de_vie.md`. Ce qui est **réellement**
+vérifié : le fichier existe, son volume est conforme (50 401 lignes), son
+empreinte SHA-256 est stable, l'encodage est valide, et le contenu est cohérent
+avec le `MANIFEST` sur le pas et le nombre d'équipements. Ce qui ne l'est pas :
+l'identité du producteur, le procédé d'export, la conduite à tenir si une
+livraison manque — reconstitués depuis les documents livrés, donc énoncés comme
+hypothèses. **Solution de remplacement pour les 380 équipements sans capteur :
+aucune retenue**, et c'est argumenté — un relevé porté par les interventions
+serait ponctuel, non calibré et biaisé par construction, ce qui produirait un
+signal faux avec une apparence de complétude.
+
+**Q10 — Flux et cycle de vie, et à qui ils sont adressés.** Trois destinataires
+identifiés : l'équipe technique qui reprendra la pipeline, le métier maintenance
+qui exploitera les résultats, la personne chargée de la conformité. Chacun avec
+ce qu'il doit pouvoir en tirer. Les deux documents sont explicitement
+**périssables** et leur liste de points à revoir est datée.
+
+**Q11 — Risques pour les personnes et pour la validité.** Le risque « personnes »
+a été **mesuré plutôt que supposé**, et le résultat contredit l'énoncé du brief
+dans ce corpus précis : les mesures tombent toutes à la minute zéro sur huit
+heures fixes — signature d'un cycle automate, pas d'un rythme humain. La
+distribution horaire des interventions est plate (56 à 96 par créneau sur 24 h),
+sans signature de poste reconstituable. Décision proportionnée : aucune mesure
+supplémentaire sur les capteurs, `R-MNT-008` maintenue sur les notes de bon de
+travail, et trois conditions de réexamen identifiées. Le risque de validité, lui,
+est majeur et structurel : biais de couverture vers les équipements critiques.
+
+**Q12 — Transmission à M4.** Statut **`utilisable sous conditions`**, cinq
+conditions dont deux bloquantes, coût de rejeu de 9,4 s avec les seuils de
+bascule chiffrés. Détail dans `decision_transmission_m4.md`.
+
+## Limites de ce qui est établi
 
 - Les axes 1 à 3 **décrivent et qualifient** ; aucune règle n'est encore
   appliquée, aucune ligne écartée du jeu produit. Les volumes annoncés ici sont

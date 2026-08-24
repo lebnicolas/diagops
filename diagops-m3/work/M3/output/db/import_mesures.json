@@ -1,0 +1,28 @@
+{
+  "etape": "import des mesures",
+  "strategie": "INSERT ... ON CONFLICT DO NOTHING sur la cle logique, par lots de 1000",
+  "passages": [
+    {
+      "table": "sensor_readings",
+      "read": 50277,
+      "inserted": 50277,
+      "rejected": 0,
+      "reasons": {},
+      "duree_s": 3.31,
+      "lignes_en_base_apres": 50277
+    },
+    {
+      "table": "sensor_readings",
+      "read": 50277,
+      "inserted": 0,
+      "rejected": 0,
+      "reasons": {
+        "deja_presente": 50277
+      },
+      "duree_s": 4.09,
+      "lignes_en_base_apres": 50277
+    }
+  ],
+  "idempotent": true,
+  "preuve": "deux executions successives laissent 50277 lignes ; le second passage insere 0 ligne(s)"
+}

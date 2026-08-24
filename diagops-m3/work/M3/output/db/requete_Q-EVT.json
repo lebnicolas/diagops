@@ -1,0 +1,65 @@
+[
+  {
+    "event_id": "EVT-2026S1-0039",
+    "equipment_id": "EQ-PUMP-006",
+    "severity": "critical",
+    "start_at": "2026-04-29 12:10:00.000000",
+    "mesures_48h_avant": 16
+  },
+  {
+    "event_id": "EVT-2026S1-0044",
+    "equipment_id": "EQ-FAN-284",
+    "severity": "critical",
+    "start_at": "2026-02-23 21:47:00.000000",
+    "mesures_48h_avant": 16
+  },
+  {
+    "event_id": "EVT-2026S1-0264",
+    "equipment_id": "EQ-FAN-304",
+    "severity": "critical",
+    "start_at": "2026-02-27 06:12:00.000000",
+    "mesures_48h_avant": 16
+  },
+  {
+    "event_id": "EVT-2026S1-0344",
+    "equipment_id": "EQ-FAN-284",
+    "severity": "critical",
+    "start_at": "2026-01-10 10:34:00.000000",
+    "mesures_48h_avant": 16
+  },
+  {
+    "event_id": "EVT-2026S1-0494",
+    "equipment_id": "EQ-CAB-134",
+    "severity": "critical",
+    "start_at": "2026-01-25 19:27:00.000000",
+    "mesures_48h_avant": 16
+  },
+  {
+    "event_id": "EVT-2026S1-X012",
+    "equipment_id": "EQ-CONV-003",
+    "severity": "critical",
+    "start_at": "2026-05-20 04:19:00.000000",
+    "mesures_48h_avant": 16
+  },
+  {
+    "event_id": "EVT-2026S1-X028",
+    "equipment_id": "EQ-PUMP-350",
+    "severity": "critical",
+    "start_at": "2026-05-09 09:47:00.000000",
+    "mesures_48h_avant": 16
+  },
+  {
+    "event_id": "EVT-2026S1-0064",
+    "equipment_id": "EQ-FAN-204",
+    "severity": "critical",
+    "start_at": "2026-05-07 13:25:00.000000",
+    "mesures_48h_avant": 8
+  },
+  {
+    "event_id": "EVT-2026S1-0364",
+    "equipment_id": "EQ-FAN-204",
+    "severity": "critical",
+    "start_at": "2026-02-16 11:29:00.000000",
+    "mesures_48h_avant": 8
+  }
+]

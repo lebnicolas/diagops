@@ -1,0 +1,66 @@
+[
+  {
+    "equipment_id": "EQ-FAN-304",
+    "equipment_type": "fan",
+    "criticality": "high",
+    "timestamp": "2026-05-10 18:00:00.000000",
+    "value": 9.76,
+    "unit": "mm/s"
+  },
+  {
+    "equipment_id": "EQ-FAN-304",
+    "equipment_type": "fan",
+    "criticality": "high",
+    "timestamp": "2026-05-10 12:00:00.000000",
+    "value": 9.28,
+    "unit": "mm/s"
+  },
+  {
+    "equipment_id": "EQ-FAN-304",
+    "equipment_type": "fan",
+    "criticality": "high",
+    "timestamp": "2026-05-10 06:00:00.000000",
+    "value": 8.03,
+    "unit": "mm/s"
+  },
+  {
+    "equipment_id": "EQ-FAN-304",
+    "equipment_type": "fan",
+    "criticality": "high",
+    "timestamp": "2026-05-11 06:00:00.000000",
+    "value": 7.39,
+    "unit": "mm/s"
+  },
+  {
+    "equipment_id": "EQ-FAN-304",
+    "equipment_type": "fan",
+    "criticality": "high",
+    "timestamp": "2026-05-11 00:00:00.000000",
+    "value": 7.23,
+    "unit": "mm/s"
+  },
+  {
+    "equipment_id": "EQ-FAN-304",
+    "equipment_type": "fan",
+    "criticality": "high",
+    "timestamp": "2026-05-10 00:00:00.000000",
+    "value": 5.76,
+    "unit": "mm/s"
+  },
+  {
+    "equipment_id": "EQ-PUMP-006",
+    "equipment_type": "pump",
+    "criticality": "critical",
+    "timestamp": "2026-04-29 18:00:00.000000",
+    "value": 5.11,
+    "unit": "mm/s"
+  },
+  {
+    "equipment_id": "EQ-FAN-204",
+    "equipment_type": "fan",
+    "criticality": "critical",
+    "timestamp": "2026-02-16 12:00:00.000000",
+    "value": 5.05,
+    "unit": "mm/s"
+  }
+]
