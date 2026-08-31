@@ -1,0 +1,25 @@
+{
+  "actions_autorisees": [
+    "abstain",
+    "answer_without_tool",
+    "search_knowledge"
+  ],
+  "questions_calibration": 12,
+  "cas_dedies": 6,
+  "repartition": {
+    "search_knowledge": 15,
+    "abstain": 2,
+    "answer_without_tool": 1
+  },
+  "controles": {
+    "une seule action par question": true,
+    "aucune action hors du contrat": true,
+    "requête présente si et seulement si search_knowledge": true,
+    "aucun outil à effet appelé": true,
+    "aucune citation sur une abstention": true,
+    "cas dédiés conformes à l'attendu": true
+  },
+  "memoire_longue": false,
+  "boucle": false,
+  "outil_ecriture": false
+}
