@@ -1,0 +1,68 @@
+{
+  "fichier": "mesures_PROC-GEN-MARG-V1.csv",
+  "nature": "génération — tirage marginal",
+  "hypothese": "Le tirage rejoue des valeurs observées sur une grille construite par nos soins : plage physique, unité, précision, période et pas de 6 h sont corrects par construction. J'attends **zéro ligne signalée** et une R-DISTRIB conforme — alors que l'étape 3 a mesuré une autocorrélation nulle (+0,02 au rang 2 contre −0,759 sur le réel). Si l'hypothèse se vérifie, ce fichier est la démonstration que le silence du détecteur ne prouve rien.",
+  "rapport": {
+    "rows": 1984,
+    "columns": [
+      "equipment_id",
+      "timestamp",
+      "sensor_name",
+      "value",
+      "unit",
+      "period",
+      "provenance",
+      "procedure_id"
+    ],
+    "missing_columns": [],
+    "unexpected_columns": [],
+    "declares_provenance": true,
+    "distinct_series": 16,
+    "sensor_names": {
+      "vibration_mm_s": 992,
+      "temperature_c": 992
+    },
+    "periods": {
+      "2026-S1": 1984
+    },
+    "timestamp_span": [
+      "2026-01-01T00:00:00Z",
+      "2026-01-31T18:00:00Z"
+    ],
+    "flagged_rows_by_rule": {
+      "R-SCHEMA": 0,
+      "R-FORMAT": 0,
+      "R-RANGE": 0,
+      "R-UNIT": 0,
+      "R-KEY": 0,
+      "R-FK": 0,
+      "R-PRECISION": 0
+    },
+    "flagged_rows_total": 0,
+    "flagged_sensors_by_distribution": [],
+    "distribution": [
+      {
+        "sensor_name": "temperature_c",
+        "rows": 992,
+        "mean": 57.871,
+        "reference_mean": 57.745,
+        "mean_gap_in_reference_stdev": 0.026,
+        "stdev_ratio": 0.994,
+        "flagged": false
+      },
+      {
+        "sensor_name": "vibration_mm_s",
+        "rows": 992,
+        "mean": 2.874,
+        "reference_mean": 2.848,
+        "mean_gap_in_reference_stdev": 0.064,
+        "stdev_ratio": 0.956,
+        "flagged": false
+      }
+    ],
+    "out_of_scope": [
+      "structure temporelle des séries : autocorrélation, cycle journalier, distribution des écarts successifs",
+      "cohérence avec events.csv et maintenance_history.csv : présence ou absence de signature capteur en regard des événements sévères"
+    ]
+  }
+}

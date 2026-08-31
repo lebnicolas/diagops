@@ -1,0 +1,68 @@
+{
+  "fichier": "temoin_reel.csv",
+  "nature": "témoin — notre préparation du brief 1, janvier, 2 capteurs",
+  "hypothese": "Notre préparation conserve 5 lignes hors période et 720 hors grille de 6 h sur 50 277. Sur la fenêtre du témoin, j'attends un taux de signalement faible mais non nul, porté par R-FORMAT. C'est ce taux qui servira de seuil de lecture pour toutes les soumissions suivantes.",
+  "rapport": {
+    "rows": 4080,
+    "columns": [
+      "equipment_id",
+      "timestamp",
+      "sensor_name",
+      "value",
+      "unit",
+      "period",
+      "provenance",
+      "procedure_id"
+    ],
+    "missing_columns": [],
+    "unexpected_columns": [],
+    "declares_provenance": true,
+    "distinct_series": 34,
+    "sensor_names": {
+      "temperature_c": 2520,
+      "vibration_mm_s": 1560
+    },
+    "periods": {
+      "2026-S1": 4080
+    },
+    "timestamp_span": [
+      "2026-01-02T00:00:00Z",
+      "2026-01-31T20:00:00Z"
+    ],
+    "flagged_rows_by_rule": {
+      "R-SCHEMA": 0,
+      "R-FORMAT": 120,
+      "R-RANGE": 4,
+      "R-UNIT": 0,
+      "R-KEY": 0,
+      "R-FK": 0,
+      "R-PRECISION": 0
+    },
+    "flagged_rows_total": 124,
+    "flagged_sensors_by_distribution": [],
+    "distribution": [
+      {
+        "sensor_name": "temperature_c",
+        "rows": 2517,
+        "mean": 57.603,
+        "reference_mean": 57.745,
+        "mean_gap_in_reference_stdev": 0.029,
+        "stdev_ratio": 1.009,
+        "flagged": false
+      },
+      {
+        "sensor_name": "vibration_mm_s",
+        "rows": 1559,
+        "mean": 2.843,
+        "reference_mean": 2.848,
+        "mean_gap_in_reference_stdev": 0.011,
+        "stdev_ratio": 0.953,
+        "flagged": false
+      }
+    ],
+    "out_of_scope": [
+      "structure temporelle des séries : autocorrélation, cycle journalier, distribution des écarts successifs",
+      "cohérence avec events.csv et maintenance_history.csv : présence ou absence de signature capteur en regard des événements sévères"
+    ]
+  }
+}

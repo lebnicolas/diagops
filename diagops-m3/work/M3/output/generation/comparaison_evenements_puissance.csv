@@ -1,0 +1,7 @@
+origine,sensor_name,mesures_en_fenetre,mesures_hors_fenetre,moyenne_en_fenetre,moyenne_hors_fenetre,ecart_pct,p_value_mann_whitney,reaction_significative
+réel — 2026-S1,temperature_c,777,14325,59.1975,57.648,2.69,0.0,True
+réel — 2026-S1,vibration_mm_s,508,8765,3.049,2.8384,7.42,0.0,True
+PROC-GEN-MARG-V1 — 2026-S1,temperature_c,148,5644,57.1179,57.7059,-1.02,0.093434,False
+PROC-GEN-MARG-V1 — 2026-S1,vibration_mm_s,148,5644,2.8434,2.8598,-0.58,0.829467,False
+PROC-GEN-SMOTE-V1 — 2026-S1,temperature_c,148,5611,57.4534,58.0369,-1.01,0.092878,False
+PROC-GEN-SMOTE-V1 — 2026-S1,vibration_mm_s,117,4916,2.8093,2.807,0.08,0.706953,False

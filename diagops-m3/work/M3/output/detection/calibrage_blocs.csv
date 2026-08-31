@@ -1,0 +1,25 @@
+bloc_id,equipment_id,capteur,lignes,debut,fin,part_retrouvee,lignes_greffees,autocorrelation_cycle,part_pas_irregulier,ecart_niveau_sigma,ratio_dispersion,verdict,regle_decisive,corroborations,provenance_declaree,juste
+EQ-CAB-134|temperature_c|0,EQ-CAB-134,temperature_c,30,2026-03-18 00:00:00+00:00,2026-03-25 06:00:00+00:00,1.0,0,0.7964,0.0,0.058,1.042,réelle,R-DET-001,,réelle,True
+EQ-CHILL-115|pressure_bar|0,EQ-CHILL-115,pressure_bar,30,2026-05-24 12:00:00+00:00,2026-05-31 18:00:00+00:00,1.0,2,0.8186,0.0,0.165,0.847,réelle,R-DET-001,,réelle,True
+EQ-COMP-002|temperature_c|0,EQ-COMP-002,temperature_c,30,2026-03-10 12:00:00+00:00,2026-03-17 18:00:00+00:00,0.0,0,0.7962,0.0,0.406,1.116,fabriquée,R-DET-002,,fabriquée,True
+EQ-COMP-002|temperature_c|1,EQ-COMP-002,temperature_c,30,2026-04-17 00:00:00+00:00,2026-04-24 06:00:00+00:00,1.0,0,0.6747,0.0,0.001,0.998,réelle,R-DET-001,,réelle,True
+EQ-COMP-233|temperature_c|0,EQ-COMP-233,temperature_c,30,2026-02-01 00:00:00+00:00,2026-02-08 06:00:00+00:00,1.0,0,0.7846,0.0,0.015,0.934,réelle,R-DET-001,,réelle,True
+EQ-CONV-003|current_a|0,EQ-CONV-003,current_a,30,2026-06-16 00:00:00+00:00,2026-06-23 06:00:00+00:00,0.0,0,-0.0371,0.0,106.823,18.042,fabriquée,R-DET-002,R-DET-010;R-DET-012;R-DET-013,fabriquée,True
+EQ-CONV-003|rpm|0,EQ-CONV-003,rpm,30,2026-05-17 00:00:00+00:00,2026-05-24 06:00:00+00:00,1.0,0,0.6184,0.0,0.916,1.462,réelle,R-DET-001,,réelle,True
+EQ-CONV-262|current_a|0,EQ-CONV-262,current_a,30,2026-04-09 06:00:00+00:00,2026-04-16 12:00:00+00:00,1.0,0,0.8321,0.0,0.188,1.075,réelle,R-DET-001,,réelle,True
+EQ-CONV-262|rpm|0,EQ-CONV-262,rpm,30,2026-02-23 12:00:00+00:00,2026-03-02 18:00:00+00:00,1.0,0,0.7792,0.0,0.061,0.992,réelle,R-DET-001,,réelle,True
+EQ-CONV-336|current_a|0,EQ-CONV-336,current_a,30,2026-01-09 12:00:00+00:00,2026-01-16 18:00:00+00:00,0.0,0,0.7587,0.0,0.106,0.965,fabriquée,R-DET-002,,fabriquée,True
+EQ-CONV-376|rpm|0,EQ-CONV-376,rpm,30,2026-04-17 00:00:00+00:00,2026-04-24 06:00:00+00:00,1.0,0,0.6909,0.0,0.088,1.072,réelle,R-DET-001,,réelle,True
+EQ-FAN-304|rpm|0,EQ-FAN-304,rpm,30,2026-05-02 00:00:00+00:00,2026-05-09 06:00:00+00:00,1.0,0,0.8244,0.0,0.203,1.118,réelle,R-DET-001,,réelle,True
+EQ-FAN-304|vibration_mm_s|0,EQ-FAN-304,vibration_mm_s,30,2026-03-25 12:00:00+00:00,2026-04-01 18:00:00+00:00,0.0,4,0.3518,0.0,0.118,0.54,fabriquée,R-DET-002,R-DET-010;R-DET-013;R-DET-014,fabriquée,True
+EQ-MIX-159|vibration_mm_s|0,EQ-MIX-159,vibration_mm_s,30,2026-04-17 00:23:00+00:00,2026-04-24 05:23:00+00:00,0.0,0,0.4246,0.8621,0.114,1.059,fabriquée,R-DET-002,R-DET-010;R-DET-011,fabriquée,True
+EQ-MIX-379|vibration_mm_s|0,EQ-MIX-379,vibration_mm_s,30,2026-01-17 00:00:00+00:00,2026-01-24 06:00:00+00:00,1.0,3,0.6313,0.0,0.084,1.089,réelle,R-DET-001,,réelle,True
+EQ-OVEN-123|current_a|0,EQ-OVEN-123,current_a,30,2026-02-23 12:00:00+00:00,2026-03-02 18:00:00+00:00,1.0,1,0.6847,0.0,0.044,0.894,réelle,R-DET-001,,réelle,True
+EQ-OVEN-366|temperature_c|0,EQ-OVEN-366,temperature_c,30,2026-03-10 06:00:00+00:00,2026-03-17 12:00:00+00:00,0.0,0,-0.0472,0.0,0.155,0.927,fabriquée,R-DET-002,R-DET-010,fabriquée,True
+EQ-OVEN-386|temperature_c|0,EQ-OVEN-386,temperature_c,30,2026-02-16 00:00:00+00:00,2026-02-23 06:00:00+00:00,0.0,0,-0.2931,0.0,0.153,0.812,fabriquée,R-DET-002,R-DET-010,fabriquée,True
+EQ-PUMP-001|pressure_bar|0,EQ-PUMP-001,pressure_bar,30,2026-04-09 12:00:00+00:00,2026-04-16 18:00:00+00:00,1.0,1,0.5647,0.0,0.012,0.95,réelle,R-DET-001,,réelle,True
+EQ-PUMP-001|vibration_mm_s|0,EQ-PUMP-001,vibration_mm_s,30,2026-04-09 08:00:00+00:00,2026-04-16 14:00:00+00:00,1.0,0,0.6147,0.0,0.029,1.156,réelle,R-DET-001,,réelle,True
+EQ-PUMP-171|vibration_mm_s|0,EQ-PUMP-171,vibration_mm_s,30,2026-02-16 00:00:00+00:00,2026-02-23 06:00:00+00:00,1.0,2,0.5514,0.0,0.005,1.03,réelle,R-DET-001,,fabriquée,False
+EQ-ROBOT-358|current_a|0,EQ-ROBOT-358,current_a,30,2026-04-09 12:00:00+00:00,2026-04-16 18:00:00+00:00,0.0333,0,-0.3742,0.0,0.142,0.938,fabriquée,R-DET-003,R-DET-010,fabriquée,True
+EQ-STEAM-352|pressure_bar|0,EQ-STEAM-352,pressure_bar,30,2026-05-24 12:00:00+00:00,2026-05-31 18:00:00+00:00,1.0,0,0.6613,0.0,0.022,1.039,réelle,R-DET-001,,réelle,True
+EQ-STEAM-352|pressure_bar|1,EQ-STEAM-352,pressure_bar,30,2026-06-01 00:00:00+00:00,2026-06-08 06:00:00+00:00,1.0,4,0.4029,0.0,0.288,1.117,réelle,R-DET-001,R-DET-010,réelle,True

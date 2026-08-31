@@ -1,0 +1,68 @@
+{
+  "fichier": "mesures_PROC-GEN-SMOTE-V2.csv",
+  "nature": "génération — interpolation, second état, λ ∈ [−0,25 ; 1,25]",
+  "hypothese": "L'extrapolation restaure la dispersion : j'attends un ratio d'écart-type nettement plus proche de 1 que les 0,783 et 0,810 du premier état. Le coût attendu est un R-RANGE non nul, les points extrapolés pouvant franchir la plage physique — et ils ne sont pas écrêtés. **Le résultat qui compte est le classement** : un générateur amélioré devrait obtenir du détecteur un verdict égal ou pire que le premier état, qui était à zéro signalement. Si c'est le cas, le détecteur ne peut pas arbitrer une amélioration, et nos propres règles deviennent nécessaires.",
+  "rapport": {
+    "rows": 1799,
+    "columns": [
+      "equipment_id",
+      "timestamp",
+      "sensor_name",
+      "value",
+      "unit",
+      "period",
+      "provenance",
+      "procedure_id"
+    ],
+    "missing_columns": [],
+    "unexpected_columns": [],
+    "declares_provenance": true,
+    "distinct_series": 15,
+    "sensor_names": {
+      "vibration_mm_s": 840,
+      "temperature_c": 959
+    },
+    "periods": {
+      "2026-S1": 1799
+    },
+    "timestamp_span": [
+      "2026-01-02T00:00:00Z",
+      "2026-01-31T18:00:00Z"
+    ],
+    "flagged_rows_by_rule": {
+      "R-SCHEMA": 0,
+      "R-FORMAT": 0,
+      "R-RANGE": 0,
+      "R-UNIT": 0,
+      "R-KEY": 0,
+      "R-FK": 0,
+      "R-PRECISION": 0
+    },
+    "flagged_rows_total": 0,
+    "flagged_sensors_by_distribution": [],
+    "distribution": [
+      {
+        "sensor_name": "temperature_c",
+        "rows": 959,
+        "mean": 57.914,
+        "reference_mean": 57.745,
+        "mean_gap_in_reference_stdev": 0.034,
+        "stdev_ratio": 0.858,
+        "flagged": false
+      },
+      {
+        "sensor_name": "vibration_mm_s",
+        "rows": 840,
+        "mean": 2.822,
+        "reference_mean": 2.848,
+        "mean_gap_in_reference_stdev": 0.063,
+        "stdev_ratio": 0.897,
+        "flagged": false
+      }
+    ],
+    "out_of_scope": [
+      "structure temporelle des séries : autocorrélation, cycle journalier, distribution des écarts successifs",
+      "cohérence avec events.csv et maintenance_history.csv : présence ou absence de signature capteur en regard des événements sévères"
+    ]
+  }
+}

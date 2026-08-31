@@ -1,0 +1,58 @@
+{
+  "fichier": "PROC-AUG-DEFORM.csv",
+  "nature": "augmentation normalisée — PROC-AUG-DEFORM",
+  "hypothese": "721 R-FORMAT, indiscernable des autres — la destruction de la grille ne peut pas s'ajouter à un comptage déjà saturé",
+  "rapport": {
+    "rows": 721,
+    "columns": [
+      "equipment_id",
+      "timestamp",
+      "sensor_name",
+      "value",
+      "unit",
+      "period",
+      "provenance",
+      "procedure_id"
+    ],
+    "missing_columns": [],
+    "unexpected_columns": [],
+    "declares_provenance": true,
+    "distinct_series": 1,
+    "sensor_names": {
+      "vibration_mm_s": 721
+    },
+    "periods": {
+      "2026-S1": 721
+    },
+    "timestamp_span": [
+      "2025-12-29T12:00:00Z",
+      "2026-07-01T17:12:31Z"
+    ],
+    "flagged_rows_by_rule": {
+      "R-SCHEMA": 0,
+      "R-FORMAT": 721,
+      "R-RANGE": 0,
+      "R-UNIT": 0,
+      "R-KEY": 0,
+      "R-FK": 0,
+      "R-PRECISION": 0
+    },
+    "flagged_rows_total": 721,
+    "flagged_sensors_by_distribution": [],
+    "distribution": [
+      {
+        "sensor_name": "vibration_mm_s",
+        "rows": 721,
+        "mean": 2.863,
+        "reference_mean": 2.848,
+        "mean_gap_in_reference_stdev": 0.037,
+        "stdev_ratio": 0.852,
+        "flagged": false
+      }
+    ],
+    "out_of_scope": [
+      "structure temporelle des séries : autocorrélation, cycle journalier, distribution des écarts successifs",
+      "cohérence avec events.csv et maintenance_history.csv : présence ou absence de signature capteur en regard des événements sévères"
+    ]
+  }
+}

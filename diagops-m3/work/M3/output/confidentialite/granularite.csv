@@ -1,0 +1,161 @@
+maille,cellule,effectif,epsilon,erreur_absolue_mediane,part_conclusion_conservee
+site × criticité,SITE-EST / critical,44,0.1,288.75,0.54
+site × criticité,SITE-EST / critical,44,0.5,53.26,0.627
+site × criticité,SITE-EST / critical,44,1.0,26.2,0.7445
+site × criticité,SITE-EST / critical,44,2.0,13.64,0.8815
+site × criticité,SITE-EST / critical,44,5.0,5.14,0.986
+site × criticité,SITE-EST / critical,44,10.0,2.6,1.0
+site × criticité,SITE-EST / critical,44,20.0,1.31,1.0
+site × criticité,SITE-EST / critical,44,50.0,0.54,1.0
+site × criticité,SITE-EST / high,85,0.1,138.75,0.5215
+site × criticité,SITE-EST / high,85,0.5,27.49,0.652
+site × criticité,SITE-EST / high,85,1.0,13.47,0.76
+site × criticité,SITE-EST / high,85,2.0,6.66,0.8975
+site × criticité,SITE-EST / high,85,5.0,2.84,0.991
+site × criticité,SITE-EST / high,85,10.0,1.4,1.0
+site × criticité,SITE-EST / high,85,20.0,0.69,1.0
+site × criticité,SITE-EST / high,85,50.0,0.26,1.0
+site × criticité,SITE-EST / low,83,0.1,149.79,0.496
+site × criticité,SITE-EST / low,83,0.5,27.95,0.5215
+site × criticité,SITE-EST / low,83,1.0,14.19,0.555
+site × criticité,SITE-EST / low,83,2.0,7.14,0.5485
+site × criticité,SITE-EST / low,83,5.0,2.75,0.6495
+site × criticité,SITE-EST / low,83,10.0,1.37,0.7815
+site × criticité,SITE-EST / low,83,20.0,0.71,0.915
+site × criticité,SITE-EST / low,83,50.0,0.27,0.9935
+site × criticité,SITE-EST / medium,147,0.1,73.78,0.6345
+site × criticité,SITE-EST / medium,147,0.5,15.9,0.889
+site × criticité,SITE-EST / medium,147,1.0,7.32,0.98
+site × criticité,SITE-EST / medium,147,2.0,4.35,0.9995
+site × criticité,SITE-EST / medium,147,5.0,1.53,1.0
+site × criticité,SITE-EST / medium,147,10.0,0.83,1.0
+site × criticité,SITE-EST / medium,147,20.0,0.4,1.0
+site × criticité,SITE-EST / medium,147,50.0,0.15,1.0
+site × criticité,SITE-NORD / critical,109,0.1,104.9,0.5335
+site × criticité,SITE-NORD / critical,109,0.5,21.07,0.683
+site × criticité,SITE-NORD / critical,109,1.0,10.38,0.809
+site × criticité,SITE-NORD / critical,109,2.0,5.54,0.9195
+site × criticité,SITE-NORD / critical,109,5.0,2.04,0.9985
+site × criticité,SITE-NORD / critical,109,10.0,1.0,1.0
+site × criticité,SITE-NORD / critical,109,20.0,0.54,1.0
+site × criticité,SITE-NORD / critical,109,50.0,0.21,1.0
+site × criticité,SITE-NORD / high,284,0.1,41.12,0.618
+site × criticité,SITE-NORD / high,284,0.5,7.88,0.908
+site × criticité,SITE-NORD / high,284,1.0,4.11,0.9835
+site × criticité,SITE-NORD / high,284,2.0,2.07,1.0
+site × criticité,SITE-NORD / high,284,5.0,0.83,1.0
+site × criticité,SITE-NORD / high,284,10.0,0.4,1.0
+site × criticité,SITE-NORD / high,284,20.0,0.21,1.0
+site × criticité,SITE-NORD / high,284,50.0,0.08,1.0
+site × criticité,SITE-NORD / low,95,0.1,123.87,0.541
+site × criticité,SITE-NORD / low,95,0.5,22.63,0.7475
+site × criticité,SITE-NORD / low,95,1.0,12.03,0.875
+site × criticité,SITE-NORD / low,95,2.0,5.94,0.975
+site × criticité,SITE-NORD / low,95,5.0,2.39,0.999
+site × criticité,SITE-NORD / low,95,10.0,1.13,1.0
+site × criticité,SITE-NORD / low,95,20.0,0.59,1.0
+site × criticité,SITE-NORD / low,95,50.0,0.24,1.0
+site × criticité,SITE-NORD / medium,319,0.1,35.5,0.702
+site × criticité,SITE-NORD / medium,319,0.5,7.0,0.961
+site × criticité,SITE-NORD / medium,319,1.0,3.49,0.9975
+site × criticité,SITE-NORD / medium,319,2.0,1.7,1.0
+site × criticité,SITE-NORD / medium,319,5.0,0.76,1.0
+site × criticité,SITE-NORD / medium,319,10.0,0.33,1.0
+site × criticité,SITE-NORD / medium,319,20.0,0.18,1.0
+site × criticité,SITE-NORD / medium,319,50.0,0.07,1.0
+site × criticité,SITE-OUEST / critical,4,0.1,2081.53,0.4475
+site × criticité,SITE-OUEST / critical,4,0.5,579.95,0.51
+site × criticité,SITE-OUEST / critical,4,1.0,309.62,0.539
+site × criticité,SITE-OUEST / critical,4,2.0,149.26,0.583
+site × criticité,SITE-OUEST / critical,4,5.0,60.53,0.728
+site × criticité,SITE-OUEST / critical,4,10.0,30.99,0.839
+site × criticité,SITE-OUEST / critical,4,20.0,15.03,0.956
+site × criticité,SITE-OUEST / critical,4,50.0,5.96,0.999
+site × criticité,SITE-OUEST / high,14,0.1,886.73,0.5715
+site × criticité,SITE-OUEST / high,14,0.5,157.2,0.708
+site × criticité,SITE-OUEST / high,14,1.0,76.15,0.851
+site × criticité,SITE-OUEST / high,14,2.0,39.05,0.9545
+site × criticité,SITE-OUEST / high,14,5.0,15.45,1.0
+site × criticité,SITE-OUEST / high,14,10.0,6.96,1.0
+site × criticité,SITE-OUEST / high,14,20.0,3.6,1.0
+site × criticité,SITE-OUEST / high,14,50.0,1.5,1.0
+site × criticité,SITE-OUEST / low,4,0.1,2015.85,0.4695
+site × criticité,SITE-OUEST / low,4,0.5,598.17,0.503
+site × criticité,SITE-OUEST / low,4,1.0,299.06,0.495
+site × criticité,SITE-OUEST / low,4,2.0,149.54,0.4945
+site × criticité,SITE-OUEST / low,4,5.0,56.94,0.5095
+site × criticité,SITE-OUEST / low,4,10.0,28.45,0.52
+site × criticité,SITE-OUEST / low,4,20.0,14.76,0.5285
+site × criticité,SITE-OUEST / low,4,50.0,5.71,0.5725
+site × criticité,SITE-OUEST / medium,27,0.1,500.36,0.493
+site × criticité,SITE-OUEST / medium,27,0.5,83.38,0.508
+site × criticité,SITE-OUEST / medium,27,1.0,43.32,0.5455
+site × criticité,SITE-OUEST / medium,27,2.0,22.16,0.5845
+site × criticité,SITE-OUEST / medium,27,5.0,8.3,0.691
+site × criticité,SITE-OUEST / medium,27,10.0,4.23,0.811
+site × criticité,SITE-OUEST / medium,27,20.0,2.17,0.9375
+site × criticité,SITE-OUEST / medium,27,50.0,0.87,0.9975
+site × criticité,SITE-SUD / critical,52,0.1,234.17,0.5065
+site × criticité,SITE-SUD / critical,52,0.5,43.15,0.5615
+site × criticité,SITE-SUD / critical,52,1.0,21.43,0.601
+site × criticité,SITE-SUD / critical,52,2.0,10.77,0.701
+site × criticité,SITE-SUD / critical,52,5.0,4.54,0.852
+site × criticité,SITE-SUD / critical,52,10.0,2.09,0.968
+site × criticité,SITE-SUD / critical,52,20.0,1.09,0.995
+site × criticité,SITE-SUD / critical,52,50.0,0.43,1.0
+site × criticité,SITE-SUD / high,153,0.1,76.07,0.5075
+site × criticité,SITE-SUD / high,153,0.5,15.31,0.561
+site × criticité,SITE-SUD / high,153,1.0,7.53,0.638
+site × criticité,SITE-SUD / high,153,2.0,3.74,0.751
+site × criticité,SITE-SUD / high,153,5.0,1.41,0.9235
+site × criticité,SITE-SUD / high,153,10.0,0.7,0.988
+site × criticité,SITE-SUD / high,153,20.0,0.37,1.0
+site × criticité,SITE-SUD / high,153,50.0,0.16,1.0
+site × criticité,SITE-SUD / low,110,0.1,113.38,0.592
+site × criticité,SITE-SUD / low,110,0.5,21.61,0.8645
+site × criticité,SITE-SUD / low,110,1.0,10.66,0.981
+site × criticité,SITE-SUD / low,110,2.0,5.33,0.9995
+site × criticité,SITE-SUD / low,110,5.0,2.19,1.0
+site × criticité,SITE-SUD / low,110,10.0,1.05,1.0
+site × criticité,SITE-SUD / low,110,20.0,0.55,1.0
+site × criticité,SITE-SUD / low,110,50.0,0.21,1.0
+site × criticité,SITE-SUD / medium,230,0.1,49.92,0.5485
+site × criticité,SITE-SUD / medium,230,0.5,9.63,0.7215
+site × criticité,SITE-SUD / medium,230,1.0,4.93,0.843
+site × criticité,SITE-SUD / medium,230,2.0,2.53,0.9585
+site × criticité,SITE-SUD / medium,230,5.0,1.06,1.0
+site × criticité,SITE-SUD / medium,230,10.0,0.51,1.0
+site × criticité,SITE-SUD / medium,230,20.0,0.25,1.0
+site × criticité,SITE-SUD / medium,230,50.0,0.1,1.0
+criticité seule,critical,209,0.1,54.84,0.505
+criticité seule,critical,209,0.5,10.89,0.5965
+criticité seule,critical,209,1.0,5.35,0.6635
+criticité seule,critical,209,2.0,2.82,0.7735
+criticité seule,critical,209,5.0,1.07,0.9575
+criticité seule,critical,209,10.0,0.54,0.995
+criticité seule,critical,209,20.0,0.28,1.0
+criticité seule,critical,209,50.0,0.11,1.0
+criticité seule,high,536,0.1,22.05,0.5995
+criticité seule,high,536,0.5,4.42,0.862
+criticité seule,high,536,1.0,2.13,0.9645
+criticité seule,high,536,2.0,1.05,0.9975
+criticité seule,high,536,5.0,0.45,1.0
+criticité seule,high,536,10.0,0.22,1.0
+criticité seule,high,536,20.0,0.11,1.0
+criticité seule,high,536,50.0,0.04,1.0
+criticité seule,low,292,0.1,42.61,0.565
+criticité seule,low,292,0.5,7.98,0.731
+criticité seule,low,292,1.0,4.04,0.859
+criticité seule,low,292,2.0,2.06,0.9705
+criticité seule,low,292,5.0,0.79,1.0
+criticité seule,low,292,10.0,0.39,1.0
+criticité seule,low,292,20.0,0.2,1.0
+criticité seule,low,292,50.0,0.08,1.0
+criticité seule,medium,723,0.1,14.45,0.6395
+criticité seule,medium,723,0.5,3.14,0.9235
+criticité seule,medium,723,1.0,1.48,0.9895
+criticité seule,medium,723,2.0,0.86,0.999
+criticité seule,medium,723,5.0,0.3,1.0
+criticité seule,medium,723,10.0,0.16,1.0
+criticité seule,medium,723,20.0,0.08,1.0
+criticité seule,medium,723,50.0,0.03,1.0

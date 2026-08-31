@@ -1,0 +1,6 @@
+procedure_id,delta_moyenne_pct,delta_ecart_type_pct,correlation_point_a_point,autocorr_lag1_avant,autocorr_lag2_avant,autocorr_lag4_avant,autocorr_lag1_apres,autocorr_lag2_apres,autocorr_lag4_apres,part_pas_nominal_apres_pct,lignes,hors_plage_robuste_avant,hors_plage_robuste_apres,en_fenetre_evenement_avant,en_fenetre_evenement_apres,collisions_cle_logique,series,ordre_de_grandeur_pct,fidelite_point_a_point_pct,structure_temporelle_pct,regularite_du_pas_pct,plausibilite_physique_pct,lien_aux_evenements_pct,signal_aux_evenements_pct,cle_logique_libre_pct
+PROC-AUG-BRUIT,-0.0003,0.0335,0.9998,0.0791,-0.5846,0.6942,0.079,-0.5845,0.694,99.873,50225,8,8,2560,2560,50225,70,100.0,100.0,100.0,100.0,100.0,100.0,100.0,0.0
+PROC-AUG-DECALAGE,0.0,0.0,,0.0791,-0.5846,0.6942,0.0791,-0.5846,0.6942,99.873,50225,8,8,2560,2553,49949,70,100.0,,100.0,100.0,100.0,97.1,90.0,0.0
+PROC-AUG-DEFORM,0.0,0.0,,0.0791,-0.5846,0.6942,0.0791,-0.5846,0.6942,0.014,50225,8,8,2560,2577,73,70,100.0,,100.0,0.0,100.0,97.1,88.6,0.0
+PROC-AUG-ECHELLE,5.0002,4.9962,1.0,0.0791,-0.5846,0.6942,0.0791,-0.5846,0.6942,99.873,50225,8,13,2560,2560,50225,70,0.0,100.0,100.0,100.0,94.3,100.0,0.0,0.0
+PROC-AUG-PERMUT,0.0,0.0,0.3466,0.0791,-0.5846,0.6942,0.0631,-0.5078,0.4415,99.873,50225,8,8,2560,2560,50225,70,100.0,0.0,27.1,100.0,100.0,100.0,31.4,0.0

@@ -1,0 +1,606 @@
+{
+  "point_de_depart": {
+    "arbitrage": "A1 — préparation issue du brief 1 (output/processed/)",
+    "empreintes": {
+      "equipment": "325d2f3fc4a76c561b854b186511cbf49054adcff13c474e1d308f8983a48df1",
+      "events": "7d3156f0af6d13ee24879f8847279d18e811caadd1269863a62276c5cb076916",
+      "maintenance": "2a852490aa4914d196f73118e024e76e9798dfe7c7a9eba0a865837727e6cb71",
+      "sensors": "87b51cd2177f57bbf2e507d9ba55ae4483ffc942007565f7e6093468a480d7d2"
+    },
+    "parc": 416,
+    "evenements": 514,
+    "interventions": 1788,
+    "mesures": 50277
+  },
+  "graine": 25082026,
+  "desequilibres": [
+    {
+      "variable": "equipment_type",
+      "modalites": 18,
+      "plus_representee": "pump",
+      "effectif_max": 57,
+      "moins_representee": "steam_unit",
+      "effectif_min": 5,
+      "ratio": 11.4
+    },
+    {
+      "variable": "site_id",
+      "modalites": 4,
+      "plus_representee": "SITE-NORD",
+      "effectif_max": 173,
+      "moins_representee": "SITE-OUEST",
+      "effectif_min": 16,
+      "ratio": 10.81
+    },
+    {
+      "variable": "event_type",
+      "modalites": 4,
+      "plus_representee": "incident",
+      "effectif_max": 232,
+      "moins_representee": "alert",
+      "effectif_min": 49,
+      "ratio": 4.73
+    },
+    {
+      "variable": "criticality",
+      "modalites": 4,
+      "plus_representee": "medium",
+      "effectif_max": 173,
+      "moins_representee": "critical",
+      "effectif_min": 46,
+      "ratio": 3.76
+    },
+    {
+      "variable": "severity",
+      "modalites": 4,
+      "plus_representee": "high",
+      "effectif_max": 213,
+      "moins_representee": "low",
+      "effectif_min": 71,
+      "ratio": 3.0
+    }
+  ],
+  "couverture_evenements": {
+    "fenetre_heures": {
+      "avant": 48.0,
+      "apres": 24.0
+    },
+    "evenements_total": 514,
+    "evenements_documentes": 89,
+    "par_categorie": [
+      {
+        "variable": "event_type",
+        "modalite": "alert",
+        "evenements": 49,
+        "documentes": 5,
+        "part_documentee_pct": 10.2
+      },
+      {
+        "variable": "event_type",
+        "modalite": "observation",
+        "evenements": 116,
+        "documentes": 18,
+        "part_documentee_pct": 15.52
+      },
+      {
+        "variable": "event_type",
+        "modalite": "intervention",
+        "evenements": 117,
+        "documentes": 20,
+        "part_documentee_pct": 17.09
+      },
+      {
+        "variable": "event_type",
+        "modalite": "incident",
+        "evenements": 232,
+        "documentes": 46,
+        "part_documentee_pct": 19.83
+      },
+      {
+        "variable": "severity",
+        "modalite": "critical",
+        "evenements": 73,
+        "documentes": 9,
+        "part_documentee_pct": 12.33
+      },
+      {
+        "variable": "severity",
+        "modalite": "high",
+        "evenements": 213,
+        "documentes": 35,
+        "part_documentee_pct": 16.43
+      },
+      {
+        "variable": "severity",
+        "modalite": "medium",
+        "evenements": 157,
+        "documentes": 30,
+        "part_documentee_pct": 19.11
+      },
+      {
+        "variable": "severity",
+        "modalite": "low",
+        "evenements": 71,
+        "documentes": 15,
+        "part_documentee_pct": 21.13
+      }
+    ],
+    "test_independance": [
+      {
+        "variable": "event_type",
+        "khi2": 3.0194,
+        "ddl": 3,
+        "p_value": 0.3886,
+        "effectif_attendu_min": 8.48,
+        "significatif_5pct": false,
+        "lecture": "aucun écart distinguable du hasard : couverture uniformément faible"
+      },
+      {
+        "variable": "severity",
+        "khi2": 2.4569,
+        "ddl": 3,
+        "p_value": 0.4831,
+        "effectif_attendu_min": 12.29,
+        "significatif_5pct": false,
+        "lecture": "aucun écart distinguable du hasard : couverture uniformément faible"
+      }
+    ]
+  },
+  "segmentation": {
+    "variables": [
+      "criticite_ordinale",
+      "puissance_kw",
+      "age_annees",
+      "part_correctives",
+      "n_evenements",
+      "n_evenements_graves",
+      "n_interventions",
+      "indisponibilite_min",
+      "cout_pieces_eur"
+    ],
+    "variables_en_log": [
+      "n_evenements",
+      "n_evenements_graves",
+      "n_interventions",
+      "indisponibilite_min",
+      "cout_pieces_eur"
+    ],
+    "exclues_volontairement": {
+      "instrumente": "sinon la conclusion sur la couverture serait tautologique",
+      "site_id": "déjà décrit par les comptages du brief 1",
+      "equipment_type": "la segmentation doit dépasser la partition par type"
+    },
+    "rapport_preparation": {
+      "lignes_parc": 416,
+      "criticite_hors_domaine": 0,
+      "puissance_absente": 2,
+      "date_service_absente": 1,
+      "downtime_sentinelles_neutralisees": 1,
+      "downtime_sentinelles_valeurs": [
+        99999.0
+      ],
+      "downtime_max_apres_neutralisation": 385.0,
+      "cout_pieces_absent": 28,
+      "equipements_sans_evenement": 42,
+      "equipements_sans_intervention": 50,
+      "colonnes_features": [
+        "criticite_ordinale",
+        "puissance_kw",
+        "age_annees",
+        "part_correctives",
+        "n_evenements",
+        "n_evenements_graves",
+        "n_interventions",
+        "indisponibilite_min",
+        "cout_pieces_eur"
+      ]
+    },
+    "etat_1_parc_entier": {
+      "exploration_k": [
+        {
+          "k": 2,
+          "inertie": 2490.03,
+          "gain_inertie_pct": NaN,
+          "silhouette": 0.4544,
+          "plus_petit_groupe": 50
+        },
+        {
+          "k": 3,
+          "inertie": 2140.35,
+          "gain_inertie_pct": 14.04,
+          "silhouette": 0.2149,
+          "plus_petit_groupe": 50
+        },
+        {
+          "k": 4,
+          "inertie": 1916.17,
+          "gain_inertie_pct": 10.47,
+          "silhouette": 0.2141,
+          "plus_petit_groupe": 50
+        },
+        {
+          "k": 5,
+          "inertie": 1740.01,
+          "gain_inertie_pct": 9.19,
+          "silhouette": 0.2145,
+          "plus_petit_groupe": 40
+        },
+        {
+          "k": 6,
+          "inertie": 1596.75,
+          "gain_inertie_pct": 8.23,
+          "silhouette": 0.2098,
+          "plus_petit_groupe": 40
+        },
+        {
+          "k": 7,
+          "inertie": 1486.9,
+          "gain_inertie_pct": 6.88,
+          "silhouette": 0.2018,
+          "plus_petit_groupe": 40
+        },
+        {
+          "k": 8,
+          "inertie": 1401.65,
+          "gain_inertie_pct": 5.73,
+          "silhouette": 0.2071,
+          "plus_petit_groupe": 33
+        },
+        {
+          "k": 9,
+          "inertie": 1344.35,
+          "gain_inertie_pct": 4.09,
+          "silhouette": 0.2029,
+          "plus_petit_groupe": 31
+        },
+        {
+          "k": 10,
+          "inertie": 1277.72,
+          "gain_inertie_pct": 4.96,
+          "silhouette": 0.2092,
+          "plus_petit_groupe": 27
+        }
+      ],
+      "k_retenu": 2,
+      "silhouette": 0.4544,
+      "diagnostic": {
+        "critere_teste": "n_interventions == 0",
+        "population_du_critere": 50,
+        "seuil_pct": 90.0,
+        "groupes": [
+          {
+            "label": 0,
+            "equipements": 366,
+            "purete_inactifs_pct": 0.0,
+            "rappel_inactifs_pct": 0.0,
+            "redit_le_critere": false
+          },
+          {
+            "label": 1,
+            "equipements": 50,
+            "purete_inactifs_pct": 100.0,
+            "rappel_inactifs_pct": 100.0,
+            "redit_le_critere": true
+          }
+        ],
+        "degenere": true
+      },
+      "conclusion": "partition rejetée — le groupe majoritairement isolé est défini par des compteurs d'activité tous nuls, la silhouette récompense une séparation triviale et le parc actif reste non structuré"
+    },
+    "etat_2_strate_puis_segments": {
+      "strate_declaree": "SEG-INACTIF",
+      "equipements_strate": 50,
+      "equipements_segmentes": 366,
+      "exploration_k": [
+        {
+          "k": 2,
+          "inertie": 2552.8,
+          "gain_inertie_pct": NaN,
+          "silhouette": 0.1929,
+          "plus_petit_groupe": 174
+        },
+        {
+          "k": 3,
+          "inertie": 2257.77,
+          "gain_inertie_pct": 11.56,
+          "silhouette": 0.156,
+          "plus_petit_groupe": 103
+        },
+        {
+          "k": 4,
+          "inertie": 2071.29,
+          "gain_inertie_pct": 8.26,
+          "silhouette": 0.154,
+          "plus_petit_groupe": 72
+        },
+        {
+          "k": 5,
+          "inertie": 1898.74,
+          "gain_inertie_pct": 8.33,
+          "silhouette": 0.1648,
+          "plus_petit_groupe": 43
+        },
+        {
+          "k": 6,
+          "inertie": 1756.28,
+          "gain_inertie_pct": 7.5,
+          "silhouette": 0.1739,
+          "plus_petit_groupe": 26
+        },
+        {
+          "k": 7,
+          "inertie": 1665.61,
+          "gain_inertie_pct": 5.16,
+          "silhouette": 0.1506,
+          "plus_petit_groupe": 24
+        },
+        {
+          "k": 8,
+          "inertie": 1585.42,
+          "gain_inertie_pct": 4.81,
+          "silhouette": 0.1585,
+          "plus_petit_groupe": 26
+        },
+        {
+          "k": 9,
+          "inertie": 1520.08,
+          "gain_inertie_pct": 4.12,
+          "silhouette": 0.1478,
+          "plus_petit_groupe": 23
+        },
+        {
+          "k": 10,
+          "inertie": 1463.93,
+          "gain_inertie_pct": 3.69,
+          "silhouette": 0.1448,
+          "plus_petit_groupe": 23
+        }
+      ],
+      "k_retenu": 2,
+      "silhouette_retenue": 0.1929
+    },
+    "profil": [
+      {
+        "segment": "SEG-1",
+        "equipements": 192,
+        "criticite_ordinale": 1.36,
+        "puissance_kw": 73.41,
+        "age_annees": 11.36,
+        "part_correctives": 0.19,
+        "n_evenements": 1.64,
+        "n_evenements_graves": 1.1,
+        "n_interventions": 6.66,
+        "indisponibilite_min": 1134.8,
+        "cout_pieces_eur": 1601.19,
+        "type_dominant": "pump (19 %)",
+        "site_dominant": "SITE-NORD (44 %)",
+        "criticite_dominante": "medium (42 %)",
+        "types_distincts": 18
+      },
+      {
+        "segment": "SEG-2",
+        "equipements": 174,
+        "criticite_ordinale": 1.33,
+        "puissance_kw": 71.65,
+        "age_annees": 11.35,
+        "part_correctives": 0.2,
+        "n_evenements": 1.09,
+        "n_evenements_graves": 0.41,
+        "n_interventions": 2.93,
+        "indisponibilite_min": 346.45,
+        "cout_pieces_eur": 452.8,
+        "type_dominant": "conveyor (11 %)",
+        "site_dominant": "SITE-NORD (41 %)",
+        "criticite_dominante": "medium (41 %)",
+        "types_distincts": 18
+      },
+      {
+        "segment": "SEG-INACTIF",
+        "equipements": 50,
+        "criticite_ordinale": 1.24,
+        "puissance_kw": 72.78,
+        "age_annees": 10.69,
+        "part_correctives": 0.0,
+        "n_evenements": 0.18,
+        "n_evenements_graves": 0.08,
+        "n_interventions": 0.0,
+        "indisponibilite_min": 0.0,
+        "cout_pieces_eur": 0.0,
+        "type_dominant": "chiller (12 %)",
+        "site_dominant": "SITE-NORD (34 %)",
+        "criticite_dominante": "medium (44 %)",
+        "types_distincts": 16
+      }
+    ],
+    "composition": [
+      {
+        "segment": "SEG-1",
+        "variable": "criticality",
+        "modalite": "critical",
+        "equipements": 21,
+        "part_du_segment_pct": 10.94
+      },
+      {
+        "segment": "SEG-1",
+        "variable": "criticality",
+        "modalite": "high",
+        "equipements": 59,
+        "part_du_segment_pct": 30.73
+      },
+      {
+        "segment": "SEG-1",
+        "variable": "criticality",
+        "modalite": "low",
+        "equipements": 32,
+        "part_du_segment_pct": 16.67
+      },
+      {
+        "segment": "SEG-1",
+        "variable": "criticality",
+        "modalite": "medium",
+        "equipements": 80,
+        "part_du_segment_pct": 41.67
+      },
+      {
+        "segment": "SEG-2",
+        "variable": "criticality",
+        "modalite": "critical",
+        "equipements": 21,
+        "part_du_segment_pct": 12.07
+      },
+      {
+        "segment": "SEG-2",
+        "variable": "criticality",
+        "modalite": "high",
+        "equipements": 49,
+        "part_du_segment_pct": 28.16
+      },
+      {
+        "segment": "SEG-2",
+        "variable": "criticality",
+        "modalite": "low",
+        "equipements": 33,
+        "part_du_segment_pct": 18.97
+      },
+      {
+        "segment": "SEG-2",
+        "variable": "criticality",
+        "modalite": "medium",
+        "equipements": 71,
+        "part_du_segment_pct": 40.8
+      },
+      {
+        "segment": "SEG-INACTIF",
+        "variable": "criticality",
+        "modalite": "critical",
+        "equipements": 4,
+        "part_du_segment_pct": 8.0
+      },
+      {
+        "segment": "SEG-INACTIF",
+        "variable": "criticality",
+        "modalite": "high",
+        "equipements": 14,
+        "part_du_segment_pct": 28.0
+      },
+      {
+        "segment": "SEG-INACTIF",
+        "variable": "criticality",
+        "modalite": "low",
+        "equipements": 10,
+        "part_du_segment_pct": 20.0
+      },
+      {
+        "segment": "SEG-INACTIF",
+        "variable": "criticality",
+        "modalite": "medium",
+        "equipements": 22,
+        "part_du_segment_pct": 44.0
+      },
+      {
+        "segment": "SEG-1",
+        "variable": "site_id",
+        "modalite": "SITE-EST",
+        "equipements": 47,
+        "part_du_segment_pct": 24.48
+      },
+      {
+        "segment": "SEG-1",
+        "variable": "site_id",
+        "modalite": "SITE-NORD",
+        "equipements": 85,
+        "part_du_segment_pct": 44.27
+      },
+      {
+        "segment": "SEG-1",
+        "variable": "site_id",
+        "modalite": "SITE-OUEST",
+        "equipements": 6,
+        "part_du_segment_pct": 3.12
+      },
+      {
+        "segment": "SEG-1",
+        "variable": "site_id",
+        "modalite": "SITE-SUD",
+        "equipements": 54,
+        "part_du_segment_pct": 28.12
+      },
+      {
+        "segment": "SEG-2",
+        "variable": "site_id",
+        "modalite": "SITE-EST",
+        "equipements": 30,
+        "part_du_segment_pct": 17.24
+      },
+      {
+        "segment": "SEG-2",
+        "variable": "site_id",
+        "modalite": "SITE-NORD",
+        "equipements": 71,
+        "part_du_segment_pct": 40.8
+      },
+      {
+        "segment": "SEG-2",
+        "variable": "site_id",
+        "modalite": "SITE-OUEST",
+        "equipements": 8,
+        "part_du_segment_pct": 4.6
+      },
+      {
+        "segment": "SEG-2",
+        "variable": "site_id",
+        "modalite": "SITE-SUD",
+        "equipements": 65,
+        "part_du_segment_pct": 37.36
+      },
+      {
+        "segment": "SEG-INACTIF",
+        "variable": "site_id",
+        "modalite": "SITE-EST",
+        "equipements": 14,
+        "part_du_segment_pct": 28.0
+      },
+      {
+        "segment": "SEG-INACTIF",
+        "variable": "site_id",
+        "modalite": "SITE-NORD",
+        "equipements": 17,
+        "part_du_segment_pct": 34.0
+      },
+      {
+        "segment": "SEG-INACTIF",
+        "variable": "site_id",
+        "modalite": "SITE-OUEST",
+        "equipements": 2,
+        "part_du_segment_pct": 4.0
+      },
+      {
+        "segment": "SEG-INACTIF",
+        "variable": "site_id",
+        "modalite": "SITE-SUD",
+        "equipements": 17,
+        "part_du_segment_pct": 34.0
+      }
+    ],
+    "croisement_couverture": [
+      {
+        "segment": "SEG-2",
+        "equipements": 174,
+        "instrumentes": 2,
+        "taux_pct": 1.15
+      },
+      {
+        "segment": "SEG-INACTIF",
+        "equipements": 50,
+        "instrumentes": 1,
+        "taux_pct": 2.0
+      },
+      {
+        "segment": "SEG-1",
+        "equipements": 192,
+        "instrumentes": 33,
+        "taux_pct": 17.19
+      }
+    ]
+  }
+}

@@ -1,0 +1,239 @@
+{
+  "graine": 25082026,
+  "tour": 2,
+  "detecteur": "tools/verify_synthetic.py",
+  "soumissions": [
+    {
+      "soumission": "T2-00",
+      "hypothese": "C'est le témoin qui aurait dû ouvrir le tour 1. `EQ-PUMP-001` est échantillonné aux heures 2, 8, 14 et 20 : j'attends **721 lignes signalées sur 721 en R-FORMAT avant toute augmentation**. Si l'attente se vérifie, les cinq comptages identiques du tour 1 ne mesuraient pas nos procédés, et aucune conclusion ne peut leur être attribuée.",
+      "lignes": 721,
+      "series": 1,
+      "provenance_declaree": false,
+      "colonnes_absentes": "",
+      "colonnes_inattendues": "row_identifier",
+      "R-SCHEMA": 0,
+      "R-FORMAT": 721,
+      "R-RANGE": 0,
+      "R-UNIT": 0,
+      "R-KEY": 0,
+      "R-FK": 0,
+      "R-PRECISION": 0,
+      "total_signalements": 721,
+      "part_lignes_signalees": 1.0,
+      "capteurs_signales_distribution": "",
+      "debut": "2025-12-29T12:00:00Z",
+      "fin": "2026-06-30T20:00:00Z",
+      "fichier": "exemple_serie_reelle.csv",
+      "nature": "témoin manquant du tour 1 — série support, non augmentée"
+    },
+    {
+      "soumission": "T2-01",
+      "hypothese": "L'extrapolation restaure la dispersion : j'attends un ratio d'écart-type nettement plus proche de 1 que les 0,783 et 0,810 du premier état. Le coût attendu est un R-RANGE non nul, les points extrapolés pouvant franchir la plage physique — et ils ne sont pas écrêtés. **Le résultat qui compte est le classement** : un générateur amélioré devrait obtenir du détecteur un verdict égal ou pire que le premier état, qui était à zéro signalement. Si c'est le cas, le détecteur ne peut pas arbitrer une amélioration, et nos propres règles deviennent nécessaires.",
+      "lignes": 1799,
+      "series": 15,
+      "provenance_declaree": true,
+      "colonnes_absentes": "",
+      "colonnes_inattendues": "",
+      "R-SCHEMA": 0,
+      "R-FORMAT": 0,
+      "R-RANGE": 0,
+      "R-UNIT": 0,
+      "R-KEY": 0,
+      "R-FK": 0,
+      "R-PRECISION": 0,
+      "total_signalements": 0,
+      "part_lignes_signalees": 0.0,
+      "capteurs_signales_distribution": "",
+      "debut": "2026-01-02T00:00:00Z",
+      "fin": "2026-01-31T18:00:00Z",
+      "fichier": "mesures_PROC-GEN-SMOTE-V2.csv",
+      "nature": "génération — interpolation, second état, λ ∈ [−0,25 ; 1,25]"
+    },
+    {
+      "soumission": "T2-02",
+      "hypothese": "provenance désormais déclarée et colonne de travail retirée ; R-FORMAT inchangé à 721, puisque le défaut vient du support et non du procédé",
+      "lignes": 721,
+      "series": 1,
+      "provenance_declaree": true,
+      "colonnes_absentes": "",
+      "colonnes_inattendues": "",
+      "R-SCHEMA": 0,
+      "R-FORMAT": 721,
+      "R-RANGE": 0,
+      "R-UNIT": 0,
+      "R-KEY": 0,
+      "R-FK": 0,
+      "R-PRECISION": 0,
+      "total_signalements": 721,
+      "part_lignes_signalees": 1.0,
+      "capteurs_signales_distribution": "",
+      "debut": "2025-12-29T12:00:00Z",
+      "fin": "2026-06-30T20:00:00Z",
+      "fichier": "PROC-AUG-BRUIT.csv",
+      "nature": "augmentation normalisée — PROC-AUG-BRUIT"
+    },
+    {
+      "soumission": "T2-03",
+      "hypothese": "mêmes 721 R-FORMAT qu'au tour 1 : le décalage de 18 h préserve le pas, et la grille était déjà fausse avant lui",
+      "lignes": 721,
+      "series": 1,
+      "provenance_declaree": true,
+      "colonnes_absentes": "",
+      "colonnes_inattendues": "",
+      "R-SCHEMA": 0,
+      "R-FORMAT": 721,
+      "R-RANGE": 0,
+      "R-UNIT": 0,
+      "R-KEY": 0,
+      "R-FK": 0,
+      "R-PRECISION": 0,
+      "total_signalements": 721,
+      "part_lignes_signalees": 1.0,
+      "capteurs_signales_distribution": "",
+      "debut": "2025-12-30T06:00:00Z",
+      "fin": "2026-07-01T14:00:00Z",
+      "fichier": "PROC-AUG-DECALAGE.csv",
+      "nature": "augmentation normalisée — PROC-AUG-DECALAGE"
+    },
+    {
+      "soumission": "T2-04",
+      "hypothese": "721 R-FORMAT, indiscernable des autres — la destruction de la grille ne peut pas s'ajouter à un comptage déjà saturé",
+      "lignes": 721,
+      "series": 1,
+      "provenance_declaree": true,
+      "colonnes_absentes": "",
+      "colonnes_inattendues": "",
+      "R-SCHEMA": 0,
+      "R-FORMAT": 721,
+      "R-RANGE": 0,
+      "R-UNIT": 0,
+      "R-KEY": 0,
+      "R-FK": 0,
+      "R-PRECISION": 0,
+      "total_signalements": 721,
+      "part_lignes_signalees": 1.0,
+      "capteurs_signales_distribution": "",
+      "debut": "2025-12-29T12:00:00Z",
+      "fin": "2026-07-01T17:12:31Z",
+      "fichier": "PROC-AUG-DEFORM.csv",
+      "nature": "augmentation normalisée — PROC-AUG-DEFORM"
+    },
+    {
+      "soumission": "T2-05",
+      "hypothese": "écart de distribution inchangé à 0,391 σ, toujours sous le seuil de 0,8 : la normalisation des colonnes ne change rien au biais",
+      "lignes": 721,
+      "series": 1,
+      "provenance_declaree": true,
+      "colonnes_absentes": "",
+      "colonnes_inattendues": "",
+      "R-SCHEMA": 0,
+      "R-FORMAT": 721,
+      "R-RANGE": 0,
+      "R-UNIT": 0,
+      "R-KEY": 0,
+      "R-FK": 0,
+      "R-PRECISION": 0,
+      "total_signalements": 721,
+      "part_lignes_signalees": 1.0,
+      "capteurs_signales_distribution": "",
+      "debut": "2025-12-29T12:00:00Z",
+      "fin": "2026-06-30T20:00:00Z",
+      "fichier": "PROC-AUG-ECHELLE.csv",
+      "nature": "augmentation normalisée — PROC-AUG-ECHELLE"
+    },
+    {
+      "soumission": "T2-06",
+      "hypothese": "721 R-FORMAT et marginales identiques au réel : la destruction de la structure temporelle reste invisible",
+      "lignes": 721,
+      "series": 1,
+      "provenance_declaree": true,
+      "colonnes_absentes": "",
+      "colonnes_inattendues": "",
+      "R-SCHEMA": 0,
+      "R-FORMAT": 721,
+      "R-RANGE": 0,
+      "R-UNIT": 0,
+      "R-KEY": 0,
+      "R-FK": 0,
+      "R-PRECISION": 0,
+      "total_signalements": 721,
+      "part_lignes_signalees": 1.0,
+      "capteurs_signales_distribution": "",
+      "debut": "2025-12-29T12:00:00Z",
+      "fin": "2026-06-30T20:00:00Z",
+      "fichier": "PROC-AUG-PERMUT.csv",
+      "nature": "augmentation normalisée — PROC-AUG-PERMUT"
+    }
+  ],
+  "generateur_v2": {
+    "lambda_bornes": [
+      -0.25,
+      1.25
+    ],
+    "points_extrapoles": 614,
+    "points_hors_plage": 0,
+    "lignes": 1799,
+    "profils": {
+      "reel_janvier": {
+        "temperature_c": {
+          "lignes": 2520,
+          "ecart_type": 4.9577,
+          "moyenne": 57.6031,
+          "autocorrelation_moyenne": {
+            "2": -0.7456,
+            "4": 0.8064
+          }
+        },
+        "vibration_mm_s": {
+          "lignes": 1560,
+          "ecart_type": 0.3864,
+          "moyenne": 2.8432,
+          "autocorrelation_moyenne": {
+            "2": -0.4158,
+            "4": 0.5396
+          }
+        }
+      },
+      "smote_v1": {
+        "temperature_c": {
+          "lignes": 959,
+          "ecart_type": 3.8469,
+          "moyenne": 57.9154,
+          "autocorrelation_moyenne": {
+            "2": -0.4503,
+            "4": 0.499
+          }
+        },
+        "vibration_mm_s": {
+          "lignes": 840,
+          "ecart_type": 0.3284,
+          "moyenne": 2.8202,
+          "autocorrelation_moyenne": {
+            "2": -0.2093,
+            "4": 0.2935
+          }
+        }
+      },
+      "smote_v2": {
+        "temperature_c": {
+          "lignes": 959,
+          "ecart_type": 4.2181,
+          "moyenne": 57.9138,
+          "autocorrelation_moyenne": {
+            "2": -0.3831,
+            "4": 0.4055
+          }
+        },
+        "vibration_mm_s": {
+          "lignes": 840,
+          "ecart_type": 0.3634,
+          "moyenne": 2.8223,
+          "autocorrelation_moyenne": {
+            "2": -0.1927,
+            "4": 0.2427
+          }
+        }
+      }
+    }
+  }
+}

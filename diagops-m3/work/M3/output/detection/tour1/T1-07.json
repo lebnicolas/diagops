@@ -1,0 +1,59 @@
+{
+  "fichier": "exemple_PROC-AUG-PERMUT.csv",
+  "nature": "augmentation — permutation de blocs de 24 h",
+  "hypothese": "La permutation conserve la population de valeurs **exactement** et ne touche pas aux horodatages. Toutes les familles de règles regardent la ligne, jamais l'ordre : j'attends zéro signalement sur une série dont la structure temporelle est détruite. C'est le second cas d'aveuglement, et le plus net des deux.",
+  "rapport": {
+    "rows": 721,
+    "columns": [
+      "equipment_id",
+      "timestamp",
+      "sensor_name",
+      "value",
+      "unit",
+      "period",
+      "row_identifier"
+    ],
+    "missing_columns": [],
+    "unexpected_columns": [
+      "row_identifier"
+    ],
+    "declares_provenance": false,
+    "distinct_series": 1,
+    "sensor_names": {
+      "vibration_mm_s": 721
+    },
+    "periods": {
+      "2026-S1": 721
+    },
+    "timestamp_span": [
+      "2025-12-29T12:00:00Z",
+      "2026-06-30T20:00:00Z"
+    ],
+    "flagged_rows_by_rule": {
+      "R-SCHEMA": 0,
+      "R-FORMAT": 721,
+      "R-RANGE": 0,
+      "R-UNIT": 0,
+      "R-KEY": 0,
+      "R-FK": 0,
+      "R-PRECISION": 0
+    },
+    "flagged_rows_total": 721,
+    "flagged_sensors_by_distribution": [],
+    "distribution": [
+      {
+        "sensor_name": "vibration_mm_s",
+        "rows": 721,
+        "mean": 2.863,
+        "reference_mean": 2.848,
+        "mean_gap_in_reference_stdev": 0.037,
+        "stdev_ratio": 0.852,
+        "flagged": false
+      }
+    ],
+    "out_of_scope": [
+      "structure temporelle des séries : autocorrélation, cycle journalier, distribution des écarts successifs",
+      "cohérence avec events.csv et maintenance_history.csv : présence ou absence de signature capteur en regard des événements sévères"
+    ]
+  }
+}

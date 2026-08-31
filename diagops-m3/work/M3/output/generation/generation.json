@@ -1,0 +1,607 @@
+{
+  "graine": 25082026,
+  "perimetre": {
+    "arbitrage": "A2 — SITE-OUEST ∩ SEG-2",
+    "site": "SITE-OUEST",
+    "segment": "SEG-2",
+    "equipements": [
+      "EQ-COMP-189",
+      "EQ-DRYER-264",
+      "EQ-FAN-104",
+      "EQ-FAN-120",
+      "EQ-OVEN-203",
+      "EQ-PUMP-002",
+      "EQ-PUMP-230",
+      "EQ-ROBOT-173"
+    ],
+    "types": {
+      "pump": 2,
+      "fan": 2,
+      "dryer": 1,
+      "compressor": 1,
+      "oven": 1,
+      "robot": 1
+    },
+    "criticites": {
+      "critical": 2,
+      "high": 2,
+      "low": 2,
+      "medium": 2
+    },
+    "capteurs": [
+      "vibration_mm_s",
+      "temperature_c"
+    ],
+    "periode": {
+      "debut": "2026-01-01 00:00:00+00:00",
+      "fin": "2026-01-31 18:00:00+00:00"
+    },
+    "horodatages_par_serie": 124
+  },
+  "voisinage": {
+    "k": 5,
+    "penalite_type_different": 1.0,
+    "descripteurs": [
+      "criticite_ordinale",
+      "puissance_log",
+      "age_annees"
+    ],
+    "donneurs_disponibles": 30,
+    "voisins_retenus": {
+      "EQ-COMP-189": [
+        "EQ-COMP-113",
+        "EQ-OVEN-386",
+        "EQ-FAN-204",
+        "EQ-OVEN-123",
+        "EQ-CHILL-188"
+      ],
+      "EQ-DRYER-264": [
+        "EQ-CHILL-168",
+        "EQ-FAN-304",
+        "EQ-MIX-159",
+        "EQ-FAN-002",
+        "EQ-SENSOR-305"
+      ],
+      "EQ-FAN-104": [
+        "EQ-CHILL-001",
+        "EQ-FAN-284",
+        "EQ-SENSOR-305",
+        "EQ-FAN-304",
+        "EQ-FAN-002"
+      ],
+      "EQ-FAN-120": [
+        "EQ-FAN-304",
+        "EQ-COMP-002",
+        "EQ-FAN-003",
+        "EQ-MIX-159",
+        "EQ-FAN-002"
+      ],
+      "EQ-OVEN-203": [
+        "EQ-OVEN-223",
+        "EQ-COMP-233",
+        "EQ-OVEN-001",
+        "EQ-COMP-002",
+        "EQ-SENSOR-305"
+      ],
+      "EQ-PUMP-002": [
+        "EQ-PUMP-006",
+        "EQ-PUMP-171",
+        "EQ-MIX-379",
+        "EQ-PUMP-001",
+        "EQ-FAN-003"
+      ],
+      "EQ-PUMP-230": [
+        "EQ-CHILL-001",
+        "EQ-SENSOR-305",
+        "EQ-MIX-259",
+        "EQ-PUMP-350",
+        "EQ-FAN-284"
+      ],
+      "EQ-ROBOT-173": [
+        "EQ-MIX-259",
+        "EQ-ROBOT-358",
+        "EQ-SENSOR-305",
+        "EQ-FAN-284",
+        "EQ-STEAM-352"
+      ]
+    },
+    "journal_interpolation": {
+      "points_sans_donneur": 185,
+      "donneurs_utilises": {
+        "EQ-COMP-189/vibration_mm_s": [
+          "EQ-FAN-204"
+        ],
+        "EQ-DRYER-264/vibration_mm_s": [
+          "EQ-FAN-304",
+          "EQ-MIX-159",
+          "EQ-FAN-002"
+        ],
+        "EQ-FAN-104/vibration_mm_s": [
+          "EQ-FAN-284",
+          "EQ-FAN-304",
+          "EQ-FAN-002"
+        ],
+        "EQ-FAN-120/vibration_mm_s": [
+          "EQ-FAN-304",
+          "EQ-FAN-003",
+          "EQ-MIX-159",
+          "EQ-FAN-002"
+        ],
+        "EQ-OVEN-203/vibration_mm_s": [],
+        "EQ-PUMP-002/vibration_mm_s": [
+          "EQ-PUMP-006",
+          "EQ-PUMP-171",
+          "EQ-MIX-379",
+          "EQ-PUMP-001",
+          "EQ-FAN-003"
+        ],
+        "EQ-PUMP-230/vibration_mm_s": [
+          "EQ-MIX-259",
+          "EQ-PUMP-350",
+          "EQ-FAN-284"
+        ],
+        "EQ-ROBOT-173/vibration_mm_s": [
+          "EQ-MIX-259",
+          "EQ-ROBOT-358",
+          "EQ-FAN-284"
+        ],
+        "EQ-COMP-189/temperature_c": [
+          "EQ-COMP-113",
+          "EQ-OVEN-386",
+          "EQ-OVEN-123",
+          "EQ-CHILL-188"
+        ],
+        "EQ-DRYER-264/temperature_c": [
+          "EQ-CHILL-168",
+          "EQ-SENSOR-305"
+        ],
+        "EQ-FAN-104/temperature_c": [
+          "EQ-CHILL-001",
+          "EQ-SENSOR-305"
+        ],
+        "EQ-FAN-120/temperature_c": [
+          "EQ-COMP-002"
+        ],
+        "EQ-OVEN-203/temperature_c": [
+          "EQ-OVEN-223",
+          "EQ-COMP-233",
+          "EQ-OVEN-001",
+          "EQ-COMP-002",
+          "EQ-SENSOR-305"
+        ],
+        "EQ-PUMP-002/temperature_c": [
+          "EQ-PUMP-006",
+          "EQ-PUMP-171",
+          "EQ-PUMP-001"
+        ],
+        "EQ-PUMP-230/temperature_c": [
+          "EQ-CHILL-001",
+          "EQ-SENSOR-305",
+          "EQ-PUMP-350"
+        ],
+        "EQ-ROBOT-173/temperature_c": [
+          "EQ-SENSOR-305",
+          "EQ-STEAM-352"
+        ]
+      },
+      "lambda_bornes": [
+        0.0,
+        1.0
+      ],
+      "points_extrapoles": 0,
+      "points_hors_plage": 0
+    }
+  },
+  "volumes": {
+    "PROC-GEN-MARG-V1": 1984,
+    "PROC-GEN-SMOTE-V1": 1799
+  },
+  "marginales": [
+    {
+      "origine": "réel",
+      "sensor_name": "temperature_c",
+      "lignes": 2517,
+      "moyenne": 57.6031,
+      "mediane": 57.82,
+      "ecart_type": 4.9577,
+      "q25": 54.25,
+      "q75": 61.17,
+      "min": 42.34,
+      "max": 71.91
+    },
+    {
+      "origine": "réel",
+      "sensor_name": "vibration_mm_s",
+      "lignes": 1558,
+      "moyenne": 2.8436,
+      "mediane": 2.82,
+      "ecart_type": 0.3862,
+      "q25": 2.58,
+      "q75": 3.08,
+      "min": 1.72,
+      "max": 4.47
+    },
+    {
+      "origine": "PROC-GEN-MARG-V1",
+      "sensor_name": "temperature_c",
+      "lignes": 992,
+      "moyenne": 57.8714,
+      "mediane": 57.98,
+      "ecart_type": 4.8815,
+      "q25": 54.31,
+      "q75": 61.5525,
+      "min": 43.62,
+      "max": 70.12
+    },
+    {
+      "origine": "PROC-GEN-MARG-V1",
+      "sensor_name": "vibration_mm_s",
+      "lignes": 992,
+      "moyenne": 2.8736,
+      "mediane": 2.86,
+      "ecart_type": 0.3874,
+      "q25": 2.61,
+      "q75": 3.12,
+      "min": 1.83,
+      "max": 4.93
+    },
+    {
+      "origine": "PROC-GEN-SMOTE-V1",
+      "sensor_name": "temperature_c",
+      "lignes": 959,
+      "moyenne": 57.9154,
+      "mediane": 58.12,
+      "ecart_type": 3.8469,
+      "q25": 55.005,
+      "q75": 60.89,
+      "min": 45.07,
+      "max": 70.35
+    },
+    {
+      "origine": "PROC-GEN-SMOTE-V1",
+      "sensor_name": "vibration_mm_s",
+      "lignes": 840,
+      "moyenne": 2.8202,
+      "mediane": 2.79,
+      "ecart_type": 0.3284,
+      "q25": 2.58,
+      "q75": 3.03,
+      "min": 2.03,
+      "max": 4.22
+    }
+  ],
+  "structure_temporelle": [
+    {
+      "origine": "réel",
+      "sensor_name": "temperature_c",
+      "series": 21,
+      "autocorr_lag2_mediane": -0.7593,
+      "autocorr_lag4_mediane": 0.8031
+    },
+    {
+      "origine": "réel",
+      "sensor_name": "vibration_mm_s",
+      "series": 13,
+      "autocorr_lag2_mediane": -0.459,
+      "autocorr_lag4_mediane": 0.5268
+    },
+    {
+      "origine": "PROC-GEN-MARG-V1",
+      "sensor_name": "temperature_c",
+      "series": 8,
+      "autocorr_lag2_mediane": 0.0215,
+      "autocorr_lag4_mediane": -0.024
+    },
+    {
+      "origine": "PROC-GEN-MARG-V1",
+      "sensor_name": "vibration_mm_s",
+      "series": 8,
+      "autocorr_lag2_mediane": 0.0114,
+      "autocorr_lag4_mediane": -0.0766
+    },
+    {
+      "origine": "PROC-GEN-SMOTE-V1",
+      "sensor_name": "temperature_c",
+      "series": 8,
+      "autocorr_lag2_mediane": -0.5942,
+      "autocorr_lag4_mediane": 0.5986
+    },
+    {
+      "origine": "PROC-GEN-SMOTE-V1",
+      "sensor_name": "vibration_mm_s",
+      "series": 7,
+      "autocorr_lag2_mediane": -0.3102,
+      "autocorr_lag4_mediane": 0.2524
+    }
+  ],
+  "correlation_entre_capteurs": [
+    {
+      "origine": "réel",
+      "couples": 359,
+      "equipements": 3,
+      "correlation_mediane": -0.1418
+    },
+    {
+      "origine": "PROC-GEN-MARG-V1",
+      "couples": 992,
+      "equipements": 8,
+      "correlation_mediane": -0.048
+    },
+    {
+      "origine": "PROC-GEN-SMOTE-V1",
+      "couples": 839,
+      "equipements": 7,
+      "correlation_mediane": -0.0049
+    }
+  ],
+  "reaction_aux_evenements": [
+    {
+      "origine": "réel — janvier",
+      "sensor_name": "temperature_c",
+      "mesures_en_fenetre": 104,
+      "mesures_hors_fenetre": 2413,
+      "moyenne_en_fenetre": 58.5696,
+      "moyenne_hors_fenetre": 57.5615,
+      "ecart_pct": 1.75,
+      "p_value_mann_whitney": 0.182488,
+      "reaction_significative": false
+    },
+    {
+      "origine": "réel — janvier",
+      "sensor_name": "vibration_mm_s",
+      "mesures_en_fenetre": 150,
+      "mesures_hors_fenetre": 1408,
+      "moyenne_en_fenetre": 2.886,
+      "moyenne_hors_fenetre": 2.8391,
+      "ecart_pct": 1.65,
+      "p_value_mann_whitney": 0.973881,
+      "reaction_significative": false
+    },
+    {
+      "origine": "réel — 2026-S1",
+      "sensor_name": "temperature_c",
+      "mesures_en_fenetre": 777,
+      "mesures_hors_fenetre": 14325,
+      "moyenne_en_fenetre": 59.1975,
+      "moyenne_hors_fenetre": 57.648,
+      "ecart_pct": 2.69,
+      "p_value_mann_whitney": 0.0,
+      "reaction_significative": true
+    },
+    {
+      "origine": "réel — 2026-S1",
+      "sensor_name": "vibration_mm_s",
+      "mesures_en_fenetre": 508,
+      "mesures_hors_fenetre": 8765,
+      "moyenne_en_fenetre": 3.049,
+      "moyenne_hors_fenetre": 2.8384,
+      "ecart_pct": 7.42,
+      "p_value_mann_whitney": 0.0,
+      "reaction_significative": true
+    },
+    {
+      "origine": "PROC-GEN-MARG-V1",
+      "sensor_name": "temperature_c",
+      "mesures_en_fenetre": 39,
+      "mesures_hors_fenetre": 953,
+      "moyenne_en_fenetre": 57.9459,
+      "moyenne_hors_fenetre": 57.8683,
+      "ecart_pct": 0.13,
+      "p_value_mann_whitney": 0.892952,
+      "reaction_significative": false
+    },
+    {
+      "origine": "PROC-GEN-MARG-V1",
+      "sensor_name": "vibration_mm_s",
+      "mesures_en_fenetre": 39,
+      "mesures_hors_fenetre": 953,
+      "moyenne_en_fenetre": 2.8964,
+      "moyenne_hors_fenetre": 2.8727,
+      "ecart_pct": 0.83,
+      "p_value_mann_whitney": 0.589776,
+      "reaction_significative": false
+    },
+    {
+      "origine": "PROC-GEN-SMOTE-V1",
+      "sensor_name": "temperature_c",
+      "mesures_en_fenetre": 39,
+      "mesures_hors_fenetre": 920,
+      "moyenne_en_fenetre": 57.749,
+      "moyenne_hors_fenetre": 57.9225,
+      "ecart_pct": -0.3,
+      "p_value_mann_whitney": 0.758226,
+      "reaction_significative": false
+    },
+    {
+      "origine": "PROC-GEN-SMOTE-V1",
+      "sensor_name": "vibration_mm_s",
+      "mesures_en_fenetre": 39,
+      "mesures_hors_fenetre": 801,
+      "moyenne_en_fenetre": 2.8562,
+      "moyenne_hors_fenetre": 2.8185,
+      "ecart_pct": 1.34,
+      "p_value_mann_whitney": 0.407124,
+      "reaction_significative": false
+    }
+  ],
+  "reaction_aux_evenements_controle_semestre": [
+    {
+      "origine": "réel — 2026-S1",
+      "sensor_name": "temperature_c",
+      "mesures_en_fenetre": 777,
+      "mesures_hors_fenetre": 14325,
+      "moyenne_en_fenetre": 59.1975,
+      "moyenne_hors_fenetre": 57.648,
+      "ecart_pct": 2.69,
+      "p_value_mann_whitney": 0.0,
+      "reaction_significative": true
+    },
+    {
+      "origine": "réel — 2026-S1",
+      "sensor_name": "vibration_mm_s",
+      "mesures_en_fenetre": 508,
+      "mesures_hors_fenetre": 8765,
+      "moyenne_en_fenetre": 3.049,
+      "moyenne_hors_fenetre": 2.8384,
+      "ecart_pct": 7.42,
+      "p_value_mann_whitney": 0.0,
+      "reaction_significative": true
+    },
+    {
+      "origine": "PROC-GEN-MARG-V1 — 2026-S1",
+      "sensor_name": "temperature_c",
+      "mesures_en_fenetre": 148,
+      "mesures_hors_fenetre": 5644,
+      "moyenne_en_fenetre": 57.1179,
+      "moyenne_hors_fenetre": 57.7059,
+      "ecart_pct": -1.02,
+      "p_value_mann_whitney": 0.093434,
+      "reaction_significative": false
+    },
+    {
+      "origine": "PROC-GEN-MARG-V1 — 2026-S1",
+      "sensor_name": "vibration_mm_s",
+      "mesures_en_fenetre": 148,
+      "mesures_hors_fenetre": 5644,
+      "moyenne_en_fenetre": 2.8434,
+      "moyenne_hors_fenetre": 2.8598,
+      "ecart_pct": -0.58,
+      "p_value_mann_whitney": 0.829467,
+      "reaction_significative": false
+    },
+    {
+      "origine": "PROC-GEN-SMOTE-V1 — 2026-S1",
+      "sensor_name": "temperature_c",
+      "mesures_en_fenetre": 148,
+      "mesures_hors_fenetre": 5611,
+      "moyenne_en_fenetre": 57.4534,
+      "moyenne_hors_fenetre": 58.0369,
+      "ecart_pct": -1.01,
+      "p_value_mann_whitney": 0.092878,
+      "reaction_significative": false
+    },
+    {
+      "origine": "PROC-GEN-SMOTE-V1 — 2026-S1",
+      "sensor_name": "vibration_mm_s",
+      "mesures_en_fenetre": 117,
+      "mesures_hors_fenetre": 4916,
+      "moyenne_en_fenetre": 2.8093,
+      "moyenne_hors_fenetre": 2.807,
+      "ecart_pct": 0.08,
+      "p_value_mann_whitney": 0.706953,
+      "reaction_significative": false
+    }
+  ],
+  "controles_metier": [
+    {
+      "controle": "R-SEN-001 clé logique unique dans le lot",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-MARG-V1"
+    },
+    {
+      "controle": "R-SEN-001 clé en collision avec le réel",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-MARG-V1"
+    },
+    {
+      "controle": "R-SEN-003 horodatage sur la grille de 6 h",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-MARG-V1"
+    },
+    {
+      "controle": "R-SEN-006 unité cohérente avec le capteur",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-MARG-V1"
+    },
+    {
+      "controle": "R-SEN-007 valeur renseignée et numérique",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-MARG-V1"
+    },
+    {
+      "controle": "R-SEN-008 valeur non négative",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-MARG-V1"
+    },
+    {
+      "controle": "R-SEN-009 valeur dans la plage robuste (8 MAD)",
+      "lignes_en_faute": 2,
+      "procedure_id": "PROC-GEN-MARG-V1"
+    },
+    {
+      "controle": "R-SEN-013 équipement présent dans le parc",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-MARG-V1"
+    },
+    {
+      "controle": "R-SEN-014 mesure dans la période annoncée",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-MARG-V1"
+    },
+    {
+      "controle": "R-SEN-015 étiquette period cohérente",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-MARG-V1"
+    },
+    {
+      "controle": "Précision à deux décimales",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-MARG-V1"
+    },
+    {
+      "controle": "R-SEN-001 clé logique unique dans le lot",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-SMOTE-V1"
+    },
+    {
+      "controle": "R-SEN-001 clé en collision avec le réel",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-SMOTE-V1"
+    },
+    {
+      "controle": "R-SEN-003 horodatage sur la grille de 6 h",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-SMOTE-V1"
+    },
+    {
+      "controle": "R-SEN-006 unité cohérente avec le capteur",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-SMOTE-V1"
+    },
+    {
+      "controle": "R-SEN-007 valeur renseignée et numérique",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-SMOTE-V1"
+    },
+    {
+      "controle": "R-SEN-008 valeur non négative",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-SMOTE-V1"
+    },
+    {
+      "controle": "R-SEN-009 valeur dans la plage robuste (8 MAD)",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-SMOTE-V1"
+    },
+    {
+      "controle": "R-SEN-013 équipement présent dans le parc",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-SMOTE-V1"
+    },
+    {
+      "controle": "R-SEN-014 mesure dans la période annoncée",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-SMOTE-V1"
+    },
+    {
+      "controle": "R-SEN-015 étiquette period cohérente",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-SMOTE-V1"
+    },
+    {
+      "controle": "Précision à deux décimales",
+      "lignes_en_faute": 0,
+      "procedure_id": "PROC-GEN-SMOTE-V1"
+    }
+  ]
+}

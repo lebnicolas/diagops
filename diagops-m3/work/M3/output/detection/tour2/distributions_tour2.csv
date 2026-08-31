@@ -1,0 +1,9 @@
+soumission,sensor_name,rows,mean,reference_mean,mean_gap_in_reference_stdev,stdev_ratio,flagged
+T2-00,vibration_mm_s,721,2.863,2.848,0.037,0.852,False
+T2-01,temperature_c,959,57.914,57.745,0.034,0.858,False
+T2-01,vibration_mm_s,840,2.822,2.848,0.063,0.897,False
+T2-02,vibration_mm_s,721,2.863,2.848,0.037,0.852,False
+T2-03,vibration_mm_s,721,2.863,2.848,0.037,0.852,False
+T2-04,vibration_mm_s,721,2.863,2.848,0.037,0.852,False
+T2-05,vibration_mm_s,721,3.006,2.848,0.391,0.894,False
+T2-06,vibration_mm_s,721,2.863,2.848,0.037,0.852,False

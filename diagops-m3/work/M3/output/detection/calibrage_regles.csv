@@ -1,0 +1,6 @@
+regle,libelle,blocs_signales,dont_fabriques,dont_reels_accuses,blocs_fabriques_manques
+R-DET-010,autocorrélation de rang 4 effondrée : cycle journalier absent,7,6,1,3
+R-DET-011,grille d'échantillonnage irrégulière,1,1,0,8
+R-DET-012,niveau incompatible avec le profil de l'équipement,1,1,0,8
+R-DET-013,dispersion incompatible avec le profil de l'équipement,2,2,0,7
+R-DET-014,valeurs retrouvées chez un autre équipement — greffe,1,1,0,8

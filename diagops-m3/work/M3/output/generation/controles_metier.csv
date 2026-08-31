@@ -1,0 +1,23 @@
+controle,lignes_en_faute,procedure_id
+R-SEN-001 clé logique unique dans le lot,0,PROC-GEN-MARG-V1
+R-SEN-001 clé en collision avec le réel,0,PROC-GEN-MARG-V1
+R-SEN-003 horodatage sur la grille de 6 h,0,PROC-GEN-MARG-V1
+R-SEN-006 unité cohérente avec le capteur,0,PROC-GEN-MARG-V1
+R-SEN-007 valeur renseignée et numérique,0,PROC-GEN-MARG-V1
+R-SEN-008 valeur non négative,0,PROC-GEN-MARG-V1
+R-SEN-009 valeur dans la plage robuste (8 MAD),2,PROC-GEN-MARG-V1
+R-SEN-013 équipement présent dans le parc,0,PROC-GEN-MARG-V1
+R-SEN-014 mesure dans la période annoncée,0,PROC-GEN-MARG-V1
+R-SEN-015 étiquette period cohérente,0,PROC-GEN-MARG-V1
+Précision à deux décimales,0,PROC-GEN-MARG-V1
+R-SEN-001 clé logique unique dans le lot,0,PROC-GEN-SMOTE-V1
+R-SEN-001 clé en collision avec le réel,0,PROC-GEN-SMOTE-V1
+R-SEN-003 horodatage sur la grille de 6 h,0,PROC-GEN-SMOTE-V1
+R-SEN-006 unité cohérente avec le capteur,0,PROC-GEN-SMOTE-V1
+R-SEN-007 valeur renseignée et numérique,0,PROC-GEN-SMOTE-V1
+R-SEN-008 valeur non négative,0,PROC-GEN-SMOTE-V1
+R-SEN-009 valeur dans la plage robuste (8 MAD),0,PROC-GEN-SMOTE-V1
+R-SEN-013 équipement présent dans le parc,0,PROC-GEN-SMOTE-V1
+R-SEN-014 mesure dans la période annoncée,0,PROC-GEN-SMOTE-V1
+R-SEN-015 étiquette period cohérente,0,PROC-GEN-SMOTE-V1
+Précision à deux décimales,0,PROC-GEN-SMOTE-V1

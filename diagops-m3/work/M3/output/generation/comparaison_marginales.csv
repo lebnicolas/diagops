@@ -1,0 +1,7 @@
+origine,sensor_name,lignes,moyenne,mediane,ecart_type,q25,q75,min,max
+réel,temperature_c,2517,57.6031,57.82,4.9577,54.25,61.17,42.34,71.91
+réel,vibration_mm_s,1558,2.8436,2.82,0.3862,2.58,3.08,1.72,4.47
+PROC-GEN-MARG-V1,temperature_c,992,57.8714,57.98,4.8815,54.31,61.5525,43.62,70.12
+PROC-GEN-MARG-V1,vibration_mm_s,992,2.8736,2.86,0.3874,2.61,3.12,1.83,4.93
+PROC-GEN-SMOTE-V1,temperature_c,959,57.9154,58.12,3.8469,55.005,60.89,45.07,70.35
+PROC-GEN-SMOTE-V1,vibration_mm_s,840,2.8202,2.79,0.3284,2.58,3.03,2.03,4.22

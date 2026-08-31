@@ -1,0 +1,9 @@
+variable,modalite,evenements,documentes,part_documentee_pct
+event_type,alert,49,5,10.2
+event_type,observation,116,18,15.52
+event_type,intervention,117,20,17.09
+event_type,incident,232,46,19.83
+severity,critical,73,9,12.33
+severity,high,213,35,16.43
+severity,medium,157,30,19.11
+severity,low,71,15,21.13

@@ -1,0 +1,98 @@
+{
+  "fichier": "sensor_readings.csv",
+  "nature": "témoin — livraison de référence du module",
+  "hypothese": "La livraison publiée n'est pas exempte de défauts : le brief 2 annonce que les lignes authentiques du lot de contrôle portent les anomalies de qualité du M3. J'attends donc des comptages non nuls, surtout sur R-FORMAT et R-RANGE. R-DISTRIB sera trivialement conforme, ce fichier étant celui qui sert à calculer le profil de référence.",
+  "rapport": {
+    "rows": 50401,
+    "columns": [
+      "equipment_id",
+      "timestamp",
+      "sensor_name",
+      "value",
+      "unit",
+      "period"
+    ],
+    "missing_columns": [],
+    "unexpected_columns": [],
+    "declares_provenance": false,
+    "distinct_series": 72,
+    "sensor_names": {
+      "current_a": 10760,
+      "vibration_mm_s": 9363,
+      "temperature_c": 15114,
+      "pressure_bar": 9364,
+      "rpm": 5760,
+      "TEMPERATURE_C ": 40
+    },
+    "periods": {
+      "2026-S1": 50371,
+      "2026-S2": 30
+    },
+    "timestamp_span": [
+      "2025-12-28T06:00:00Z",
+      "2026-07-04T12:00:00Z"
+    ],
+    "flagged_rows_by_rule": {
+      "R-SCHEMA": 0,
+      "R-FORMAT": 1445,
+      "R-RANGE": 856,
+      "R-UNIT": 804,
+      "R-KEY": 10,
+      "R-FK": 30,
+      "R-PRECISION": 0
+    },
+    "flagged_rows_total": 3145,
+    "flagged_sensors_by_distribution": [],
+    "distribution": [
+      {
+        "sensor_name": "current_a",
+        "rows": 10748,
+        "mean": 23.297,
+        "reference_mean": 23.297,
+        "mean_gap_in_reference_stdev": 0.0,
+        "stdev_ratio": 1.0,
+        "flagged": false
+      },
+      {
+        "sensor_name": "pressure_bar",
+        "rows": 8636,
+        "mean": 6.373,
+        "reference_mean": 6.373,
+        "mean_gap_in_reference_stdev": 0.0,
+        "stdev_ratio": 1.0,
+        "flagged": false
+      },
+      {
+        "sensor_name": "rpm",
+        "rows": 5753,
+        "mean": 1431.094,
+        "reference_mean": 1431.094,
+        "mean_gap_in_reference_stdev": 0.0,
+        "stdev_ratio": 1.0,
+        "flagged": false
+      },
+      {
+        "sensor_name": "temperature_c",
+        "rows": 15054,
+        "mean": 57.745,
+        "reference_mean": 57.745,
+        "mean_gap_in_reference_stdev": 0.0,
+        "stdev_ratio": 1.0,
+        "flagged": false
+      },
+      {
+        "sensor_name": "vibration_mm_s",
+        "rows": 9354,
+        "mean": 2.848,
+        "reference_mean": 2.848,
+        "mean_gap_in_reference_stdev": 0.0,
+        "stdev_ratio": 1.0,
+        "flagged": false
+      }
+    ],
+    "out_of_scope": [
+      "structure temporelle des séries : autocorrélation, cycle journalier, distribution des écarts successifs",
+      "cohérence avec events.csv et maintenance_history.csv : présence ou absence de signature capteur en regard des événements sévères"
+    ]
+  }
+}

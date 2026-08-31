@@ -1,0 +1,68 @@
+{
+  "fichier": "mesures_PROC-GEN-SMOTE-V1.csv",
+  "nature": "génération — interpolation entre voisins",
+  "hypothese": "Même conformité de forme attendue, donc zéro ligne signalée. Le point à surveiller est le ratio d'écart-type de R-DISTRIB : l'étape 3 a mesuré une contraction de dispersion de 15 à 22 %, effet structurel de l'interpolation. Le détecteur signale sous 0,70 ; j'attends un ratio inférieur à 1 mais au-dessus du seuil, donc un défaut réel visible dans le détail et non signalé.",
+  "rapport": {
+    "rows": 1799,
+    "columns": [
+      "equipment_id",
+      "timestamp",
+      "sensor_name",
+      "value",
+      "unit",
+      "period",
+      "provenance",
+      "procedure_id"
+    ],
+    "missing_columns": [],
+    "unexpected_columns": [],
+    "declares_provenance": true,
+    "distinct_series": 15,
+    "sensor_names": {
+      "vibration_mm_s": 840,
+      "temperature_c": 959
+    },
+    "periods": {
+      "2026-S1": 1799
+    },
+    "timestamp_span": [
+      "2026-01-02T00:00:00Z",
+      "2026-01-31T18:00:00Z"
+    ],
+    "flagged_rows_by_rule": {
+      "R-SCHEMA": 0,
+      "R-FORMAT": 0,
+      "R-RANGE": 0,
+      "R-UNIT": 0,
+      "R-KEY": 0,
+      "R-FK": 0,
+      "R-PRECISION": 0
+    },
+    "flagged_rows_total": 0,
+    "flagged_sensors_by_distribution": [],
+    "distribution": [
+      {
+        "sensor_name": "temperature_c",
+        "rows": 959,
+        "mean": 57.915,
+        "reference_mean": 57.745,
+        "mean_gap_in_reference_stdev": 0.035,
+        "stdev_ratio": 0.783,
+        "flagged": false
+      },
+      {
+        "sensor_name": "vibration_mm_s",
+        "rows": 840,
+        "mean": 2.82,
+        "reference_mean": 2.848,
+        "mean_gap_in_reference_stdev": 0.068,
+        "stdev_ratio": 0.81,
+        "flagged": false
+      }
+    ],
+    "out_of_scope": [
+      "structure temporelle des séries : autocorrélation, cycle journalier, distribution des écarts successifs",
+      "cohérence avec events.csv et maintenance_history.csv : présence ou absence de signature capteur en regard des événements sévères"
+    ]
+  }
+}

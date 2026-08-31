@@ -1,0 +1,11 @@
+controle,lignes_signalees,sur_lignes_reelles,sur_lignes_fabriquees,sur_lignes_indecidables
+R-SEN-001 clé logique unique,2,2,0,0
+R-SEN-003 horodatage sur la grille,210,60,150,0
+R-SEN-005 nom de capteur normalisé,40,40,0,0
+R-SEN-006 unité conforme,210,210,0,0
+R-SEN-007 valeur numérique,1,0,0,1
+R-SEN-008 valeur non sentinelle,1,1,0,0
+R-SEN-009 valeur dans la plage physique,211,31,180,0
+R-SEN-013 équipement présent au parc,0,0,0,0
+R-SEN-014 mesure dans la période,0,0,0,0
+R-SEN-015 étiquette period cohérente,30,30,0,0

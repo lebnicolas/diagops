@@ -1,0 +1,211 @@
+{
+  "graine": 25082026,
+  "taille_bloc": 30,
+  "seuils": {
+    "autocorrelation_cycle": 0.5,
+    "part_pas_irregulier": 0.2,
+    "ecart_niveau_sigma": 3.0,
+    "bornes_dispersion": [
+      0.7,
+      1.6
+    ],
+    "coincidence": 0.1
+  },
+  "registre": [
+    {
+      "regle": "R-DET-001",
+      "libelle": "bloc intégralement retrouvé dans la livraison M3, même équipement",
+      "portee": "réelle"
+    },
+    {
+      "regle": "R-DET-002",
+      "libelle": "bloc absent de la livraison M3",
+      "portee": "fabriquée"
+    },
+    {
+      "regle": "R-DET-003",
+      "libelle": "correspondance résiduelle, sous le seuil de coïncidence numérique",
+      "portee": "fabriquée"
+    },
+    {
+      "regle": "R-DET-004",
+      "libelle": "correspondance partielle intermédiaire — aucune règle ne conclut",
+      "portee": "indécidable"
+    },
+    {
+      "regle": "R-DET-010",
+      "libelle": "autocorrélation de rang 4 effondrée : cycle journalier absent",
+      "portee": "corroboration"
+    },
+    {
+      "regle": "R-DET-011",
+      "libelle": "grille d'échantillonnage irrégulière",
+      "portee": "corroboration"
+    },
+    {
+      "regle": "R-DET-012",
+      "libelle": "niveau incompatible avec le profil de l'équipement",
+      "portee": "corroboration"
+    },
+    {
+      "regle": "R-DET-013",
+      "libelle": "dispersion incompatible avec le profil de l'équipement",
+      "portee": "corroboration"
+    },
+    {
+      "regle": "R-DET-014",
+      "libelle": "valeurs retrouvées chez un autre équipement — greffe",
+      "portee": "corroboration"
+    }
+  ],
+  "calibrage": {
+    "lignes": 720,
+    "blocs": 24,
+    "lignes_justes": 690,
+    "part_juste": 0.9583,
+    "blocs_faux": [
+      "EQ-PUMP-171|vibration_mm_s|0"
+    ],
+    "matrice": [
+      {
+        "provenance_declaree": "fabriquée",
+        "verdict": "fabriquée",
+        "lignes": 240
+      },
+      {
+        "provenance_declaree": "fabriquée",
+        "verdict": "réelle",
+        "lignes": 30
+      },
+      {
+        "provenance_declaree": "réelle",
+        "verdict": "réelle",
+        "lignes": 450
+      }
+    ],
+    "regles": [
+      {
+        "regle": "R-DET-010",
+        "libelle": "autocorrélation de rang 4 effondrée : cycle journalier absent",
+        "blocs_signales": 7,
+        "dont_fabriques": 6,
+        "dont_reels_accuses": 1,
+        "blocs_fabriques_manques": 3
+      },
+      {
+        "regle": "R-DET-011",
+        "libelle": "grille d'échantillonnage irrégulière",
+        "blocs_signales": 1,
+        "dont_fabriques": 1,
+        "dont_reels_accuses": 0,
+        "blocs_fabriques_manques": 8
+      },
+      {
+        "regle": "R-DET-012",
+        "libelle": "niveau incompatible avec le profil de l'équipement",
+        "blocs_signales": 1,
+        "dont_fabriques": 1,
+        "dont_reels_accuses": 0,
+        "blocs_fabriques_manques": 8
+      },
+      {
+        "regle": "R-DET-013",
+        "libelle": "dispersion incompatible avec le profil de l'équipement",
+        "blocs_signales": 2,
+        "dont_fabriques": 2,
+        "dont_reels_accuses": 0,
+        "blocs_fabriques_manques": 7
+      },
+      {
+        "regle": "R-DET-014",
+        "libelle": "valeurs retrouvées chez un autre équipement — greffe",
+        "blocs_signales": 1,
+        "dont_fabriques": 1,
+        "dont_reels_accuses": 0,
+        "blocs_fabriques_manques": 8
+      }
+    ]
+  },
+  "lot": {
+    "lignes": 6000,
+    "blocs": 200,
+    "repartition": {
+      "réelle": 3810,
+      "fabriquée": 2160,
+      "indécidable": 30
+    },
+    "blocs_fabriques_sans_signature": 11
+  },
+  "contre_epreuve": [
+    {
+      "controle": "R-SEN-001 clé logique unique",
+      "lignes_signalees": 2,
+      "sur_lignes_reelles": 2,
+      "sur_lignes_fabriquees": 0,
+      "sur_lignes_indecidables": 0
+    },
+    {
+      "controle": "R-SEN-003 horodatage sur la grille",
+      "lignes_signalees": 210,
+      "sur_lignes_reelles": 60,
+      "sur_lignes_fabriquees": 150,
+      "sur_lignes_indecidables": 0
+    },
+    {
+      "controle": "R-SEN-005 nom de capteur normalisé",
+      "lignes_signalees": 40,
+      "sur_lignes_reelles": 40,
+      "sur_lignes_fabriquees": 0,
+      "sur_lignes_indecidables": 0
+    },
+    {
+      "controle": "R-SEN-006 unité conforme",
+      "lignes_signalees": 210,
+      "sur_lignes_reelles": 210,
+      "sur_lignes_fabriquees": 0,
+      "sur_lignes_indecidables": 0
+    },
+    {
+      "controle": "R-SEN-007 valeur numérique",
+      "lignes_signalees": 1,
+      "sur_lignes_reelles": 0,
+      "sur_lignes_fabriquees": 0,
+      "sur_lignes_indecidables": 1
+    },
+    {
+      "controle": "R-SEN-008 valeur non sentinelle",
+      "lignes_signalees": 1,
+      "sur_lignes_reelles": 1,
+      "sur_lignes_fabriquees": 0,
+      "sur_lignes_indecidables": 0
+    },
+    {
+      "controle": "R-SEN-009 valeur dans la plage physique",
+      "lignes_signalees": 211,
+      "sur_lignes_reelles": 31,
+      "sur_lignes_fabriquees": 180,
+      "sur_lignes_indecidables": 0
+    },
+    {
+      "controle": "R-SEN-013 équipement présent au parc",
+      "lignes_signalees": 0,
+      "sur_lignes_reelles": 0,
+      "sur_lignes_fabriquees": 0,
+      "sur_lignes_indecidables": 0
+    },
+    {
+      "controle": "R-SEN-014 mesure dans la période",
+      "lignes_signalees": 0,
+      "sur_lignes_reelles": 0,
+      "sur_lignes_fabriquees": 0,
+      "sur_lignes_indecidables": 0
+    },
+    {
+      "controle": "R-SEN-015 étiquette period cohérente",
+      "lignes_signalees": 30,
+      "sur_lignes_reelles": 30,
+      "sur_lignes_fabriquees": 0,
+      "sur_lignes_indecidables": 0
+    }
+  ]
+}

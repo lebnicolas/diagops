@@ -1,0 +1,17 @@
+soumission,sensor_name,rows,mean,reference_mean,mean_gap_in_reference_stdev,stdev_ratio,flagged
+T1-00,current_a,10748,23.297,23.297,0.0,1.0,False
+T1-00,pressure_bar,8636,6.373,6.373,0.0,1.0,False
+T1-00,rpm,5753,1431.094,1431.094,0.0,1.0,False
+T1-00,temperature_c,15054,57.745,57.745,0.0,1.0,False
+T1-00,vibration_mm_s,9354,2.848,2.848,0.0,1.0,False
+T1-01,temperature_c,2517,57.603,57.745,0.029,1.009,False
+T1-01,vibration_mm_s,1559,2.843,2.848,0.011,0.953,False
+T1-02,temperature_c,992,57.871,57.745,0.026,0.994,False
+T1-02,vibration_mm_s,992,2.874,2.848,0.064,0.956,False
+T1-03,temperature_c,959,57.915,57.745,0.035,0.783,False
+T1-03,vibration_mm_s,840,2.82,2.848,0.068,0.81,False
+T1-04,vibration_mm_s,721,2.863,2.848,0.037,0.852,False
+T1-05,vibration_mm_s,721,3.006,2.848,0.391,0.894,False
+T1-06,vibration_mm_s,721,2.863,2.848,0.037,0.852,False
+T1-07,vibration_mm_s,721,2.863,2.848,0.037,0.852,False
+T1-08,vibration_mm_s,721,2.863,2.848,0.037,0.852,False

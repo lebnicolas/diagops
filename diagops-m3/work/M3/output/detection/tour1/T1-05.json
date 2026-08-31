@@ -1,0 +1,59 @@
+{
+  "fichier": "exemple_PROC-AUG-ECHELLE.csv",
+  "nature": "augmentation — mise à l'échelle ×1,05",
+  "hypothese": "Un défaut d'étalonnage de 5 % décale la moyenne d'environ 0,05 écart-type de référence, très en deçà du seuil de 0,8 utilisé par R-DISTRIB. J'attends donc **aucun signalement**, alors que la fiche de l'étape 2 classe ce procédé comme destructeur de l'ordre de grandeur. Le détecteur devrait laisser passer un défaut que nous avons nous-mêmes documenté.",
+  "rapport": {
+    "rows": 721,
+    "columns": [
+      "equipment_id",
+      "timestamp",
+      "sensor_name",
+      "value",
+      "unit",
+      "period",
+      "row_identifier"
+    ],
+    "missing_columns": [],
+    "unexpected_columns": [
+      "row_identifier"
+    ],
+    "declares_provenance": false,
+    "distinct_series": 1,
+    "sensor_names": {
+      "vibration_mm_s": 721
+    },
+    "periods": {
+      "2026-S1": 721
+    },
+    "timestamp_span": [
+      "2025-12-29T12:00:00Z",
+      "2026-06-30T20:00:00Z"
+    ],
+    "flagged_rows_by_rule": {
+      "R-SCHEMA": 0,
+      "R-FORMAT": 721,
+      "R-RANGE": 0,
+      "R-UNIT": 0,
+      "R-KEY": 0,
+      "R-FK": 0,
+      "R-PRECISION": 0
+    },
+    "flagged_rows_total": 721,
+    "flagged_sensors_by_distribution": [],
+    "distribution": [
+      {
+        "sensor_name": "vibration_mm_s",
+        "rows": 721,
+        "mean": 3.006,
+        "reference_mean": 2.848,
+        "mean_gap_in_reference_stdev": 0.391,
+        "stdev_ratio": 0.894,
+        "flagged": false
+      }
+    ],
+    "out_of_scope": [
+      "structure temporelle des séries : autocorrélation, cycle journalier, distribution des écarts successifs",
+      "cohérence avec events.csv et maintenance_history.csv : présence ou absence de signature capteur en regard des événements sévères"
+    ]
+  }
+}

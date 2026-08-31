@@ -1,0 +1,7 @@
+origine,sensor_name,series,autocorr_lag2_mediane,autocorr_lag4_mediane
+réel,temperature_c,21,-0.7593,0.8031
+réel,vibration_mm_s,13,-0.459,0.5268
+PROC-GEN-MARG-V1,temperature_c,8,0.0215,-0.024
+PROC-GEN-MARG-V1,vibration_mm_s,8,0.0114,-0.0766
+PROC-GEN-SMOTE-V1,temperature_c,8,-0.5942,0.5986
+PROC-GEN-SMOTE-V1,vibration_mm_s,7,-0.3102,0.2524

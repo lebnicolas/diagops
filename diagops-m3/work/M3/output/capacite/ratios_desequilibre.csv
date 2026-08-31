@@ -1,0 +1,6 @@
+variable,modalites,plus_representee,effectif_max,moins_representee,effectif_min,ratio
+equipment_type,18,pump,57,steam_unit,5,11.4
+site_id,4,SITE-NORD,173,SITE-OUEST,16,10.81
+event_type,4,incident,232,alert,49,4.73
+criticality,4,medium,173,critical,46,3.76
+severity,4,high,213,low,71,3.0
