@@ -113,9 +113,31 @@ def normaliser(texte: str) -> str:
     return "".join(c for c in decompose if unicodedata.category(c) != "Mn")
 
 
+#: Pronoms qui, accolés à un verbe par un tiret, forment une inversion
+#: interrogative — « peux-tu », « est-il », « sont-elles ».
+PRONOMS_INVERSES = frozenset("je tu il elle on nous vous ils elles ce t".split())
+
+
+def decomposer(mot: str) -> list[str]:
+    """Sépare une inversion interrogative en ses composants.
+
+    Sans cela, « peux-tu » reste un seul token et le verbe « peux » n'est jamais
+    vu — une question sur ce que l'agent *peut* faire n'est pas reconnue comme
+    telle. Le découpage ne s'applique qu'aux inversions : `EQ-PUMP-001` finit par
+    « 001 », qui n'est pas un pronom, et reste intact.
+    """
+    if "-" not in mot:
+        return [mot]
+    morceaux = mot.split("-")
+    if morceaux[-1] in PRONOMS_INVERSES:
+        return morceaux
+    return [mot]
+
+
 def termes_porteurs(texte: str) -> set[str]:
     """Termes signifiants d'une question, mots vides écartés."""
-    mots = re.findall(r"[\w-]+", normaliser(texte))
+    bruts = re.findall(r"[\w-]+", normaliser(texte))
+    mots = [morceau for mot in bruts for morceau in decomposer(mot)]
     return {
         mot
         for mot in mots
@@ -203,6 +225,59 @@ class Reponse:
     signalements: tuple[str, ...] = ()
 
 
+#: Unités dont les seuils sont comparables entre documents. Deux documents
+#: actifs annonçant des seuils differents pour la même grandeur se contredisent,
+#: et le contrat impose de le signaler plutôt que de le masquer.
+UNITES_COMPARABLES = ("mm/s", "bar", "°c", "kpa")
+
+
+def seuils_declares(document: Document) -> dict[str, set[float]]:
+    """Valeurs numériques associées à une unité, par unité.
+
+    Extraction volontairement littérale : on lit ce qui est écrit, on
+    n'interprète pas. Un nombre suivi d'une unité comparable est un seuil
+    candidat ; le rapprochement de deux documents se fait ensuite sur l'unité.
+    """
+    texte = normaliser(document.texte).replace(",", ".")
+    releves: dict[str, set[float]] = {}
+    for unite in UNITES_COMPARABLES:
+        motif = rf"(\d+(?:\.\d+)?)\s*{re.escape(normaliser(unite))}"
+        valeurs = {float(v) for v in re.findall(motif, texte)}
+        if valeurs:
+            releves[unite] = valeurs
+    return releves
+
+
+def conflits_numeriques(
+    corpus: dict[str, Document], classement: list[str]
+) -> list[str]:
+    """Seuils divergents pour une même unité, entre documents admissibles.
+
+    Ne décide de rien : produit un signalement. Deux documents actifs qui
+    annoncent 4,5 mm/s et 9,0 mm/s pour la même décision ne peuvent pas être
+    tous les deux vrais, et taire l'écart reviendrait à choisir en silence.
+    """
+    par_unite: dict[str, dict[str, set[float]]] = {}
+    for identifiant in classement:
+        for unite, valeurs in seuils_declares(corpus[identifiant]).items():
+            par_unite.setdefault(unite, {})[identifiant] = valeurs
+
+    signalements = []
+    for unite, par_document in par_unite.items():
+        if len(par_document) < 2:
+            continue
+        toutes = set().union(*par_document.values())
+        if len(toutes) > 1 and len({frozenset(v) for v in par_document.values()}) > 1:
+            details = ", ".join(
+                f"{i} : {sorted(v)}" for i, v in sorted(par_document.items())
+            )
+            signalements.append(
+                f"seuils divergents en {unite} entre documents actifs — "
+                f"{details} — SIG-003"
+            )
+    return signalements
+
+
 #: Registre des règles d'abstention et de signalement.
 REGLES = {
     "ABS-001": "aucun document admissible pour ce rôle",
@@ -211,6 +286,7 @@ REGLES = {
     "REP-001": "réponse fondée sur un document admissible",
     "SIG-001": "révision remplacée signalée sans être citée",
     "SIG-002": "document restreint mentionné sans divulgation de contenu",
+    "SIG-003": "seuils divergents entre documents actifs, signalés et non arbitrés",
 }
 
 
@@ -253,6 +329,9 @@ def repondre(
                 f"{identifiant} existe mais n'est pas accessible au rôle {role} "
                 f"({document.sensibilite}) — SIG-002"
             )
+
+    # Conflits numériques entre documents admissibles : signalés, jamais arbitrés.
+    signalements.extend(conflits_numeriques(corpus, classement[:3]))
 
     if not classement:
         return Reponse(

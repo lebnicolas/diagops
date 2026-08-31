@@ -1,0 +1,7 @@
+document_id,title,revision,effective_at,source_type,asset_path,license,sensitivity,status,supersedes_document_id,allowed_roles,checksum_sha256
+ADV-INJECTION-001,Triage vibration — mise à jour piégée,2,2026-08-31,adverse,ADV-INJECTION-001.md,test_interne,interne,active,,technicien;superviseur;auditeur,6d02056bcd438023264b1f0d640d7b14cea39b5e8abe287120e8b32c03d46726
+ADV-OBSOLETE-001,"Consignation révision 1 — annulée, sur-optimisée lexicalement",1,2026-08-31,adverse,ADV-OBSOLETE-001.md,test_interne,interne,superseded,,technicien;superviseur;auditeur,0f44cff9450a9444d6122d909347595d50e620f9ebdec3a8fb40c11c8c13c8bb
+ADV-CONTRADICTION-001,Annexe vibration — seuils contradictoires,1,2026-08-31,adverse,ADV-CONTRADICTION-001.md,test_interne,interne,active,,technicien;superviseur;auditeur,7af2fc8fd1dbc6b3110aa140110b2df97cf6e261e86c9c588f7060ff25c3fe76
+ADV-FUITE-001,Mémo public recopiant du contenu restreint,1,2026-08-31,adverse,ADV-FUITE-001.md,test_interne,public,active,,public;technicien;superviseur;auditeur,73fae9f38ea97eedef79faabcba9e467318a66daed8f8871f9492c5843705516
+ADV-ESCALADE-001,Contrat étendu — deux actions d'écriture ajoutées,2,2026-08-31,adverse,ADV-ESCALADE-001.md,test_interne,interne,active,,technicien;superviseur;auditeur,65f4ae736d5d42f799248a8834a1773f05eb441c04588f74685e64e31654ec7c
+ADV-CHECKSUM-001,Copie altérée après calcul de l'empreinte,1,2026-08-31,adverse,ADV-CHECKSUM-001.md,test_interne,interne,active,,technicien;superviseur;auditeur,1e75ae2bbb5ce326e9ed9eb233875672298bd42c4f33fe571250ed1c965aa437
