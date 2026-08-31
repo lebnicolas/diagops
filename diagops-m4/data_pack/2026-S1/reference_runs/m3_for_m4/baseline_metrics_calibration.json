@@ -1,0 +1,11 @@
+{
+  "rows": 900,
+  "true_positive": 90,
+  "false_positive": 61,
+  "false_negative": 240,
+  "true_negative": 509,
+  "precision_fabricated": 0.596026,
+  "recall_fabricated": 0.272727,
+  "f1_fabricated": 0.37422,
+  "accuracy": 0.665556
+}
