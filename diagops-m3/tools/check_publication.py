@@ -24,6 +24,9 @@ FORBIDDEN_NAMES = {
     ".DS_Store",
     "anomaly_oracle.csv",
     "validation_reference.json",
+    "control_oracle.csv",
+    "control_oracle_rows.csv",
+    "control_validation.json",
 }
 FORBIDDEN_SUFFIXES = {".safetensors", ".pt", ".pth", ".ckpt", ".onnx"}
 

@@ -155,11 +155,31 @@ M4 constitue des jeux d'évaluation, compare des approches de modélisation et
 consolide l'analyse des risques. Les conditions et limites énoncées en M3 sont
 reprises telles quelles ou explicitement levées.
 
-Deux sujets sont explicitement reportés :
+Un sujet est explicitement reporté :
 
 - **l'analyse d'un nouveau besoin métier** sur le jeu de données d'un projet
-  existant, traitée en M4 avec le cadrage du choix de modèle ;
-- **les techniques de génération et d'augmentation de données** — données
-  synthétiques, confidentialité différentielle — traitées en M6, au moment où la
-  boucle d'amélioration continue en a l'usage. Le corpus DiagOps est lui-même
-  synthétique : sa data card indique ce que cela interdit de conclure.
+  existant, traitée en M4 avec le cadrage du choix de modèle.
+
+**Les techniques de génération et d'augmentation de données** — données
+synthétiques, augmentation, confidentialité différentielle, biais et risques
+résiduels — étaient initialement reportées en M6. Elles sont traitées en M3, au
+brief 2. La raison est de portée : ces techniques répondent à la question « que
+permet ce jeu de données, et que faut-il fabriquer pour la suite », qui se pose
+avant la modélisation, pas après. Les reporter à la boucle d'amélioration
+continue revenait à faire entrer M4 sans savoir ce que le jeu de données
+autorise.
+
+Ce que M3 transmet donc à M4, en plus des livrables ci-dessus :
+
+- un jeu de données étiqueté en provenance — `réelle`, `synthétique`,
+  `augmentée` — avec le procédé qui a produit chaque ligne ;
+- une capacité chiffrée par segment, et la liste des questions que le jeu de
+  données ne permet pas de trancher ;
+- trois biais nommés, chiffrés, avec leur risque résiduel ;
+- une **base de comparaison par règles** : les comptages de détection obtenus
+  sans modèle. C'est le point de départ que le modèle de M4 doit battre, et la
+  raison pour laquelle sa performance devra être analysée, pas seulement
+  affichée.
+
+Le corpus DiagOps est lui-même synthétique : sa data card indique ce que cela
+interdit de conclure.

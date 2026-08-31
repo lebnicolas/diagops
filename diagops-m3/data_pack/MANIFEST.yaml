@@ -3,7 +3,7 @@ status: in_progress
 distribution: learner_pack
 generation_scripts_distributed: false
 synthetic_data: true
-current_release: diagops-2026-S1-m3-v1
+current_release: diagops-2026-S1-m3-v2
 
 periods:
   - id: "2026-S1"
@@ -61,6 +61,17 @@ files:
     nominal_step_hours: 6
     instrumented_equipment: 36
     scope: "M3 sensor series; partial park coverage is intentional."
+
+  - path: "2026-S1/sensors_control/"
+    entity: "sensors_control"
+    module_min: "M3"
+    required: true
+    expected_rows: 6720
+    delivery_status: ready_for_distribution
+    quality_review: control_lot_family_separation_and_trainer_oracle_v1
+    release_id: diagops-2026-S1-m3-control-r1
+    generation_seed: 20260825
+    scope: "M3 brief 2 control lot: mixed authentic and fabricated sensor rows; the fabricated share and the procedures are not disclosed."
 
   - path: "2026-S1/maintenance/maintenance_history.csv"
     entity: "maintenance_history"
@@ -143,3 +154,6 @@ notes:
   - "The M2 to M3 reference preparation is a starting point, not a correction of the M2 brief."
   - "M2 tables intentionally contain controlled pedagogical anomalies documented only in the trainer area."
   - "The optional M2 candidate release is intentionally unqualified; its presence does not authorize integration into the published tables."
+  - "The M3 control lot mixes authentic and fabricated sensor rows; its oracle stays in the trainer area and its fabricated share is never published."
+  - "In the control lot, an authentic row may be anomalous: the reference detector flags data quality, not fabrication."
+  - "From M3 onwards, a transmitted measurement table declares provenance and procedure_id as described in SCHEMA.md."

@@ -1,8 +1,8 @@
 # Module 3 — Faire évoluer la pipeline DiagOps pour une nouvelle source
 
-**Durée : 20 h — 14 h pour le brief présentiel et 6 h pour le brief online**  
-**Présentiel : 7 h encadrées + 7 h de prolongement autonome**  
-**Online : 3 h en classe virtuelle + 3 h de travail autonome**
+**Modalités : un brief présentiel et deux briefs online**  
+**Le créneau présentiel est consommé ; le brief 2 se déroule intégralement en
+distanciel, en classe virtuelle et en travail autonome**
 
 ## Positionnement
 
@@ -18,7 +18,11 @@ du choix de modèle.
   professionnelle : cadrer une source inconnue, ajouter des règles temporelles
   sans casser l'acquis de M2, relier les mesures aux événements et décider ;
 - l'online couvre le programme Atlas en persistant les données dans une base
-  relationnelle et en faisant évoluer son schéma par migration.
+  relationnelle et en faisant évoluer son schéma par migration ;
+- le brief 2 online traite le bloc Atlas « Techniques de traitement de données »
+  — données synthétiques, augmentation, confidentialité différentielle,
+  segmentation, biais et risques résiduels — et s'en sert pour établir ce qui
+  est transmis à M4.
 
 Les deux briefs traitent la même question — comment accueillir une nouvelle
 source sans repartir de zéro — par deux moyens différents : le registre de
@@ -30,16 +34,20 @@ toutes les productions personnelles de M2 ne sont pas achevées.
 
 ## Architecture pédagogique
 
-| Document | Finalité | Charge |
-|---|---|---:|
-| `brief1_module3.md` | intégrer la source capteurs, faire évoluer les règles et décider | **14 h** |
-| `brief1_module3_online.md` | modéliser, migrer et importer avec SQLAlchemy et Alembic | **6 h** |
+| Document | Modalité | Finalité |
+|---|---|---|
+| `brief1_module3.md` | présentiel | intégrer la source capteurs, faire évoluer les règles et décider |
+| `brief1_module3_online.md` | online | modéliser, migrer et importer avec SQLAlchemy et Alembic |
+| `brief2_module3_online.md` | online | établir ce que le jeu de données permet, fabriquer ce qui manque, tracer la provenance et décider ce qui part en M4 |
 
-Les deux briefs sont autonomes. Les cinq apprenants reçoivent le même sujet et
+Les trois briefs sont autonomes. Les trois apprenants reçoivent le même sujet et
 les mêmes ressources, puis travaillent chacun dans leur propre environnement.
 
-Aucun complément facultatif n'est publié pour M3 : la charge du module est de
-20 h.
+Les échanges sont possibles sur les briefs 1. Sur le brief 2 le travail est
+strictement individuel : le lot de contrôle est identique pour tous et son
+oracle n'est pas distribué.
+
+Aucun complément facultatif n'est publié pour M3.
 
 ## Compétences travaillées
 
@@ -136,26 +144,28 @@ capteurs et les importer sans duplication.
 
 ## Complémentarité des briefs
 
-| Attendu | Présentiel moderne | Online Atlas |
-|---|---|---|
-| Accueillir une source nouvelle | cadrage, règles temporelles et quarantaine | migration de schéma et contrainte d'unicité |
-| Ne pas casser l'existant | non-régression sur les tables M2 | `downgrade` exécutable et données préservées |
-| Éviter les doublons | arbitrage des doublons de clé divergents | import idempotent |
-| Relier les sources | rapprochement par fenêtre temporelle | clés étrangères et jointures SQL |
-| Volumétrie | coût de rejeu de la pipeline | index et effet mesuré |
-| Documenter | flux de traitement et cycle de vie de la donnée | modèle de stockage justifié |
-| Décision | transmission à M4 sous conditions | apport et coût de la persistance |
+| Attendu | Brief 1 présentiel | Brief 1 online | Brief 2 online |
+|---|---|---|---|
+| Accueillir une source nouvelle | cadrage, règles temporelles et quarantaine | migration de schéma et contrainte d'unicité | — |
+| Ne pas casser l'existant | non-régression sur les tables M2 | `downgrade` exécutable et données préservées | provenance déclarée ligne à ligne |
+| Éviter les doublons | arbitrage des doublons de clé divergents | import idempotent | — |
+| Relier les sources | rapprochement par fenêtre temporelle | clés étrangères et jointures SQL | le rapprochement devient un moyen de détection |
+| Volumétrie | coût de rejeu de la pipeline | index et effet mesuré | capacité chiffrée par segment |
+| Documenter | flux de traitement et cycle de vie de la donnée | modèle de stockage justifié | registre des procédés, biais chiffrés, risques résiduels |
+| Décision | transmission à M4 sous conditions | apport et coût de la persistance | ce qui part, ce qui part sous condition, ce qui ne part pas |
 
 ## Évaluation
 
-- brief présentiel : **70 %** ;
-- brief online : **30 %**.
+- brief 1 présentiel : **45 %** ;
+- brief 1 online : **20 %** ;
+- brief 2 online : **35 %**.
 
 | Dimension | Poids |
 |---|---:|
-| **C1 — cadrage de la source et couverture** | 20 % |
-| **C2 — risques, minimisation et périmètre de validité** | 20 % |
-| **C3 — évolution de la pipeline sans rupture** | 35 % |
+| **C1 — cadrage de la source et couverture** | 18 % |
+| **C2 — risques, minimisation et périmètre de validité** | 18 % |
+| **C3 — évolution de la pipeline sans rupture** | 27 % |
+| **Provenance, fabrication et capacité du jeu de données** | 12 % |
 | **Reproductibilité et qualité des sorties** | 15 % |
 | **Journal de bord et argumentation** | 10 % |
 
@@ -164,6 +174,8 @@ capteurs et les importer sans duplication.
 | Fichier | Volume | Rôle |
 |---|---:|---|
 | `sensor_readings.csv` | 50 401 lignes | mesures temporelles de 36 équipements instrumentés |
+| `sensors_control/control_batch.csv` | 6 000 lignes | lot à qualifier du brief 2, sans colonne de provenance |
+| `sensors_control/control_sample.csv` | 720 lignes | échantillon disjoint de calibration, provenance déclarée |
 
 La table couvre le 2 janvier au 30 juin 2026 au pas nominal de six heures. Elle
 contient des anomalies contrôlées et des variations réelles. L'oracle formateur

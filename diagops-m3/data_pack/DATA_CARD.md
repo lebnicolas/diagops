@@ -100,6 +100,43 @@ Toute statistique calculée sur les capteurs porte donc sur une partie du parc.
 La composition exacte du parc instrumenté n'est pas décrite ici : elle se
 mesure à partir des données.
 
+## Lot de contrôle M3
+
+La révision `diagops-2026-S1-m3-v2` ajoute `2026-S1/sensors_control/`, ouvert au
+brief 2 de M3. Le lot mélange des mesures authentiques, reprises de
+`sensor_readings.csv`, et des mesures fabriquées. Il sert à éprouver des
+contrôles, jamais à alimenter une analyse.
+
+`control_batch.csv` ne porte pas de colonne de provenance : c'est le lot à
+qualifier. `control_sample.csv` est un échantillon **disjoint**, produit par la
+même procédure et dans les mêmes proportions, dont la provenance de chaque ligne
+est déclarée ; il sert à régler des contrôles, pas à conclure.
+
+La proportion de lignes fabriquées et les procédés employés ne sont pas
+distribués. Les fabrications ne sont pas toutes de même difficulté : certaines
+violent les contrôles de qualité de M2 et M3, d'autres respectent les
+distributions marginales, d'autres encore préservent la structure temporelle et
+ne se trahissent que par leur incohérence avec `events.csv`.
+
+Les lignes authentiques du lot portent les anomalies de qualité de la livraison
+M3. **Une ligne signalée par un contrôle de qualité n'est donc pas
+nécessairement une ligne fabriquée**, et le lot contient délibérément des cas où
+cette confusion est coûteuse.
+
+L'outil `tools/verify_synthetic.py` applique les contrôles de référence de M2 et
+M3 à un fichier de mesures et retourne des comptages par famille de règle, sans
+jamais désigner les lignes concernées. Son périmètre exclut la structure
+temporelle des séries et leur cohérence avec les autres sources : il le rappelle
+à chaque exécution.
+
+## Contrat de provenance
+
+À partir de M3, une table de mesures transmise d'un module à l'autre déclare
+l'origine de chaque ligne — `réelle`, `synthétique` ou `augmentée` — et le
+procédé qui l'a produite. Le contrat est décrit dans `SCHEMA.md`. Il ne porte
+pas sur la qualité d'une ligne : une mesure réelle peut être aberrante, une
+mesure fabriquée peut être irréprochable.
+
 ## Référence de continuité M2 vers M3
 
 Le dossier `2026-S1/reference_runs/m2_for_m3/` fournit un état préparé commun

@@ -123,6 +123,31 @@ conclusion.
 Mise a disposition initiale : M3, dans `2026-S1/sensors/sensor_readings.csv`.
 Volume distribue : 50 401 lignes, anomalies pedagogiques incluses.
 
+### `sensors_control`
+
+Lot de controle capteurs, ouvert au brief 2 de M3.
+
+Le schema est celui de `sensor_readings`. Une partie des lignes est fabriquee ;
+la proportion et les procedes ne sont pas communiques.
+
+| Fichier | Colonne `provenance` | Role |
+|---|---|---|
+| `2026-S1/sensors_control/control_batch.csv` | absente | lot a qualifier |
+| `2026-S1/sensors_control/control_sample.csv` | presente | echantillon disjoint |
+
+Dans `control_sample.csv`, `provenance` ne prend que les valeurs `réelle` et
+`fabriquée` : le lot declare l'authenticite d'une ligne, jamais le procede qui
+l'a produite. L'echantillon est disjoint du lot a qualifier ; aucune ligne de
+`control_sample.csv` ne figure dans `control_batch.csv`.
+
+Les lignes reelles proviennent de `sensor_readings.csv` et portent donc les
+anomalies de qualite de cette livraison. Une ligne signalee par un controle de
+qualite n'est pas necessairement une ligne fabriquee.
+
+Mise a disposition initiale : M3, brief 2.
+Volume distribue : 6 000 lignes pour `control_batch.csv`, 720 lignes pour
+`control_sample.csv`.
+
 ### `maintenance_history`
 
 Historique des interventions et decisions de maintenance.
@@ -212,6 +237,32 @@ Images de defauts industriels issues d'un corpus externe documente.
 | `label` | string | etiquette disponible dans le corpus |
 
 Mise a disposition initiale : M7.
+
+## Contrat de provenance
+
+A partir de M3, toute table de mesures produite par un module et transmise a un
+autre declare l'origine de chaque ligne. Deux colonnes portent ce contrat.
+
+| Champ | Type | Description |
+|---|---|---|
+| `provenance` | string | `réelle`, `synthétique` ou `augmentée` |
+| `procedure_id` | string | procede ayant produit la ligne ; vide si `réelle` |
+
+- `réelle` : la ligne provient d'une livraison du pack sans modification de
+  `value`, `unit` ni `timestamp`. Une ligne reelle peut etre anormale : la
+  provenance decrit une origine, pas une qualite.
+- `augmentée` : la ligne derive d'une ligne reelle identifiable par une
+  transformation deterministe — bruit, mise a l'echelle, decalage temporel.
+- `synthétique` : la ligne ne derive d'aucune ligne reelle identifiable.
+
+Un `procedure_id` renvoie a une entree d'un registre des procedes, livre avec la
+table, qui indique la technique employee, ses parametres, et ce que le procede
+conserve et detruit de la distribution d'origine.
+
+Une table derivee d'une population mixte n'herite pas d'une provenance de ligne :
+elle declare la composition de sa population. Un agregat calcule sur des lignes
+de provenances differentes est inexploitable tant que cette composition n'est pas
+publiee.
 
 ## Periodes
 
