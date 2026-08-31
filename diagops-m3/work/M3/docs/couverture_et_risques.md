@@ -1,7 +1,7 @@
 ---
 module: M3
-etat: axe 7 terminé
-maj: 2026-08-24
+etat: axe 7 terminé — périmètre réécrit au brief 2
+maj: 2026-08-31
 ---
 
 # Couverture et risques — M3
@@ -85,6 +85,43 @@ données** : « sur les 36 équipements instrumentés, majoritairement critiques
 sites NORD/SUD/EST, au premier semestre 2026 ». Une conclusion tirée du parc
 instrumenté et présentée comme valable pour tout le parc est un critère bloquant
 du brief — et une faute d'analyse indépendamment de tout barème.
+
+### Réécriture au brief 2 — 31/08/2026
+
+Le périmètre ci-dessus reste exact **pour le réel**, et il ne l'est plus pour le
+jeu transmis : celui-ci contient désormais 1 799 mesures fabriquées sur un
+périmètre que la phrase ci-dessus déclare hors validité. Deux formulations
+coexistent donc, et confondre les deux est précisément ce que la colonne
+`provenance` sert à empêcher.
+
+| | Réel | Jeu transmis à M4 |
+|---|---|---|
+| équipements portant des mesures | **36** / 416 — 8,65 % | **44** / 416 — 10,58 %, dont **8 fabriqués** |
+| sites couverts | NORD, SUD, EST | + `SITE-OUEST`, **entièrement en synthétique** (8 / 16) |
+| période | 28/12/2025 → 04/07/2026 | idem ; le fabriqué couvre **janvier 2026 seulement** |
+| grandeurs | 5 | idem ; le fabriqué en couvre **2** (vibration, température) |
+
+**Formulation pour une conclusion tirée du réel** — inchangée :
+« sur les 36 équipements instrumentés, majoritairement critiques, des sites
+NORD/SUD/EST, au premier semestre 2026 ».
+
+**Formulation obligatoire dès qu'une conclusion touche `SITE-OUEST` ou le jeu
+transmis dans son ensemble** :
+« sur 36 équipements réellement instrumentés et 8 équipements de `SITE-OUEST`
+documentés par des mesures **synthétiques** (`PROC-GEN-SMOTE-V2`, janvier 2026,
+vibration et température), dont la dispersion est contractée de 10 à 14 % ».
+
+**Ce à quoi le jeu transmis ne s'applique toujours pas** — la fabrication n'a rien
+changé à ces quatre points :
+
+- au parc complet : **372 équipements** restent sans aucune mesure, réelle ou
+  fabriquée ;
+- aux sept types d'équipement sans mesure réelle — le périmètre généré vise des
+  équipements, pas des types absents ;
+- aux phénomènes plus rapides que 12 h : les séries fabriquées sont posées sur la
+  même grille de 6 h et n'ajoutent aucune résolution ;
+- à l'évaluation d'un modèle : les lignes fabriquées en sont exclues par la
+  condition C6 de la note de décision.
 
 ## Personnes
 

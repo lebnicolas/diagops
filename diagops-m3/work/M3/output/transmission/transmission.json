@@ -1,0 +1,470 @@
+{
+  "graine": 25082026,
+  "decision": "une partie sous conditions",
+  "echeance_reexamen": "2026-12-31",
+  "colonnes": [
+    "equipment_id",
+    "timestamp",
+    "sensor_name",
+    "value",
+    "unit",
+    "period",
+    "provenance",
+    "procedure_id"
+  ],
+  "point_de_depart": {
+    "equipment": "325d2f3fc4a76c561b854b186511cbf49054adcff13c474e1d308f8983a48df1",
+    "events": "7d3156f0af6d13ee24879f8847279d18e811caadd1269863a62276c5cb076916",
+    "maintenance": "2a852490aa4914d196f73118e024e76e9798dfe7c7a9eba0a865837727e6cb71",
+    "sensors": "87b51cd2177f57bbf2e507d9ba55ae4483ffc942007565f7e6093468a480d7d2"
+  },
+  "empreinte_jeu_transmis": "8660d4e64b6cf85288d5eef38ccbc121fdd6c8f9ab304ca540ff9aa73244a425",
+  "volumes": {
+    "total": 52076,
+    "reelles": 50277,
+    "synthetiques": 1799,
+    "augmentees": 0,
+    "part_fabriquee_pct": 3.45
+  },
+  "contrat": {
+    "lignes": 52076,
+    "colonnes_conformes": true,
+    "colonnes_observees": [
+      "equipment_id",
+      "timestamp",
+      "sensor_name",
+      "value",
+      "unit",
+      "period",
+      "provenance",
+      "procedure_id"
+    ],
+    "provenance_absente": 0,
+    "provenance_hors_domaine": 0,
+    "fabriquees_sans_procede": 0,
+    "procedes_inconnus": [],
+    "reelles_portant_un_procede": 0,
+    "conforme": true
+  },
+  "R-TRA-001_valeurs_corrigees": 68,
+  "procedes": [
+    {
+      "procedure_id": "PROC-GEN-SMOTE-V2",
+      "famille": "génération",
+      "provenance": "synthétique",
+      "date": "2026-08-26",
+      "raison": "documenter 8 équipements de SITE-OUEST ∩ SEG-2, périmètre sans aucun capteur réel (0/16 sur le site, 2/174 sur le segment)",
+      "parametres": "interpolation entre voisins écrite à la main, k = 5, pénalité de type 1.0, λ ∈ [−0,25 ; 1,25], graine 25082026",
+      "validite": "jusqu'à la première livraison de mesures réelles sur SITE-OUEST, réexamen au plus tard le 2026-12-31",
+      "transmis": true,
+      "motif_transmission": "seul procédé qui conserve une structure temporelle et une réaction aux événements ; état 2 du générateur, dispersion corrigée",
+      "etape": "3",
+      "lignes": 1799
+    },
+    {
+      "procedure_id": "PROC-GEN-SMOTE-V1",
+      "famille": "génération",
+      "provenance": "synthétique",
+      "date": "2026-08-26",
+      "raison": "premier état du générateur par interpolation entre voisins",
+      "parametres": "k = 5, λ ∈ [0 ; 1], graine 25082026",
+      "validite": "périmé — remplacé par PROC-GEN-SMOTE-V2 le 26/08",
+      "transmis": false,
+      "motif_transmission": "dispersion contractée de 15 à 22 % (ratios σ 0,783 et 0,810) ; conservé comme état 1 de la démonstration, pas comme donnée",
+      "etape": "3",
+      "lignes": 1799
+    },
+    {
+      "procedure_id": "PROC-GEN-MARG-V1",
+      "famille": "génération",
+      "provenance": "synthétique",
+      "date": "2026-08-26",
+      "raison": "voie de comparaison — tirage marginal, chaque colonne rejouée seule",
+      "parametres": "tirage indépendant par capteur sur la marginale réelle, graine 25082026",
+      "validite": "non transmis — sans objet",
+      "transmis": false,
+      "motif_transmission": "détruit toute structure temporelle (autocorrélation nulle) et toute corrélation entre capteurs ; transmettre ces lignes injecterait un bruit que M4 apprendrait comme un signal",
+      "etape": "3",
+      "lignes": 1984
+    },
+    {
+      "procedure_id": "PROC-AUG-BRUIT",
+      "famille": "augmentation",
+      "provenance": "augmentée",
+      "date": "2026-08-25",
+      "raison": "démonstration — perturbation gaussienne à 2 % de l'écart-type",
+      "parametres": "σ_bruit = 0,02 × σ_série, graine 25082026",
+      "validite": "non transmis — sans objet",
+      "transmis": false,
+      "motif_transmission": "série support hors grille horaire : 721 lignes signalées sur 721 avant toute augmentation (T2-00). Transmettre une augmentation assise sur un support non conforme propagerait le défaut",
+      "etape": "2",
+      "lignes": 721
+    },
+    {
+      "procedure_id": "PROC-AUG-ECHELLE",
+      "famille": "augmentation",
+      "provenance": "augmentée",
+      "date": "2026-08-25",
+      "raison": "démonstration — mise à l'échelle multiplicative",
+      "parametres": "facteur ×1,05, graine 25082026",
+      "validite": "non transmis — sans objet",
+      "transmis": false,
+      "motif_transmission": "biais de niveau de 0,391 σ que le détecteur ne signale pas : cas conservé comme démonstration d'angle mort, jamais comme donnée",
+      "etape": "2",
+      "lignes": 721
+    },
+    {
+      "procedure_id": "PROC-AUG-DECALAGE",
+      "famille": "augmentation",
+      "provenance": "augmentée",
+      "date": "2026-08-25",
+      "raison": "démonstration — décalage temporel de la série",
+      "parametres": "décalage +18 h, multiple du pas nominal, graine 25082026",
+      "validite": "non transmis — sans objet",
+      "transmis": false,
+      "motif_transmission": "même support non conforme que PROC-AUG-BRUIT",
+      "etape": "2",
+      "lignes": 721
+    },
+    {
+      "procedure_id": "PROC-AUG-DEFORM",
+      "famille": "augmentation",
+      "provenance": "augmentée",
+      "date": "2026-08-25",
+      "raison": "démonstration — déformation locale de l'axe des temps",
+      "parametres": "étirement/compression par blocs, graine 25082026",
+      "validite": "non transmis — sans objet",
+      "transmis": false,
+      "motif_transmission": "détruit la régularité du pas ; le comptage du détecteur était déjà saturé sur le support, la contribution du procédé n'est pas mesurable",
+      "etape": "2",
+      "lignes": 721
+    },
+    {
+      "procedure_id": "PROC-AUG-PERMUT",
+      "famille": "augmentation",
+      "provenance": "augmentée",
+      "date": "2026-08-25",
+      "raison": "démonstration — permutation aléatoire des valeurs de la série",
+      "parametres": "permutation complète, graine 25082026",
+      "validite": "non transmis — sans objet",
+      "transmis": false,
+      "motif_transmission": "détruit intégralement la structure temporelle en rendant des marginales identiques au réel — le cas d'aveuglement du détecteur",
+      "etape": "2",
+      "lignes": 721
+    }
+  ],
+  "couverture": [
+    {
+      "etat": "avant transmission (réel seul)",
+      "variable": "site",
+      "modalite": "SITE-EST",
+      "equipements": 91,
+      "instrumentes": 5,
+      "taux_pct": 5.49
+    },
+    {
+      "etat": "avant transmission (réel seul)",
+      "variable": "site",
+      "modalite": "SITE-NORD",
+      "equipements": 173,
+      "instrumentes": 21,
+      "taux_pct": 12.14
+    },
+    {
+      "etat": "avant transmission (réel seul)",
+      "variable": "site",
+      "modalite": "SITE-OUEST",
+      "equipements": 16,
+      "instrumentes": 0,
+      "taux_pct": 0.0
+    },
+    {
+      "etat": "avant transmission (réel seul)",
+      "variable": "site",
+      "modalite": "SITE-SUD",
+      "equipements": 136,
+      "instrumentes": 10,
+      "taux_pct": 7.35
+    },
+    {
+      "etat": "avant transmission (réel seul)",
+      "variable": "criticité",
+      "modalite": "critical",
+      "equipements": 46,
+      "instrumentes": 14,
+      "taux_pct": 30.43
+    },
+    {
+      "etat": "avant transmission (réel seul)",
+      "variable": "criticité",
+      "modalite": "high",
+      "equipements": 122,
+      "instrumentes": 14,
+      "taux_pct": 11.48
+    },
+    {
+      "etat": "avant transmission (réel seul)",
+      "variable": "criticité",
+      "modalite": "low",
+      "equipements": 75,
+      "instrumentes": 1,
+      "taux_pct": 1.33
+    },
+    {
+      "etat": "avant transmission (réel seul)",
+      "variable": "criticité",
+      "modalite": "medium",
+      "equipements": 173,
+      "instrumentes": 7,
+      "taux_pct": 4.05
+    },
+    {
+      "etat": "avant transmission (réel seul)",
+      "variable": "parc",
+      "modalite": "total",
+      "equipements": 416,
+      "instrumentes": 36,
+      "taux_pct": 8.65
+    },
+    {
+      "etat": "après transmission (réel + fabriqué)",
+      "variable": "site",
+      "modalite": "SITE-EST",
+      "equipements": 91,
+      "instrumentes": 5,
+      "taux_pct": 5.49
+    },
+    {
+      "etat": "après transmission (réel + fabriqué)",
+      "variable": "site",
+      "modalite": "SITE-NORD",
+      "equipements": 173,
+      "instrumentes": 21,
+      "taux_pct": 12.14
+    },
+    {
+      "etat": "après transmission (réel + fabriqué)",
+      "variable": "site",
+      "modalite": "SITE-OUEST",
+      "equipements": 16,
+      "instrumentes": 8,
+      "taux_pct": 50.0
+    },
+    {
+      "etat": "après transmission (réel + fabriqué)",
+      "variable": "site",
+      "modalite": "SITE-SUD",
+      "equipements": 136,
+      "instrumentes": 10,
+      "taux_pct": 7.35
+    },
+    {
+      "etat": "après transmission (réel + fabriqué)",
+      "variable": "criticité",
+      "modalite": "critical",
+      "equipements": 46,
+      "instrumentes": 16,
+      "taux_pct": 34.78
+    },
+    {
+      "etat": "après transmission (réel + fabriqué)",
+      "variable": "criticité",
+      "modalite": "high",
+      "equipements": 122,
+      "instrumentes": 16,
+      "taux_pct": 13.11
+    },
+    {
+      "etat": "après transmission (réel + fabriqué)",
+      "variable": "criticité",
+      "modalite": "low",
+      "equipements": 75,
+      "instrumentes": 3,
+      "taux_pct": 4.0
+    },
+    {
+      "etat": "après transmission (réel + fabriqué)",
+      "variable": "criticité",
+      "modalite": "medium",
+      "equipements": 173,
+      "instrumentes": 9,
+      "taux_pct": 5.2
+    },
+    {
+      "etat": "après transmission (réel + fabriqué)",
+      "variable": "parc",
+      "modalite": "total",
+      "equipements": 416,
+      "instrumentes": 44,
+      "taux_pct": 10.58
+    }
+  ],
+  "documentation_par_gravite": [
+    {
+      "severity": "critical",
+      "evenements": 73,
+      "documentes": 9,
+      "part_pct": 12.33,
+      "etat": "avant"
+    },
+    {
+      "severity": "high",
+      "evenements": 213,
+      "documentes": 35,
+      "part_pct": 16.43,
+      "etat": "avant"
+    },
+    {
+      "severity": "medium",
+      "evenements": 157,
+      "documentes": 30,
+      "part_pct": 19.11,
+      "etat": "avant"
+    },
+    {
+      "severity": "low",
+      "evenements": 71,
+      "documentes": 15,
+      "part_pct": 21.13,
+      "etat": "avant"
+    },
+    {
+      "severity": "critical",
+      "evenements": 73,
+      "documentes": 10,
+      "part_pct": 13.7,
+      "etat": "après"
+    },
+    {
+      "severity": "high",
+      "evenements": 213,
+      "documentes": 36,
+      "part_pct": 16.9,
+      "etat": "après"
+    },
+    {
+      "severity": "medium",
+      "evenements": 157,
+      "documentes": 31,
+      "part_pct": 19.75,
+      "etat": "après"
+    },
+    {
+      "severity": "low",
+      "evenements": 71,
+      "documentes": 15,
+      "part_pct": 21.13,
+      "etat": "après"
+    }
+  ],
+  "biais": [
+    {
+      "biais": "B1 — couverture instrumentale",
+      "indicateur": "équipements avec au moins une mesure réelle",
+      "valeur": "36 / 416",
+      "chiffre": 8.65
+    },
+    {
+      "biais": "B1 — couverture instrumentale",
+      "indicateur": "SITE-OUEST, mesures réelles",
+      "valeur": "0 / 16",
+      "chiffre": 0.0
+    },
+    {
+      "biais": "B1 — couverture instrumentale",
+      "indicateur": "écart de taux critical / low (réel)",
+      "valeur": "30.43 % contre 1.33 %",
+      "chiffre": 22.88
+    },
+    {
+      "biais": "B1 — couverture instrumentale",
+      "indicateur": "types d'équipement sans aucune mesure réelle",
+      "valeur": "7 / 18",
+      "chiffre": 7.0
+    },
+    {
+      "biais": "B1 — couverture instrumentale",
+      "indicateur": "équipements couverts après transmission (dont fabriqué)",
+      "valeur": "44 / 416 dont 8 fabriqués",
+      "chiffre": 10.58
+    },
+    {
+      "biais": "B2 — étiquetage des événements",
+      "indicateur": "événements documentés par au moins une mesure réelle",
+      "valeur": "89 / 514",
+      "chiffre": 17.32
+    },
+    {
+      "biais": "B2 — étiquetage des événements",
+      "indicateur": "événements documentés après transmission",
+      "valeur": "92 / 514",
+      "chiffre": 17.9
+    },
+    {
+      "biais": "B2 — étiquetage des événements",
+      "indicateur": "événements de gravité critical documentés (réel)",
+      "valeur": "9 / 73",
+      "chiffre": 12.33
+    },
+    {
+      "biais": "B2 — étiquetage des événements",
+      "indicateur": "événements du périmètre généré, dans la période générée",
+      "valeur": "3 sur 10 du périmètre",
+      "chiffre": 3.0
+    },
+    {
+      "biais": "B3 — renseignement non aléatoire",
+      "indicateur": "interventions sans coût de pièces",
+      "valeur": "28 / 1788",
+      "chiffre": 1.57
+    },
+    {
+      "biais": "B3 — renseignement non aléatoire",
+      "indicateur": "dont SITE-OUEST",
+      "valeur": "27 / 28",
+      "chiffre": 96.43
+    },
+    {
+      "biais": "B3 — renseignement non aléatoire",
+      "indicateur": "part des interventions SITE-OUEST sans coût",
+      "valeur": "27 / 76",
+      "chiffre": 35.53
+    },
+    {
+      "biais": "B4 — historique d'activité",
+      "indicateur": "équipements sans aucun événement enregistré",
+      "valeur": "42 / 416",
+      "chiffre": 10.1
+    },
+    {
+      "biais": "B4 — historique d'activité",
+      "indicateur": "équipements sans aucune intervention",
+      "valeur": "50 / 416",
+      "chiffre": 12.02
+    },
+    {
+      "biais": "B4 — historique d'activité",
+      "indicateur": "interventions correctives",
+      "valeur": "349 / 1788",
+      "chiffre": 19.52
+    },
+    {
+      "biais": "B5 — représentation",
+      "indicateur": "rapport d'effectifs entre types d'équipement",
+      "valeur": "57 (pump) contre 5 (lift, steam_unit)",
+      "chiffre": 11.4
+    },
+    {
+      "biais": "B5 — représentation",
+      "indicateur": "rapport d'effectifs entre sites",
+      "valeur": "173 contre 16",
+      "chiffre": 10.81
+    },
+    {
+      "biais": "B5 — représentation",
+      "indicateur": "part fabriquée du jeu transmis",
+      "valeur": "1799 / 52076",
+      "chiffre": 3.45
+    }
+  ]
+}

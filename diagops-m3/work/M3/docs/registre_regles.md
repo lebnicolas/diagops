@@ -1,13 +1,15 @@
 ---
 module: M3
-etat: axe 4 terminé
-maj: 2026-08-24
+etat: axe 4 terminé — registres R-DET-* et R-TRA-* ajoutés au brief 2
+maj: 2026-08-31
 ---
 
 # Registre des règles — M3
 
-**34 règles** : 19 héritées de M2, 15 ajoutées pour la source capteurs. Toutes
-sont actives — aucune n'est abandonnée.
+**34 règles de qualité** : 19 héritées de M2, 15 ajoutées pour la source
+capteurs. Toutes sont actives — aucune n'est abandonnée. Le brief 2 y ajoute
+deux registres distincts : **9 règles `R-DET-*`** (authenticité) et **1 règle
+`R-TRA-*`** (conformité de la transmission), décrits en fin de document.
 
 | Statut | Nombre |
 |---|---:|
@@ -239,6 +241,92 @@ Repris de M2 sans modification.
 **50 401 mesures reçues → 50 277 mesures préparées.** 124 lignes retirées
 (0,25 %) : 80 figées, 30 rattachées à un équipement inconnu, 8 en clé divergente,
 6 doublons stricts.
+
+## Règles ajoutées au brief 2 — registre `R-DET-*` (authenticité)
+
+Ce registre est **distinct** des règles de qualité ci-dessus, et la séparation
+est un choix défendu, pas une commodité de nommage. `R-SEN-*` répond à « cette
+ligne est-elle conforme au contrat », `R-DET-*` à « cette ligne a-t-elle été
+fabriquée ». Les lignes authentiques du lot de contrôle portent les anomalies de
+la livraison M3 : les deux questions n'ont ni la même réponse ni les mêmes
+contre-exemples. Le détail et les mesures sont dans `detection_lot_controle.md`.
+
+Le verdict se prend au **bloc de 30 lignes**, unité de fabrication constatée
+(24 blocs homogènes dans l'échantillon, 200 dans le lot), et une seule famille
+de règles décide.
+
+### Règles décisives
+
+| Règle | Contrôle | Verdict | Blocs du lot |
+|---|---|---|---:|
+| `R-DET-001` | bloc intégralement retrouvé dans la livraison M3, **même équipement** | `réelle` | 127 |
+| `R-DET-002` | bloc absent de la livraison M3 | `fabriquée` | 66 |
+| `R-DET-003` | correspondance résiduelle ≤ 10 % — coïncidence numérique à deux décimales | `fabriquée` | 6 |
+| `R-DET-004` | correspondance partielle intermédiaire — aucun élément ne tranche | `indécidable` | 1 |
+
+### Règles de corroboration
+
+Elles ne décident jamais. Elles indiquent si un bloc porte **en plus** une
+signature interne, et leur silence sur un bloc déclaré fabriqué est un résultat.
+
+| Règle | Signature | Seuil | Fabriqués attrapés | **Réels accusés** |
+|---|---|---|---:|---:|
+| `R-DET-010` | autocorrélation de rang 4 effondrée (cycle de 24 h absent) | `< 0,50` | 45 / 72 | **14 / 127** |
+| `R-DET-011` | grille d'échantillonnage irrégulière | `> 20 %` d'écarts non nominaux | 5 / 72 | 0 |
+| `R-DET-012` | niveau incompatible avec le profil de l'équipement | `> 3 σ` | 9 / 72 | 1 / 127 |
+| `R-DET-013` | dispersion incompatible avec le profil de l'équipement | hors `[0,70 ; 1,60]` | 13 / 72 | **6 / 127** |
+| `R-DET-014` | valeurs retrouvées chez un **autre** équipement — greffe | ≥ 1 ligne | 32 / 72 | 0 |
+
+Portées à la décision, ces cinq règles auraient déclaré fabriqués **21 blocs
+authentiques sur 127**. C'est la raison pour laquelle elles n'y sont pas.
+
+### Limites propres au registre `R-DET-*`
+
+- **Plafond de détection non déplaçable.** Un bloc étiqueté fabriqué
+  (`EQ-PUMP-171 / vibration_mm_s`) est identique à la livraison, ligne pour
+  ligne. Aucune règle interne ne peut le distinguer d'une mesure réelle. Il
+  constitue la seule erreur du calibrage : 30 lignes sur 720.
+- **Onze blocs fabriqués sur 72 ne portent aucune signature interne.** La
+  détection ne repose donc pas sur l'examen de la fabrication, mais sur son
+  rapprochement avec une source extérieure.
+- **`R-DET-001` dépend d'une déclaration du fournisseur du lot** — les notes de
+  version affirment que les mesures réelles proviennent de la livraison M3. Si
+  cette phrase était fausse ou partielle, tout le registre décisif s'effondre.
+  Aucun élément interne ne permet de la vérifier.
+- Les seuils de `R-DET-010` et `R-DET-013` sont calibrés sur 24 blocs seulement.
+  Ce sont aussi les deux seules règles qui accusent des blocs authentiques.
+
+## Règle ajoutée à l'étape 6 — registre `R-TRA-*` (transmission)
+
+Un troisième registre, à une seule règle, pour une raison précise : ce qui suit
+ne relève ni de la qualité (`R-SEN-*`) ni de l'authenticité (`R-DET-*`), mais de
+la **conformité du fichier transmis** au contrat de la livraison. Le distinguer
+évite de faire croire qu'un contrôle de qualité du brief 1 avait attrapé quelque
+chose qu'il n'a pas vu.
+
+| Règle | Contrôle | Action | Lignes |
+|---|---|---|---:|
+| `R-TRA-001` | précision décimale de `value` hors convention de la livraison (2 décimales) | arrondi au centième, à la composition du jeu transmis | **68** |
+
+**Origine.** Découverte par la soumission T3-00 du 31/08 : le détecteur de
+référence a signalé 68 lignes en `R-PRECISION`, **toutes réelles**, toutes sur
+`EQ-SENSOR-305`. Ce capteur livre 84 mesures en kelvins, que `R-SEN-006`
+convertit par `v − 273,15` en écrivant le résultat brut : `56.85000000000002`.
+
+**Ce que cela dit des 34 règles du brief 1.** Aucune ne portait sur la précision
+d'écriture des valeurs qu'elles produisaient elles-mêmes. Les règles contrôlaient
+les données reçues ; aucune ne contrôlait la sortie de leurs propres
+transformations. Le défaut a traversé le brief 1 entier et n'est apparu que
+lorsque le fichier a été soumis à un contrôle extérieur.
+
+**Dette assumée.** `R-TRA-001` est appliquée **au point de transmission**, pas
+dans `prepare_sensors`. Rejouer la chaîne du brief 1 changerait les empreintes
+citées dans les deux briefs rendus. Correctif à porter en amont au prochain
+rejeu complet : arrondir à `DECIMALS = 2` la sortie de chaque conversion d'unité.
+Toute chaîne rejouée sans `R-TRA-001` reproduira le défaut.
+
+**Vérification.** Soumission T3-01, même fichier après application :
+`R-PRECISION` retombe à 0, aucun autre compteur ne bouge.
 
 ## Limites connues
 

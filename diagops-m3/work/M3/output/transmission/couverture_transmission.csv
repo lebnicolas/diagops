@@ -1,0 +1,19 @@
+etat,variable,modalite,equipements,instrumentes,taux_pct
+avant transmission (réel seul),site,SITE-EST,91,5,5.49
+avant transmission (réel seul),site,SITE-NORD,173,21,12.14
+avant transmission (réel seul),site,SITE-OUEST,16,0,0.0
+avant transmission (réel seul),site,SITE-SUD,136,10,7.35
+avant transmission (réel seul),criticité,critical,46,14,30.43
+avant transmission (réel seul),criticité,high,122,14,11.48
+avant transmission (réel seul),criticité,low,75,1,1.33
+avant transmission (réel seul),criticité,medium,173,7,4.05
+avant transmission (réel seul),parc,total,416,36,8.65
+après transmission (réel + fabriqué),site,SITE-EST,91,5,5.49
+après transmission (réel + fabriqué),site,SITE-NORD,173,21,12.14
+après transmission (réel + fabriqué),site,SITE-OUEST,16,8,50.0
+après transmission (réel + fabriqué),site,SITE-SUD,136,10,7.35
+après transmission (réel + fabriqué),criticité,critical,46,16,34.78
+après transmission (réel + fabriqué),criticité,high,122,16,13.11
+après transmission (réel + fabriqué),criticité,low,75,3,4.0
+après transmission (réel + fabriqué),criticité,medium,173,9,5.2
+après transmission (réel + fabriqué),parc,total,416,44,10.58

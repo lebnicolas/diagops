@@ -1,10 +1,18 @@
 ---
 module: M3
-etat: axe 8 terminé
-maj: 2026-08-24
+etat: axe 8 terminé — réexaminé au brief 2
+maj: 2026-08-31
 ---
 
 # Décision de transmission à M4
+
+> **Réexamen du 31/08/2026 — brief 2.** La décision du brief 1 portait sur la
+> **qualité** des données. Le brief 2 a posé la question de leur **capacité** et
+> a produit des données fabriquées. La décision est maintenue et **complétée** :
+> le statut reste `utilisable sous conditions`, les cinq conditions C1 à C5
+> restent en vigueur, trois conditions C6 à C8 s'y ajoutent, et la composition
+> exacte de ce qui est transmis est arrêtée en fin de document — section
+> [Réexamen au brief 2](#réexamen-au-brief-2--ce-qui-est-transmis-à-m4).
 
 ## Statut
 
@@ -188,3 +196,149 @@ corrigent pas par un meilleur traitement :
 
 Tout le reste — 124 lignes écartées sur 50 401, hypothèse de fuseau, dérive
 indécidable — est tracé, réversible et sans effet structurant.
+
+---
+
+# Réexamen au brief 2 — ce qui est transmis à M4
+
+*Écrit le 31/08/2026, après les six étapes du brief 2. Les chiffres proviennent
+de `output/transmission/transmission.json` et `biais.csv`.*
+
+## La décision
+
+> ## Une partie sous conditions
+
+**Est transmis** : le jeu réel complet — 50 277 mesures préparées au brief 1 — et
+**1 799 mesures synthétiques** produites par `PROC-GEN-SMOTE-V2` sur les 8
+équipements de `SITE-OUEST ∩ SEG-2`, janvier 2026, deux capteurs. Chaque ligne
+porte sa `provenance` et son `procedure_id`.
+
+**N'est pas transmis** : le tirage marginal (`PROC-GEN-MARG-V1`, 1 984 lignes),
+l'état 1 du générateur (`PROC-GEN-SMOTE-V1`) et les cinq procédés d'augmentation
+(`PROC-AUG-*`, 721 lignes chacun). Motifs au registre des procédés
+(`output/transmission/registre_procedes.csv`), résumés plus bas.
+
+| Composition du jeu transmis | Lignes | Part |
+|---|---|---|
+| `réelle` | 50 277 | 96,55 % |
+| `synthétique` — `PROC-GEN-SMOTE-V2` | 1 799 | **3,45 %** |
+| `augmentée` | 0 | 0 % |
+| **total** | **52 076** | |
+
+## Pourquoi pas « rien de fabriqué »
+
+Refuser toute fabrication reviendrait à transmettre un jeu dont on a démontré
+qu'il ne permet pas de traiter trois questions posées à l'étape 1, et à priver M4
+de la seule matière disponible sur `SITE-OUEST`. Le travail de fabrication a par
+ailleurs produit ce qui a le plus de valeur ici : la mesure de **ce que chaque
+procédé détruit**. Cette connaissance ne se transmet pas en supprimant les
+lignes.
+
+## Pourquoi pas « l'ensemble avec réserves »
+
+Parce que trois productions sont mesurablement nuisibles, et qu'aucune réserve
+écrite ne protège d'un fichier lu sans sa notice.
+
+- **`PROC-GEN-MARG-V1`** détruit toute structure temporelle — autocorrélation
+  nulle — et toute corrélation entre capteurs, tout en conservant les
+  histogrammes. Le détecteur l'a déclaré conforme, plus propre que les deux
+  témoins réels (T1-02). Transmettre ces lignes injecterait un bruit qu'un modèle
+  apprendrait comme un signal.
+- **`PROC-GEN-SMOTE-V1`** est l'état antérieur du même générateur, avec une
+  dispersion contractée de 15 à 22 %. Il n'a plus d'usage que documentaire.
+- **Les cinq `PROC-AUG-*`** reposent sur une série support hors grille horaire :
+  721 lignes signalées sur 721 **avant toute augmentation** (T2-00). Une
+  augmentation assise sur un support non conforme propage le défaut du support.
+
+## Conditions supplémentaires
+
+Les conditions C1 à C5 du brief 1 restent en vigueur. Trois s'y ajoutent.
+
+**C6. Ne jamais utiliser les lignes fabriquées en évaluation.** *(bloquante)*
+Elles sont admises pour l'exploration, le rodage de pipeline et le test de charge.
+Toute partition d'évaluation — jeu de test, validation croisée, calcul de métrique
+publiée — se construit sur `provenance == "réelle"`. Une métrique calculée sur du
+fabriqué mesure la fidélité de notre interpolateur, pas la performance d'un
+modèle.
+
+**C7. Lire la provenance avant tout comptage de couverture.** *(bloquante)*
+La couverture passe de 8,65 % à 10,58 % et le rapport `critical` / `low` de ×22,9
+à ×8,7 **sans qu'un seul équipement supplémentaire ait été instrumenté**. Un
+indicateur de couverture calculé sans filtrer sur la provenance annonce un
+progrès qui n'existe pas.
+
+**C8. Réexaminer les lignes fabriquées au plus tard le 31/12/2026.**
+Elles sont retirées sans discussion dès la première livraison de mesures réelles
+sur `SITE-OUEST`. À défaut de livraison, la question « ces lignes sont-elles
+encore nécessaires ? » se repose à l'échéance : sans date, le provisoire devient
+un socle.
+
+## Ce que cette composition interdit de conclure
+
+1. **Rien sur `SITE-OUEST`** qui ne soit une propriété de notre générateur. Les
+   8 équipements couverts le sont à 100 % en synthétique.
+2. **Rien sur la réaction des capteurs aux événements du périmètre généré.** Les
+   3 événements que la transmission rend « documentés » le sont par des séries
+   interpolées depuis d'autres équipements.
+3. **Aucune conclusion de forme « la couverture s'améliore ».** Elle ne s'améliore
+   pas ; elle est complétée par du fabriqué, et le réel est inchangé.
+4. **Rien sur la dispersion des mesures du périmètre généré.** Elle reste
+   contractée de 10 à 14 % (ratios σ 0,858 et 0,897), défaut connu, mesuré, et
+   que le détecteur de référence ne signale pas.
+5. **Aucune preuve de fidélité tirée du silence du détecteur.** Il a rendu le même
+   zéro sur deux états successifs du générateur dont l'un était mesurablement
+   moins bon (T2-01) : il ne sait pas les arbitrer.
+
+## À quelles conditions les données fabriquées peuvent être retirées
+
+Le retrait est prévu par construction et ne coûte rien : `provenance != "réelle"`
+suffit à isoler les 1 799 lignes, et aucune ligne réelle n'a été modifiée pour les
+accueillir. Trois situations le déclenchent :
+
+- première livraison de mesures réelles sur `SITE-OUEST` — retrait immédiat ;
+- échéance du 31/12/2026 sans livraison — réexamen, puis retrait ou reconduction
+  motivée ;
+- mise en évidence d'un défaut du procédé — le registre porte les paramètres et la
+  graine, la reproduction du défaut est possible à l'identique.
+
+## Un défaut de notre chaîne, découvert par la transmission
+
+La soumission T3-00 du jeu transmis au détecteur de référence a fait apparaître
+**68 valeurs à plus de trois décimales**, toutes `réelle`, toutes sur
+`EQ-SENSOR-305`. Cause : ce capteur livre 84 mesures en kelvins, que la règle
+`R-SEN-006` du brief 1 convertit par `v − 273,15` en écrivant le résultat tel quel
+— `56.85000000000002`. La conversion est juste ; la sortie ne respecte pas la
+convention à deux décimales de la livraison.
+
+Le défaut a traversé **tout le brief 1** sans être vu : aucun de nos 34 contrôles
+ne portait sur la précision d'écriture. Il est corrigé par `R-TRA-001`, appliqué
+au point de transmission et vérifié par T3-01 (`R-PRECISION` retombe à 0, tous les
+autres compteurs inchangés).
+
+**Dette assumée** : le correctif est appliqué à la transmission, **pas dans
+`prepare_sensors`**. Rejouer la chaîne du brief 1 changerait les empreintes citées
+dans les deux briefs déjà rendus. Toute chaîne rejouée sans `R-TRA-001`
+reproduira le défaut — c'est inscrit au registre des règles.
+
+## État de conformité du jeu transmis
+
+Dernière soumission, T3-01 du 31/08, sur `sensor_readings_m4.csv` (52 076 lignes) :
+
+| Famille | Signalements | Lecture |
+|---|---|---|
+| `R-SCHEMA` | 0 | contrat de colonnes respecté, `provenance` présente |
+| `R-FORMAT` | 725 — 1,39 % | 720 horodatages hors grille + 5 lignes hors période, défaut connu du brief 1 |
+| `R-RANGE` | 52 — 0,10 % | 40 valeurs vides à la livraison + 12 sentinelles `-999` **volontairement neutralisées** |
+| `R-UNIT` | 0 | |
+| `R-KEY` | 0 | |
+| `R-FK` | 0 | les 8 équipements générés existent au référentiel |
+| `R-PRECISION` | 0 | après `R-TRA-001` |
+| `R-DISTRIB` | 0 capteur sur 5 | ratios σ globaux de 0,99 à 1,00 |
+
+À titre de comparaison : la livraison publiée elle-même est signalée à **6,24 %**
+(T1-00). Le jeu transmis est à 1,39 %, et ce qui reste est documenté ligne par
+ligne.
+
+**Ce tableau ne dit rien de la fidélité des 1 799 lignes fabriquées.** Il dit que
+la transmission est conforme au contrat. C'est une autre question, et la confondre
+avec la première est le critère bloquant que le brief nomme.

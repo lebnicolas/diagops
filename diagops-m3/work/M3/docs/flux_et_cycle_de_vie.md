@@ -1,7 +1,7 @@
 ---
 module: M3
-etat: axe 6 terminé
-maj: 2026-08-24
+etat: axe 6 terminé — cycle de vie du fabriqué ajouté au brief 2
+maj: 2026-08-31
 ---
 
 # Flux de traitement et cycle de vie du jeu de données — M3
@@ -258,6 +258,68 @@ non à ses lignes prises isolément.
 | Rapprocher 89 événements de mesures qui les précèdent et les suivent | Établir une relation de cause à effet |
 | Construire des agrégats par événement | Dire si une variation précède ou suit l'événement — l'agrégat perd l'ordre |
 | Constituer une base d'apprentissage pour M4 | Prétendre qu'elle couvre les cas sévères : le pic à 9,76 mm/s n'est apparié à aucun événement |
+
+### Mise à jour au brief 2 — 31/08/2026
+
+Le jeu transmis à M4 n'est plus la table préparée : c'est
+`output/transmission/sensor_readings_m4.csv`, **52 076 lignes**, dont **1 799
+fabriquées** (3,45 %). Deux colonnes s'ajoutent au schéma, imposées par le
+`SCHEMA.md` du pack `diagops-2026-S1-m3-v2` :
+
+| Colonne | Domaine | Règle |
+|---|---|---|
+| `provenance` | `réelle` \| `synthétique` \| `augmentée` | obligatoire sur **toute** ligne |
+| `procedure_id` | identifiant du procédé, vide si `réelle` | obligatoire sur toute ligne fabriquée |
+
+La colonne de travail `row_identifier` du brief 1 **ne fait pas partie** du jeu
+transmis : le détecteur de référence la signale comme colonne inattendue
+(soumission T1-04). La quarantaine reste, elle, indexée par `row_identifier` —
+c'est le lien de retour vers la ligne d'origine.
+
+**Ce que le jeu contient en plus** : deux séries de janvier 2026 sur 8
+équipements de `SITE-OUEST`, produites par interpolation entre voisins. Elles
+documentent un périmètre qu'aucun capteur ne couvre.
+
+**Ce qu'elles ne sont pas** : des mesures. Elles portent les propriétés de leurs
+donneurs, pas celles des équipements auxquels elles sont rattachées, et leur
+dispersion est contractée de 10 à 14 %.
+
+## Cycle de vie d'une donnée fabriquée
+
+Une ligne fabriquée n'a pas le même cycle de vie qu'une mesure. Une mesure est
+livrée, préparée, conservée. Une ligne fabriquée est **décidée**, et cette
+décision se périme.
+
+| Étape | Ce qui est enregistré | Où |
+|---|---|---|
+| **Décision** | le manque chiffré qui la motive — ici `SITE-OUEST` 0/16, `SEG-2` 2/174 | `capacite_jeu_donnees.md`, `registre_procedes.csv` |
+| **Production** | procédé, paramètres, graine (`SEED = 25082026`), date | `registre_procedes.csv`, code sous `src/brief2/` |
+| **Étiquetage** | `provenance` et `procedure_id` sur chaque ligne, appliqués en un seul endroit | `src/brief2/provenance.py` |
+| **Contrôle** | soumission au détecteur de référence, hypothèse formulée avant | `journal_bord.md`, table des soumissions |
+| **Transmission** | composition, empreinte SHA-256 du fichier, conditions d'usage | `transmission.json`, `decision_transmission_m4.md` |
+| **Réexamen** | échéance datée, et déclencheur de retrait | condition C8 — **31/12/2026** |
+| **Retrait** | filtre `provenance != "réelle"`, aucune ligne réelle n'ayant été modifiée | reproductible à l'identique |
+
+**Les quatre attributs exigés par le brief**, pour les 1 799 lignes transmises :
+
+- **date** : 26/08/2026 (production), 31/08/2026 (transmission) ;
+- **procédé** : `PROC-GEN-SMOTE-V2` — interpolation entre voisins écrite à la
+  main, k = 5, pénalité de type 1,0, λ ∈ [−0,25 ; 1,25] ;
+- **raison** : documenter 8 équipements d'un périmètre sans aucun capteur réel ;
+- **durée de validité** : jusqu'à la première livraison de mesures réelles sur
+  `SITE-OUEST`, réexamen au plus tard le **31/12/2026**.
+
+**Pourquoi une échéance datée plutôt qu'une validité « jusqu'à nouvel ordre ».**
+Une donnée fabriquée sans date de réexamen devient un socle par simple inertie :
+personne ne décide de la garder, personne ne décide de l'enlever, et trois
+livraisons plus tard elle est traitée comme du réel. La date force la question à
+se reposer.
+
+**Ce que la présence de lignes fabriquées impose au flux.** Toute étape en aval
+qui agrège, compte ou évalue doit lire `provenance` avant de calculer. Deux
+conditions bloquantes de la note de décision en découlent : C6 (jamais de
+fabriqué en évaluation) et C7 (jamais de comptage de couverture sans filtrer la
+provenance).
 
 ## Points à revoir
 

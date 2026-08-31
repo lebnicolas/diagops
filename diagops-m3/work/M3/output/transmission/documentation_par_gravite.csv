@@ -1,0 +1,9 @@
+severity,evenements,documentes,part_pct,etat
+critical,73,9,12.33,avant
+high,213,35,16.43,avant
+medium,157,30,19.11,avant
+low,71,15,21.13,avant
+critical,73,10,13.7,après
+high,213,36,16.9,après
+medium,157,31,19.75,après
+low,71,15,21.13,après

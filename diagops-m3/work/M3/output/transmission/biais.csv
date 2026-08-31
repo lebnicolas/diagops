@@ -1,0 +1,19 @@
+biais,indicateur,valeur,chiffre
+B1 — couverture instrumentale,équipements avec au moins une mesure réelle,36 / 416,8.65
+B1 — couverture instrumentale,"SITE-OUEST, mesures réelles",0 / 16,0.0
+B1 — couverture instrumentale,écart de taux critical / low (réel),30.43 % contre 1.33 %,22.88
+B1 — couverture instrumentale,types d'équipement sans aucune mesure réelle,7 / 18,7.0
+B1 — couverture instrumentale,équipements couverts après transmission (dont fabriqué),44 / 416 dont 8 fabriqués,10.58
+B2 — étiquetage des événements,événements documentés par au moins une mesure réelle,89 / 514,17.32
+B2 — étiquetage des événements,événements documentés après transmission,92 / 514,17.9
+B2 — étiquetage des événements,événements de gravité critical documentés (réel),9 / 73,12.33
+B2 — étiquetage des événements,"événements du périmètre généré, dans la période générée",3 sur 10 du périmètre,3.0
+B3 — renseignement non aléatoire,interventions sans coût de pièces,28 / 1788,1.57
+B3 — renseignement non aléatoire,dont SITE-OUEST,27 / 28,96.43
+B3 — renseignement non aléatoire,part des interventions SITE-OUEST sans coût,27 / 76,35.53
+B4 — historique d'activité,équipements sans aucun événement enregistré,42 / 416,10.1
+B4 — historique d'activité,équipements sans aucune intervention,50 / 416,12.02
+B4 — historique d'activité,interventions correctives,349 / 1788,19.52
+B5 — représentation,rapport d'effectifs entre types d'équipement,"57 (pump) contre 5 (lift, steam_unit)",11.4
+B5 — représentation,rapport d'effectifs entre sites,173 contre 16,10.81
+B5 — représentation,part fabriquée du jeu transmis,1799 / 52076,3.45
