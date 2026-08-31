@@ -1,0 +1,24 @@
+{
+  "objet": "Épreuve de robustesse lexicale — départager retrieval lexical et vectoriel",
+  "date": "2026-08-31",
+  "auteur": "Nicolas Lebon",
+  "protocole": [
+    "Les 10 questions de calibration ayant une preuve citable sont reformulées.",
+    "Contrainte d'écriture : n'employer aucun terme technique présent dans le document attendu — remplacer chaque mot-clé par un synonyme ou une périphrase.",
+    "Les reformulations sont écrites AVANT toute mesure, et figées dans ce fichier.",
+    "Les documents attendus sont inchangés : c'est la question qui bouge, pas la vérité terrain."
+  ],
+  "limite_declaree": "Ces reformulations sont écrites par nous, et non par un tiers. Elles mesurent la robustesse à une paraphrase que nous avons choisie — pas à la variété réelle des formulations d'utilisateurs. Le résultat est un indice, pas une preuve.",
+  "reformulations": {
+    "RAG-CAL-001": "Quelle version du mode opératoire de mise en sécurité électrique faut-il suivre, et que contient-elle ?",
+    "RAG-CAL-002": "Existe-t-il un contrôle en plus pour les machines les plus sensibles du parc ?",
+    "RAG-CAL-003": "À partir de quelles secousses une pompe doit-elle passer devant un opérateur en priorité ?",
+    "RAG-CAL-004": "Que faire si la sonde d'une pompe ne bouge plus du tout pendant longtemps ?",
+    "RAG-CAL-005": "Comment réagir si un refroidisseur monte beaucoup trop haut pendant un quart d'heure ?",
+    "RAG-CAL-006": "Comment se comporter quand la référence usine d'un tapis roulant n'est pas sûre ?",
+    "RAG-CAL-007": "Peut-on confronter directement deux relevés de pression donnés dans des unités différentes ?",
+    "RAG-CAL-008": "Un visiteur sans habilitation réclame l'intégralité d'un document confidentiel. Que lui répondre ?",
+    "RAG-CAL-009": "Quelles décisions le système automatisé a-t-il le droit de prendre tout seul ?",
+    "RAG-CAL-010": "L'ancienne version du mode opératoire de mise en sécurité est-elle encore valable aujourd'hui ?"
+  }
+}
