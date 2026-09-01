@@ -1,0 +1,62 @@
+{
+  "besoin": "qualifier la gravité d'un rapport technicien en texte libre",
+  "cible": "severity",
+  "cible_derivee": {
+    "champ": "requires_human_review",
+    "deductible_au_dessus_de_low": true
+  },
+  "unite_observation": {
+    "textes": 400,
+    "patrons": 80,
+    "patrons_a_gravite_unique": 80,
+    "similarite_moyenne_plus_proche_voisin": 0.8634
+  },
+  "familles": [
+    {
+      "famille": "F1 — règles",
+      "decoupage": "sans objet",
+      "exactitude": 0.4425,
+      "f1_macro": 0.4549
+    },
+    {
+      "famille": "baseline triviale",
+      "decoupage": "sans objet",
+      "exactitude": 0.4425,
+      "f1_macro": 0.1534
+    },
+    {
+      "famille": "F2 — supervisé",
+      "decoupage": "par ligne",
+      "exactitude": 0.96,
+      "f1_macro": 0.9575
+    },
+    {
+      "famille": "F2 — supervisé",
+      "decoupage": "groupé par patron",
+      "exactitude": 0.695,
+      "f1_macro": 0.56
+    }
+  ],
+  "cout_fuite_decoupage": {
+    "exactitude": -0.265,
+    "f1_macro": -0.3975
+  },
+  "defauts_donnees": {
+    "report_id_orphelins": 460,
+    "report_id_cites": 500,
+    "distance_variation_train_test": 0.2425,
+    "distribution_train": {
+      "critical": 0.15,
+      "high": 0.4425,
+      "medium": 0.2575,
+      "low": 0.15
+    },
+    "distribution_test": {
+      "critical": 0.1,
+      "high": 0.35,
+      "medium": 0.5,
+      "low": 0.05
+    }
+  },
+  "test_ouvert": false
+}

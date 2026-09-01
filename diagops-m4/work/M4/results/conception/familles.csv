@@ -1,0 +1,5 @@
+famille,decoupage,exactitude,f1_macro
+F1 — règles,sans objet,0.4425,0.4549
+baseline triviale,sans objet,0.4425,0.1534
+F2 — supervisé,par ligne,0.96,0.9575
+F2 — supervisé,groupé par patron,0.695,0.56
