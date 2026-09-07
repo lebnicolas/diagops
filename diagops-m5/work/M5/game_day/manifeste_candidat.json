@@ -1,0 +1,50 @@
+{
+  "announced_sla": {
+    "concurrency": 8,
+    "error_rate_max": 0.01,
+    "p95_ms": 200
+  },
+  "build_version": "build-ef4b168389e9",
+  "capacity_report": "game_day/rapport_capacite.json",
+  "chunking_strategy": "document-entier-r1",
+  "code_version": "b015cc240bffd8839283107d0244e8875198e516",
+  "components": {
+    "gates": {
+      "path": "configs/gates.json",
+      "sha256": "3f30ed1382d0dcf218ce8af2f2f407cd6af5b7c06e2023943ce26bf58a032f3e"
+    },
+    "index": {
+      "path": "artifacts/runtime/index.json",
+      "sha256": "f527b6d423f8e9140d58ec6f3aeb19d3c8a51b32d3946729c82a0d58a74c66f6"
+    },
+    "knowledge_manifest": {
+      "path": "..\\..\\data_pack\\2026-S1\\knowledge\\manifest.csv",
+      "sha256": "3b3dfb356eee6543bc8bbc1bf6ca55c39fce94714eef4146756be581e0fe3f5a"
+    },
+    "prompt": {
+      "path": "..\\..\\data_pack\\2026-S1\\reference_runs\\m4_for_m5\\prompts\\grounded_answer.txt",
+      "sha256": "5f66e3c2e1d2061e73bcd70db77ae6444a01f6c75f36fd19121cb9bc054f2e1d"
+    }
+  },
+  "corpus_version": "knowledge-3b3dfb356eee",
+  "date": "2026-09-07",
+  "deployment_scope": "pedagogical_preproduction_only",
+  "embedding_model": "sans objet — retrieval lexical",
+  "evaluation_version": "diagops-rag-calibration-2026-S1-r1",
+  "gate_report": "artifacts/candidates/local/gate_report.json",
+  "index_version": "lexical-dfb8faf0c9b4",
+  "model_version": "aucun — retrieval lexical deterministe",
+  "prompt_version": "prompt-5f66e3c2e1d2",
+  "recovery_objectives": {
+    "data_loss": "none",
+    "decision_s": 300,
+    "detection_s": 120,
+    "restoration_s": 600
+  },
+  "release_id": "diagops-m5-candidat-gameday-r1",
+  "runtime_images": {
+    "base": "python:3.12.11-slim-bookworm@sha256:519591d6871b7bc437060736b9f7456b8731f1499a57e22e6c285135ae657bf7",
+    "prometheus": "prom/prometheus:v3.5.0@sha256:63805ebb8d2b3920190daf1cb14a60871b16fd38bed42b857a3182bc621f4996"
+  },
+  "schema_version": 1
+}

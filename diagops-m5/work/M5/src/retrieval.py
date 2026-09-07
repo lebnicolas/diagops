@@ -13,11 +13,31 @@ from __future__ import annotations
 import hashlib
 import re
 from collections import Counter
+from pathlib import Path
 
 
 TOKEN = re.compile(r"[\wÀ-ÿ-]+", re.UNICODE)
 TOP_K = 3
 TERM_DIGEST_LENGTH = 16
+CHUNKING_STRATEGY = "document-entier-r1"
+
+
+def build_version() -> str:
+    """Empreinte de la STRATEGIE de construction, distincte du contenu indexé.
+
+    `index_version` identifie les documents ; celle-ci identifie la façon de les indexer. Les deux
+    sont nécessaires, et pour une raison démontrée le 07/09 : un index dont les postings avaient
+    été produits par une version antérieure de ce module donnait **zéro résultat à toutes les
+    requêtes**, avec un `index_version` identique — et le service se déclarait `ready`.
+
+    Une panne totale et silencieuse. C'est pourquoi l'API compare désormais cette empreinte à
+    celle de l'index servi, au lieu de se contenter de constater que des postings existent.
+    """
+    empreinte = hashlib.sha256(
+        f"{CHUNKING_STRATEGY}:{TOKEN.pattern}:{TERM_DIGEST_LENGTH}:"
+        f"{hashlib.sha256(Path(__file__).read_bytes()).hexdigest()}".encode()
+    ).hexdigest()
+    return f"build-{empreinte[:12]}"
 
 
 def term_key(token: str) -> str:

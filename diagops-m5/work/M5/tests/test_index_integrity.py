@@ -11,12 +11,13 @@ import json
 from fastapi.testclient import TestClient
 
 from src.app import app
-from src.retrieval import postings
+from src.retrieval import build_version, postings
 
 
 SAIN = {
     "index_version": "lexical-test",
     "document_count": 1,
+    "build_version": build_version(),
     "documents": [{"document_id": "DOC-1", "terms": postings("pompe pompe"), "allowed_roles": ["technicien"]}],
 }
 
@@ -72,3 +73,22 @@ def test_sans_index_configure_le_comportement_du_starter_est_conserve(monkeypatc
     monkeypatch.delenv("DIAGOPS_FAULT_FILE", raising=False)
     response = TestClient(app).get("/health/ready")
     assert response.status_code == 200
+
+
+def test_un_index_construit_par_une_autre_strategie_bloque_la_readiness(monkeypatch, tmp_path) -> None:
+    """La panne la plus silencieuse trouvée en phase 1 du brief 2.
+
+    Un index dont les postings viennent d'une version antérieure du module de retrieval passe
+    tous les autres contrôles — documents présents, comptes cohérents, postings non vides — et
+    rend **zéro résultat à chaque requête**. Le service se déclarait `ready`.
+    """
+    perime = {**SAIN, "build_version": "build-000000000000"}
+    response = client_with(monkeypatch, tmp_path, perime).get("/health/ready")
+    assert response.status_code == 503
+    assert "autre stratégie" in response.json()["detail"]
+
+
+def test_un_index_sans_build_version_bloque_la_readiness(monkeypatch, tmp_path) -> None:
+    """Un index d'un schéma antérieur ne porte pas l'empreinte : il est refusé, pas toléré."""
+    sans = {k: v for k, v in SAIN.items() if k != "build_version"}
+    assert client_with(monkeypatch, tmp_path, sans).get("/health/ready").status_code == 503

@@ -10,7 +10,7 @@ from fastapi import FastAPI, HTTPException, Request, Response
 from pydantic import BaseModel, Field
 
 from .observability import METRICS
-from .retrieval import TOP_K, rank, tokenize, visible_to
+from .retrieval import TOP_K, build_version, rank, tokenize, visible_to
 from .versioning import load_json, validate_release
 
 
@@ -61,6 +61,14 @@ def index_integrity() -> tuple[bool, str]:
         return False, "document_count incohérent avec le contenu"
     if any(not document.get("terms") for document in documents):
         return False, "index actif sans postings exploitables"
+    # Des postings PRÉSENTS ne sont pas des postings COMPATIBLES. Vérifié le 07/09 : un index
+    # construit par une version antérieure du module de retrieval passait tous les contrôles
+    # ci-dessus, se déclarait `ready`, et rendait zéro résultat à chaque requête — une panne
+    # totale et silencieuse. L'empreinte de stratégie est le seul contrôle qui l'attrape.
+    attendu = build_version()
+    servi = index.get("build_version")
+    if servi != attendu:
+        return False, f"index construit par une autre stratégie : {servi} servi, {attendu} attendu"
     return True, str(index.get("index_version", "inconnue"))
 
 

@@ -13,12 +13,11 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
-from src.retrieval import postings  # noqa: E402
+from src.retrieval import CHUNKING_STRATEGY, build_version, postings  # noqa: E402
 from src.versioning import atomic_write_json, sha256  # noqa: E402
 
 
 TOKEN = re.compile(r"[\wÀ-ÿ-]+", re.UNICODE)
-CHUNKING_STRATEGY = "document-entier-r1"
 REQUIRED_FIELDS = {
     "document_id", "revision", "asset_path", "license", "sensitivity",
     "status", "allowed_roles", "checksum_sha256",
@@ -73,12 +72,10 @@ def build_index(manifest_path: Path, documents: Path) -> dict:
     # Elle ne couvre pas la FAÇON de construire l'index : deux stratégies de tokenisation
     # différentes produisent la même valeur (vérifié le 07/09, 780 tokens contre 446).
     # `build_version` comble ce trou : elle couvre la stratégie et le code qui l'applique.
-    build_input = f"{CHUNKING_STRATEGY}:{TOKEN.pattern}:{sha256(Path(__file__))}"
-    build_fingerprint = hashlib.sha256(build_input.encode()).hexdigest()
     return {
         "schema_version": 2,
         "index_version": f"lexical-{fingerprint[:12]}",
-        "build_version": f"build-{build_fingerprint[:12]}",
+        "build_version": build_version(),
         "chunking_strategy": CHUNKING_STRATEGY,
         "manifest_sha256": sha256(manifest_path),
         "document_count": len(indexed),

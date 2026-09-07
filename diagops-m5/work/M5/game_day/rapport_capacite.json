@@ -1,0 +1,106 @@
+{
+  "url": "http://127.0.0.1:8000/search",
+  "profil": {
+    "requetes_distinctes": 12,
+    "source": "..\\..\\data_pack\\2026-S1\\rag_eval\\questions.jsonl"
+  },
+  "duree_par_palier_s": 6.0,
+  "seuil_p95_annonce_ms": 200.0,
+  "paliers": [
+    {
+      "concurrence": 1,
+      "duree_s": 5.82,
+      "requetes": 1002,
+      "debit_rps": 172.2,
+      "erreurs": 0,
+      "taux_erreur": 0.0,
+      "p50_ms": 5.95,
+      "p95_ms": 8.76,
+      "p99_ms": 10.19,
+      "max_ms": 14.03,
+      "moyenne_ms": 5.8
+    },
+    {
+      "concurrence": 2,
+      "duree_s": 5.07,
+      "requetes": 899,
+      "debit_rps": 177.5,
+      "erreurs": 0,
+      "taux_erreur": 0.0,
+      "p50_ms": 11.12,
+      "p95_ms": 16.48,
+      "p99_ms": 21.64,
+      "max_ms": 28.86,
+      "moyenne_ms": 11.24
+    },
+    {
+      "concurrence": 4,
+      "duree_s": 5.01,
+      "requetes": 746,
+      "debit_rps": 148.9,
+      "erreurs": 0,
+      "taux_erreur": 0.0,
+      "p50_ms": 25.44,
+      "p95_ms": 40.31,
+      "p99_ms": 51.45,
+      "max_ms": 57.51,
+      "moyenne_ms": 26.79
+    },
+    {
+      "concurrence": 6,
+      "duree_s": 5.04,
+      "requetes": 680,
+      "debit_rps": 134.8,
+      "erreurs": 0,
+      "taux_erreur": 0.0,
+      "p50_ms": 38.49,
+      "p95_ms": 86.95,
+      "p99_ms": 125.38,
+      "max_ms": 179.36,
+      "moyenne_ms": 44.36
+    },
+    {
+      "concurrence": 8,
+      "duree_s": 5.0,
+      "requetes": 552,
+      "debit_rps": 110.3,
+      "erreurs": 0,
+      "taux_erreur": 0.0,
+      "p50_ms": 52.46,
+      "p95_ms": 187.62,
+      "p99_ms": 277.31,
+      "max_ms": 477.71,
+      "moyenne_ms": 72.17
+    },
+    {
+      "concurrence": 12,
+      "duree_s": 5.18,
+      "requetes": 441,
+      "debit_rps": 85.1,
+      "erreurs": 0,
+      "taux_erreur": 0.0,
+      "p50_ms": 77.91,
+      "p95_ms": 489.52,
+      "p99_ms": 1487.0,
+      "max_ms": 2720.36,
+      "moyenne_ms": 139.97
+    },
+    {
+      "concurrence": 16,
+      "duree_s": 5.15,
+      "requetes": 347,
+      "debit_rps": 67.3,
+      "erreurs": 0,
+      "taux_erreur": 0.0,
+      "p50_ms": 103.0,
+      "p95_ms": 836.99,
+      "p99_ms": 1370.17,
+      "max_ms": 1742.97,
+      "moyenne_ms": 234.34
+    }
+  ],
+  "saturation": {
+    "palier": 2,
+    "motif": "le débit ne progresse plus malgré la concurrence — mise en file"
+  }
+}
