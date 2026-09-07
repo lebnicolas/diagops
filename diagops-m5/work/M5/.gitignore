@@ -7,3 +7,4 @@ artifacts/runtime/*
 !artifacts/candidates/.gitkeep
 !artifacts/history/.gitkeep
 !artifacts/runtime/.gitkeep
+backup/

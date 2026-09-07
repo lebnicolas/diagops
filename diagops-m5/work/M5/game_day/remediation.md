@@ -14,4 +14,6 @@
 | Revue humaine obligatoire sur tout document modifié | Le gate ne voit pas un changement de **sens** du corpus | Corpus | à instruire | — | **ouvert** — voir `livraison_candidate.md` |
 | Vérification périodique d'intégrité hors chemin de requête | Sans trafic, une corruption dort jusqu'au prochain healthcheck | Exploitation | à instruire | — | **ouvert** |
 | Exposer les versions en labels de métriques | Une alerte ne porte pas la version concernée | Exploitation | non retenu | — | **écarté** — cardinalité : une série nouvelle à chaque réindexation. Le runbook prescrit d'appeler `/version` à la première minute |
+| Alerte sur un taux d'abstention anormal | L'incident du 07/09 était invisible côté client : HTTP 200 + abstention systématique | Qualité | à éprouver | — | **ouvert** — le seuil figure au contrat de métriques, jamais déclenché en exercice |
+| Trancher quel emplacement d'artefacts fait foi | `work/M5/artifacts/` en local contre le volume `deploy_diagops_artifacts` en conteneur : l'historique construit sur le poste n'existait pas dans la stack | Exploitation | avant le game day | — | **ouvert** — a failli rendre la répétition irrécupérable |
 | Élucider le plafond de débit à 4 workers | c=1 tombe de 172 à 20,9 req/s, p50 fixe à 48 ms | Exploitation | à instruire | — | **ouvert** — à rejouer sur hôte Linux avec un vrai proxy |
