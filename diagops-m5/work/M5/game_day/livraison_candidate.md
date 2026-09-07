@@ -13,7 +13,7 @@ La période `2026-S2` n'étant pas publiée, le candidat est une **révision con
 | Document modifié | `DOC-PUMP-VIB-001` |
 | Révision | 1 → **2** |
 | Changement | seuil de revue humaine **4,5 → 4,0 mm/s**, et une règle de dérive lente ajoutée |
-| Nouveau checksum | `51cd42b6ea8d9f75…` |
+| Nouveau checksum | `3971c51dfcc5d5f2…` |
 
 Le changement est délibérément **sémantique** : il modifie ce que le document *affirme*, pas
 seulement sa forme. C'est le seul type de changement qui teste vraiment un gate de RAG.
@@ -23,7 +23,7 @@ seulement sa forme. C'est le seul type de changement qui teste vraiment un gate 
 | Étape | Résultat |
 |---|---|
 | **Ingestion** | `rebuild` — 1 modification, 6 inchangés, **0 conflit de révision** |
-| Index candidat | `lexical-dfb8faf0c9b4` → **`lexical-b042af1b826b`**, écrit dans `candidates/s2/` |
+| Index candidat | `lexical-dfb8faf0c9b4` → **`lexical-3a6510a3321f`**, écrit dans `candidates/s2/` |
 | **Mesure** | hit@3 = 1,00 · citations = 1,00 · restreints cités = 0 |
 | **Gate** | `passed`, 4 contrôles verts, `metrics_match_index` cohérent |
 | **Promotion** | index sain archivé, puis candidat publié |
@@ -79,6 +79,30 @@ l'avoir éprouvée en game day serait de la conception à l'aveugle.
 
 ---
 
+## Troisième constat : je suis tombé dans le piège que le dépôt documente
+
+Le candidat a d'abord été écrit avec `Path.write_text`, qui applique sous Windows la traduction
+universelle des fins de ligne : le fichier est parti en **CRLF** alors que tout le corpus de
+référence est en **LF**. Le checksum ayant été calculé sur ce même fichier, le contrat d'admission
+passait — sur ce poste, à cet instant.
+
+Au premier `git checkout`, `.gitattributes` (`* text=auto eol=lf`) aurait réécrit le fichier en
+LF. Le checksum déclaré au manifeste n'aurait plus correspondu, et **le contrat d'admission aurait
+refusé le candidat sans qu'aucune donnée n'ait été modifiée**.
+
+C'est exactement le scénario que le `.gitattributes` de ce dépôt décrit en commentaire depuis M2,
+et le quatrième écart de fins de ligne de la formation — les trois premiers venaient des outils du
+formateur, celui-ci est de mon fait.
+
+Corrigé : réécriture en LF avec `newline=""`, checksum recalculé
+(`3971c51dfcc5d5f2…`), chaîne rejouée. Le nouvel index candidat est `lexical-3a6510a3321f` — la
+valeur précédente, `lexical-b042af1b826b`, était l'empreinte d'un fichier CRLF qui n'aurait pas
+survécu au dépôt.
+
+> La leçon utile : un checksum calculé sur le fichier qu'on vient d'écrire ne prouve rien. Il
+> prouve quelque chose quand il est calculé sur le fichier tel qu'il sera **lu** — après passage
+> par git, par une image Docker, par une copie entre systèmes.
+
 ## Second défaut trouvé à l'usage : le rollback effaçait sa propre trace
 
 En enchaînant promotion puis retour, l'historique n'a gardé **qu'une version** : `rollback_index`
@@ -101,6 +125,7 @@ version fautive**. Vérifié — l'historique porte désormais `index-lexical-b0
 |---|---|
 | Index actif | `lexical-dfb8faf0c9b4` (référence) |
 | Historique | 2 versions restaurables |
+| Index candidat | `lexical-3a6510a3321f` (fichiers en LF) |
 | Candidat conservé | `artifacts/candidates/s2/` avec son rapport d'ingestion, sa mesure et son gate |
 | Corpus candidat | `candidat_corpus/`, prêt à être rejoué |
 | Tests | **61 passés** |
