@@ -92,3 +92,57 @@ def test_un_index_sans_build_version_bloque_la_readiness(monkeypatch, tmp_path) 
     """Un index d'un schéma antérieur ne porte pas l'empreinte : il est refusé, pas toléré."""
     sans = {k: v for k, v in SAIN.items() if k != "build_version"}
     assert client_with(monkeypatch, tmp_path, sans).get("/health/ready").status_code == 503
+
+
+def test_le_plan_qualite_se_degrade_pendant_que_le_service_reste_vert(monkeypatch, tmp_path) -> None:
+    """Le scénario que nos propres compteurs ne pouvaient pas produire.
+
+    Ajouté au starter par le formateur le 07/09. Trois des six scénarios de game day laissent le
+    service répondre : sans ces jauges, l'incident n'aurait pu être *signalé par l'animateur*, ce
+    que le brief 2 refuse — « l'incident est détecté par le système ».
+
+    Ces trois valeurs sont des **leviers d'injection**, pas des mesures du trafic. Nos compteurs
+    (`refusals_total`, `citations_total`) mesurent le réel ; celles-ci permettent de dégrader le
+    plan réponse à volonté.
+    """
+    faute = tmp_path / "faults.json"
+    faute.write_text(json.dumps({
+        "dependency_available": True, "index_valid": True, "readiness_delay_ms": 0,
+        "citation_resolvable_rate": 0.5, "correct_abstention_rate": 0.6,
+        "expected_document_hit_at_3": 0.7,
+    }), encoding="utf-8")
+    monkeypatch.setenv("DIAGOPS_FAULT_FILE", str(faute))
+    client = client_with(monkeypatch, tmp_path)
+    monkeypatch.setenv("DIAGOPS_FAULT_FILE", str(faute))
+
+    assert client.get("/health/ready").status_code == 200
+    corps = client.get("/metrics").text
+    assert "diagops_ready 1" in corps
+    assert "diagops_index_valid 1" in corps
+    assert "diagops_citation_resolvable_rate 0.5" in corps
+    assert "diagops_correct_abstention_rate 0.6" in corps
+    assert "diagops_expected_document_hit_at_3 0.7" in corps
+
+
+def test_une_release_incompatible_n_est_pas_un_index_incoherent(monkeypatch, tmp_path) -> None:
+    """Deux causes voisines, deux remédiations : la signature les distingue.
+
+    `diagops_ready = 0` avec `diagops_index_valid = 1` désigne la configuration de release.
+    L'inverse désignerait l'index. Sans cette distinction, le diagnostic part dans la mauvaise
+    direction — et sous incident, une minute perdue à restaurer le mauvais artefact compte.
+    """
+    faute = tmp_path / "faults.json"
+    faute.write_text(json.dumps({
+        "dependency_available": True, "index_valid": True,
+        "readiness_delay_ms": 0, "release_valid": False,
+    }), encoding="utf-8")
+    monkeypatch.setenv("DIAGOPS_FAULT_FILE", str(faute))
+    client = client_with(monkeypatch, tmp_path)
+    monkeypatch.setenv("DIAGOPS_FAULT_FILE", str(faute))
+
+    assert client.get("/health/live").status_code == 200
+    assert client.get("/health/ready").status_code == 503
+    corps = client.get("/metrics").text
+    assert "diagops_ready 0" in corps
+    assert "diagops_dependency_up 1" in corps
+    assert "diagops_index_valid 1" in corps

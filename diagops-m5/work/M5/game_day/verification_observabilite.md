@@ -14,6 +14,13 @@
 | 5 | Configuration incompatible | readiness 503, gate `failed` | **oui**, corrigé ce jour | 3 s |
 | 6 | Alerte manquante ou trop bruyante | *méta-scénario* | **c'est ce document** | — |
 
+Deux scénarios s'ajoutent depuis la mise à jour du starter du 07/09 à 10h11 :
+
+| # | Scénario | Signal attendu | Vérifié | Délai de détection |
+|---:|---|---|---|---|
+| 7 | **Dégradation du plan réponse seul**, service intact | les trois jauges de qualité tombent, tout le reste reste vert | **oui** | 15 s |
+| 8 | **Configuration de release incompatible** | `ready = 0` **avec** `index_valid = 1` | **oui** | immédiat |
+
 ---
 
 ## Trou n°1 — trouvé et corrigé : l'index périmé, panne totale et silencieuse
@@ -48,6 +55,61 @@ Deux tests figent le comportement (`build_version` divergent, `build_version` ab
 d'*attribution* — savoir avec quelle stratégie un index avait été construit. Elle vient de servir
 à autre chose : détecter une panne. Une donnée de traçabilité qui devient un contrôle
 d'exploitation, c'est exactement ce que le module demande de construire.
+
+---
+
+## Mise à jour du 07/09, 10h11 — le formateur comble le trou du plan réponse
+
+Un commit du dépôt pédagogique ajoute au starter trois jauges du plan réponse
+(`diagops_citation_resolvable_rate`, `diagops_correct_abstention_rate`,
+`diagops_expected_document_hit_at_3`) et un champ de défaut `release_valid`.
+
+Son message de commit dit exactement ce que cette vérification avait constaté de son côté :
+
+> « Trois des six scénarios de game day laissent le service répondre : sans compteurs du plan
+> réponse, l'incident ne pouvait pas être détecté par le système, seulement signalé par
+> l'animateur, ce que le brief 2 refuse explicitement. »
+
+**Ce que ça change concrètement.** Le scénario que la répétition à blanc avait révélé comme
+indétectable — un service qui répond `200` en étant inutile — devient injectable et donc
+observable. Vérifié en conteneur :
+
+| | Avant injection | Après injection |
+|---|---|---|
+| `/health/ready` | 200 | **200** |
+| `diagops_ready` · `index_valid` · `dependency_up` | 1 · 1 · 1 | **1 · 1 · 1** |
+| `citation_resolvable_rate` | 1,0 | **0,5** |
+| `correct_abstention_rate` | 1,0 | **0,6** |
+| `expected_document_hit_at_3` | 1,0 | **0,7** |
+| `POST /search` | 3 citations | **3 citations** |
+| Conteneur | `healthy` | **`healthy`** |
+
+**Le plan service est intégralement vert pendant que le plan réponse s'effondre.** C'est la panne
+que ce document décrivait comme invisible ; elle a maintenant trois signaux.
+
+### Deux signatures à ne pas confondre
+
+`release_valid: false` produit une signature distincte de celle d'un index cassé :
+
+| Signature | Cause désignée | Vérifié |
+|---|---|---|
+| `ready = 0` **et** `index_valid = 1` | configuration de release | 503 « Configuration de release incompatible » |
+| `ready = 1` **et** `index_valid = 0` | index incohérent | 503 « index actif sans postings exploitables » |
+
+Deux causes voisines, deux remédiations différentes. Sous incident, une minute perdue à restaurer
+le mauvais artefact compte — c'est le genre de distinction qui se lit en trois secondes quand elle
+est écrite d'avance, et qui coûte dix minutes quand elle ne l'est pas.
+
+### Ces jauges ne sont pas des mesures
+
+Point à tenir clair pour la défense : elles sont **pilotées par `faults.json`** et valent `1.0`
+par défaut. Ce sont des **leviers d'injection**, exactement comme `diagops_index_valid` l'était
+avant le correctif du bloc 2.
+
+La différence est que c'est ici **assumé et documenté** : nos compteurs (`refusals_total`,
+`citations_total`, `restricted_citations_total`) mesurent le trafic réel ; ces jauges permettent
+de simuler une dégradation que le trafic ne produirait pas spontanément. Les deux familles se
+complètent, et le contrat de métriques distingue les unes des autres.
 
 ---
 
@@ -136,7 +198,8 @@ le runbook indique d'appeler `/version` à la première minute d'un incident.
 
 ## Bilan pour la phase 2
 
-**Prêt** : scénarios 1, 2, 4, 5 — chacun produit un signal attribuable et daté.
+**Prêt** : scénarios 1, 2, 4, 5, plus la dégradation du plan réponse seul et la release
+incompatible — chacun produit un signal attribuable et daté.
 
 **À garder en tête pendant l'incident** :
 - le scénario 3 sera un signal **simulé**, pas observé ;
@@ -144,4 +207,7 @@ le runbook indique d'appeler `/version` à la première minute d'un incident.
   (zéro erreur sur tous les paliers de charge) ;
 - `citations{resolvable="false"}` ne se déclenchera pas, quoi qu'il arrive ;
 - si le service répond `200` mais que les réponses sont vides, regarder `build_version` **avant**
-  toute autre hypothèse.
+  toute autre hypothèse ;
+- si le plan service est **entièrement vert**, regarder les trois jauges du plan réponse : c'est
+  désormais un scénario injectable, et c'est celui qu'aucun tableau de bord de disponibilité ne
+  montre.

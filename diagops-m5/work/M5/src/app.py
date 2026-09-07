@@ -138,6 +138,11 @@ def ready() -> dict[str, str]:
         time.sleep(delay_ms / 1000)
     if fault.get("dependency_available") is False or fault.get("index_valid") is False:
         raise HTTPException(status_code=503, detail="Incident de laboratoire actif")
+    # Ajouté par le formateur le 07/09 : une release incompatible n'est pas un index incohérent.
+    # La distinction se lit dans les métriques — `diagops_ready = 0` avec `index_valid = 1`,
+    # et non l'inverse. Deux causes voisines, deux remédiations différentes.
+    if fault.get("release_valid") is False:
+        raise HTTPException(status_code=503, detail="Configuration de release incompatible")
     valid, detail = index_integrity()
     if not valid:
         raise HTTPException(status_code=503, detail=detail)
@@ -251,6 +256,14 @@ METRIC_HELP = {
     "diagops_refusals_total": ("counter", "Refusals to answer, by reason."),
     "diagops_citations_total": ("counter", "Citations emitted, by resolvability."),
     "diagops_restricted_citations_total": ("counter", "Restricted documents cited to an unauthorised role."),
+    # Trois jauges du plan réponse, ajoutées au starter par le formateur le 07/09. Elles sont
+    # pilotées par `faults.json` : ce sont des LEVIERS D'INJECTION, pas des mesures du trafic.
+    # Nos compteurs (`refusals_total`, `citations_total`) mesurent le trafic réel ; celles-ci
+    # permettent à un animateur de dégrader le plan réponse pendant que le plan service reste
+    # vert — le scénario qu'aucun de nos compteurs ne pouvait produire.
+    "diagops_citation_resolvable_rate": ("gauge", "Share of answer citations resolving to an indexed document."),
+    "diagops_correct_abstention_rate": ("gauge", "Share of unsupported questions correctly refused."),
+    "diagops_expected_document_hit_at_3": ("gauge", "Share of questions whose expected document ranks in the top 3."),
 }
 
 
@@ -267,11 +280,17 @@ def metrics() -> Response:
     # la faire remonter à vert. Une panne réelle est visible même sans injection de faute.
     observed_valid, _ = index_integrity()
     index_valid = int(observed_valid and fault.get("index_valid", True))
+    if fault.get("release_valid") is False:
+        ready_value = 0
 
     index = active_index()
     METRICS.set_gauge("diagops_ready", ready_value)
     METRICS.set_gauge("diagops_dependency_up", dependency_up)
     METRICS.set_gauge("diagops_index_valid", index_valid)
     METRICS.set_gauge("diagops_index_documents", float((index or {}).get("document_count", 0)))
+    # 1.0 par défaut : en l'absence d'injection, le plan réponse est réputé sain. C'est une
+    # convention du starter, pas une mesure — le contrat de métriques le dit explicitement.
+    for nom in ("citation_resolvable_rate", "correct_abstention_rate", "expected_document_hit_at_3"):
+        METRICS.set_gauge(f"diagops_{nom}", float(fault.get(nom, 1.0)))
 
     return Response(content=METRICS.render(METRIC_HELP), media_type="text/plain; version=0.0.4")

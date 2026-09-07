@@ -45,12 +45,39 @@ destinataire, action.
 | `diagops_restricted_citations_total` | counter | 15 s | **> 0, immédiat** | Responsable sécurité | Un document restreint a été cité hors rôle. Incident de sécurité, pas de qualité |
 | `diagops_search_errors_total` | counter | 15 s | > 0 sur 5 min | Astreinte exploitation | Aucun index actif servi |
 
+## Plan réponse — les trois jauges du starter
+
+Ajoutées au starter par le formateur le **07/09**. Ce sont des **leviers d'injection**, pas des
+mesures du trafic : elles valent `1.0` tant que `faults.json` ne les abaisse pas. Leur raison
+d'être est écrite dans son message de commit — trois des six scénarios de game day laissent le
+service répondre, et sans elles l'incident ne pouvait être *signalé par l'animateur* plutôt que
+*détecté par le système*, ce que le brief 2 refuse.
+
+| Métrique | Type | Fréquence | Seuil d'alerte | Responsable | Action attendue |
+|---|---|---|---|---|---|
+| `diagops_expected_document_hit_at_3` | gauge *(injectée)* | 15 s | **< 0,8** | Responsable corpus | Seuil du gate de livraison. En dessous, le retrieval ne ramène plus la preuve attendue : rollback d'index |
+| `diagops_citation_resolvable_rate` | gauge *(injectée)* | 15 s | **< 1,0** | Astreinte exploitation | Une seule citation non résoluble suffit : le service cite ce qu'il ne peut pas montrer. Rollback |
+| `diagops_correct_abstention_rate` | gauge *(injectée)* | 15 s | **< 1,0** | Responsable qualité | Le service répond là où il devrait s'abstenir — **plus grave que l'inverse** : une réponse infondée est plus coûteuse qu'un refus |
+
+Les trois seuils reprennent ceux de `configs/gates.json` : ce qui bloque une livraison doit
+déclencher une alerte en exploitation. Un système qui refuse de promouvoir sous 0,8 de hit@3 mais
+qui l'accepte en service se contredit.
+
+> **Signature à connaître avant l'incident** : `diagops_ready = 0` **avec** `index_valid = 1`
+> désigne la configuration de release. L'inverse désigne l'index. Deux causes voisines, deux
+> remédiations — et sous incident, une minute perdue à restaurer le mauvais artefact compte.
+
 ## Ce qui n'est pas mesuré, et pourquoi
 
 **Revue humaine et coût** : le brief les cite au plan réponse. Aucun des deux n'a d'objet ici —
 il n'y a ni boucle de validation humaine (elle arrive en M6) ni appel facturé (le retrieval est
 local et déterministe). Les compter à zéro donnerait deux courbes plates qu'on finirait par ne
 plus regarder.
+
+**La justesse réelle du plan réponse** : les trois jauges ci-dessus sont *injectées*, pas
+mesurées. Ce qui est réellement mesuré sur le trafic, ce sont nos compteurs — `refusals_total`,
+`citations_total`, `restricted_citations_total`. Les deux familles se complètent : les compteurs
+disent ce qui se passe, les jauges permettent de simuler ce qui pourrait se passer.
 
 **Validation de schéma** : la réponse est produite par un modèle Pydantic, donc conforme au
 contrat `DiagOpsGroundedAnswer` par construction. Une entrée malformée est rejetée en 422 et
