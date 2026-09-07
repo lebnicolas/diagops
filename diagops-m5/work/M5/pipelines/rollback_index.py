@@ -12,6 +12,7 @@ corrompue restaurée sous incident transforme une panne en deux pannes.
 from __future__ import annotations
 
 import argparse
+import shutil
 import sys
 from pathlib import Path
 
@@ -41,7 +42,19 @@ def rollback_index(active: Path, history: Path, index_version: str) -> dict:
     if index.get("document_count") != len(documents):
         raise SystemExit(f"Archive incohérente : {archive.name}.")
 
-    replaced = load_json(active).get("index_version") if active.is_file() else None
+    replaced = None
+    if active.is_file():
+        courant = load_json(active)
+        replaced = str(courant.get("index_version", "inconnue"))
+        # Archiver AVANT de restaurer, y compris — et surtout — une version fautive.
+        # Constaté le 07/09 en enchaînant une promotion et un retour : le rollback écrasait la
+        # version qu'il remplaçait sans en garder trace. Deux conséquences, chacune suffisante :
+        # on ne peut plus revenir sur un rollback pris à tort, et le post-incident perd la pièce
+        # à conviction. Le brief 2 l'exige d'ailleurs — « n'efface ni traces ni état initial ».
+        archive = history / f"index-{replaced}.json"
+        if not archive.exists():
+            shutil.copy2(active, archive)
+
     atomic_write_json(active, index)
     return {"restored": str(index.get("index_version")), "replaced": replaced}
 
