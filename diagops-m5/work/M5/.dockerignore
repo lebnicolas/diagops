@@ -1,0 +1,24 @@
+# Le Dockerfile fait `COPY . .` depuis work/M5 : sans exclusion, l'image embarque l'environnement
+# virtuel local, les artefacts de run et les caches. Trois raisons de les tenir dehors — la taille,
+# la reproductibilité (des binaires compilés pour Windows n'ont rien à faire dans une image Linux),
+# et la surface : ce qui n'est pas dans l'image ne peut pas fuir avec elle.
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Artefacts de run : reconstruits par la stack, jamais hérités d'un poste
+artifacts/
+
+# Rien de tout cela n'est nécessaire à l'exécution
+tests/
+docs/
+game_day/
+monitoring/
+journal_bord.md
+README.md
+.git/
+.gitignore
+.DS_Store

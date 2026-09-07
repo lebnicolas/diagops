@@ -1,0 +1,166 @@
+# Stack M5 — quatre responsabilités séparées : construire, valider, servir, observer.
+#
+# Le compose livré enchaînait `indexer` puis `api` : l'index fraîchement construit était servi
+# sans qu'aucune évaluation ne l'ait regardé. C'est exactement le piège « reconstruire l'index
+# directement en production » de la liste À éviter. Le service `gate` s'intercale : il mesure le
+# candidat, applique les seuils, et ne publie l'index actif QUE s'il passe. L'API démarre après
+# lui — un index recalé ne devient jamais l'index servi.
+
+x-python-service: &python-service
+  build:
+    context: ..
+    dockerfile: deploy/Dockerfile
+  read_only: true
+  # Racine en lecture seule : seuls le volume d'artefacts et un /tmp éphémère sont inscriptibles.
+  tmpfs:
+    - /tmp:size=64m
+  security_opt:
+    - no-new-privileges:true
+  cap_drop:
+    - ALL
+
+services:
+  # 1. Ingérer — valider l'admission, comparer à l'index servi, ne bâtir que s'il y a lieu
+  indexer:
+    <<: *python-service
+    command:
+      - python
+      - pipelines/ingest.py
+      - --manifest
+      - /data_pack/2026-S1/knowledge/manifest.csv
+      - --documents
+      - /data_pack/2026-S1/knowledge/documents
+      - --active
+      - /artifacts/runtime/index.json
+      - --output
+      - /artifacts/candidates/compose/index.json
+      - --report
+      - /artifacts/candidates/compose/ingest_report.json
+    volumes:
+      - ../../../data_pack:/data_pack:ro
+      - diagops_artifacts:/artifacts
+    restart: "no"
+    stop_grace_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+
+  # 2. Valider — mesure le candidat, applique les seuils, publie seulement si le gate passe
+  gate:
+    <<: *python-service
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -e
+        # Rien n'a changé : on ne réévalue pas, et surtout on ne touche pas au chemin actif.
+        # Réévaluer à corpus constant reviendrait à republier un index pour rien, et à donner
+        # une occasion d'échouer à une chaîne qui n'avait aucune raison de tourner.
+        if grep -q '"decision": "unchanged"' /artifacts/candidates/compose/ingest_report.json; then
+          echo "Ingestion inchangee : l'index actif est conserve, aucune reevaluation."
+          exit 0
+        fi
+        python pipelines/measure_release.py \
+          --index /artifacts/candidates/compose/index.json \
+          --questions /data_pack/2026-S1/rag_eval/questions.jsonl \
+          --inherit-abstention-from /data_pack/2026-S1/reference_runs/m4_for_m5/evaluation/metrics_calibration.json \
+          --output /artifacts/candidates/compose/metrics.json
+        python pipelines/evaluate_release.py \
+          --index /artifacts/candidates/compose/index.json \
+          --metrics /artifacts/candidates/compose/metrics.json \
+          --gates configs/gates.json \
+          --output /artifacts/candidates/compose/gate_report.json
+        mkdir -p /artifacts/runtime
+        cp /artifacts/candidates/compose/index.json /artifacts/runtime/index.json
+        echo "Index publie : le gate est passe."
+    volumes:
+      - ../../../data_pack:/data_pack:ro
+      - diagops_artifacts:/artifacts
+    depends_on:
+      indexer:
+        condition: service_completed_successfully
+    restart: "no"
+    stop_grace_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+
+  # 3. Servir — ne démarre qu'après un gate réussi, et ne sert que l'index publié
+  api:
+    <<: *python-service
+    environment:
+      DIAGOPS_REFERENCE_MANIFEST: /data_pack/2026-S1/reference_runs/m4_for_m5/release_manifest.json
+      DIAGOPS_ACTIVE_INDEX: /workspace/module/artifacts/runtime/index.json
+      DIAGOPS_FAULT_FILE: /workspace/module/artifacts/runtime/faults.json
+    command:
+      - uvicorn
+      - src.app:app
+      - --host
+      - 0.0.0.0
+      - --port
+      - "8000"
+      - --timeout-keep-alive
+      - "10"
+      - --timeout-graceful-shutdown
+      - "10"
+    ports:
+      - "8000:8000"
+    volumes:
+      - ../../../data_pack:/data_pack:ro
+      - diagops_artifacts:/workspace/module/artifacts
+    depends_on:
+      gate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=3)"]
+      interval: 10s
+      timeout: 3s
+      retries: 5
+      start_period: 15s
+    stop_grace_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 1G
+        reservations:
+          memory: 256M
+
+  # 4. Observer
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.retention.time=7d"
+      # kingpin n'accepte pas `--flag=false` sur un booléen : la forme négative est `--no-<flag>`.
+      # Le rechargement à chaud est déjà désactivé par défaut, on le rend explicite.
+      - "--no-web.enable-lifecycle"
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - diagops_prometheus:/prometheus
+    depends_on:
+      api:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:9090/-/healthy"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+
+volumes:
+  diagops_artifacts:
+  diagops_prometheus:

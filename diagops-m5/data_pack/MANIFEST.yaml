@@ -1,0 +1,254 @@
+name: diagops_data_pack
+status: ready_for_distribution
+distribution: learner_pack
+generation_scripts_distributed: false
+synthetic_data: true
+current_release: diagops-2026-S1-m5-v1
+
+periods:
+  - id: "2026-S1"
+    module_min: "M0"
+    description: "Periode initiale mise a disposition progressivement."
+  - id: "2026-S2"
+    module_min: "M5"
+    description: "Periode supplementaire pour evaluation operationnelle."
+  - id: "2027-S1"
+    module_min: "M6"
+    description: "Periode supplementaire pour boucle de feedback."
+
+files:
+  - path: "2026-S1/reports/reports.jsonl"
+    entity: "reports"
+    module_min: "M0"
+    required: true
+    expected_rows: 40
+    delivery_status: ready_for_distribution
+    quality_review: schema_rules_and_semantic_scenario_review_v2
+    scope: "M0 reports only; M1 evaluation inputs are released with annotations."
+
+  - path: "2026-S1/annotations/diagops_train.jsonl"
+    entity: "annotated_diagnostics"
+    module_min: "M1"
+    required: true
+    expected_rows: 400
+    delivery_status: ready_for_distribution
+    quality_review: schema_rules_and_semantic_scenario_review_v2
+
+  - path: "2026-S1/annotations/diagops_test.jsonl"
+    entity: "annotated_diagnostics"
+    module_min: "M1"
+    required: true
+    expected_rows: 100
+    delivery_status: ready_for_distribution
+    quality_review: schema_rules_and_semantic_scenario_review_v2
+    semantic_holdout: true
+
+  - path: "2026-S1/equipment/equipment.csv"
+    entity: "equipment"
+    module_min: "M2"
+    required: true
+    expected_rows: 420
+    delivery_status: ready_for_distribution
+    quality_review: schema_semantic_and_pedagogical_anomaly_review_v1
+
+  - path: "2026-S1/sensors/sensor_readings.csv"
+    entity: "sensors"
+    module_min: "M3"
+    required: true
+    expected_rows: 50401
+    delivery_status: ready_for_distribution
+    quality_review: timeseries_schema_and_pedagogical_anomaly_review_v1
+    nominal_step_hours: 6
+    instrumented_equipment: 36
+    scope: "M3 sensor series; partial park coverage is intentional."
+
+  - path: "2026-S1/sensors_control/"
+    entity: "sensors_control"
+    module_min: "M3"
+    required: true
+    expected_rows: 6720
+    delivery_status: ready_for_distribution
+    quality_review: control_lot_family_separation_and_trainer_oracle_v1
+    release_id: diagops-2026-S1-m3-control-r1
+    generation_seed: 20260825
+    scope: "M3 brief 2 control lot: mixed authentic and fabricated sensor rows; the fabricated share and the procedures are not disclosed."
+
+  - path: "2026-S1/model_eval/sensor_calibration.csv"
+    entity: "m4_sensor_model_calibration"
+    module_min: "M4"
+    required: true
+    expected_rows: 900
+    delivery_status: ready_for_distribution
+    quality_review: grouped_window_labels_and_m3_disjointness_review_v1
+    generation_seed: 20260831
+    scope: "Labelled calibration windows for the M4 provenance target; never evidence of a future equipment failure."
+
+  - path: "2026-S1/model_eval/sensor_test.csv"
+    entity: "m4_sensor_model_test"
+    module_min: "M4"
+    required: true
+    expected_rows: 1800
+    delivery_status: ready_for_distribution
+    quality_review: sealed_oracle_grouped_window_and_m3_disjointness_review_v1
+    generation_seed: 20260831
+    semantic_holdout: true
+    scope: "Unlabelled M4 test windows; the trainer oracle remains outside the learner repository."
+
+  - path: "2026-S1/knowledge/manifest.csv"
+    entity: "knowledge_documents"
+    module_min: "M4"
+    required: true
+    delivery_status: ready_for_distribution
+    expected_rows: 8
+    quality_review: manifest_rights_revision_sensitivity_and_checksum_review_v1
+    scope: "Versioned maintenance manuals and procedures used by the M4-M8 RAG trajectory; rights, sensitivity and checksums are mandatory."
+
+  - path: "2026-S1/knowledge/documents/"
+    entity: "knowledge_document_files"
+    module_min: "M4"
+    required: true
+    delivery_status: ready_for_distribution
+    expected_files: 8
+    quality_review: synthetic_procedure_scope_and_revision_conflict_review_v1
+    scope: "Unstructured corpus referenced by the knowledge manifest."
+
+  - path: "2026-S1/rag_eval/questions.jsonl"
+    entity: "rag_evaluation_questions"
+    module_min: "M4"
+    required: true
+    delivery_status: ready_for_distribution
+    expected_rows: 24
+    quality_review: rag_answerability_citation_role_and_sealed_test_review_v1
+    semantic_holdout: true
+    scope: "Frozen questions, expected evidence and answerability labels for retrieval and grounded-generation evaluation."
+
+  - path: "2026-S1/maintenance/maintenance_history.csv"
+    entity: "maintenance_history"
+    module_min: "M2"
+    required: true
+    expected_rows: 1800
+    delivery_status: ready_for_distribution
+    quality_review: schema_semantic_and_pedagogical_anomaly_review_v1
+
+  - path: "2026-S1/events/events.csv"
+    entity: "events"
+    module_min: "M2"
+    required: true
+    expected_rows: 520
+    delivery_status: ready_for_distribution
+    quality_review: schema_semantic_and_pedagogical_anomaly_review_v1
+
+  - path: "2026-S1/reference_runs/m1_for_m2/"
+    entity: "m1_reference_run"
+    module_min: "M2"
+    required: true
+    delivery_status: ready_for_distribution
+    quality_review: continuity_pack_checksums_and_scope_review_v1
+    scope: "Common M1 reference used to start M2 independently of personal M1 completion."
+
+  - path: "2026-S1/reference_runs/m2_for_m3/"
+    entity: "m2_reference_preparation"
+    module_min: "M3"
+    required: true
+    delivery_status: ready_for_distribution
+    quality_review: continuity_pack_checksums_and_scope_review_v1
+    scope: "Common M2 prepared tables, quarantine and rule registry used to start M3 independently of personal M2 completion."
+
+  - path: "2026-S1/reference_runs/m3_for_m4/"
+    entity: "m3_reference_transmission"
+    module_min: "M4"
+    required: true
+    delivery_status: ready_for_distribution
+    quality_review: continuity_baseline_replay_and_checksums_review_v1
+    scope: "Common M3 pipeline, rule baseline, provenance and risk state used to start M4 independently."
+
+  - path: "2026-S1/reference_runs/m4_for_m5/"
+    entity: "m4_reference_rag"
+    module_min: "M5"
+    required: true
+    delivery_status: ready_for_distribution
+    quality_review: continuity_rag_release_checksums_and_calibration_replay_v1
+    release_id: diagops-m4-reference-r1
+    scope: "Frozen M4 retrieval, model and agent baseline used for deployment and monitoring."
+
+  - path: "2026-S1/reference_runs/m5_for_m6/"
+    entity: "m5_reference_deployment"
+    module_min: "M6"
+    required: true
+    delivery_status: planned
+    scope: "Deployable and observable M5 stack used to introduce tools and feedback."
+
+  - path: "2026-S1/reference_runs/m6_for_m7/"
+    entity: "m6_reference_agent"
+    module_min: "M7"
+    required: true
+    delivery_status: planned
+    scope: "Bounded read-only agent, traces and evaluation results used for architecture review."
+
+  - path: "2026-S1/reference_runs/m7_for_m8/"
+    entity: "m7_reference_architecture"
+    module_min: "M8"
+    required: true
+    delivery_status: planned
+    scope: "Reviewed architecture, threat model and decision records used as a comparison point for the M8 capstone."
+
+  - path: "2026-S1/m2_candidate_release/"
+    entity: "m2_candidate_release"
+    module_min: "M2"
+    required: false
+    delivery_status: ready_for_distribution
+    quality_review: controlled_candidate_release_and_trainer_oracle_v1
+    release_id: diagops-2026-S1-m2-candidate-r2
+    scope: "Optional 14-hour M2 extension: qualify a new delivery without opening M3 sensor data."
+
+  - path: "2026-S2/sensors/sensor_readings.csv"
+    entity: "sensors"
+    module_min: "M5"
+    required: false
+    delivery_status: planned
+    scope: "Optional M5 capacity and drift extension; not required to open M5."
+
+  - path: "2026-S2/events/events.csv"
+    entity: "events"
+    module_min: "M5"
+    required: false
+    delivery_status: planned
+    scope: "Optional M5 capacity and drift extension; not required to open M5."
+
+  - path: "2027-S1/reports/reports.jsonl"
+    entity: "reports"
+    module_min: "M6"
+    required: true
+
+  - path: "2027-S1/feedback/feedback.csv"
+    entity: "feedback"
+    module_min: "M6"
+    required: true
+
+  - path: "images/manifest.csv"
+    entity: "images"
+    module_min: "M7"
+    required: true
+    source: "external_corpus_to_be_selected"
+
+integrity:
+  checksums_file: "checksums.sha256"
+  freeze_required_before_distribution: true
+
+notes:
+  - "The learner pack contains data only, not generation scripts."
+  - "No anonymized exercise output is distributed."
+  - "The M1 annotated subset is an input dataset, not a correction key."
+  - "M2 opens equipment, events and maintenance history; sensors remain closed until M3."
+  - "M3 opens the 2026-S1 sensor series; the instrumented park is a deliberate subset of equipment.csv."
+  - "The sensor table has no declared row identifier: the logical key must be rebuilt during M3."
+  - "The M2 to M3 reference preparation is a starting point, not a correction of the M2 brief."
+  - "M2 tables intentionally contain controlled pedagogical anomalies documented only in the trainer area."
+  - "The optional M2 candidate release is intentionally unqualified; its presence does not authorize integration into the published tables."
+  - "The M3 control lot mixes authentic and fabricated sensor rows; its oracle stays in the trainer area and its fabricated share is never published."
+  - "In the control lot, an authentic row may be anomalous: the reference detector flags data quality, not fabrication."
+  - "From M3 onwards, a transmitted measurement table declares provenance and procedure_id as described in SCHEMA.md."
+  - "The M4-M8 RAG trajectory requires a versioned unstructured corpus; structured operational data remains accessible through typed queries or tools."
+  - "The M4 sensor calibration and test sets are grouped by window_id and disjoint from the M3 control lots."
+  - "M4 test labels, RAG test labels and the brief 2 challenge release remain in the trainer-only area until the documented gates."
+  - "Planned files and reference runs are contracts for future module opening, not evidence that the assets are already distributed."
