@@ -23,6 +23,12 @@
 *.yaml  text eol=lf
 *.yml   text eol=lf
 
+# Artefacts de modele : `text=auto` les detecte deja comme binaires par heuristique, mais
+# l'heuristique n'est pas un contrat. Le checksum du .joblib est verifie au demarrage du
+# service de scoring — une conversion de fins de ligne le ferait echouer sans qu'aucune
+# donnee ait ete modifiee, exactement le scenario decrit plus haut.
+*.joblib binary
+
 *.pdf  binary
 *.png  binary
 *.jpg  binary

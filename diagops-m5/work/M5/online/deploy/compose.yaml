@@ -1,0 +1,70 @@
+# Stack du service de scoring — deux responsabilités : servir, observer.
+#
+# Plus simple que la stack RAG, et pour une raison de fond : il n'y a pas d'index à construire ni
+# à publier. L'artefact est figé dans l'image, donc le cycle de vie du modèle EST celui de
+# l'image. Le rollback consiste à redéployer un digest antérieur — pas à restaurer un fichier.
+
+services:
+  scoring:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    read_only: true
+    tmpfs:
+      - /tmp:size=64m
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    environment:
+      DIAGOPS_FAULT_FILE: /workspace/online/artifacts/faults.json
+    ports:
+      - "8100:8000"
+    healthcheck:
+      # `ready` et non `live` : le service ne doit être déclaré sain que si le modèle est chargé,
+      # identifié par son checksum et exécuté sous la version de scikit-learn du gel.
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/health/ready', timeout=3)"]
+      interval: 10s
+      timeout: 3s
+      retries: 2
+      start_period: 20s
+    stop_grace_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: "2.0"
+          memory: 1G
+        reservations:
+          memory: 256M
+
+  prometheus:
+    image: prom/prometheus:v3.5.0
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.retention.time=7d"
+      - "--no-web.enable-lifecycle"
+    ports:
+      - "9190:9090"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - scoring_prometheus:/prometheus
+    depends_on:
+      scoring:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://127.0.0.1:9090/-/healthy"]
+      interval: 15s
+      timeout: 3s
+      retries: 5
+      start_period: 10s
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 15s
+    deploy:
+      resources:
+        limits:
+          cpus: "1.0"
+          memory: 512M
+
+volumes:
+  scoring_prometheus:

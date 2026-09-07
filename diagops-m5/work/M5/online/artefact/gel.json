@@ -1,0 +1,81 @@
+{
+  "date_de_gel": "2026-08-31T07:14:04+00:00",
+  "commit": "a63e45d",
+  "candidat": "regression_logistique",
+  "seuil_de_decision": 0.5,
+  "graine": 20260831,
+  "features": [
+    "coefficient_variation",
+    "etendue_relative",
+    "ecart_type_differences_relatif",
+    "autocorr_lag1",
+    "autocorr_lag2",
+    "autocorr_lag4",
+    "part_changements_de_signe",
+    "asymetrie",
+    "aplatissement",
+    "part_valeurs_distinctes",
+    "plus_longue_repetition",
+    "part_pas_non_nominal",
+    "ecart_type_pas",
+    "part_hors_grille",
+    "part_manquantes",
+    "part_sentinelles",
+    "part_hors_plage",
+    "part_precision_excessive",
+    "unite_conforme"
+  ],
+  "ajuste_sur": {
+    "fenetres": 30,
+    "fabriquees": 11,
+    "lignes": 900
+  },
+  "performance_attendue_calibration": {
+    "source": "results/modele/modele.json — F1 hors pli, 5 partitions",
+    "f1_moyen": 0.694,
+    "f1_ecart_type": 0.0684,
+    "f1_min": 0.6,
+    "f1_max": 0.8,
+    "precision": 0.7,
+    "rappel": 0.636,
+    "roc_auc": 0.737
+  },
+  "baseline_m3": {
+    "n": 30,
+    "vrai_positif": 3,
+    "faux_positif": 2,
+    "faux_negatif": 8,
+    "vrai_negatif": 17,
+    "precision": 0.6,
+    "rappel": 0.272727,
+    "f1": 0.375,
+    "exactitude": 0.666667
+  },
+  "test": {
+    "fichier": "..\\..\\data_pack\\2026-S1\\model_eval\\sensor_test.csv",
+    "empreinte": "d5f5ba463477c77bfa7bb281d8735ab47524fcf3f5da31ce6af6028e32776907",
+    "lignes": 1800,
+    "fenetres": 60,
+    "colonne_provenance_absente": true,
+    "repartition_predictions": {
+      "réelle": 43,
+      "fabriquée": 17
+    }
+  },
+  "empreintes_entrees": {
+    "sensor_calibration.csv": "b1321432cc28b446be1df1565ea669b4d59250e5bcea14f880efac222c7cacd9",
+    "sensor_test.csv": "d5f5ba463477c77bfa7bb281d8735ab47524fcf3f5da31ce6af6028e32776907",
+    "baseline_predictions_calibration.csv": "37c6179518d456508074149f48142212ff606e12e0afcc5e3ad297a96807dda3",
+    "baseline_metrics_calibration.json": "ada3c73a1f80563f79cf145c2ada5ce40dfe30c56b06d4aa6d76cc31c44930a3",
+    "baseline_rules.py": "dd87b8b506fdbe91bcef42315c9de92bfc09ff617d92db70de2166053d93ef59"
+  },
+  "empreinte_modele": "164d05b129ce5e4107cdc27279bc198cc6203017b2f8838768119219c352a68c",
+  "environnement": {
+    "python": "3.12.10",
+    "plateforme": "Windows-11-10.0.26200-SP0",
+    "numpy": "2.3.2",
+    "pandas": "2.3.1",
+    "scikit_learn": "1.7.1"
+  },
+  "regle_de_changement": "Toute modification des features, du seuil, du modèle, de la partition ou de la graine impose un nouveau gel et interdit la comparaison au résultat de celui-ci."
+}
