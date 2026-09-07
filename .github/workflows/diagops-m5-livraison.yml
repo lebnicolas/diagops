@@ -1,0 +1,153 @@
+# Chaîne de livraison M5 — l'évaluation est un gate, pas un rapport qu'on lit après coup.
+#
+# Le brief liste sept contrôles minimaux. Chacun est un job ou une étape nommée ci-dessous, et
+# aucun n'est en `continue-on-error` : un contrôle qui échoue arrête la livraison. La promotion
+# vers un environnement actif reste une décision humaine — ce workflow prépare et valide un
+# candidat, il ne met rien en service.
+#
+# Le fichier est à la racine du dépôt parce que GitHub ne détecte pas un workflow placé sous
+# work/M5/ — même convention qu'en M2 (`data-quality.yml`). Tout le reste du module vit dans
+# `diagops-m5/work/M5`, et `docs/runbook.md` renvoie ici.
+
+name: DiagOps M5 — livraison
+
+on:
+  push:
+    paths:
+      - "diagops-m5/**"
+      - ".github/workflows/ci.yml"
+  pull_request:
+    paths:
+      - "diagops-m5/**"
+  workflow_dispatch:
+
+# Lecture seule : la chaîne valide un candidat, elle ne promeut rien et ne commite rien.
+permissions:
+  contents: read
+
+defaults:
+  run:
+    working-directory: diagops-m5/work/M5
+
+env:
+  PYTHONDONTWRITEBYTECODE: "1"
+  DATA_PACK: ../../data_pack/2026-S1
+
+jobs:
+  # 1 — Contrôles unitaires, contrats d'API, sécurité et budgets de performance.
+  tests:
+    name: Tests, contrats et contrôles de sécurité
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les versions verrouillées
+        # `requirements.lock` est le contrat de reproductibilité : jamais de résolution libre en CI.
+        run: python -m pip install --no-cache-dir -r requirements.lock
+
+      - name: Intégrité du paquet distribué
+        working-directory: diagops-m5
+        run: python tools/check_m5_release.py
+
+      - name: Tests unitaires et contrats d'API
+        run: python -m pytest -q
+
+      - name: Injection indirecte, secrets et actifs restreints
+        # Redondant avec l'étape précédente, mais nommé à part : un échec de sécurité doit être
+        # lisible dans le journal sans ouvrir la sortie complète de pytest.
+        run: python -m pytest -q tests/test_security_gates.py
+
+  # 2 — Le candidat est construit, mesuré, puis soumis aux seuils. Rien n'est promu.
+  gate:
+    name: Ingestion, mesure et gate de livraison
+    runs-on: ubuntu-latest
+    needs: tests
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Installer les versions verrouillées
+        run: python -m pip install --no-cache-dir -r requirements.lock
+
+      - name: Ingestion — contrat d'admission et détection des changements
+        run: |
+          python pipelines/ingest.py \
+            --manifest $DATA_PACK/knowledge/manifest.csv \
+            --documents $DATA_PACK/knowledge/documents \
+            --output artifacts/candidates/ci/index.json \
+            --report artifacts/candidates/ci/ingest_report.json
+
+      - name: Construire le candidat
+        # Pas d'index actif en CI : l'ingestion rend `rebuild` et écrit le candidat. On reconstruit
+        # explicitement pour que l'étape suivante ait toujours un artefact à mesurer.
+        run: |
+          python pipelines/build_index.py \
+            --manifest $DATA_PACK/knowledge/manifest.csv \
+            --documents $DATA_PACK/knowledge/documents \
+            --output artifacts/candidates/ci/index.json
+
+      - name: Évaluation retrieval réduite
+        run: |
+          python pipelines/measure_release.py \
+            --index artifacts/candidates/ci/index.json \
+            --questions $DATA_PACK/rag_eval/questions.jsonl \
+            --inherit-abstention-from $DATA_PACK/reference_runs/m4_for_m5/evaluation/metrics_calibration.json \
+            --output artifacts/candidates/ci/metrics.json
+
+      - name: Gate — citations résolubles, refus attendus, seuils
+        run: |
+          python pipelines/evaluate_release.py \
+            --index artifacts/candidates/ci/index.json \
+            --metrics artifacts/candidates/ci/metrics.json \
+            --gates configs/gates.json \
+            --output artifacts/candidates/ci/gate_report.json
+
+      - name: Résumé du gate
+        if: always()
+        run: |
+          echo '### Rapport de gate' >> $GITHUB_STEP_SUMMARY
+          echo '```json' >> $GITHUB_STEP_SUMMARY
+          cat artifacts/candidates/ci/gate_report.json >> $GITHUB_STEP_SUMMARY || echo 'aucun rapport'
+          echo '```' >> $GITHUB_STEP_SUMMARY
+
+      - name: Conserver les preuves du candidat
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: candidat-${{ github.sha }}
+          path: diagops-m5/work/M5/artifacts/candidates/ci/
+          retention-days: 14
+
+  # 3 — La stack doit démarrer, et refuser de démarrer quand le gate échoue.
+  stack:
+    name: Stack conteneurisée
+    runs-on: ubuntu-latest
+    needs: gate
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Lever la stack
+        run: docker compose -f deploy/compose.yaml up -d --build --wait
+
+      - name: Vérifier les trois plans d'observation
+        run: |
+          curl -fsS http://127.0.0.1:8000/health/ready
+          curl -fsS -X POST http://127.0.0.1:8000/search \
+            -H 'Content-Type: application/json' \
+            -d '{"question":"vibration de la pompe","role":"technicien"}'
+          curl -fsS http://127.0.0.1:8000/metrics | grep -q diagops_retrieval_queries_total
+
+      - name: Journaux en cas d'échec
+        if: failure()
+        run: docker compose -f deploy/compose.yaml logs
+
+      - name: Arrêter la stack
+        if: always()
+        run: docker compose -f deploy/compose.yaml down -v

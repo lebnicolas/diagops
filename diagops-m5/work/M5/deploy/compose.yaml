@@ -71,9 +71,13 @@ services:
           --metrics /artifacts/candidates/compose/metrics.json \
           --gates configs/gates.json \
           --output /artifacts/candidates/compose/gate_report.json
-        mkdir -p /artifacts/runtime
-        cp /artifacts/candidates/compose/index.json /artifacts/runtime/index.json
-        echo "Index publie : le gate est passe."
+        # Archive l'index remplacé avant de publier : sans cela, l'index sain disparaît au
+        # moment même où il devient le seul recours.
+        python pipelines/promote_index.py \
+          --candidate /artifacts/candidates/compose/index.json \
+          --active /artifacts/runtime/index.json \
+          --history /artifacts/history \
+          --gate /artifacts/candidates/compose/gate_report.json
     volumes:
       - ../../../data_pack:/data_pack:ro
       - diagops_artifacts:/artifacts

@@ -4,10 +4,9 @@ Le starter livrait trois contrôles sur quatre branchés sur `metrics_calibratio
 vidé de ses postings passait le gate. Ces tests figent le comportement corrigé.
 """
 
-from collections import Counter
-
 from pipelines.evaluate_release import evaluate
 from pipelines.measure_release import measure, rank, visible_to
+from src.retrieval import postings, tokenize
 
 
 GATES = {
@@ -31,12 +30,12 @@ DOCUMENTS = [
     {
         "document_id": "DOC-POMPE", "revision": "1", "sensitivity": "interne",
         "allowed_roles": ["technicien"], "token_count": 3,
-        "terms": {"vibration": 2, "pompe": 1},
+        "terms": postings("vibration vibration pompe"),
     },
     {
         "document_id": "DOC-RESTREINT", "revision": "1", "sensitivity": "restreint",
         "allowed_roles": ["auditeur"], "token_count": 2,
-        "terms": {"acces": 1, "pompe": 1},
+        "terms": postings("acces pompe"),
     },
 ]
 
@@ -53,7 +52,7 @@ QUESTIONS = [
 
 
 def test_le_role_filtre_avant_le_classement() -> None:
-    query = Counter(["pompe"])
+    query = tokenize("pompe")
     visible = visible_to(DOCUMENTS, "technicien")
     assert [item["document_id"] for item in rank(query, visible)] == ["DOC-POMPE"]
 

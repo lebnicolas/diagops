@@ -13,6 +13,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1]))
 
+from src.retrieval import postings  # noqa: E402
 from src.versioning import atomic_write_json, sha256  # noqa: E402
 
 
@@ -56,9 +57,10 @@ def build_index(manifest_path: Path, documents: Path) -> dict:
             "sensitivity": row["sensitivity"],
             "allowed_roles": sorted(filter(None, row["allowed_roles"].split(";"))),
             "token_count": len(found),
-            # postings lexicaux : suffisants pour rejouer le score de la baseline M4,
-            # insuffisants pour reconstituer le document (l'ordre des tokens est perdu).
-            "terms": dict(sorted(Counter(found).items())),
+            # Postings : empreinte de terme -> occurrences. Suffisants pour rejouer le score
+            # de la baseline M4, insuffisants pour lire le document — ni l'ordre des mots, ni
+            # les mots eux-memes ne survivent. Voir src/retrieval.term_key.
+            "terms": postings(text),
         })
 
     fingerprint_input = "\n".join(

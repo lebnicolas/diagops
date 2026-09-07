@@ -12,6 +12,7 @@ from fastapi.testclient import TestClient
 
 from src.app import app
 from src.observability import METRICS, Metrics
+from src.retrieval import postings
 
 
 INDEX = {
@@ -19,9 +20,9 @@ INDEX = {
     "document_count": 2,
     "documents": [
         {"document_id": "DOC-PUB", "revision": "1", "token_count": 3, "sensitivity": "public",
-         "allowed_roles": ["public", "technicien"], "terms": {"pompe": 1, "vibration": 2}},
+         "allowed_roles": ["public", "technicien"], "terms": postings("pompe vibration vibration")},
         {"document_id": "DOC-RESTREINT", "revision": "1", "token_count": 2, "sensitivity": "restreint",
-         "allowed_roles": ["auditeur"], "terms": {"pompe": 1, "acces": 3}},
+         "allowed_roles": ["auditeur"], "terms": postings("pompe acces acces acces")},
     ],
 }
 

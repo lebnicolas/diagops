@@ -11,12 +11,13 @@ import json
 from fastapi.testclient import TestClient
 
 from src.app import app
+from src.retrieval import postings
 
 
 SAIN = {
     "index_version": "lexical-test",
     "document_count": 1,
-    "documents": [{"document_id": "DOC-1", "terms": {"pompe": 2}, "allowed_roles": ["technicien"]}],
+    "documents": [{"document_id": "DOC-1", "terms": postings("pompe pompe"), "allowed_roles": ["technicien"]}],
 }
 
 
