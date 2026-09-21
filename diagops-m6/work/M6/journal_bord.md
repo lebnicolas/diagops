@@ -88,3 +88,58 @@ décrit ce qui a été décidé, mesuré et rejeté, pas seulement ce qui a marc
   l'étape 4, avec le scénario qui l'exerce : un contrat ne se modifie pas sans mesure.
 - **livrable** : `docs/registre_outils.md`.
 - **prochaine étape** : étape 2, politique d'exécution défendue valeur par valeur.
+
+### J1-03 · Étape 2 — une politique se défend par ce qui change quand on la déplace
+
+- **objectif** : fixer les onze paramètres de la politique, chacun justifié par une mesure.
+- **méthode** : banc `eval/probe_policy.py` — le jeu gelé rejoué sous des politiques dérivées,
+  un paramètre modifié à la fois, plus le coût du retrait de chaque autorisation, le test des
+  bornes dures et l'inspection du contenu réel des traces. Sortie :
+  `results/sensibilite_politique.json`.
+- **cinq paramètres ne bornaient rien.** Lus, convertis, stockés dans la `Policy`, jamais
+  consultés ensuite : `max_result_rows` (la seule troncature venait du contrat de chaque outil,
+  donc la politique ne pouvait jamais être plus stricte), `treat_tool_output_as_data` (le passer
+  à `false` ne changeait aucun comportement — or `INV-08` repose dessus), `record_fields` et
+  `forbidden_fields` (la trace était construite sans les consulter), `retention_days` (rien ne
+  purge). C'est le motif du M5 — *un contrôle qui ne mesure pas ce qu'il prétend* — transposé :
+  un paramètre qui ne borne pas ce qu'il déclare.
+- **écart de trace trouvé au passage** : la politique déclarait `step`, la trace portait `index` ;
+  et `instruction_like_content` était tracé sans être déclaré. Rien de sensible ne fuyait, mais
+  deux écarts sur neuf champs sur un dispositif dont le seul rôle est d'être auditable.
+- **corrections, à comportement constant** : `max_result_rows` appliqué côté agent ;
+  `treat_tool_output_as_data: false` refusé au chargement comme `allow_dynamic_tools` ; trace
+  projetée sur `record_fields` avec le nom contractuel `step` ; `forbidden_fields` qui lèvent
+  au lieu d'être interdits sur le papier ; `instruction_like_content` ajouté au contrat.
+  Six tests dédiés (`tests/test_policy_enforced.py`) échouent si l'un d'eux redevient décoratif.
+- **mesures qui fixent les valeurs** :
+  - `max_steps` : la borne est testée avant de demander à l'agent s'il voulait continuer, donc
+    un plan de N outils exige N+1. À `max_steps: 1`, la réussite tombe à **0,444** avec 9 refus
+    incorrects et 14 dépassements, sur des scénarios nominaux que l'agent avait traités. Le jeu
+    exige 3 outils (`SCN-006`) → **4**. Entre 2 et 8, aucune différence : l'agent ne fait qu'une
+    étape ;
+  - `require_evidence` : le paramètre le mieux défendu — à `false`, **0,833 → 0,556**, six
+    scénarios de refus basculent en réponses non fondées ;
+  - `max_result_rows` : ne gouverne pas la performance mais la donnée lue — 11 / 23 / 26 / 26
+    lignes à 1 / 3 / 5 / 10, réussite 0,833 dans les quatre cas ;
+  - `max_duration_ms` : borné par le bas par la somme des timeouts du plan le plus long
+    (3 300 ms pour `SCN-006`), et sans objet par le haut — durée médiane 0,03 ms, maximum 0,4 ms ;
+  - liste blanche : chaque retrait se paie, de 1 à 3 scénarios. Aucune autorisation n'est gratuite ;
+  - bornes dures : les quatre politiques invalides testées sont refusées au chargement.
+- **seule valeur modifiée** : `max_result_rows` 10 → 5. 10 était inapplicable ; 5 correspond à ce
+  que l'agent demande et rend la borne active. **3 serait gratuit sur la mesure** (−12 % de données
+  lues, zéro scénario perdu) mais couperait l'historique de maintenance à 3 interventions sur 14,
+  et **1 rendrait impossible de constater une contradiction entre sources** (`INV-09`). Décision
+  prise pour Nicolas, à valider ou amender.
+- **dettes écrites** : aucun budget de tokens — il n'y a pas de modèle génératif, et il faudra
+  en poser un *avant* d'en introduire un ; `retention_days: 30` ne purge rien, la rétention
+  appartient au pipeline qui écrit `results/*.jsonl`. Une durée annoncée et non appliquée est une
+  promesse réglementaire non tenue : à reprendre au checkpoint de veille (étape 8).
+- **honnêteté de l'étape** : quatre valeurs ne sont pas discriminées par le jeu gelé
+  (`max_steps` entre 2 et 8, `max_tool_calls`, `max_repeated_calls`, `stop_on_tool_error`) parce
+  que l'agent ne fait qu'une étape. Écrites comme fixées par le besoin ou par principe, à
+  re-mesurer à l'étape 5.
+- **non-régression** : 0,833 / 0,889 / 0,933, 7 refus corrects, 0 dépassement — identiques à la
+  référence. 51 tests verts (45 + 6).
+- **livrables** : `agent/policy.yaml` en `m6-r2` (chaque valeur commentée par sa mesure),
+  `docs/politique_execution.md`.
+- **prochaine étape** : étape 3, construction et gel du jeu de scénarios étendu.

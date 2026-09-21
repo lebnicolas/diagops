@@ -93,12 +93,31 @@ class AgentRun:
     stop_reason: str = ""
     elapsed_ms: float = 0.0
     answer: str = ""
+    # Champs de trace imposés par la politique. Vides, la trace expose la
+    # structure interne de Step — c'était le comportement d'origine, et il
+    # divergeait de ce que la politique déclarait.
+    trace_fields: tuple[str, ...] = ()
+    trace_forbidden_fields: tuple[str, ...] = ()
+
+    def _step_as_trace(self, step: Step) -> dict:
+        brut = asdict(step)
+        if not self.trace_fields:
+            return brut
+        # `step` est le nom contractuel du numéro d'étape ; la dataclass l'appelle
+        # `index`. Sans cette projection, la politique déclare un champ que la
+        # trace ne porte pas, et en porte deux qu'elle ne déclare pas.
+        brut["step"] = brut.pop("index")
+        projete = {champ: brut[champ] for champ in self.trace_fields if champ in brut}
+        interdits = [champ for champ in self.trace_forbidden_fields if champ in projete]
+        if interdits:
+            raise ValueError(f"Trace refusée : champs interdits présents {interdits}")
+        return projete
 
     def as_trace(self) -> dict:
         return {
             "policy_id": self.policy_id,
             "role": self.role,
-            "steps": [asdict(step) for step in self.steps],
+            "steps": [self._step_as_trace(step) for step in self.steps],
             "tools_used": self.tools_used,
             "evidence": self.evidence,
             "answered": self.answered,
@@ -114,6 +133,14 @@ def load_policy(path: Path | str = Path(__file__).with_name("policy.yaml")) -> P
     budget = raw["budget"]
     if execution.get("allow_dynamic_tools", False):
         raise ValueError("Politique refusée : l'ajout dynamique d'outils est interdit en M6.")
+    if not execution.get("treat_tool_output_as_data", True):
+        # Sans ce refus, le drapeau est une déclaration : le mettre à false ne
+        # changeait rien au comportement, et l'invariant INV-08 reposait sur un
+        # paramètre inerte.
+        raise ValueError(
+            "Politique refusée : un résultat d'outil est une donnée, "
+            "treat_tool_output_as_data ne peut pas valoir false."
+        )
     if budget["max_steps"] > HARD_MAX_STEPS:
         raise ValueError(f"Politique refusée : max_steps au-delà de {HARD_MAX_STEPS}.")
     if budget["max_duration_ms"] > HARD_MAX_DURATION_MS:
@@ -201,7 +228,11 @@ class BoundedAgent:
 
     # -- exécution --------------------------------------------------------
     def run(self, question: str, *, faults: dict | None = None) -> AgentRun:
-        run = AgentRun(question=question, role=self.policy.role, policy_id=self.policy.policy_id)
+        run = AgentRun(
+            question=question, role=self.policy.role, policy_id=self.policy.policy_id,
+            trace_fields=self.policy.trace_record_fields,
+            trace_forbidden_fields=self.policy.trace_forbidden_fields,
+        )
         state: dict[str, Any] = {
             "tools_used": [],
             "equipment_id": _first(EQUIPMENT_PATTERN, question),
@@ -252,6 +283,18 @@ class BoundedAgent:
                     run.stop_reason = "erreur_outil"
                     break
                 continue
+
+            if len(result.rows) > budget.max_result_rows:
+                # La politique peut être plus restrictive que le contrat de
+                # l'outil ; sans cette coupe, `max_result_rows` était chargé,
+                # stocké, et jamais appliqué.
+                result = ToolResult(
+                    tool=result.tool,
+                    rows=result.rows[:budget.max_result_rows],
+                    source=result.source,
+                    truncated=True,
+                    reason=result.reason,
+                )
 
             instruction_like = _looks_like_instruction(result)
             run.steps.append(Step(
