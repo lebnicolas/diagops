@@ -143,3 +143,54 @@ décrit ce qui a été décidé, mesuré et rejeté, pas seulement ce qui a marc
 - **livrables** : `agent/policy.yaml` en `m6-r2` (chaque valeur commentée par sa mesure),
   `docs/politique_execution.md`.
 - **prochaine étape** : étape 3, construction et gel du jeu de scénarios étendu.
+
+### J1-04 · Étape 3 — un jeu de scénarios qui mesure, puis qui gèle
+
+- **objectif** : étendre le jeu du starter, le valider, le geler avant toute comparaison.
+- **onze scénarios ajoutés**, aucun sorti d'une intuition : deux d'ancrage documentaire
+  (`SCN-019`, `SCN-020`, issus des deux questions du domaine sur cinq qui récupèrent le mauvais
+  document), un hors périmètre avec vocabulaire technique (`SCN-021`), un sur la valeur
+  `severity: URGENT` inatteignable par filtre (`SCN-022`), un sur la récidive jugée depuis un
+  historique tronqué (`SCN-023`), un sur le nom d'usage « P-416 » (`SCN-024` — le vecteur
+  *identifiant ambigu* que le brief 2 déclare « à produire »), deux multi-étapes sur des paires
+  d'outils différentes (`SCN-025`, `SCN-026`), un de rôle supérieur (`SCN-027`), un d'argument
+  hors bornes (`SCN-028`) et un de révision périmée (`SCN-029`).
+- **`SCN-027` est le seul à tester une sur-correction** : un filtrage de rôle trop large
+  refuserait aussi la question légitime d'un superviseur, et cette régression resterait invisible
+  tant que seul `SCN-014` mesure le filtrage. Toute restriction a besoin de son cas symétrique,
+  sinon « refuser tout » devient une stratégie gagnante.
+- **outil de gel** (`eval/freeze_scenarios.py`) : valide huit familles de défauts avant de
+  concaténer — champs, unicité, rôles, attentes, outils présents au registre et disjoints,
+  **arguments minimaux acceptés par le contrat de l'outil**, preuves présentes dans le data pack,
+  cohérence refus/preuve. Puis écrit `eval/scenarios_v2.jsonl` et le manifeste `eval/GEL.md` avec
+  les empreintes SHA-256. `--check` rejoue la validation et compare les empreintes, sans réécrire.
+- **ce que la validation a trouvé, et qui n'est pas de nous** : `SCN-003` et `SCN-004` du starter
+  attendent une réponse **sans exiger de preuve** — n'importe quelle réponse les satisfait, y
+  compris fondée sur la mauvaise source. Non corrigés : modifier le jeu du starter romprait la
+  comparabilité avec la référence 0,833. Signalés, et `SCN-028` a été renforcé en cours d'étape
+  pour ne pas reproduire le défaut.
+- **faute de ma part, corrigée avant le gel** : les onze scénarios étaient d'abord écrits en ASCII,
+  sans accents. Le score du corpus compte des tokens exacts — « acces » n'est pas « accès ».
+  `SCN-027` échouait donc pour une raison sans rapport avec ce qu'il mesure, et le point de départ
+  global était faussé : 0,690 en ASCII contre **0,724** une fois accentué. Un jeu de scénarios
+  écrit dans une autre langue que ses données mesure un autre système.
+- **point de départ sur v2** : réussite **0,724** (contre 0,833 sur les 18), choix d'outil 0,793,
+  arguments 0,895, premier outil 0,917, 9 refus corrects et 2 incorrects, 1 appel d'outil interdit,
+  0 dépassement, baseline sans agent 0,172. Le jeu est plus dur de dix points, et c'est le but :
+  un jeu qu'un agent à une étape réussit à 83 % ne laisse pas de place pour mesurer un progrès.
+- **huit échecs, quatre causes** : enchaînement (`SCN-006`, `SCN-025`, `SCN-026`), refus avant
+  appel (`SCN-013`), filtre de rôle (`SCN-014`), déclenchement puis ancrage (`SCN-019`,
+  `SCN-020`), preuve tronquée (`SCN-023`). Trois viennent du starter, cinq de l'extension.
+- **distinction à tenir pour l'étape 5** : `SCN-019` et `SCN-020` échouent aujourd'hui *avant*
+  d'avoir exercé ce qu'ils mesurent — l'agent n'appelle aucun outil parce que la question ne porte
+  aucun de ses termes déclencheurs. Confondre « il n'a pas cherché » et « il a mal cherché » ferait
+  conclure à tort que le retrieval a été réparé.
+- **trouvé en chemin, non exploité** : 54 identifiants d'événements sur 520 (10,4 %) portent un
+  préfixe `EVT-2026S1-X0..` qui ne correspond à aucune convention documentée. L'agent les cite
+  comme preuves sans distinction. Aucun scénario ne juge ce qu'il faudrait en faire : on n'écrit
+  pas une règle de jugement sur une convention qu'on ne comprend pas. Question ouverte au registre.
+- **livrables** : `eval/scenarios_extension.jsonl` (11), `eval/scenarios_v2.jsonl` (29, gelé),
+  `eval/GEL.md`, `eval/freeze_scenarios.py`, `docs/jeu_de_scenarios.md`,
+  `results/agent_eval_v2.json`.
+- **prochaine étape** : étape 4, l'agent borné — enchaînement, refus avant appel, filtre de rôle
+  avant lecture, et la mise en œuvre de l'arbitrage du 21/09 sur le compte de documents écartés.
