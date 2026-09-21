@@ -90,7 +90,11 @@ EXHAUSTIF_TERMS = ("toutes", "tous les", "combien", "au total", "l'ensemble",
 # un document qui partage un mot de vocabulaire général ; trois refusait des cas
 # nominaux courts. Même valeur que la pertinence appliquée aux documents écartés
 # par le filtre de rôle — à re-mesurer avec le retrieval corrigé (étape 7).
-ANCRAGE_MINIMUM = PERTINENCE_MINIMUM
+# Second candidat (21/09) : abaisse de PERTINENCE_MINIMUM a 1. Depuis que le score
+# du retrieval ne compte plus les mots vides, un document sans aucun terme commun
+# n'est plus rendu du tout — le silence du retrieval a remplace le filtre de
+# l'agent, et exiger deux termes re-filtrait une liste deja filtree.
+ANCRAGE_MINIMUM = 1
 
 
 @dataclass(frozen=True)

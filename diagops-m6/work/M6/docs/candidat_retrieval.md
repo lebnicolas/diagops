@@ -278,3 +278,81 @@ l'ancrage de l'agent compte la même chose et re-filtre une liste déjà filtré
 **Risque identifié** : à 1, un document partageant un seul mot de vocabulaire
 général — « règle », « seuil » — redeviendrait citable. Le premier candidat a
 réduit ce risque en supprimant les mots vides, il ne l'a pas supprimé.
+
+## 14. Résultats du second candidat
+
+`ANCRAGE_MINIMUM` : 2 → **1**.
+
+| | Candidat 1 seul | **+ candidat 2** |
+|---|---:|---:|
+| jeu gelé v3 | 0,931 | **0,966** |
+| échecs | `SCN-019`, `SCN-020` | **`SCN-019`** |
+| refus incorrects | 2 | **1** |
+| campagne adversariale | 1,000 | **1,000** |
+| appels d'outils interdits | 0 | 0 |
+| tests | 64 | **64** |
+
+| # | Prédiction | Verdict |
+|---:|---|---|
+| Q1 | `SCN-020` passe, v3 → 0,966 | ✔ **juste**, à la troisième décimale près |
+| Q2 | `SCN-019` échoue toujours | ✔ **juste** — le retrieval se tait, il n'y a rien à ancrer |
+| Q3 | `SCN-014` reste un refus | ✔ **juste** |
+| Q4 | campagne maintenue | ✔ **juste** |
+| Q5 | les 64 tests restent verts | ✘ **fausse** — un test est tombé, et ce qu'il révèle vaut mieux que le test |
+
+## 15. Q5 — l'ancrage est devenu inerte, et il faut le dire
+
+Le test tombé vérifiait qu'un document faiblement ancré est écarté sans faire
+tomber la réponse. Avec le seuil à 1, le document de `SCN-006` **est** cité — et
+c'est défendable : la question demandait une procédure, l'agent cite la procédure.
+
+Mais la vraie question est ailleurs. Instrumentation sur les 29 scénarios :
+
+| | |
+|---|---:|
+| fois où l'ancrage est évalué sur un résultat non vide | 9 |
+| **rejets par l'ancrage** | **0** |
+| valeurs d'ancrage observées | 1, 2, 3 — **jamais 0** |
+
+**L'ancrage ne rejette plus jamais rien**, et pour une raison structurelle : le
+retrieval ne rend un document que si le score est strictement positif,
+c'est-à-dire **au moins un terme significatif commun**. Exiger au moins un terme
+dans l'extrait, après un filtre qui en garantit un dans le texte, ne peut presque
+plus échouer.
+
+C'est le défaut dénoncé depuis l'étape 2, arrivé par ma propre main : **un contrôle
+qui ne peut plus échouer ne prouve plus rien.**
+
+**Le test a donc été réécrit sur un cas construit** — un résultat d'outil fabriqué,
+sans recouvrement avec la question — plutôt que sur un scénario qui ne l'exerce
+plus. Tester un mécanisme sur un cas fabriqué vaut mieux que de le croire vérifié
+par une coïncidence de données. Au passage, le test révélait un piège du starter :
+le registre capture `module.run` à l'enregistrement, donc un remplacement doit
+précéder la construction du registre.
+
+**Dépendance à consigner.** Le seuil à 1 tient **parce que le retrieval est
+lexical** et garantit un terme commun. Un retrieval vectoriel rendrait toujours
+*k* documents, y compris sans aucun mot partagé : l'ancrage redeviendrait la seule
+défense contre la citation d'un document hors sujet, et à 1 il serait trop faible.
+**Changer la nature du retrieval impose de rouvrir ce seuil** — au même titre que
+le M4 écrivait qu'introduire un LLM imposerait de rejouer la campagne.
+
+## 16. Bilan des deux candidats
+
+| | Référence | Candidat 1 | **Candidat 1 + 2** |
+|---|---:|---:|---:|
+| Recall@1 retrieval | 0,533 | 0,667 | 0,667 |
+| silences hors domaine | 0/5 | 5/5 | 5/5 |
+| documents rendus | 60 | 31 | 31 |
+| **jeu gelé v3** | 0,931 | 0,931 | **0,966** |
+| campagne | 1,000 | 1,000 | 1,000 |
+| baseline sans agent | 0,172 | 0,345 | 0,345 |
+
+Le premier candidat corrige le composant sans que le système bouge ; le second
+libère le gain sans rien corriger lui-même. **Aucun des deux, pris seul, ne
+démontre ce que les deux font ensemble** — et c'est un argument pour mesurer un
+axe à la fois, pas contre.
+
+Reste `SCN-019`, et il ne bougera pas : le mot « givre » n'est dans aucun document.
+**Troisième candidat identifié, non traité : le corpus.** C'est aussi ce que sept
+retours d'usage demandent.

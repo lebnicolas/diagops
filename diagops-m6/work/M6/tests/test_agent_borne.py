@@ -126,13 +126,40 @@ def test_une_demande_hors_bornes_est_plafonnee_pas_relayee(agent):
     assert run.steps[0].outcome == "ok"
 
 
-def test_un_document_faible_est_ecarte_sans_faire_tomber_la_reponse(agent):
-    """Une question composite se répond en partie par les sources structurées."""
+def test_un_document_faible_est_ecarte_sans_faire_tomber_la_reponse(policy, monkeypatch):
+    """Une question composite se répond en partie par les sources structurées.
+
+    Le cas est **construit**, plus tiré des données : depuis que le score du
+    retrieval ne rend que des documents partageant un terme significatif, aucune
+    question du jeu ne produit naturellement un extrait sans recouvrement. Tester
+    le mécanisme sur un cas fabriqué vaut mieux que de le croire vérifié par un
+    scénario qui ne l'exerce plus — c'est la différence entre un test et une
+    coïncidence.
+    """
+    from tools import ToolResult
+    from tools import knowledge as knowledge_tool
+
+    hors_sujet = ToolResult(
+        tool="search_knowledge",
+        rows=({
+            "document_id": "DOC-RAG-OPS-001",
+            "title": "Note interne",
+            "revision": "1",
+            "excerpt": "Texte sans aucun mot commun avec la demande posée.",
+            "score": 1.0,
+        },),
+        source="knowledge/manifest.csv",
+    )
+    # Le registre capture `module.run` au moment de l'enregistrement : il faut
+    # donc le construire APRES le remplacement, sinon l'outil reel est appele.
+    monkeypatch.setattr(knowledge_tool, "run", lambda arguments, *, role: hors_sujet)
+    agent = BoundedAgent(default_registry(), policy)
+
     run = agent.run(
         "Pour le rapport RPT-2027S1-0002, quelle procédure appliquer "
         "et quelle est la criticité de l'équipement concerné ?"
     )
-    assert run.answered
+    assert run.answered, "les sources structurées portent la réponse"
     assert "search_knowledge" in run.tools_used
     documents = [item for item in run.evidence if item["type"] == "document"]
-    assert not documents, "aucun document n'est assez ancré pour être cité ici"
+    assert not documents, "un extrait sans recouvrement n'est pas une preuve citable"
