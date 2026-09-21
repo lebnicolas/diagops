@@ -200,11 +200,13 @@ class ToolRegistry:
                 source=result.source,
                 truncated=result.truncated,
                 reason=result.reason,
+                withheld=result.withheld,
             )
         if injected.get("empty"):
             result = ToolResult(
                 tool=name, source=result.source,
                 reason="résultat vide (injection de laboratoire)",
+                withheld=result.withheld,
             )
         if len(result.rows) > spec.max_results:
             result = ToolResult(
@@ -213,6 +215,7 @@ class ToolRegistry:
                 source=result.source,
                 truncated=True,
                 reason=result.reason,
+                withheld=result.withheld,
             )
         return result, elapsed_ms
 

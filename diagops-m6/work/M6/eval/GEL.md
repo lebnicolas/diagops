@@ -4,15 +4,15 @@
 > une modification impose une nouvelle version : les chiffres obtenus sur deux
 > jeux différents ne se comparent pas.
 
-**Version `m6-scenarios-v2`, gelée le 21/09/2026.**
+**Version `m6-scenarios-v3`, gelée le 21/09/2026.**
 
 ## Composition
 
 | Source | Scénarios | Empreinte SHA-256 |
 |---|---:|---|
 | `eval/scenarios.jsonl` | 18 | `8d382ab0594bed6811e22c1cdcee900ff1d15a8a95cff692326ea1a42b477445` |
-| `eval/scenarios_extension.jsonl` | 11 | `5ce89ec12c43ca766a0e01c80ff7fe407619b5310e5abf0c35a14c7a94fb9757` |
-| **`eval/scenarios_v2.jsonl`** | **29** | `9108b3d9b8ddb7827b86d03b3038c12914cc3967808129dbe21672c1ac766e1c` |
+| `eval/scenarios_extension.jsonl` | 11 | `124f594b6bd7aff81f9d58f7d9a6026339071ef0d5c1945a471a77c65e744775` |
+| **`eval/scenarios_v3.jsonl`** | **29** | `7d125e9acbd07697da87d15fcf165d1b015f183281a94d41adda12d4982f0586` |
 
 ## Couverture
 
@@ -63,6 +63,13 @@ python eval/freeze_scenarios.py --check   # valide et vérifie les empreintes
 
 ## Règle de modification
 
-Après gel, un scénario ne se corrige pas en place. Toute modification produit
-`m6-scenarios-v3`, et les mesures antérieures restent attachées à la version sur
-laquelle elles ont été obtenues.
+Après gel, un scénario ne se corrige pas en place : toute modification produit
+la version suivante, et les mesures antérieures restent attachées à la version
+sur laquelle elles ont été obtenues.
+
+**v2 → v3 (21/09/2026)** : `SCN-023` reformulé. Sa première rédaction attendait un
+refus sur « a-t-il déjà connu une récidive », en contradiction avec `SCN-004` du
+starter qui attend une réponse sur la même famille de question — et à raison : une
+récidive est une **existence**, et une existence se démontre sur un sous-ensemble dès
+que la répétition y est visible. La question porte désormais sur un **total**, qui ne
+se démontre pas sur un échantillon tronqué.

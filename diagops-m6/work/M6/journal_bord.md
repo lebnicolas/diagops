@@ -194,3 +194,53 @@ décrit ce qui a été décidé, mesuré et rejeté, pas seulement ce qui a marc
   `results/agent_eval_v2.json`.
 - **prochaine étape** : étape 4, l'agent borné — enchaînement, refus avant appel, filtre de rôle
   avant lecture, et la mise en œuvre de l'arbitrage du 21/09 sur le compte de documents écartés.
+
+### J1-05 · Étape 4 — l'agent borné : enchaîner, refuser plus tôt, ne citer que ce qui porte
+
+- **objectif** : construire les quatre capacités que le point de départ nommait d'avance.
+- **résultats** : jeu du starter **0,833 → 1,000**, jeu gelé v3 **0,724 → 0,931**, campagne
+  adversariale **0,667 → 1,000**, appels d'outils interdits **1 → 0**, 64 tests (51 + 13).
+  Décomposé : **12/12** sur les refus attendus, **15/17** sur les réponses. Les deux échecs sont
+  `SCN-019` et `SCN-020`, et ils doivent échouer — l'outil rend le mauvais document, c'est du
+  retrieval, pas de l'agent.
+- **ce qui a été construit** : un plan arrêté au premier tour puis déroulé (rapport d'abord, il
+  porte l'identifiant ; documentaire en dernier, la règle dépend de ce qui est relevé) ; trois
+  refus avant tout appel (instruction, hors périmètre, nom d'usage) ; une vérification d'ancrage
+  qui écarte les documents ne portant pas au moins deux termes significatifs de la question ; le
+  plafonnement des arguments hors bornes au lieu de leur relais.
+- **deux régressions, et elles m'ont appris plus que les succès** :
+  1. `SCN-004` du starter est tombé : ma règle « tronqué + question d'ensemble → refus » était
+     trop large. **∃ se démontre sur un sous-ensemble, ∀ ne s'y démontre pas** — deux
+     interventions du même type visibles suffisent à établir une récidive, aucun échantillon ne
+     prouve un total. Règle scindée en existence / exhaustivité. **Et mon propre `SCN-023` était
+     mal posé** : il attendait un refus sur une récidive, en contradiction directe avec
+     `SCN-004`. Jeu gelé → passage en **v3**, scénario reformulé sur un total, raison écrite au
+     manifeste. Le gel n'interdit pas de corriger, il interdit de corriger en silence ;
+  2. `SCN-006` est tombé aussi : mesurer l'ancrage d'une question composite (« la procédure ET la
+     criticité ») contre un document qui n'en couvre qu'une moitié donne un score faible. Règle
+     corrigée : quand d'autres preuves existent, le document faible est **écarté de la citation**
+     sans faire tomber la réponse.
+- **une correction que je n'ai pas faite** : je filtrais le plan par la liste blanche — logique en
+  apparence, un agent ne planifie que ce qu'il peut appeler. Un test du starter est tombé et il
+  avait raison : ce filtrage rendait `INV-02` **inobservable**, plus aucune trace ne pouvait
+  porter `outil_hors_liste`. C'est le défaut dénoncé à l'étape 2. Le plan n'est pas filtré ; la
+  boucle refuse, avec son motif.
+- **l'arbitrage du 21/09 est en place**, et un faux positif a été corrigé en chemin : `withheld`
+  comptait d'abord tout document écarté dont le score dépassait zéro — presque tous, puisque le
+  score compte les mots vides — et l'audit annonçait « filtre de rôle » sur une question de givre.
+  Le compte porte maintenant sur la pertinence lexicale, au même seuil que l'ancrage. Vérifié par
+  test : deux refus de causes distinctes, deux motifs d'audit différents, **la même phrase rendue
+  mot pour mot**. Le canal auxiliaire reste fermé.
+- **réserve à porter avec le chiffre** : ces règles ont été écrites en regardant les échecs du jeu
+  gelé — précisément ce que l'oracle scellé du M4 interdit. La campagne adversariale (jamais
+  consultée pendant le réglage) à 1,000 est le seul signal externe ; le vrai contrôle est la
+  campagne d'un pair au brief 2. Et un agent qui refuse plus est trivialement meilleur sur un jeu
+  qui contient 12 refus sur 29 : d'où la décomposition par type d'attente.
+- **fragilités écrites** : le périmètre est une liste de mots, l'ancrage compte des termes et pas
+  du sens, `ANCRAGE_MINIMUM = 2` est choisi par essai sans validation indépendante, et la
+  répétition visible n'est qu'une approximation de la récidive.
+- **livrables** : `agent/runner.py` (planificateur, refus, ancrage), `tools/knowledge.py` et
+  `tools/__init__.py` (`withheld`, couche lexicale partagée), `tests/test_agent_borne.py` (13),
+  `eval/scenarios_v3.jsonl`, `docs/agent_borne.md`.
+- **prochaine étape** : étape 5, évaluer — et re-mesurer les quatre valeurs de politique que le
+  jeu ne discriminait pas tant que l'agent ne faisait qu'une étape.

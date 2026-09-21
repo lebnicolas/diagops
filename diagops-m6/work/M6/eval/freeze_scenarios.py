@@ -32,7 +32,7 @@ from agent.registry import ArgumentError, default_registry
 from tools import equipment_table, events_table, knowledge_documents, maintenance_table, reports_table
 
 SOURCES = (ROOT / "eval" / "scenarios.jsonl", ROOT / "eval" / "scenarios_extension.jsonl")
-GELE = ROOT / "eval" / "scenarios_v2.jsonl"
+GELE = ROOT / "eval" / "scenarios_v3.jsonl"
 MANIFESTE = ROOT / "eval" / "GEL.md"
 
 CHAMPS_REQUIS = {
@@ -138,7 +138,7 @@ def manifeste(scenarios: list[dict], parties: dict[str, int]) -> str:
         "> une modification impose une nouvelle version : les chiffres obtenus sur deux",
         "> jeux différents ne se comparent pas.",
         "",
-        f"**Version `m6-scenarios-v2`, gelée le {date.today().strftime('%d/%m/%Y')}.**",
+        f"**Version `m6-scenarios-v3`, gelée le {date.today().strftime('%d/%m/%Y')}.**",
         "",
         "## Composition",
         "",
@@ -148,7 +148,7 @@ def manifeste(scenarios: list[dict], parties: dict[str, int]) -> str:
     for chemin, compte in parties.items():
         lignes.append(f"| `{chemin}` | {compte} | `{empreinte(ROOT / chemin)}` |")
     lignes += [
-        f"| **`eval/scenarios_v2.jsonl`** | **{len(scenarios)}** | `{empreinte(GELE)}` |",
+        f"| **`eval/scenarios_v3.jsonl`** | **{len(scenarios)}** | `{empreinte(GELE)}` |",
         "",
         "## Couverture",
         "",
@@ -178,9 +178,16 @@ def manifeste(scenarios: list[dict], parties: dict[str, int]) -> str:
         "",
         "## Règle de modification",
         "",
-        "Après gel, un scénario ne se corrige pas en place. Toute modification produit",
-        "`m6-scenarios-v3`, et les mesures antérieures restent attachées à la version sur",
-        "laquelle elles ont été obtenues.",
+        "Après gel, un scénario ne se corrige pas en place : toute modification produit",
+        "la version suivante, et les mesures antérieures restent attachées à la version",
+        "sur laquelle elles ont été obtenues.",
+        "",
+        "**v2 → v3 (21/09/2026)** : `SCN-023` reformulé. Sa première rédaction attendait un",
+        "refus sur « a-t-il déjà connu une récidive », en contradiction avec `SCN-004` du",
+        "starter qui attend une réponse sur la même famille de question — et à raison : une",
+        "récidive est une **existence**, et une existence se démontre sur un sous-ensemble dès",
+        "que la répétition y est visible. La question porte désormais sur un **total**, qui ne",
+        "se démontre pas sur un échantillon tronqué.",
         "",
     ]
     return "\n".join(lignes)

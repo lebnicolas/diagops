@@ -5,7 +5,7 @@ from __future__ import annotations
 import re
 from collections import Counter
 
-from . import ToolResult, knowledge_documents
+from . import PERTINENCE_MINIMUM, ToolResult, knowledge_documents, termes_significatifs
 
 
 SPEC = {
@@ -37,7 +37,11 @@ SPEC = {
     "max_results": 3,
     "sensitive_data": "extraits de documents internes ou restreints, filtrés par rôle",
     "errors": ["checksum invalide", "corpus indisponible"],
-    "degraded_mode": "résultat vide et motif explicite ; la réponse doit alors refuser",
+    "degraded_mode": (
+        "résultat vide et motif explicite ; mais le vide est rare — le score lexical "
+        "rend presque toujours des documents, y compris hors sujet. Le champ `withheld` "
+        "compte les documents écartés par le filtre de rôle, sans les nommer."
+    ),
     "side_effects": False,
 }
 
@@ -72,6 +76,15 @@ def run(arguments: dict, *, role: str) -> ToolResult:
         document for document in knowledge_documents()
         if role in document["allowed_roles"]
     ]
+    # Documents que le rôle ne peut pas lire mais qui auraient répondu. On compte,
+    # on ne nomme pas : l'agent apprend qu'il lui manque quelque chose, la réponse
+    # rendue reste identique à celle d'un corpus qui n'aurait rien eu à offrir.
+    termes = termes_significatifs(query)
+    withheld = sum(
+        1 for document in knowledge_documents()
+        if role not in document["allowed_roles"]
+        and len(termes & termes_significatifs(document["text"])) >= PERTINENCE_MINIMUM
+    )
     scored = [
         (document, _score(query, document["text"])) for document in documents
     ]
@@ -97,4 +110,5 @@ def run(arguments: dict, *, role: str) -> ToolResult:
         source="knowledge/manifest.csv",
         truncated=len(ranked) > len(selected),
         reason="" if rows else "aucun document actif admissible pour ce rôle et cette requête",
+        withheld=withheld,
     )

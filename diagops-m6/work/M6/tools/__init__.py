@@ -9,6 +9,7 @@ from __future__ import annotations
 
 import csv
 import hashlib
+import re
 import json
 import os
 from dataclasses import dataclass
@@ -46,6 +47,12 @@ class ToolResult:
     truncated: bool = False
     reason: str = ""
     content_is_data: bool = True
+    # Nombre d'éléments écartés par un filtre d'accès, jamais leur identité.
+    # Décision du 21/09 : l'agent doit pouvoir s'abstenir à bon escient, sans que
+    # la réponse rendue révèle l'existence d'une source qu'un autre rôle verrait.
+    # `reason` répond à « pourquoi rien » ; ce champ répond à « ce qui manque à ce
+    # que vous voyez » — deux questions distinctes, deux champs.
+    withheld: int = 0
 
     @property
     def empty(self) -> bool:
@@ -59,7 +66,41 @@ class ToolResult:
             "source": self.source,
             "truncated": self.truncated,
             "reason": self.reason,
+            "withheld": self.withheld,
         }
+
+
+MOTS_VIDES = {
+    "le", "la", "les", "un", "une", "des", "du", "de", "et", "ou", "que", "qui",
+    "quoi", "quel", "quelle", "quels", "quelles", "est", "sont", "ce", "cet",
+    "cette", "ces", "pour", "par", "sur", "sous", "dans", "avec", "sans", "en",
+    "au", "aux", "il", "elle", "on", "nous", "vous", "son", "sa", "ses", "leur",
+    "faut", "faire", "peut", "doit", "plus", "moins", "tres", "très", "cas",
+    "donne", "moi", "toujours", "encore", "alors", "puis", "aussi", "meme",
+    "même", "quand", "comment", "pourquoi", "combien", "dernier", "derniers",
+    "dernieres", "dernières", "prevoit", "prévoit", "applique", "appliquer",
+}
+
+_ACCENTS = str.maketrans("àâäéèêëîïôöùûüçÀÂÄÉÈÊËÎÏÔÖÙÛÜÇ", "aaaeeeeiioouuucAAAEEEEIIOOUUUC")
+
+
+def normaliser(texte: str) -> str:
+    """Minuscules et accents retirés : deux couches comparent le même texte."""
+    return texte.translate(_ACCENTS).lower()
+
+
+def termes_significatifs(texte: str) -> set[str]:
+    """Les mots qui portent le sujet — ni mots vides, ni mots de trois lettres."""
+    return {
+        mot for mot in re.findall(r"[\wÀ-ÿ'-]+", normaliser(texte))
+        if len(mot) > 3 and mot not in MOTS_VIDES
+    }
+
+
+# Nombre de termes partagés à partir duquel un document est tenu pour pertinent.
+# Même seuil des deux côtés : ce qui décide qu'un document rendu est une preuve
+# décide aussi qu'un document écarté méritait d'être compté.
+PERTINENCE_MINIMUM = 2
 
 
 def _read_csv(path: Path) -> list[dict[str, str]]:
@@ -163,4 +204,5 @@ __all__ = [
     "ToolError", "ToolResult", "ToolTimeout", "ToolUnavailable",
     "data_pack", "equipment_table", "events_table", "feedback_table",
     "knowledge_documents", "maintenance_table", "reports_table", "reset_caches",
+    "MOTS_VIDES", "PERTINENCE_MINIMUM", "normaliser", "termes_significatifs",
 ]
