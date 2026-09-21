@@ -3,20 +3,24 @@
 # mesure, donc elle se compare a la reference avant promotion.
 #
 # Chaque valeur ci-dessous est justifiee par une mesure, pas par une intuition :
-# voir docs/politique_execution.md et results/sensibilite_politique.json
+# voir docs/politique_execution.md, docs/rapport_evaluation.md et
+# results/sensibilite_politique_r2.json
 # (banc : python eval/probe_policy.py).
 schema_version: 1
-policy_id: m6-r2
+policy_id: m6-r3
 role: technicien
 
 # Liste blanche : un outil absent d'ici est refuse, meme s'il est enregistre.
-# Cout mesure du retrait de chacun, sur le jeu gele de 18 scenarios :
-#   sans diagnose_report        0.833 -> 0.667   (3 refus incorrects)
-#   sans get_equipment          0.833 -> 0.667   (2)
-#   sans search_knowledge       0.833 -> 0.667   (2)
-#   sans list_events            0.833 -> 0.722   (1)
-#   sans get_maintenance_history 0.833 -> 0.778  (1)
-# Aucune autorisation n'est gratuite : les cinq outils sont exerces par le jeu.
+# Cout mesure du retrait de chacun, jeu gele v3, agent enchainant (etape 5) :
+#   sans search_knowledge        0.931 -> 0.621   (8 refus incorrects)
+#   sans diagnose_report         0.931 -> 0.724   (7)
+#   sans get_equipment           0.931 -> 0.759   (6)
+#   sans list_events             0.931 -> 0.759   (6)
+#   sans get_maintenance_history 0.931 -> 0.862   (3)
+# Aucune autorisation n'est gratuite, et les couts ont DOUBLE depuis l'etape 2 :
+# un agent qui enchaine depend davantage de chacun de ses outils qu'un agent qui
+# n'en appelle qu'un. Elargir une liste blanche cree une dependance, la reduire
+# en coute une.
 allowlist:
   - search_knowledge
   - get_equipment
@@ -25,53 +29,59 @@ allowlist:
   - diagnose_report
 
 budget:
-  # Plancher impose par le jeu gele : SCN-006 exige 3 outils, et la borne est
-  # testee AVANT de savoir si l'agent voulait s'arreter — un plan de N outils
-  # demande donc N+1. Mesure : a max_steps=1, la reussite tombe a 0.444 avec
-  # 9 refus incorrects et 14 depassements, sur des scenarios nominaux a un seul
-  # outil que l'agent avait pourtant traites.
-  # Entre 2 et 8, aucune difference mesurable aujourd'hui : l'agent fourni ne
-  # fait qu'une etape. La valeur se redefendra a l'etape 5, agent enchainant.
+  # RE-MESURE A L'ETAPE 5, agent enchainant, sur le jeu gele v3 :
+  #   1 -> 0.414 (17 refus incorrects, 22 depassements)
+  #   2 -> 0.828   3 -> 0.862   4 -> 0.931   8 -> 0.931
+  # La borne est testee AVANT de savoir si l'agent voulait s'arreter : un plan de
+  # N outils exige N+1. Le plan le plus long du jeu en compte 3, d'ou 4. Au-dela,
+  # aucun gain : 4 est le minimum qui n'enleve rien.
+  # A 3, SCN-006 et SCN-026 tombent ; a 2, SCN-025 tombe aussi.
   max_steps: 4
-  # Redondant avec max_steps dans l'implementation actuelle : les deux sont
-  # testes sur le meme compteur (len(run.steps)), donc le minimum gouverne.
-  # Conserve egal pour que la distinction reste possible le jour ou une etape
-  # pourra ne pas appeler d'outil.
+  # Mesure separee a l'etape 5 : courbe IDENTIQUE a max_steps (0.414 / 0.828 /
+  # 0.862 / 0.931). Les deux bornes sont testees sur le meme compteur
+  # (len(run.steps)) : le minimum gouverne, et la redondance est confirmee par la
+  # mesure, plus seulement par la lecture du code.
   max_tool_calls: 4
   # Au moins la somme des timeouts du plan le plus long, sinon la politique
   # rend impossible un comportement legitime : SCN-006 = diagnose_report 1000
   # + get_equipment 800 + search_knowledge 1500 = 3300 ms. 8000 laisse x2.4.
-  # Mesure locale : pire scenario 0.4 ms, mediane 0.03 ms — la borne ne mord
-  # pas et ne doit pas mordre : elle protege d'une source distante degradee,
-  # pas du fonctionnement nominal.
+  # Mesure locale a l'etape 5 : mediane 0.12 ms, pire scenario 0.76 ms, marge
+  # x10 500 — la borne ne mord pas et ne doit pas mordre : elle protege d'une
+  # source distante degradee, pas du fonctionnement nominal.
   max_duration_ms: 8000
   # Porte sur l'empreinte {outil + arguments}, pas sur l'outil : deux appels du
   # meme outil sur des arguments differents ne sont pas une repetition. 1
   # interdit donc le rappel strictement identique — la boucle couteuse d'ADV-004
-  # — sans empecher un plan legitime. Inerte sur le jeu actuel (agent a une
-  # etape), a re-mesurer a l'etape 5.
+  # — sans empecher un plan legitime.
+  # TOUJOURS INERTE apres re-mesure (1 et 2 donnent 0.931 et 55 lignes lues) :
+  # le planificateur ecarte deja un outil deja employe, donc aucune repetition
+  # n'est produite. La borne reste, comme garde-fou d'un plan futur ou d'un
+  # planificateur remplace — mais elle n'est pas defendue par la mesure.
   max_repeated_calls: 1
-  # Plafond de la politique, applique en plus de la limite propre a chaque
-  # outil. Mesure de l'exposition sur le jeu gele : 1 -> 11 lignes lues,
-  # 3 -> 23, 5 -> 26, 10 -> 26, et la reussite reste 0.833 dans les quatre cas.
-  # Ce parametre ne gouverne pas la performance, il gouverne la donnee lue.
-  # 10 etait sans effet (aucun outil ne rend plus de 10 lignes) ; 5 aligne le
-  # plafond sur ce que l'agent demande reellement et le rend actif ; 3 lirait
-  # 12 % de donnees en moins sans perte mesuree, mais couperait l'historique de
-  # maintenance a 3 interventions sur 14 — or le contrat de l'outil previent
-  # qu'une recidive ne se deduit pas d'un historique tronque. 1 supprimerait la
-  # possibilite meme de constater une contradiction entre deux sources (INV-09).
+  # Plafond de la politique, applique en plus de la limite propre a chaque outil.
+  # RE-MESURE A L'ETAPE 5 : 1 -> 0.862, 3 -> 0.931, 5 -> 0.931, 10 -> 0.931.
+  # A 1, deux scenarios tombent et la cause n'est pas celle que j'avais anticipee
+  # a l'etape 2 : SCN-004 (une seule ligne visible ne peut plus porter la
+  # repetition qui etablit une recidive) et SCN-028 (les trois evenements
+  # attendus comme preuves n'arrivent plus). La capacite perdue est la meme dans
+  # le fond — comparer plusieurs lignes — mais le mecanisme est different.
+  # 3 suffit deja ; 5 est conserve pour la marge, et parce que le contrat de
+  # get_maintenance_history previent qu'une recidive ne se deduit pas d'un
+  # historique tronque. 10 reste sans effet.
   max_result_rows: 5
 
 execution:
-  # Une erreur d'outil arrete l'execution (INV-05). Inerte sur le jeu actuel —
-  # les scenarios en erreur attendent de toute facon un refus — mais la valeur
-  # tient par principe : continuer apres une erreur, c'est repondre sur une
-  # preuve partielle sans le dire.
+  # Une erreur d'outil arrete l'execution (INV-05). TOUJOURS INERTE apres
+  # re-mesure (0.931 dans les deux positions) : les scenarios en erreur attendent
+  # de toute facon un refus. La valeur tient par principe, pas par la mesure —
+  # continuer apres une erreur, c'est repondre sur une preuve partielle sans le
+  # dire. Elle decidera le jour ou une deuxieme source pourra compenser l'echec
+  # de la premiere.
   stop_on_tool_error: true
-  # Le parametre le mieux defendu de la politique : a false, la reussite tombe
-  # de 0.833 a 0.556. Six scenarios de refus (SCN-008, 009, 010, 014, 015, 017)
-  # basculent en reponses non fondees.
+  # A false, la reussite tombe de 0.931 a 0.828. L'ecart s'est RESSERRE depuis
+  # l'etape 2 (0.833 -> 0.556) parce que les refus construits a l'etape 4 —
+  # perimetre, ancrage, troncature — prennent desormais le relais sur une partie
+  # des cas que ce seul drapeau portait.
   require_evidence: true
   # Refuse au chargement si mis a false : INV-08 repose dessus, et un drapeau
   # qui ne change rien quand on le desactive n'est pas un controle.

@@ -30,7 +30,7 @@ from agent.registry import default_registry
 from agent.runner import BoundedAgent, load_policy
 from eval.run_agent_eval import baseline_without_agent, evaluate_scenario, load_scenarios, summarize
 
-SCENARIOS = ROOT / "eval" / "scenarios.jsonl"
+SCENARIOS = ROOT / "eval" / "scenarios_v3.jsonl"
 POLICY = ROOT / "agent" / "policy.yaml"
 
 
@@ -223,6 +223,12 @@ def main() -> int:
                 replace(base, budget=replace(base.budget, max_repeated_calls=valeur)), scenarios,
             )
             for valeur in (1, 2)
+        },
+        "sensibilite_max_tool_calls": {
+            str(valeur): mesure(
+                replace(base, budget=replace(base.budget, max_tool_calls=valeur)), scenarios,
+            )
+            for valeur in (1, 2, 3, 4)
         },
         "cout_des_autorisations": cout_de_chaque_autorisation(base, scenarios),
         "bornes_dures": bornes_dures(),

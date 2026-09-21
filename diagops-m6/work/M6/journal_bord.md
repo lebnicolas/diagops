@@ -244,3 +244,50 @@ décrit ce qui a été décidé, mesuré et rejeté, pas seulement ce qui a marc
   `eval/scenarios_v3.jsonl`, `docs/agent_borne.md`.
 - **prochaine étape** : étape 5, évaluer — et re-mesurer les quatre valeurs de politique que le
   jeu ne discriminait pas tant que l'agent ne faisait qu'une étape.
+
+### J1-06 · Étape 5 — évaluer, et re-mesurer ce que l'étape 2 n'avait pas pu défendre
+
+- **objectif** : les huit mesures du brief, la comparaison aux deux références imposées, et les
+  quatre valeurs de politique laissées en suspens à l'étape 2.
+- **la tranche M4 ne pouvait plus être rejouée** : l'étape 4 avait remplacé le planificateur du
+  starter. Un point de comparaison ne peut pas être un souvenir — elle est réimplémentée dans
+  `eval/baseline_m4.py`, avec sa collecte de preuves d'origine (aucun ancrage, aucune prise en
+  compte de la troncature), et **vérifiée identique au starter par diff**.
+- **comparaison des trois systèmes** (`eval/compare_systems.py`) :
+  jeu v3 — sans agent 0,172, tranche M4 0,724, **agent 0,931** ; starter — 0,111 / 0,833 /
+  **1,000** ; campagne — 0,000 / 0,667 / **1,000**. Sur les refus attendus du jeu v3 :
+  0,750 → **1,000**.
+- **le gain n'est pas gratuit** : +26 % d'appels (23 → 29) et **+28 % de lignes lues** (43 → 55)
+  sur le jeu v3. Enchaîner coûte des lectures. Sauf sur la campagne, où l'agent lit *moins*
+  (14 contre 16) en réussissant mieux — refuser avant appel coûte moins que refuser après.
+- **la latence ne se lit pas** : 0,65 ms contre 1,18 ms au p95, sur un data pack local en cache.
+  À cette échelle c'est du bruit. Rapportée parce que le brief l'exige, elle ne fonde aucune
+  conclusion.
+- **les deux refus incorrects sont identiques en nombre, différents en nature** : chez la tranche
+  M4 ils viennent de questions qu'elle ne sait pas déclencher ; chez l'agent, ce sont `SCN-019` et
+  `SCN-020` — il cherche, obtient le mauvais document, et refuse plutôt que de citer hors sujet.
+  Le même chiffre recouvre un progrès.
+- **les quatre valeurs en suspens sont enfin discriminées**. `max_steps` : 0,414 / 0,828 / 0,862 /
+  **0,931** / 0,931 pour 1 / 2 / 3 / 4 / 8 — 4 est le minimum qui n'enlève rien, et à 3 ce sont
+  `SCN-006` et `SCN-026` qui tombent. `max_tool_calls` : courbe **identique**, la redondance est
+  désormais mesurée et plus seulement lue dans le code. `max_repeated_calls` et
+  `stop_on_tool_error` restent **inertes**, et c'est écrit comme tel : le planificateur écarte
+  déjà un outil déjà employé, et les scénarios en erreur attendent de toute façon un refus.
+- **une anticipation à moitié fausse, consignée** : l'étape 2 annonçait qu'à `max_result_rows: 1`
+  on perdrait « la possibilité de constater une contradiction entre deux sources ». La perte
+  existe bien (0,931 → 0,862) mais le mécanisme est autre : `SCN-004` perd la répétition qui
+  établit une récidive, `SCN-028` perd deux de ses trois preuves. L'intuition était juste, sa
+  démonstration ne l'était pas.
+- **la liste blanche coûte deux fois plus cher qu'à l'étape 2** : sans `search_knowledge`,
+  0,931 → 0,621 (contre 0,833 → 0,667 avec l'agent à une étape). Un agent qui enchaîne dépend
+  davantage de chacun de ses outils — point de gouvernance autant que de performance.
+- **le seul appel inutile est identifié** : 1 sur 29, sur `SCN-026`, parce que le mot
+  « équipement » déclenche la lecture de fiche. Bruit lexical, la limite annoncée du planificateur
+  par mots-clés ; il coûte un appel, une ligne et une unité de budget — et c'est lui qui fait
+  tomber `SCN-026` à `max_steps: 3`.
+- **politique passée en `m6-r3`** : chaque commentaire porte désormais la mesure réelle, et les
+  deux valeurs inertes sont annoncées comme telles au lieu d'être présentées comme défendues.
+- **livrables** : `eval/baseline_m4.py`, `eval/compare_systems.py`, `docs/rapport_evaluation.md`,
+  `agent/policy.yaml` (m6-r3), `results/comparaison.json`, `results/sensibilite_politique_r2.json`.
+- **prochaine étape** : étape 6, qualifier le feedback — 124 retours, et la règle qui ouvre le
+  document du starter : un commentaire n'est pas une vérité.
