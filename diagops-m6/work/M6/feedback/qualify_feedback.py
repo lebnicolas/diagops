@@ -158,6 +158,46 @@ def classify(signal: dict) -> tuple[str, str]:
     return "actionnable", "retour lié à un run, précis et mesurable"
 
 
+def theme_concentration(qualified: list[dict], rows: list[dict]) -> dict:
+    """Concentration par THÈME, et non par auteur.
+
+    Le starter mesure la part du contributeur le plus actif. Sur ce lot, ce
+    signal est inatteignable : 18 auteurs pour 124 retours plafonnent à 8,9 %
+    quand le seuil est à 15 %. Le signal qui porte réellement est ailleurs — un
+    même texte, répété à l'identique sur plusieurs rapports par plusieurs
+    auteurs. C'est ce qui distingue un symptôme partagé d'une campagne, et
+    aucune des deux lectures ne se tranche sans cette mesure.
+    """
+    texte_par_id = {row["feedback_id"]: normalize(row["comment"]) for row in rows}
+    groupes: dict[str, list[dict]] = defaultdict(list)
+    for ligne in qualified:
+        groupes[texte_par_id[ligne["feedback_id"]]].append(ligne)
+
+    repetes = [
+        {
+            "occurrences": len(lot),
+            "rapports_distincts": len({l["report_id"] for l in lot}),
+            "auteurs_distincts": len({l["author"] for l in lot}),
+            "classe": lot[0]["classe"],
+            "extrait": texte[:80],
+        }
+        for texte, lot in groupes.items()
+        if len({l["report_id"] for l in lot}) > 1
+    ]
+    repetes.sort(key=lambda item: item["occurrences"], reverse=True)
+    actionnables = [item for item in repetes if item["classe"] == "actionnable"]
+    return {
+        "textes_repetes_sur_plusieurs_rapports": len(repetes),
+        "retours_concernes": sum(item["occurrences"] for item in repetes),
+        "part_du_lot": round(
+            sum(item["occurrences"] for item in repetes) / len(qualified), 3
+        ),
+        "themes_actionnables_repetes": len(actionnables),
+        "plus_gros_theme": repetes[0] if repetes else None,
+        "detail": repetes,
+    }
+
+
 def summarize(qualified: list[dict]) -> dict:
     counts = Counter(row["classe"] for row in qualified)
     authors = Counter(row["author"] for row in qualified)
@@ -202,6 +242,7 @@ def main() -> int:
         qualified.append({**signal, "classe": classe, "motif": motif})
 
     summary = summarize(qualified)
+    summary["theme_concentration"] = theme_concentration(qualified, rows)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(
         json.dumps(
