@@ -21,7 +21,14 @@ from agent.registry import default_registry
 from agent.runner import AgentRun, BoundedAgent, Step, load_policy
 
 POLICY_PATH = "agent/policy.yaml"
-QUESTION_DOCUMENTAIRE = "Quelle procédure de consignation faut-il appliquer ?"
+# Le test a besoin d'une question qui rende PLUSIEURS documents, sinon il ne
+# peut pas verifier que le plafond coupe. Le candidat retrieval m6-r2 ayant
+# rendu le score plus selectif, la question courte n'en rend plus qu'un :
+# c'est la question du test qui change, jamais son assertion.
+QUESTION_DOCUMENTAIRE = (
+    "Quelle révision de la procédure de consignation faut-il appliquer "
+    "et quelles sont ses étapes ?"
+)
 
 
 @pytest.fixture(scope="module")

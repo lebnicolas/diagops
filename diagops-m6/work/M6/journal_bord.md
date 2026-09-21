@@ -343,3 +343,57 @@ décrit ce qui a été décidé, mesuré et rejeté, pas seulement ce qui a marc
   `feedback/qualify_feedback.py` (+ `theme_concentration`), `results/feedback_all.json`,
   `results/sondes_feedback.json`.
 - **prochaine étape** : étape 7, proposer et tester une amélioration — un seul axe, le retrieval.
+
+### J1-08 · Étape 7 — un candidat qui corrige le composant sans améliorer le système
+
+- **axe unique** : la fonction de score de `search_knowledge`. Ni le corpus, ni la politique, ni
+  l'agent, ni le seuil d'ancrage.
+- **vérification faite avant toute écriture de code** : le mot « givre » n'apparaît dans **aucun**
+  document du corpus, pas plus que « conduite retour ». `SCN-019` ne peut donc pas être résolu par
+  un score, quel qu'il soit — c'est un défaut de **corpus**, et le corpus n'est pas l'axe retenu.
+  En revanche chaque terme métier est propre à un seul document, ce qui rend l'hypothèse plausible.
+- **jeu d'évaluation du retrieval construit et gelé avant modification** (`eval/retrieval_eval.jsonl`,
+  20 questions, empreinte `c6bba32e…`), en trois familles qui ne se lisent pas ensemble :
+  vocabulaire du corpus, vocabulaire utilisateur (l'épreuve du M4 : les mots des techniciens ne
+  sont pas ceux du corpus), et hors domaine.
+- **référence** : Recall@1 global 0,533, corpus 0,714, utilisateur 0,200, et surtout une
+  **séparation de −3,0** — le pire score d'une question légitime (2,0) est sous le meilleur score
+  d'une question sur la tarte aux pommes (5,0). `DOC-STEAM-PRESS-001` sortait en tête de
+  **11 questions sur 20**, dont les cinq hors domaine : un attracteur, pas une réponse.
+- **neuf prédictions écrites et commitées avant que le candidat n'existe** (`d976e1e`). Résultat :
+  **cinq justes, trois fausses, une mal posée**.
+- **ce que le candidat gagne** : corpus @1 de 0,714 à **1,000**, ambigu @3 de 0,667 à **1,000**,
+  **5 silences sur 5** hors domaine (contre 0), plus aucun score hors domaine, et l'attracteur
+  disparu. Effet secondaire non visé mais mesuré : **31 documents rendus au lieu de 60** — l'
+  exposition est divisée par deux.
+- **P3 était mal conçue, et c'est instructif** : je prédisais une séparation positive ; elle vaut
+  0,0, parce que trois questions **du domaine** se taisent aussi désormais. Ma métrique mélangeait
+  silence et score. Le hors-domaine ne rend plus rien du tout : il n'y a plus de frontière à
+  franchir, donc plus de seuil à régler. Le progrès est réel, l'indicateur que j'avais écrit ne
+  sait pas l'exprimer — la leçon du M5 sur les contrôles qui ne mesurent pas ce qu'ils prétendent,
+  appliquée à une métrique de ma main.
+- **P7 est fausse, et c'est le résultat le plus important de l'étape.** `SCN-020` : le retrieval
+  rend désormais **le bon document** (`DOC-CONV-CURRENT-001`, score 1,0) — et l'agent **le
+  refuse**, parce qu'un seul terme commun ne franchit pas `ANCRAGE_MINIMUM = 2`. Deux contrôles
+  empilés comptent la même chose : quand le score devient sélectif, l'ancrage devient redondant et
+  trop strict, il re-filtre une liste déjà filtrée. Le composant est corrigé, le système ne bouge
+  pas : **0,931 avant, 0,931 après**.
+- **un effet non prévu, et il compte** : la baseline sans agent **double** (0,172 → 0,345). Elle
+  interroge directement `search_knowledge` — améliorer le score l'améliore aussi. L'écart entre
+  l'agent et sa baseline tombe de 0,759 à 0,586. Modifier un composant partagé déplace la
+  référence en même temps que le candidat, et ici l'amélioration profite davantage au système
+  qu'on cherchait à battre qu'à celui qu'on cherchait à améliorer.
+- **un test recalibré, consigné** : `test_max_result_rows_coupe_le_resultat` avait besoin d'une
+  question rendant plusieurs documents ; le candidat en rend moins. C'est la **question** du test
+  qui change, jamais son assertion.
+- **aucune régression** : jeu v3 0,931 inchangé, campagne 1,000 inchangée, 0 appel d'outil
+  interdit, 64 tests verts.
+- **décision proposée : promouvoir**, pour trois raisons qui ne dépendent pas de l'ancrage —
+  sécurité (cinq questions hors domaine sur cinq ne rendent plus rien), minimisation (exposition
+  divisée par deux), honnêteté du système (silence au lieu d'un document hors sujet cité avec
+  aplomb). Et ouvrir aussitôt le second candidat sur l'ancrage, sans lequel l'utilisateur ne verra
+  rien de ce gain. **`INV-07` : proposée, pas appliquée — la décision revient à Nicolas.**
+- **livrables** : `docs/candidat_retrieval.md`, `eval/retrieval_eval.jsonl` (gelé),
+  `eval/run_retrieval_eval.py`, `tools/knowledge.py` (candidat `m6-retrieval-r2`),
+  `results/retrieval_reference.json`, `results/retrieval_candidat.json`.
+- **prochaine étape** : étape 8, le checkpoint de veille réglementaire M6.

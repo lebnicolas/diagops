@@ -54,9 +54,22 @@ def _tokens(text: str) -> list[str]:
 
 
 def _score(query: str, text: str) -> float:
-    query_counts = Counter(_tokens(query))
-    text_counts = Counter(_tokens(text))
-    return float(sum(min(count, text_counts[token]) for token, count in query_counts.items()))
+    """Termes significatifs partages entre la question et le document.
+
+    Candidat `m6-retrieval-r2`. La version de reference comptait TOUS les tokens
+    communs, mots vides inclus : « de », « la », « aux », « est » sont presents
+    dans les sept documents, rapprochaient n'importe quelle question de n'importe
+    quel document, et noyaient le signal des termes metier. Mesure de reference :
+    separation de -3.0 entre domaine et hors-domaine, et zero silence sur cinq
+    questions hors sujet.
+
+    Le comptage porte desormais sur les termes significatifs — mots vides
+    retires, accents normalises, mots de trois lettres ou moins ecartes — via la
+    meme couche lexicale que l'ancrage de l'agent. Un terme compte une fois,
+    qu'il apparaisse une ou dix fois : ce qui distingue un document, c'est de
+    porter le sujet, pas de le repeter.
+    """
+    return float(len(termes_significatifs(query) & termes_significatifs(text)))
 
 
 def _excerpt(query: str, text: str) -> str:
