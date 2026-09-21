@@ -1,0 +1,31 @@
+equipment_id,equipment_type,site_id,commissioning_date,criticality,manufacturer,rated_power_kw
+EQ-M2X-001,pump,SITE-NORD,2013-02-02,low,Valcor,25.35
+EQ-M2X-002,motor,SITE-SUD,2014-03-03,medium,Aster Industrie,32.7
+EQ-M2X-003,compressor,SITE-EST,2015-04-04,high,MecaNova,40.05
+EQ-M2X-004,conveyor,SITE-OUEST,2016-05-05,critical,Rotatek,47.4
+EQ-M2X-005,fan,SITE-NORD,2017-06-06,low,Valcor,54.75
+EQ-M2X-006,valve,SITE-CENTRE,2018-07-07,medium,Aster Industrie,62.1
+EQ-M2X-007,pump,SITE-EST,2019-08-08,urgent,MecaNova,69.45
+EQ-M2X-008,motor,SITE-OUEST,2020-09-09,critical,Rotatek,-12.0
+EQ-M2X-009,compressor,SITE-NORD,15/03/2020,low,Valcor,84.15
+EQ-M2X-010,hydraulic_unit,SITE-SUD,2022-11-11,medium,Aster Industrie,91.5
+EQ-M2X-011,fan,SITE-EST,2023-12-12,high,MecaNova,98.85
+EQ-M2X-012,valve,SITE-OUEST,2024-01-13,critical,Rotatek,106.2
+EQ-M2X-013,pump,SITE-NORD,2012-02-14,low,Valcor,113.55
+EQ-M2X-014,motor,SITE-SUD,2013-03-15,medium,Aster Industrie,120.9
+EQ-M2X-015,compressor,SITE-EST,2014-04-16,high,MecaNova,128.25
+EQ-M2X-016,conveyor,SITE-OUEST,2015-05-17,critical,Rotatek,135.6
+EQ-M2X-017,fan,SITE-NORD,2016-06-18,low,Valcor,142.95
+EQ-M2X-018,valve,SITE-SUD,2017-07-19,medium,Aster Industrie,150.3
+EQ-M2X-019,pump,SITE-EST,2018-08-20,high,MecaNova,157.65
+EQ-M2X-020,motor,SITE-OUEST,2019-09-21,critical,Rotatek,165.0
+EQ-M2X-021,compressor,SITE-NORD,2020-10-22,low,Valcor,172.35
+EQ-M2X-022,conveyor,SITE-SUD,2021-11-23,medium,Aster Industrie,179.7
+EQ-M2X-023,fan,SITE-EST,2022-12-24,high,MecaNova,187.05
+EQ-M2X-024,valve,SITE-OUEST,2023-01-25,critical,Rotatek,194.4
+EQ-CAB-101,electrical_cabinet,SITE-SUD,2010-06-10,medium,Aster Industrie,47.5
+EQ-CAB-112,electrical_cabinet,SITE-EST,2024-09-03,low,Aster Industrie,61.2
+EQ-CAB-123,electrical_cabinet,SITE-SUD,2006-12-27,low,Aster Industrie,62.8
+EQ-CAB-134,electrical_cabinet,SITE-NORD,2020-12-28,critical,Aster Industrie,34.0
+EQ-M2X-002,motor,SITE-SUD,2014-03-03,medium,Aster Industrie,32.7
+,pump,SITE-SUD,2021-05-12,medium,Valcor,44.0
