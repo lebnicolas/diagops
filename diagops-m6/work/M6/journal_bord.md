@@ -397,3 +397,57 @@ décrit ce qui a été décidé, mesuré et rejeté, pas seulement ce qui a marc
   `eval/run_retrieval_eval.py`, `tools/knowledge.py` (candidat `m6-retrieval-r2`),
   `results/retrieval_reference.json`, `results/retrieval_candidat.json`.
 - **prochaine étape** : étape 8, le checkpoint de veille réglementaire M6.
+
+### J1-09 · Étape 8 — le checkpoint réglementaire, et la première entrée qui crée un contrôle
+
+- **objectif** : réévaluer les conclusions M5 à la lumière de l'agent outillé et du feedback,
+  puis traduire la décision dans une politique, une trace ou un gate.
+- **les cinq questions du relais M5, réglées ou reportées** :
+  1. **couche de génération et article 50 → NON**, vérifiable dans le code : M6 n'introduit aucune
+     génération, `_conclude` compose une phrase gabarit à partir des références obtenues. La
+     conclusion du M5 tient, et sa réserve se reporte à M7 ;
+  2. **fournisseur d'inférence externe → NON** : `requirements.lock` ne contient que pytest et
+     PyYAML, aucun appel réseau dans les cinq adaptateurs. Localisation et sous-traitance restent
+     sans objet ;
+  3. **feedback humain et données personnelles → OUI. C'est le seul changement réel de la
+     période.** Chaque retour porte un identifiant d'auteur et un rôle ; **6 commentaires sur 124
+     contiennent une donnée personnelle en clair** — un numéro de mobile, un matricule nominatif,
+     deux noms ; et la qualification produit un fichier nominatif persistant. Jusqu'à M6 le corpus
+     était synthétique et les traces minimisées : aucune donnée personnelle n'entrait dans le
+     système. Le canal de feedback en fait entrer, par le chemin que personne ne contrôle — le
+     texte libre ;
+  4. **texte consolidé du règlement → toujours pas lu**, EUR-Lex reste inaccessible depuis ce
+     poste. Reporté à M7 : l'échéance a maintenant été repoussée **deux fois** ;
+  5. **calendrier du report au 02/12/2027 → non revérifié** depuis le 07/09, même raison.
+- **la décision crée un contrôle, elle n'en relie pas un qui préexistait.** C'est la première fois
+  depuis M4, et la raison est simple : c'est la première fois qu'une donnée personnelle entre
+  réellement dans le système. `eval/gate_promotion.py` vérifie six conditions avant toute
+  promotion — jeu gelé conforme à son empreinte, aucune régression, campagne sans violation,
+  traces projetées sur le contrat sans champ interdit, **feedback qualifié avec retours à risque
+  écartés et aucune exportation**, décision humaine tracée. Verdict au 21/09 : **PASS**.
+- **limite de méthode déclarée** : aucune source primaire consultée. Les conclusions 1 et 2 ne
+  dépendent d'aucun texte nouveau — elles constatent l'état du système, vérifiable dans le dépôt.
+  La conclusion 3 relève du RGPD, dont l'applicabilité n'est pas en question.
+- **dette portée à M7** : `retention_days: 30` ne purge rien, et les fichiers concernés sont
+  désormais nominatifs. Une durée annoncée et non appliquée est une promesse non tenue — elle
+  porte maintenant sur des données personnelles.
+- **passage de relais M6 → M7** : sept questions avec responsable et échéance, dont une neuve
+  ouverte par cette entrée — la base légale du traitement des retours (information des
+  contributeurs, durée, droits d'accès et d'effacement).
+
+### J1-10 · Clôture du brief 1 présentiel
+
+- **dix livrables sur dix**, huit critères de réussite tenus, gate au vert, décision de promotion
+  prise par un humain et datée. Bilan complet dans `docs/bilan_brief1.md`.
+- **le chemin** : jeu du starter 0,833 → **1,000** ; jeu gelé v3 0,724 → **0,966** ; campagne
+  0,667 → **1,000** ; appels d'outils interdits 1 → **0** ; Recall@1 du retrieval 0,533 →
+  **0,667** ; silences hors domaine 0/5 → **5/5** ; tests 45 → **64**.
+- **sept constats ont changé une décision**, et deux erreurs de ma main sont consignées parce
+  qu'elles instruisent : un jeu de scénarios écrit sans accents mesure un autre système
+  (0,690 contre 0,724), et à `ANCRAGE_MINIMUM = 1` j'ai rendu inerte un contrôle — le défaut que
+  ce dossier dénonce depuis l'étape 2, reproduit trois étapes plus loin.
+- **la réserve n'a pas changé depuis l'étape 4** : les règles de l'agent ont été construites en
+  regardant les échecs du jeu gelé. La campagne fournie, jamais consultée pendant le réglage, est
+  le seul signal externe ; le contrôle réel est la campagne d'un pair au brief 2.
+- **reste ouvert** : le reclassement des 16 retours datés (décision de Nicolas), le troisième
+  candidat sur le corpus, et quatre questions portées à M7.
