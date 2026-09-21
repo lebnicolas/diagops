@@ -96,11 +96,14 @@ l'explication directe de l'échec `SCN-014` du starter, et ce n'est pas un défa
 l'agent : l'information « un document pertinent existe mais votre rôle ne l'autorise
 pas » n'existe nulle part dans le résultat.
 
-> **Arbitrage à rendre avant l'étape 4 — il ne m'appartient pas.** Signaler
-> « *n* documents écartés par le filtre de rôle » rendrait le refus correct et
-> justifiable, mais révèle par canal auxiliaire l'existence d'un document restreint
-> pertinent. Ne rien signaler garde le secret et rend le refus impossible à motiver.
-> Voir §6.
+> **Arbitrage rendu le 21/09/2026 — compte exposé, refus neutre.** L'outil signalera
+> le **nombre** de documents écartés par le filtre de rôle, sans les nommer ni les
+> décrire. L'agent dispose ainsi de quoi s'abstenir à bon escient et la trace permet
+> l'audit, mais **le refus rendu à l'utilisateur est le même** qu'un document ait été
+> écarté ou qu'aucun document n'existe : le canal auxiliaire reste fermé.
+>
+> Mise en œuvre planifiée à l'**étape 4**, avec le scénario qui l'exerce — un contrat
+> ne se modifie pas sans mesure associée (§7).
 
 ### 2.3 Le timeout ne protège rien — il qualifie après coup
 
@@ -251,9 +254,12 @@ manquant : c'est une demande à refuser.
 
 ## 6. Questions ouvertes
 
-1. **Le refus silencieux.** Faut-il indiquer qu'un document a été écarté par le filtre
-   de rôle ? Refus motivé contre fuite par canal auxiliaire (§2.2). Cet arbitrage
-   change le contrat de `search_knowledge` et la façon dont `SCN-014` se résout.
+1. ~~**Le refus silencieux.**~~ **Tranché le 21/09** : le compte des documents écartés
+   est exposé, la formulation du refus reste neutre et identique dans les deux cas
+   (§2.2). Reste à décider *où* le compte est porté — `reason` détourné de son usage
+   de motif d'absence, ou un champ dédié de `ToolResult` que la trace expose. Le champ
+   dédié a ma préférence : `reason` répond à « pourquoi rien », pas à « ce qui manque
+   à ce que vous voyez ».
 2. **Le score non discriminant** (§2.1). Corriger l'outil — mots vides, normalisation,
    seuil — relève de l'étape 7 et se mesure comme un candidat, sur un seul axe. D'ici
    là, l'agent doit refuser **avant** l'appel sur une question hors périmètre, pas
@@ -271,7 +277,10 @@ manquant : c'est une demande à refuser.
 | Date | Outil | Modification | Motif | Décidée par |
 |---|---|---|---|---|
 | 21/09/2026 | — | Registre établi par observation (35 sondes), aucune modification de contrat | Étape 1 du brief 1 : vérifier avant de documenter | Nicolas |
+| 21/09/2026 | `search_knowledge` | **Décidé, non appliqué** : exposer le nombre de documents écartés par le filtre de rôle, sans les nommer ; refus neutre et identique dans les deux cas | Rendre `SCN-014` résoluble sans ouvrir de canal auxiliaire (§2.2) | Nicolas |
 
-Aucun contrat n'a été modifié à ce stade. Les quatre questions du §6 sont des
-propositions de modification : chacune devra passer par une hypothèse, un candidat
-et une comparaison — pas par une correction directe.
+Aucun contrat n'a été modifié à ce stade. Les propositions du §6 devront passer par
+une hypothèse, un candidat et une comparaison — pas par une correction directe. La
+décision du 21/09 sur `search_knowledge` est prise mais **sa mise en œuvre attend
+l'étape 4 et le scénario qui l'exerce** : la règle « aucun outil n'est ajouté sans
+scénario de test associé » vaut aussi pour une modification de contrat.

@@ -80,8 +80,11 @@ décrit ce qui a été décidé, mesuré et rejeté, pas seulement ce qui a marc
   (signalement du filtre de rôle, score discriminant, normalisation des sources, recalage des
   timeouts) sont écrites en questions ouvertes au §6 du registre : chacune est un candidat à
   mesurer sur un seul axe, pas un correctif à appliquer au fil de l'eau.
-- **arbitrage qui revient à Nicolas** : signaler « *n* documents écartés par le filtre de rôle »
-  rend le refus motivé mais révèle l'existence d'un document restreint pertinent. Ne rien
-  signaler garde le secret et rend le refus impossible à justifier.
+- **arbitrage rendu par Nicolas le jour même** : le compte des documents écartés par le
+  filtre de rôle sera exposé, sans les nommer, et **la formulation du refus restera
+  identique** qu'un document ait été écarté ou qu'il n'en existe aucun. L'agent peut
+  ainsi s'abstenir à bon escient et la trace reste auditable, sans ouvrir de canal
+  auxiliaire sur l'existence d'un document restreint. Mise en œuvre renvoyée à
+  l'étape 4, avec le scénario qui l'exerce : un contrat ne se modifie pas sans mesure.
 - **livrable** : `docs/registre_outils.md`.
 - **prochaine étape** : étape 2, politique d'exécution défendue valeur par valeur.
