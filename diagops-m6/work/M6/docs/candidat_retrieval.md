@@ -235,3 +235,46 @@ l'utilisateur ne verra rien de ce gain.
 
 > `INV-07` — aucune promotion sans décision humaine. Celle-ci est proposée, pas
 > appliquée : le candidat est mesuré, la décision revient à Nicolas.
+
+## 12. Décision rendue
+
+**PROMU** le 21/09/2026, décidé par **Nicolas**, sur la proposition du §11.
+
+| | |
+|---|---|
+| candidat | `m6-retrieval-r2` — `_score` sur les termes significatifs |
+| gate | jeu gelé v3 **0,931** (inchangé), campagne **1,000** (inchangée), 64 tests verts, 0 appel d'outil interdit |
+| motif | sécurité (5/5 silences hors domaine), minimisation (60 → 31 documents rendus), honnêteté (silence plutôt qu'un document hors sujet) |
+| réversibilité | un `git revert` du commit `4b245f7` ramène le score d'origine ; le jeu d'évaluation et les mesures de référence restent au dossier |
+| suite | second candidat ouvert sur l'ancrage (§9), sans lequel le gain n'atteint pas l'utilisateur |
+
+La décision ne s'appuie pas sur un gain système — il est nul. Elle s'appuie sur
+trois propriétés acquises **indépendamment** de l'ancrage, et sur l'absence de
+régression. C'est une promotion défendable, et c'est aussi la limite de ce qu'on
+peut en dire.
+
+---
+
+# Second candidat — l'ancrage qui absorbe le gain
+
+**Axe unique : `ANCRAGE_MINIMUM`.** Le premier candidat a rendu le score sélectif ;
+l'ancrage de l'agent compte la même chose et re-filtre une liste déjà filtrée.
+
+## 13. Hypothèse et prédictions, écrites avant mesure
+
+> Quand le score du retrieval porte déjà la pertinence, exiger **deux** termes
+> communs entre la question et l'extrait cité est redondant. Un seul suffit, parce
+> qu'un document sans aucun terme commun n'est plus rendu du tout : le silence du
+> retrieval a remplacé le filtre de l'agent.
+
+| # | Prédiction | Pourquoi |
+|---:|---|---|
+| **Q1** | `SCN-020` passe, le jeu v3 monte à **0,966** | le bon document est rendu, seul l'ancrage le bloque |
+| **Q2** | `SCN-019` **échoue toujours** | le retrieval se tait : aucun document à ancrer, quel que soit le seuil |
+| **Q3** | `SCN-014` reste un refus | le document restreint est filtré par le rôle, les autres ne partagent pas de terme |
+| **Q4** | campagne **1,000** maintenue | aucun cas de la campagne ne dépend de l'ancrage |
+| **Q5** | les 64 tests restent verts | le test d'invariant du refus neutre repose sur un silence, pas sur un seuil |
+
+**Risque identifié** : à 1, un document partageant un seul mot de vocabulaire
+général — « règle », « seuil » — redeviendrait citable. Le premier candidat a
+réduit ce risque en supprimant les mots vides, il ne l'a pas supprimé.
