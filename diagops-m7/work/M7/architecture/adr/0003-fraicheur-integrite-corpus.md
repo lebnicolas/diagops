@@ -50,4 +50,11 @@
   par une révocation : un rollback ne doit pas rétablir un droit retiré.
   Révision si les reconstructions deviennent assez longues pour que la coupure
   gêne (au-delà du RTO de 15 min).
+- Résultat de la migration exercée (brief 2, phase 1) : M-REV-A (export
+  refusé), M-REV-B (index périmé refusé, puis révision unique servie) et
+  M-REVOC (index périmé refusé, droit retiré, retour arrière vers l'index
+  d'avant refusé) sont conformes. **Écart à l'ADR** : la reconstruction n'est
+  pas déclenchée par le changement, elle reste manuelle (D-2). Entre le
+  changement et la reconstruction, le service documentaire refuse. C'est le
+  comportement sûr, mais pas encore le comportement visé.
 - Changement après contradiction indépendante : à remplir.

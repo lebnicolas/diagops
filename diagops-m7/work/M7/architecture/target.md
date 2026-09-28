@@ -99,7 +99,14 @@ Voir `architecture/migration_plan.md`.
 
 ## Décision finale
 
-**Différer**, en attente du brief 2. Le brief 1 établit que la migration
+**Mise à jour après la phase 1 du brief 2 (`531d288`) : migrer sous conditions,
+décision suspendue à la revue indépendante.** Les cinq gates bloquants et les
+gates majeurs (qualité, reprise, capacité) passent (`migration_exercise/execution_log.md`). Deux
+dettes sont reportées (D-1, empreinte par requête ; D-2, reconstruction
+manuelle). Aucune ne bloque. La cible n'est pas approuvée : il manque la revue
+d'une autre personne, et le brief interdit de s'en passer.
+
+Décision initiale, au terme du brief 1 : **différer**, en attente du brief 2. Le brief 1 établit que la migration
 d'index est **justifiée par la capacité** et **faisable sans perte de droits**
 sur un index par rôle. Il établit aussi que la migrer telle quelle aggraverait
 R-11 : un index plus durable qui ne connaît pas son manifeste servirait plus

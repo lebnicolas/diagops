@@ -24,6 +24,11 @@ hypothèses sont écrites avant l'action ; le résultat dit si elles tiennent.
 | 28/09 · 1 h | B1 · ét. 9 | EUR-Lex reste inaccessible, le texte consolidé ne sera pas lu | veille (agent) : Cellar de l'Office des publications | `veille_diagops/` | **fausse** : texte consolidé lu via Cellar ; 8 décisions, 13 questions M8 | D1 à D8 reportées (ADR-0005 à 0008, R-REG-01 à 03, R-16, R-17) |
 | 28/09 · 1 h | B1 · ét. 8 | — | cible, 8 ADR, plan de migration | `architecture/` | décision : **différer** jusqu'au brief 2 ; migrer sans l'ADR-0003 aggraverait R-11 | brief 2 |
 | 28/09 · 6 h (agent) | online | — | évaluation du modèle de provenance M4 | `online/` | voir `online/journal_decisions.md` ; 6 entrées invalides sur 9 prédites sans alerte | décision « évaluer davantage » maintenue |
+| 28/09 · 1 h | B2 · ph. 1 | — | contrat, 24 cas et 6 prédictions gelés **avant** tout code candidat | commit `893ccfa`, `cases.jsonl` `2ed61a27…` | — | implémentation |
+| 28/09 · 3 h | B2 · ph. 1 | P1 à P6 (`contract.md`) | candidat `migration.py` ; `scripts/migration_run.py` | `results/migration-r1` | gates bloquants 5/5, scénarios 6/6 ; **P1 et P2 fausses** : le lexical n'atteint pas 0,90 ; FTS5 perd en top 1 sur les reformulations (B2-12) | FTS5 confirmé, argument corrigé |
+| 28/09 | B2 · ph. 1 | — | oubli constaté : le gate de capacité n'était pas dans le script | `scripts/migration_capacity.py`, `results/migration-capacite-r1` | gate passé (53 contre 273 ms) ; 36 ms sur 53 servent à l'empreinte de l'index par requête | dette D-1 ; oubli consigné dans les révisions du contrat |
+| 28/09 | B2 · ph. 1 | — | durées citées dans le journal de migration relues contre le rapport | `results/migration-r1/report.json` | **3 durées fausses** écrites de mémoire (26, 28, 12 ms au lieu de 21, 16, 29) | corrigées ; ne citer un chiffre qu'après l'avoir relu dans le rapport |
+| 28/09 · 0,5 h | B2 · ph. 2 | — | paquet de revue préparé : version, commandes, six points à challenger | `independent_review.md` | **revue non faite** : il faut une autre personne | à organiser avec un apprenant ou le formateur |
 
 Budget : 14 h présentiel (dont veille), 6 h online, 20 h approfondissement (12 réalisation + 4 revue indépendante + 4 remédiation/défense). Distinguer lecture, simulation sur table et exécution réelle.
 

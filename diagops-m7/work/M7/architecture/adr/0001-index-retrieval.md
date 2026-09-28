@@ -55,5 +55,11 @@
   - révision : si le nombre de rôles dépasse une dizaine (coût disque linéaire
     en rôles), passer à un index par **périmètre** (ensemble de rôles aux
     droits identiques) plutôt que par rôle.
+- Résultat de la migration exercée (brief 2, phase 1, `531d288`), sur
+  24 cas gelés avant mesure : hit@3 0,85 → 0,95, hit@1 égal (0,85), perte en
+  hit@1 sur les reformulations (0,778 → 0,667). Gates bloquants 5/5, capacité
+  52,8 contre 273 ms à 7 000 documents. **Choix confirmé**, avec une dette :
+  36 ms des 52,8 viennent de l'empreinte de l'index recalculée à chaque
+  requête (D-1).
 - Changement après contradiction indépendante : **à remplir après la revue du
   brief 2.**

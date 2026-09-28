@@ -41,6 +41,9 @@ nom de l'exploitant. Les responsables sont des rôles.
   sont précisément la révocation et le changement de révision que le brief 2
   impose d'exercer : la migration doit les corriger, pas seulement les
   traverser.
+  **Mise à jour du 28/09 (brief 2, phase 1, `531d288`)** : R-11 et R-12 sont
+  traités par le candidat (M-REVOC et M-REV-A/B conformes). Leur fermeture
+  attend la revue indépendante ; la reconstruction reste manuelle (D-2).
 - **La mise en service**, même interne, est bloquée par **R-01**, **R-02**,
   **R-13**, **R-16** et **R-17**. Les trois premiers sont des décisions
   d'organisation, non traitées en M7. Les deux derniers sont peu coûteux et
