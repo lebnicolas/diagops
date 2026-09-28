@@ -1,0 +1,94 @@
+{
+  "limitations": [
+    "documents dupliqués : distribution des termes irréaliste",
+    "un seul processus, sans concurrence",
+    "poste de développement"
+  ],
+  "rows": [
+    {
+      "build_fts5_per_role_ms": 6.2,
+      "build_sqlite_ms": 6.9,
+      "documents": 7,
+      "export_bytes": 9746,
+      "factor": 1,
+      "fts5_per_role_bytes": 184320,
+      "query_fts5_per_role": {
+        "p50_ms": 0.706,
+        "p95_ms": 0.908
+      },
+      "query_json_lexical": {
+        "p50_ms": 0.383,
+        "p95_ms": 0.474
+      },
+      "query_sqlite_lexical": {
+        "p50_ms": 0.677,
+        "p95_ms": 0.871
+      },
+      "sqlite_bytes": 40960
+    },
+    {
+      "build_fts5_per_role_ms": 10.8,
+      "build_sqlite_ms": 9.7,
+      "documents": 70,
+      "export_bytes": 99746,
+      "factor": 10,
+      "fts5_per_role_bytes": 585728,
+      "query_fts5_per_role": {
+        "p50_ms": 0.736,
+        "p95_ms": 0.857
+      },
+      "query_json_lexical": {
+        "p50_ms": 3.004,
+        "p95_ms": 3.696
+      },
+      "query_sqlite_lexical": {
+        "p50_ms": 3.25,
+        "p95_ms": 3.728
+      },
+      "sqlite_bytes": 176128
+    },
+    {
+      "build_fts5_per_role_ms": 55.7,
+      "build_sqlite_ms": 27.5,
+      "documents": 700,
+      "export_bytes": 999746,
+      "factor": 100,
+      "fts5_per_role_bytes": 4472832,
+      "query_fts5_per_role": {
+        "p50_ms": 2.587,
+        "p95_ms": 3.126
+      },
+      "query_json_lexical": {
+        "p50_ms": 27.361,
+        "p95_ms": 30.346
+      },
+      "query_sqlite_lexical": {
+        "p50_ms": 31.645,
+        "p95_ms": 38.379
+      },
+      "sqlite_bytes": 1462272
+    },
+    {
+      "build_fts5_per_role_ms": 618.5,
+      "build_sqlite_ms": 235.3,
+      "documents": 7000,
+      "export_bytes": 9999746,
+      "factor": 1000,
+      "fts5_per_role_bytes": 43614208,
+      "query_fts5_per_role": {
+        "p50_ms": 21.056,
+        "p95_ms": 26.39
+      },
+      "query_json_lexical": {
+        "p50_ms": 296.952,
+        "p95_ms": 324.134
+      },
+      "query_sqlite_lexical": {
+        "p50_ms": 328.929,
+        "p95_ms": 364.493
+      },
+      "sqlite_bytes": 14422016
+    }
+  ],
+  "scope": "capacity_only_synthetic_duplicates_no_quality"
+}

@@ -25,14 +25,28 @@ nom de l'exploitant. Les responsables sont des rôles.
 | R-14 | Empreinte de l'export dépendante du système (CRLF / LF) | mineur | écriture LF imposée (corrigé dans `lab.py`), contrat d'export au niveau des octets | nous | fait | — | — |
 | R-15 | 3 retours de feedback contiennent un nom et un téléphone | majeur (donnée personnelle dans un jeu d'amélioration) | minimisation avant tout usage (déjà prévue par `qualify_feedback.py`, à vérifier) | responsable qualité | avant réutilisation du feedback | non | réutilisation du feedback |
 
+### Risques réglementaires (veille M7, `veille_diagops/decisions_m7.md`)
+
+| ID | Constat / preuve | Gravité | Traitement | Responsable | Échéance | Acceptation explicite | Gate bloqué |
+|---|---|---|---|---|---|---|---|
+| R-REG-01 | Connecter l'outil à effet à un système réel requalifie DiagOps (AI Act art. 6(1 ter), D2) | **bloquant** pour toute sortie du bac à sable | contrat `executable: false` vérifié par test ; toute modification déclenche une revue art. 6 (ADR-0006) | compétence juridique + responsable maintenance | avant toute connexion (Q4) | non | sortie du bac à sable |
+| R-REG-02 | Distribuer DiagOps à un tiers sans processus de notification CRA (art. 14, applicable depuis le 11/09/2026, D5) | **bloquant** pour une diffusion | revue de conformité CRA avant toute diffusion hors de l'équipe | porteur du dossier de veille | à la première diffusion | non | diffusion à un tiers |
+| R-REG-03 | Invalidation du DPF en cours de contrat (pourvoi C-703/25 P, D6) | majeur | région UE exigée, ou base de repli art. 46 prête ; sortie locale rejouée | référent protection des données | à chaque checkpoint (Q8) | non | option cloud |
+| R-16 | Purge des traces déclarée (30 jours) et non appliquée (D3) | majeur | job de purge testé (ADR-0007) | architecte | avant toute exploitation hors laboratoire (Q5) | non | mise en service |
+| R-17 | Mention d'interaction IA absente depuis le 02/08/2026 (art. 50(1), D8) | majeur | champ `ai_notice` dans le contrat de réponse (ADR-0008) | équipe DiagOps | immédiat | non | mise en service |
+
 ## Ce qui bloque quoi
 
 - **La migration d'index** (brief 2) est bloquée par **R-11** et **R-12**. Ce
   sont précisément la révocation et le changement de révision que le brief 2
   impose d'exercer : la migration doit les corriger, pas seulement les
   traverser.
-- **La mise en service**, même interne, est bloquée par **R-01**, **R-02** et
-  **R-13**. Aucun des trois n'est traité en M7 : ce sont des décisions
-  d'organisation.
-- **L'option cloud** est bloquée par **R-09** et par la veille (transferts,
-  rôles, réversibilité contractuelle).
+- **La mise en service**, même interne, est bloquée par **R-01**, **R-02**,
+  **R-13**, **R-16** et **R-17**. Les trois premiers sont des décisions
+  d'organisation, non traitées en M7. Les deux derniers sont peu coûteux et
+  planifiés (étapes 5 et 6 du plan de migration).
+- **L'option cloud** est bloquée par **R-09**, **R-REG-03** et les préalables
+  de l'ADR-0005 (contrat art. 28, clauses du chapitre VI du Data Act, sortie
+  rejouée).
+- **La sortie du bac à sable de l'outil à effet** est bloquée par **R-REG-01**,
+  **R-02** et **R-05**.
