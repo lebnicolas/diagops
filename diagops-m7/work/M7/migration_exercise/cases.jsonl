@@ -1,0 +1,24 @@
+{"case_id":"B2-01","group":"vocabulaire","role":"technicien","question":"Quel pourcentage du courant nominal déclenche une inspection de charge d'un convoyeur ?","expected":["DOC-CONV-CURRENT-001"]}
+{"case_id":"B2-02","group":"reformule","role":"technicien","question":"Le moteur d'une bande transporteuse tire plus que prévu depuis trois relevés, que faire ?","expected":["DOC-CONV-CURRENT-001"]}
+{"case_id":"B2-03","group":"vocabulaire","role":"technicien","question":"Quelle baisse de pression par rapport à la médiane déclenche une vérification de fuite ?","expected":["DOC-STEAM-PRESS-001"]}
+{"case_id":"B2-04","group":"reformule","role":"technicien","question":"La chaufferie perd de la pression depuis hier, à partir de quand chercher une fuite ?","expected":["DOC-STEAM-PRESS-001"]}
+{"case_id":"B2-05","group":"vocabulaire","role":"technicien","question":"Au-delà de quelle température un groupe froid est-il classé urgent ?","expected":["DOC-CHILL-TEMP-001"]}
+{"case_id":"B2-06","group":"reformule","role":"technicien","question":"Le refroidisseur chauffe beaucoup, quand faut-il traiter la situation comme grave ?","expected":["DOC-CHILL-TEMP-001"]}
+{"case_id":"B2-07","group":"vocabulaire","role":"technicien","question":"Quel niveau de vibration conduit à recommander une inspection du palier ?","expected":["DOC-PUMP-VIB-001"]}
+{"case_id":"B2-08","group":"reformule","role":"technicien","question":"La pompe tremble fort, à partir de combien faut-il faire regarder le roulement ?","expected":["DOC-PUMP-VIB-001"]}
+{"case_id":"B2-09","group":"vocabulaire","role":"technicien","question":"Qui vérifie les points d'isolement pour un équipement de criticité high ?","expected":["DOC-LOTO-002"]}
+{"case_id":"B2-10","group":"reformule","role":"technicien","question":"Avant d'ouvrir une armoire électrique, comment couper et sécuriser les énergies ?","expected":["DOC-LOTO-002"]}
+{"case_id":"B2-11","group":"vocabulaire","role":"technicien","question":"Que faire si les mesures de pression sont exprimées en kPa ?","expected":["DOC-STEAM-PRESS-001"]}
+{"case_id":"B2-12","group":"reformule","role":"technicien","question":"Les relevés de la chaudière sont dans une autre unité que le seuil, que faire ?","expected":["DOC-STEAM-PRESS-001"]}
+{"case_id":"B2-13","group":"vocabulaire","role":"public","question":"Une réponse DiagOps doit-elle indiquer les document_id utilisés ?","expected":["DOC-RAG-OPS-001"]}
+{"case_id":"B2-14","group":"reformule","role":"public","question":"Comment savoir sur quelles sources l'assistant s'est appuyé ?","expected":["DOC-RAG-OPS-001"]}
+{"case_id":"B2-15","group":"vocabulaire","role":"superviseur","question":"Quel rôle accède aux traces et métadonnées sans notes libres nominatives ?","expected":["DOC-DATA-ACCESS-001"]}
+{"case_id":"B2-16","group":"reformule","role":"auditeur","question":"Qu'ai-je le droit de consulter pour contrôler le fonctionnement de l'outil ?","expected":["DOC-DATA-ACCESS-001"]}
+{"case_id":"B2-17","group":"droits","role":"technicien","question":"Quels rôles ont accès aux synthèses d'incident ?","expected":[],"forbidden":["DOC-DATA-ACCESS-001"]}
+{"case_id":"B2-18","group":"droits","role":"public","question":"Quelle est la procédure de consignation électrique ?","expected":[],"forbidden":["DOC-LOTO-002","DOC-DATA-ACCESS-001"]}
+{"case_id":"B2-19","group":"sans_reponse","role":"technicien","question":"Quel est le numéro de série du compresseur EQ-COMP-213 ?","expected":[]}
+{"case_id":"B2-20","group":"sans_reponse","role":"technicien","question":"Combien coûte le remplacement d'un palier de pompe ?","expected":[]}
+{"case_id":"B2-21","group":"vocabulaire","role":"technicien","question":"Une valeur isolée de vibration suffit-elle à conclure ?","expected":["DOC-PUMP-VIB-001"]}
+{"case_id":"B2-22","group":"reformule","role":"technicien","question":"Un seul pic sur un tapis roulant justifie-t-il un arrêt ?","expected":["DOC-CONV-CURRENT-001"]}
+{"case_id":"B2-23","group":"vocabulaire","role":"technicien","question":"Faut-il vérifier la conversion depuis le kelvin avant de juger une température ?","expected":["DOC-CHILL-TEMP-001"]}
+{"case_id":"B2-24","group":"vocabulaire","role":"technicien","question":"Que se passe-t-il si deux révisions actives d'une procédure se contredisent ?","expected":["DOC-RAG-OPS-001"]}
