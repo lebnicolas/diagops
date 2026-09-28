@@ -29,6 +29,7 @@ hypothèses sont écrites avant l'action ; le résultat dit si elles tiennent.
 | 28/09 | B2 · ph. 1 | — | oubli constaté : le gate de capacité n'était pas dans le script | `scripts/migration_capacity.py`, `results/migration-capacite-r1` | gate passé (53 contre 273 ms) ; 36 ms sur 53 servent à l'empreinte de l'index par requête | dette D-1 ; oubli consigné dans les révisions du contrat |
 | 28/09 | B2 · ph. 1 | — | durées citées dans le journal de migration relues contre le rapport | `results/migration-r1/report.json` | **3 durées fausses** écrites de mémoire (26, 28, 12 ms au lieu de 21, 16, 29) | corrigées ; ne citer un chiffre qu'après l'avoir relu dans le rapport |
 | 28/09 · 0,5 h | B2 · ph. 2 | — | paquet de revue préparé : version, commandes, six points à challenger | `independent_review.md` | **revue non faite** : il faut une autre personne | à organiser avec un apprenant ou le formateur |
+| 28/09 | B2 · ph. 2-3 | — | **phases 2 et 3 abandonnées sur décision de l'apprenant** ; M7 clos | — | aucune revue indépendante ; D-1 et D-2 ouvertes | transmis à M8 : cible non revue |
 
 Budget : 14 h présentiel (dont veille), 6 h online, 20 h approfondissement (12 réalisation + 4 revue indépendante + 4 remédiation/défense). Distinguer lecture, simulation sur table et exécution réelle.
 

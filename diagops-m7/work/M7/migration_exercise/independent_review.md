@@ -1,6 +1,12 @@
 # Revue indépendante — à remplir par un autre apprenant ou le formateur
 
-> **État au 28/09/2026 : revue non réalisée.** Ce fichier prépare la revue ; il
+> **Clôture du 28/09/2026 : phases 2 et 3 abandonnées sur décision de l'apprenant.**
+> Aucune revue indépendante n'a eu lieu. Le module est clos sans elle, comme le
+> M1 et le M3 l'avaient été. Le tableau et le verdict restent vides à dessein :
+> les remplir sans reviewer serait une fausse preuve. Le paquet ci-dessous reste
+> utilisable si une revue est organisée plus tard.
+>
+> **État antérieur : revue non réalisée.** Ce fichier prépare la revue ; il
 > n'en tient pas lieu. L'auteur n'a rempli que l'en-tête (version et
 > commandes). Le tableau, les gravités et le verdict appartiennent au
 > reviewer. Une relecture par l'auteur, ou par un assistant qui a participé à

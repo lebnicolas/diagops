@@ -1,6 +1,10 @@
 # Remédiation et défense
 
-> **En attente de la revue indépendante.** Les constats du reviewer
+> **Phase 3 abandonnée le 28/09/2026 sur décision de l'apprenant**, avec la
+> phase 2 : aucun constat de revue n'existe. Les dettes D-1 et D-2 restent
+> ouvertes et sont transmises à M8.
+>
+> État antérieur : **en attente de la revue indépendante.** Les constats du reviewer
 > s'inscriront ici, avec leur disposition. Les lignes ci-dessous sont les
 > dettes que l'auteur a lui-même relevées en phase 1 : elles seront traitées
 > quelle que soit la revue, mais elles ne remplacent pas ses constats.

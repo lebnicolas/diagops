@@ -99,6 +99,11 @@ Voir `architecture/migration_plan.md`.
 
 ## Décision finale
 
+**Clôture du 28/09/2026** : phases 2 et 3 du brief 2 abandonnées sur décision de
+l'apprenant. La cible reste **« migrer sous conditions », non approuvée** au
+sens du gate M7, qui exige une revue indépendante. Cette condition n'est pas
+remplie, et ce document ne prétend pas le contraire.
+
 **Mise à jour après la phase 1 du brief 2 (`531d288`) : migrer sous conditions,
 décision suspendue à la revue indépendante.** Les cinq gates bloquants et les
 gates majeurs (qualité, reprise, capacité) passent (`migration_exercise/execution_log.md`). Deux

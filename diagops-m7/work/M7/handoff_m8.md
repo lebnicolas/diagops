@@ -1,13 +1,15 @@
 # Passage de relais M7 → M8
 
-> État au 28/09/2026 : brief 1 et brief online terminés ; brief 2, phase 1
-> terminée. **Revue indépendante et remédiation non réalisées** : ce relais
-> sera complété après elles. Il ne publie aucune référence commune et ne valide
+> **M7 clos le 28/09/2026 sur décision de l'apprenant** : brief 1 et brief
+> online terminés ; brief 2, phase 1 terminée ; **phases 2 (revue
+> indépendante) et 3 (remédiation, défense) abandonnées**. Le gate de sortie
+> M7 (« une revue indépendante a modifié ou confirmé au moins une hypothèse »)
+> n'est donc pas rempli : M8 part d'une cible non revue. Il ne publie aucune référence commune et ne valide
 > pas M8.
 
 - **Version exacte revue, verdict et reviewer** : version proposée à la revue
   `531d288` (`diagops-m7/work/M7`) ; contrat gelé `893ccfa`. Verdict : **aucun,
-  revue non faite**. Reviewer : à désigner.
+  revue abandonnée** sur décision de l'apprenant. Reviewer : aucun.
 - **Architecture et ADR retenus / options abandonnées** :
   - retenus (proposés) : ADR-0001 FTS5 par rôle ; 0002 identité OIDC ; 0003
     index lié à son manifeste, révision unique, revue à deux ; 0004 quarantaine
