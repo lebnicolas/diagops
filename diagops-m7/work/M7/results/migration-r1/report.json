@@ -1,0 +1,689 @@
+{
+  "avant": {
+    "duree_24_cas_ms": 9.96,
+    "echecs_hit3": [
+      "B2-02",
+      "B2-05",
+      "B2-16"
+    ],
+    "forbidden_renvoyes": 0,
+    "hit_at_1": 0.85,
+    "hit_at_1_reformule": 0.778,
+    "hit_at_1_vocabulaire": 0.909,
+    "hit_at_3": 0.85,
+    "hit_at_3_reformule": 0.778,
+    "mrr": 0.85,
+    "sans_reponse_avec_resultats": 4
+  },
+  "candidat": {
+    "duree_24_cas_ms": 38.91,
+    "echecs_hit3": [
+      "B2-16"
+    ],
+    "forbidden_renvoyes": 0,
+    "hit_at_1": 0.85,
+    "hit_at_1_reformule": 0.667,
+    "hit_at_1_vocabulaire": 1.0,
+    "hit_at_3": 0.95,
+    "hit_at_3_reformule": 0.889,
+    "migration_ms": 18.67,
+    "modes": [
+      "nominal"
+    ],
+    "mrr": 0.9,
+    "octets": {
+      "export": 9547,
+      "fts5": 184320
+    },
+    "sans_reponse_avec_resultats": 4
+  },
+  "comparaison_cas": [
+    {
+      "avant": [
+        "DOC-CONV-CURRENT-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "candidat": [
+        "DOC-CONV-CURRENT-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "case_id": "B2-01",
+      "expected": [
+        "DOC-CONV-CURRENT-001"
+      ],
+      "group": "vocabulaire",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-LOTO-002"
+      ],
+      "candidat": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CONV-CURRENT-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "case_id": "B2-02",
+      "expected": [
+        "DOC-CONV-CURRENT-001"
+      ],
+      "group": "reformule",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "candidat": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-LOTO-002"
+      ],
+      "case_id": "B2-03",
+      "expected": [
+        "DOC-STEAM-PRESS-001"
+      ],
+      "group": "vocabulaire",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "candidat": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "case_id": "B2-04",
+      "expected": [
+        "DOC-STEAM-PRESS-001"
+      ],
+      "group": "reformule",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-RAG-OPS-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-LOTO-002"
+      ],
+      "candidat": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-CONV-CURRENT-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "case_id": "B2-05",
+      "expected": [
+        "DOC-CHILL-TEMP-001"
+      ],
+      "group": "vocabulaire",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-RAG-OPS-001",
+        "DOC-LOTO-002"
+      ],
+      "candidat": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-LOTO-002",
+        "DOC-RAG-OPS-001"
+      ],
+      "case_id": "B2-06",
+      "expected": [
+        "DOC-CHILL-TEMP-001"
+      ],
+      "group": "reformule",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CONV-CURRENT-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "candidat": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "case_id": "B2-07",
+      "expected": [
+        "DOC-PUMP-VIB-001"
+      ],
+      "group": "vocabulaire",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "candidat": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "case_id": "B2-08",
+      "expected": [
+        "DOC-PUMP-VIB-001"
+      ],
+      "group": "reformule",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "candidat": [
+        "DOC-LOTO-002",
+        "DOC-CONV-CURRENT-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "case_id": "B2-09",
+      "expected": [
+        "DOC-LOTO-002"
+      ],
+      "group": "vocabulaire",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "candidat": [
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "case_id": "B2-10",
+      "expected": [
+        "DOC-LOTO-002"
+      ],
+      "group": "reformule",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-LOTO-002"
+      ],
+      "candidat": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-LOTO-002"
+      ],
+      "case_id": "B2-11",
+      "expected": [
+        "DOC-STEAM-PRESS-001"
+      ],
+      "group": "vocabulaire",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "candidat": [
+        "DOC-RAG-OPS-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "case_id": "B2-12",
+      "expected": [
+        "DOC-STEAM-PRESS-001"
+      ],
+      "group": "reformule",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-RAG-OPS-001"
+      ],
+      "candidat": [
+        "DOC-RAG-OPS-001"
+      ],
+      "case_id": "B2-13",
+      "expected": [
+        "DOC-RAG-OPS-001"
+      ],
+      "group": "vocabulaire",
+      "role": "public"
+    },
+    {
+      "avant": [
+        "DOC-RAG-OPS-001"
+      ],
+      "candidat": [
+        "DOC-RAG-OPS-001"
+      ],
+      "case_id": "B2-14",
+      "expected": [
+        "DOC-RAG-OPS-001"
+      ],
+      "group": "reformule",
+      "role": "public"
+    },
+    {
+      "avant": [
+        "DOC-DATA-ACCESS-001",
+        "DOC-RAG-OPS-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "candidat": [
+        "DOC-DATA-ACCESS-001",
+        "DOC-RAG-OPS-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "case_id": "B2-15",
+      "expected": [
+        "DOC-DATA-ACCESS-001"
+      ],
+      "group": "vocabulaire",
+      "role": "superviseur"
+    },
+    {
+      "avant": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "candidat": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001"
+      ],
+      "case_id": "B2-16",
+      "expected": [
+        "DOC-DATA-ACCESS-001"
+      ],
+      "group": "reformule",
+      "role": "auditeur"
+    },
+    {
+      "avant": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-LOTO-002"
+      ],
+      "candidat": [
+        "DOC-LOTO-002",
+        "DOC-CONV-CURRENT-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "case_id": "B2-17",
+      "expected": [],
+      "group": "droits",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-RAG-OPS-001"
+      ],
+      "candidat": [
+        "DOC-RAG-OPS-001"
+      ],
+      "case_id": "B2-18",
+      "expected": [],
+      "group": "droits",
+      "role": "public"
+    },
+    {
+      "avant": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "candidat": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "case_id": "B2-19",
+      "expected": [],
+      "group": "sans_reponse",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-PUMP-VIB-001",
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "candidat": [
+        "DOC-PUMP-VIB-001",
+        "DOC-LOTO-002",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "case_id": "B2-20",
+      "expected": [],
+      "group": "sans_reponse",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "candidat": [
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "case_id": "B2-21",
+      "expected": [
+        "DOC-PUMP-VIB-001"
+      ],
+      "group": "vocabulaire",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-CONV-CURRENT-001",
+        "DOC-RAG-OPS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "candidat": [
+        "DOC-CONV-CURRENT-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "case_id": "B2-22",
+      "expected": [
+        "DOC-CONV-CURRENT-001"
+      ],
+      "group": "reformule",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "candidat": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001"
+      ],
+      "case_id": "B2-23",
+      "expected": [
+        "DOC-CHILL-TEMP-001"
+      ],
+      "group": "vocabulaire",
+      "role": "technicien"
+    },
+    {
+      "avant": [
+        "DOC-RAG-OPS-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "candidat": [
+        "DOC-RAG-OPS-001",
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "case_id": "B2-24",
+      "expected": [
+        "DOC-RAG-OPS-001"
+      ],
+      "group": "vocabulaire",
+      "role": "technicien"
+    }
+  ],
+  "contract_cases_sha256": "2ed61a27b32efc136652e1d81376c1fbc9b3c923ced31d84367de03f36d6f590",
+  "fuites": {
+    "renvois": 0,
+    "sondes": 22
+  },
+  "gates": {
+    "fuite": {
+      "passe": true,
+      "seuil": "0",
+      "type": "bloquant",
+      "valeur": 0
+    },
+    "metadonnees": {
+      "passe": true,
+      "type": "bloquant"
+    },
+    "qualite_hit1": {
+      "passe": true,
+      "seuil": ">= 0.85 - 0.10",
+      "type": "majeur",
+      "valeur": 0.85
+    },
+    "qualite_hit3": {
+      "passe": true,
+      "seuil": ">= 0.85 - 0.05",
+      "type": "majeur",
+      "valeur": 0.95
+    },
+    "reprise": {
+      "passe": true,
+      "seuil": "< 15 min",
+      "type": "majeur",
+      "valeur_ms": 1.5
+    },
+    "retour_arriere": {
+      "passe": true,
+      "type": "bloquant"
+    },
+    "scenarios_4": {
+      "passe": true,
+      "type": "bloquant",
+      "valeur": {
+        "M-QUAR": true,
+        "M-REV-A": true,
+        "M-REV-B": true,
+        "M-REVOC": true
+      }
+    },
+    "statistiques_isolees": {
+      "passe": true,
+      "type": "bloquant",
+      "valeur": {
+        "auditeur": true,
+        "public": true,
+        "superviseur": true,
+        "technicien": true
+      }
+    }
+  },
+  "metadonnees_identiques": true,
+  "operations_manuelles": [
+    "migration : export_v2 + build_candidate + activate_v2 (fallback, active)",
+    "reconstruction rev2 : export_v2 + build_candidate + activate_v2 (x2)",
+    "reconstruction revoc : export_v2 + build_candidate + activate_v2 (x2)",
+    "tentative de retour arrière vers l'index d'avant la révocation",
+    "retour arrière : activate_v2(corpus.json, json, expected_sha256)"
+  ],
+  "predictions": {
+    "P1_hit3_ge_0_90": {
+      "avant": 0.85,
+      "candidat": 0.95,
+      "tenue": false
+    },
+    "P2_fts5_meilleur_hit1_reformule": {
+      "avant": 0.778,
+      "candidat": 0.667,
+      "tenue": false
+    },
+    "P3_sans_abstention": {
+      "avant": 4,
+      "candidat": 4,
+      "tenue": true
+    },
+    "P4_zero_fuite": {
+      "tenue": true
+    },
+    "P5_code_actuel_echoue_revocation": {
+      "tenue": true
+    },
+    "P6_reconstruction_sous_1s": {
+      "tenue": true,
+      "valeurs_ms": [
+        20.99,
+        15.81
+      ]
+    }
+  },
+  "scenarios": {
+    "M-PANNE": {
+      "bascule_ms": 1.5,
+      "candidat_absent": {
+        "mode": "degrade",
+        "motif": "FileNotFoundError: index active absent",
+        "results": [
+          "DOC-PUMP-VIB-001",
+          "DOC-CONV-CURRENT-001",
+          "DOC-CHILL-TEMP-001"
+        ]
+      },
+      "candidat_corrompu": {
+        "mode": "degrade",
+        "motif": "ValueError: index active altéré",
+        "results": [
+          "DOC-PUMP-VIB-001",
+          "DOC-CONV-CURRENT-001",
+          "DOC-CHILL-TEMP-001"
+        ]
+      },
+      "candidat_et_repli_hors_service": {
+        "mode": "refus",
+        "motif": "ValueError: index active altéré",
+        "results": []
+      },
+      "conforme": true,
+      "nominal": {
+        "mode": "nominal",
+        "results": [
+          "DOC-PUMP-VIB-001",
+          "DOC-CHILL-TEMP-001",
+          "DOC-CONV-CURRENT-001"
+        ]
+      },
+      "texte_de_question_dans_les_traces": false,
+      "traces_coherentes": true
+    },
+    "M-QUAR": {
+      "alerte_tracee": true,
+      "conforme": true,
+      "documents_servis": 6,
+      "quarantaine": [
+        {
+          "document_id": "DOC-CHILL-TEMP-001",
+          "motif": "checksum invalide ou fichier absent"
+        }
+      ],
+      "reponse_B2_05": {
+        "mode": "nominal",
+        "results": [
+          "DOC-CONV-CURRENT-001",
+          "DOC-RAG-OPS-001",
+          "DOC-LOTO-002"
+        ]
+      }
+    },
+    "M-REV-A": {
+      "conforme": true,
+      "resultat": "export refusé : deux révisions actives : DOC-CONV-CURRENT-001 et DOC-CONV-CURRENT-002"
+    },
+    "M-REV-B": {
+      "apres_reconstruction": {
+        "mode": "nominal",
+        "results": [
+          "DOC-CONV-CURRENT-002",
+          "DOC-PUMP-VIB-001",
+          "DOC-STEAM-PRESS-001"
+        ]
+      },
+      "avant_changement": {
+        "mode": "nominal",
+        "results": [
+          "DOC-CONV-CURRENT-001",
+          "DOC-PUMP-VIB-001",
+          "DOC-STEAM-PRESS-001"
+        ]
+      },
+      "conforme": true,
+      "index_perime": {
+        "mode": "refus",
+        "motif": "StaleIndex: index active périmé",
+        "results": []
+      },
+      "reconstruction_ms": 20.99
+    },
+    "M-REVOC": {
+      "avant": {
+        "mode": "nominal",
+        "results": [
+          "DOC-STEAM-PRESS-001",
+          "DOC-CHILL-TEMP-001",
+          "DOC-LOTO-002"
+        ]
+      },
+      "candidat_index_perime": {
+        "mode": "refus",
+        "motif": "StaleIndex: index active périmé",
+        "results": []
+      },
+      "code_actuel_du_banc_apres_revocation": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "conforme": true,
+      "prediction_P5_code_actuel_sert_encore": true,
+      "reconstruction_ms": 15.81,
+      "retour_arriere_vers_avant": "refusé : rétablirait 1 droit(s) retiré(s)",
+      "superviseur_apres": {
+        "mode": "nominal",
+        "results": [
+          "DOC-STEAM-PRESS-001",
+          "DOC-CHILL-TEMP-001",
+          "DOC-LOTO-002"
+        ]
+      },
+      "technicien_apres": {
+        "mode": "nominal",
+        "results": [
+          "DOC-CHILL-TEMP-001",
+          "DOC-LOTO-002",
+          "DOC-PUMP-VIB-001"
+        ]
+      }
+    },
+    "M-ROLLBACK": {
+      "conforme": true,
+      "duree_ms": 28.56,
+      "identique_a_avant": true
+    }
+  },
+  "statistiques_isolees": {
+    "auditeur": true,
+    "public": true,
+    "superviseur": true,
+    "technicien": true
+  }
+}

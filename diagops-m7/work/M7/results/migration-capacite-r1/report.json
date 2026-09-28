@@ -1,0 +1,46 @@
+{
+  "gate_capacite": {
+    "passe": true,
+    "seuil": "p50 candidat servi <= p50 existant, à 700 documents et au-delà"
+  },
+  "limitations": [
+    "corpus dupliqué",
+    "un processus",
+    "poste de développement"
+  ],
+  "rows": [
+    {
+      "build_and_activate_ms": 18.1,
+      "documents": 7,
+      "factor": 1,
+      "index_bytes": 184320,
+      "manifest_bytes": 2067,
+      "p50_candidat_servi_ms": 1.672,
+      "p50_empreinte_index_seule_ms": 0.149,
+      "p50_existant_json_ms": 0.35,
+      "p50_fts5_nu_ms": 0.654
+    },
+    {
+      "build_and_activate_ms": 1043.3,
+      "documents": 700,
+      "factor": 100,
+      "index_bytes": 4231168,
+      "manifest_bytes": 177099,
+      "p50_candidat_servi_ms": 6.292,
+      "p50_empreinte_index_seule_ms": 3.045,
+      "p50_existant_json_ms": 26.406,
+      "p50_fts5_nu_ms": 2.135
+    },
+    {
+      "build_and_activate_ms": 10899.7,
+      "documents": 7000,
+      "factor": 1000,
+      "index_bytes": 41156608,
+      "manifest_bytes": 1768299,
+      "p50_candidat_servi_ms": 52.796,
+      "p50_empreinte_index_seule_ms": 36.097,
+      "p50_existant_json_ms": 273.068,
+      "p50_fts5_nu_ms": 14.642
+    }
+  ]
+}

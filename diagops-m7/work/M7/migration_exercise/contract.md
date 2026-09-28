@@ -135,4 +135,4 @@ depuis `work/M7` et comparer aux rapports de `results/`.
 
 | Date | Changement | Motif | Avant ou après mesure |
 |---|---|---|---|
-| | | | |
+| 28/09/2026 | aucun changement de seuil ni de cas ; le gate de capacité est mesuré par un second script (`migration_capacity.py`) | `migration_run.py` avait omis ce gate : oubli d'implémentation, constaté après la première mesure | **après** : le seuil et les cas ne changent pas, seul l'instrument manquant est ajouté |
