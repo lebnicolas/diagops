@@ -3,6 +3,7 @@
 from __future__ import annotations
 import argparse
 from collections import Counter
+from contextlib import closing
 import csv
 import hashlib
 import json
@@ -18,7 +19,9 @@ def digest(path):
     return hashlib.sha256(Path(path).read_bytes()).hexdigest()
 
 def save(path, value):
-    Path(path).write_text(json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8")
+    # newline="\n" : sans lui, Windows écrit en CRLF et l'empreinte de l'export
+    # change selon le système qui l'a produit.
+    Path(path).write_text(json.dumps(value, ensure_ascii=False, indent=2, sort_keys=True) + "\n", encoding="utf-8", newline="\n")
 
 def read_export(path):
     value = json.loads(Path(path).read_text(encoding="utf-8"))
@@ -60,7 +63,9 @@ def migrate(export, database):
     database = Path(database)
     if database.exists():
         raise FileExistsError("refus d'écraser un index existant")
-    with sqlite3.connect(database) as conn:
+    # closing() ferme la connexion ; `with conn` seul ne fait que valider la
+    # transaction, et Windows garde alors le fichier verrouillé.
+    with closing(sqlite3.connect(database)) as conn, conn:
         conn.execute("CREATE TABLE metadata (key TEXT PRIMARY KEY, value TEXT NOT NULL)")
         conn.executemany("INSERT INTO metadata VALUES (?, ?)",
                          [("schema_version", "1"), ("source_export_sha256", digest(export))])
@@ -82,7 +87,7 @@ def search(path, backend, query, role, *, scorer=score):
         rows = [row for row in read_export(path)["documents"] if role in row["allowed_roles"]]
     elif backend == "sqlite":
         # mode=ro refuse un index absent ; pas de création silencieuse d'une base vide.
-        with sqlite3.connect(Path(path).resolve().as_uri() + "?mode=ro", uri=True) as conn:
+        with closing(sqlite3.connect(Path(path).resolve().as_uri() + "?mode=ro", uri=True)) as conn:
             if conn.execute("SELECT value FROM metadata WHERE key='schema_version'").fetchone() != ("1",):
                 raise ValueError("version d'index inconnue")
             rows = [json.loads(item[0]) for item in conn.execute(

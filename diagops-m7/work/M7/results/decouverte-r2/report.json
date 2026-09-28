@@ -1,0 +1,242 @@
+{
+  "calibration_questions": 12,
+  "corruption_detected": true,
+  "cost_eur": null,
+  "documents": 7,
+  "energy_wh": null,
+  "export_bytes": 9835,
+  "hit_at_3_after": 1.0,
+  "hit_at_3_before": 1.0,
+  "limitations": [
+    "corpus pédagogique réduit",
+    "pas de génération LLM",
+    "pas de concurrence ni de fournisseur distant",
+    "latences locales non extrapolables"
+  ],
+  "migration_ms": 4.905,
+  "observations": [
+    {
+      "after": [
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "before": [
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "eval_id": "RAG-CAL-001",
+      "rollback": [
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ]
+    },
+    {
+      "after": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "before": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "eval_id": "RAG-CAL-002",
+      "rollback": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-CONV-CURRENT-001"
+      ]
+    },
+    {
+      "after": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "before": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "eval_id": "RAG-CAL-003",
+      "rollback": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-RAG-OPS-001"
+      ]
+    },
+    {
+      "after": [
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "before": [
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "eval_id": "RAG-CAL-004",
+      "rollback": [
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-RAG-OPS-001"
+      ]
+    },
+    {
+      "after": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-CONV-CURRENT-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "before": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-CONV-CURRENT-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "eval_id": "RAG-CAL-005",
+      "rollback": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-CONV-CURRENT-001",
+        "DOC-RAG-OPS-001"
+      ]
+    },
+    {
+      "after": [
+        "DOC-CONV-CURRENT-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "before": [
+        "DOC-CONV-CURRENT-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "eval_id": "RAG-CAL-006",
+      "rollback": [
+        "DOC-CONV-CURRENT-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001"
+      ]
+    },
+    {
+      "after": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-LOTO-002",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "before": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-LOTO-002",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "eval_id": "RAG-CAL-007",
+      "rollback": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-LOTO-002",
+        "DOC-CONV-CURRENT-001"
+      ]
+    },
+    {
+      "after": [
+        "DOC-RAG-OPS-001"
+      ],
+      "before": [
+        "DOC-RAG-OPS-001"
+      ],
+      "eval_id": "RAG-CAL-008",
+      "rollback": [
+        "DOC-RAG-OPS-001"
+      ]
+    },
+    {
+      "after": [
+        "DOC-RAG-OPS-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "before": [
+        "DOC-RAG-OPS-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "eval_id": "RAG-CAL-009",
+      "rollback": [
+        "DOC-RAG-OPS-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ]
+    },
+    {
+      "after": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "before": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "eval_id": "RAG-CAL-010",
+      "rollback": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001"
+      ]
+    },
+    {
+      "after": [
+        "DOC-PUMP-VIB-001",
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "before": [
+        "DOC-PUMP-VIB-001",
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "eval_id": "RAG-CAL-011",
+      "rollback": [
+        "DOC-PUMP-VIB-001",
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001"
+      ]
+    },
+    {
+      "after": [
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "before": [
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "eval_id": "RAG-CAL-012",
+      "rollback": [
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-RAG-OPS-001"
+      ]
+    }
+  ],
+  "ranking_equal": true,
+  "recovery_ms": 9.657,
+  "replay_ms": {
+    "json": 9.488,
+    "rollback": 9.145,
+    "sqlite": 13.262
+  },
+  "rollback_equal": true,
+  "scope": "local_storage_migration_only",
+  "source_export_sha256": "12ea939dde7016dccb6cc3a9f718394f80d531542c47db9101fc4448d3ad2da9",
+  "sqlite_bytes_before_corruption": 40960,
+  "status": "passed",
+  "test_split_used": false
+}

@@ -3,3 +3,5 @@
 results/**/corpus.json
 results/**/index.sqlite
 results/**/active.json
+results/**/*.sqlite
+results/**/corpus*.json

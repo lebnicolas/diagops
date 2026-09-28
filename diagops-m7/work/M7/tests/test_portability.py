@@ -3,6 +3,7 @@ import hashlib
 import json
 from pathlib import Path
 import sqlite3
+from contextlib import closing
 import sys
 import tempfile
 import unittest
@@ -46,7 +47,7 @@ class PortabilityTests(unittest.TestCase):
                 read_export(self.export)
 
     def test_metadata_round_trip_and_superseded_revision_rejected(self):
-        with sqlite3.connect(self.database) as conn:
+        with closing(sqlite3.connect(self.database)) as conn, conn:
             recovered = [json.loads(row[0]) for row in conn.execute("SELECT body FROM documents ORDER BY id")]
         self.assertEqual(recovered, sorted(self.documents, key=lambda row: row["document_id"]))
         self.documents[0]["status"] = "superseded"
@@ -55,7 +56,7 @@ class PortabilityTests(unittest.TestCase):
             read_export(self.export)
 
     def test_tampered_roles_and_missing_index_fail_closed(self):
-        with sqlite3.connect(self.database) as conn:
+        with closing(sqlite3.connect(self.database)) as conn, conn:
             conn.execute("INSERT INTO roles VALUES ('SECRET', 'public')")
         with self.assertRaises(ValueError):
             search(self.database, "sqlite", "procédure", "public")
