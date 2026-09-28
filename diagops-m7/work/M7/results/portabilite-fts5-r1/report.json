@@ -1,0 +1,540 @@
+{
+  "build": {
+    "fts5_per_role": {
+      "build_ms": 6.46,
+      "bytes": 184320
+    },
+    "fts5_shared": {
+      "build_ms": 4.833,
+      "bytes": 81920
+    },
+    "sqlite_lexical": {
+      "build_ms": 4.563,
+      "bytes": 40960
+    }
+  },
+  "calibration_questions": 12,
+  "comparison": {
+    "fts5_per_role": {
+      "hit_at_3": 1.0,
+      "latency": {
+        "p50_ms": 7.62,
+        "p95_ms": 7.933
+      },
+      "top1_identical_to_reference": 10,
+      "top3_identical_to_reference": 3,
+      "unanswerable_with_results": 2
+    },
+    "fts5_shared": {
+      "hit_at_3": 1.0,
+      "latency": {
+        "p50_ms": 7.643,
+        "p95_ms": 8.331
+      },
+      "top1_identical_to_reference": 10,
+      "top3_identical_to_reference": 3,
+      "unanswerable_with_results": 2
+    },
+    "lexical_json": {
+      "hit_at_3": 1.0,
+      "latency": {
+        "p50_ms": 4.368,
+        "p95_ms": 4.989
+      },
+      "top1_identical_to_reference": 12,
+      "top3_identical_to_reference": 12,
+      "unanswerable_with_results": 2
+    },
+    "lexical_sqlite": {
+      "hit_at_3": 1.0,
+      "latency": {
+        "p50_ms": 8.861,
+        "p95_ms": 9.71
+      },
+      "top1_identical_to_reference": 12,
+      "top3_identical_to_reference": 12,
+      "unanswerable_with_results": 2
+    }
+  },
+  "documents": 7,
+  "export_bytes": 9835,
+  "limitations": [
+    "7 documents actifs : hit@3 sature vite et départage mal",
+    "pas de génération : un meilleur classement ne prouve pas une meilleure réponse",
+    "latences d'un poste, sans concurrence"
+  ],
+  "naive_query": {
+    "cases": [
+      {
+        "error": "no such column: il",
+        "eval_id": "RAG-CAL-001",
+        "ok": false
+      },
+      {
+        "error": "fts5: syntax error near \"?\"",
+        "eval_id": "RAG-CAL-002",
+        "ok": false
+      },
+      {
+        "error": "no such column: t",
+        "eval_id": "RAG-CAL-003",
+        "ok": false
+      },
+      {
+        "error": "no such column: on",
+        "eval_id": "RAG-CAL-004",
+        "ok": false
+      },
+      {
+        "error": "no such column: il",
+        "eval_id": "RAG-CAL-005",
+        "ok": false
+      },
+      {
+        "error": "fts5: syntax error near \"?\"",
+        "eval_id": "RAG-CAL-006",
+        "ok": false
+      },
+      {
+        "error": "no such column: elle",
+        "eval_id": "RAG-CAL-007",
+        "ok": false
+      },
+      {
+        "error": "fts5: syntax error near \".\"",
+        "eval_id": "RAG-CAL-008",
+        "ok": false
+      },
+      {
+        "error": "no such column: il",
+        "eval_id": "RAG-CAL-009",
+        "ok": false
+      },
+      {
+        "error": "no such column: elle",
+        "eval_id": "RAG-CAL-010",
+        "ok": false
+      },
+      {
+        "error": "no such column: il",
+        "eval_id": "RAG-CAL-011",
+        "ok": false
+      },
+      {
+        "error": "no such column: t",
+        "eval_id": "RAG-CAL-012",
+        "ok": false
+      }
+    ],
+    "errors": 12
+  },
+  "observations": [
+    {
+      "answerable": true,
+      "eval_id": "RAG-CAL-001",
+      "expected": [
+        "DOC-LOTO-002"
+      ],
+      "fts5_per_role": [
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "fts5_shared": [
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "lexical_json": [
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "lexical_sqlite": [
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "role": "technicien"
+    },
+    {
+      "answerable": true,
+      "eval_id": "RAG-CAL-002",
+      "expected": [
+        "DOC-LOTO-002"
+      ],
+      "fts5_per_role": [
+        "DOC-LOTO-002",
+        "DOC-CONV-CURRENT-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "fts5_shared": [
+        "DOC-LOTO-002",
+        "DOC-CONV-CURRENT-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "lexical_json": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "lexical_sqlite": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "role": "technicien"
+    },
+    {
+      "answerable": true,
+      "eval_id": "RAG-CAL-003",
+      "expected": [
+        "DOC-PUMP-VIB-001"
+      ],
+      "fts5_per_role": [
+        "DOC-PUMP-VIB-001",
+        "DOC-RAG-OPS-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "fts5_shared": [
+        "DOC-PUMP-VIB-001",
+        "DOC-RAG-OPS-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "lexical_json": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "lexical_sqlite": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "role": "technicien"
+    },
+    {
+      "answerable": true,
+      "eval_id": "RAG-CAL-004",
+      "expected": [
+        "DOC-PUMP-VIB-001"
+      ],
+      "fts5_per_role": [
+        "DOC-RAG-OPS-001",
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001"
+      ],
+      "fts5_shared": [
+        "DOC-RAG-OPS-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-LOTO-002"
+      ],
+      "lexical_json": [
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "lexical_sqlite": [
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "role": "technicien"
+    },
+    {
+      "answerable": true,
+      "eval_id": "RAG-CAL-005",
+      "expected": [
+        "DOC-CHILL-TEMP-001"
+      ],
+      "fts5_per_role": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-RAG-OPS-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "fts5_shared": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-RAG-OPS-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "lexical_json": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-CONV-CURRENT-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "lexical_sqlite": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-CONV-CURRENT-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "role": "technicien"
+    },
+    {
+      "answerable": true,
+      "eval_id": "RAG-CAL-006",
+      "expected": [
+        "DOC-CONV-CURRENT-001"
+      ],
+      "fts5_per_role": [
+        "DOC-CONV-CURRENT-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "fts5_shared": [
+        "DOC-CONV-CURRENT-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "lexical_json": [
+        "DOC-CONV-CURRENT-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "lexical_sqlite": [
+        "DOC-CONV-CURRENT-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "role": "technicien"
+    },
+    {
+      "answerable": true,
+      "eval_id": "RAG-CAL-007",
+      "expected": [
+        "DOC-STEAM-PRESS-001"
+      ],
+      "fts5_per_role": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-CONV-CURRENT-001",
+        "DOC-CHILL-TEMP-001"
+      ],
+      "fts5_shared": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-CONV-CURRENT-001",
+        "DOC-LOTO-002"
+      ],
+      "lexical_json": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-LOTO-002",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "lexical_sqlite": [
+        "DOC-STEAM-PRESS-001",
+        "DOC-LOTO-002",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "role": "technicien"
+    },
+    {
+      "answerable": true,
+      "eval_id": "RAG-CAL-008",
+      "expected": [
+        "DOC-DATA-ACCESS-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "fts5_per_role": [
+        "DOC-RAG-OPS-001"
+      ],
+      "fts5_shared": [
+        "DOC-RAG-OPS-001"
+      ],
+      "lexical_json": [
+        "DOC-RAG-OPS-001"
+      ],
+      "lexical_sqlite": [
+        "DOC-RAG-OPS-001"
+      ],
+      "role": "public"
+    },
+    {
+      "answerable": true,
+      "eval_id": "RAG-CAL-009",
+      "expected": [
+        "DOC-RAG-OPS-001"
+      ],
+      "fts5_per_role": [
+        "DOC-RAG-OPS-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "fts5_shared": [
+        "DOC-RAG-OPS-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "lexical_json": [
+        "DOC-RAG-OPS-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "lexical_sqlite": [
+        "DOC-RAG-OPS-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-PUMP-VIB-001"
+      ],
+      "role": "auditeur"
+    },
+    {
+      "answerable": true,
+      "eval_id": "RAG-CAL-010",
+      "expected": [
+        "DOC-LOTO-001",
+        "DOC-LOTO-002"
+      ],
+      "fts5_per_role": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "fts5_shared": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "lexical_json": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "lexical_sqlite": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "role": "technicien"
+    },
+    {
+      "answerable": false,
+      "eval_id": "RAG-CAL-011",
+      "expected": [],
+      "fts5_per_role": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "fts5_shared": [
+        "DOC-LOTO-002",
+        "DOC-PUMP-VIB-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "lexical_json": [
+        "DOC-PUMP-VIB-001",
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "lexical_sqlite": [
+        "DOC-PUMP-VIB-001",
+        "DOC-LOTO-002",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "role": "technicien"
+    },
+    {
+      "answerable": false,
+      "eval_id": "RAG-CAL-012",
+      "expected": [],
+      "fts5_per_role": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "fts5_shared": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-CONV-CURRENT-001"
+      ],
+      "lexical_json": [
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "lexical_sqlite": [
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "role": "technicien"
+    }
+  ],
+  "restricted_leaks": {
+    "public/fts5_per_role": 0,
+    "public/fts5_shared": 0,
+    "public/lexical_json": 0,
+    "public/lexical_sqlite": 0,
+    "technicien/fts5_per_role": 0,
+    "technicien/fts5_shared": 0,
+    "technicien/lexical_json": 0,
+    "technicien/lexical_sqlite": 0
+  },
+  "restricted_probes": 11,
+  "scope": "calibration_only_retrieval_ranking_no_generation",
+  "side_channel": {
+    "cases": [
+      {
+        "eval_id": "RAG-CAL-001",
+        "per_role_equals_without_restricted": true,
+        "ranking_changed": false,
+        "scores_changed": true
+      },
+      {
+        "eval_id": "RAG-CAL-002",
+        "per_role_equals_without_restricted": true,
+        "ranking_changed": false,
+        "scores_changed": true
+      },
+      {
+        "eval_id": "RAG-CAL-003",
+        "per_role_equals_without_restricted": true,
+        "ranking_changed": false,
+        "scores_changed": true
+      },
+      {
+        "eval_id": "RAG-CAL-004",
+        "per_role_equals_without_restricted": true,
+        "ranking_changed": true,
+        "scores_changed": true
+      },
+      {
+        "eval_id": "RAG-CAL-005",
+        "per_role_equals_without_restricted": true,
+        "ranking_changed": false,
+        "scores_changed": true
+      },
+      {
+        "eval_id": "RAG-CAL-006",
+        "per_role_equals_without_restricted": true,
+        "ranking_changed": false,
+        "scores_changed": true
+      },
+      {
+        "eval_id": "RAG-CAL-007",
+        "per_role_equals_without_restricted": true,
+        "ranking_changed": true,
+        "scores_changed": true
+      },
+      {
+        "eval_id": "RAG-CAL-010",
+        "per_role_equals_without_restricted": true,
+        "ranking_changed": false,
+        "scores_changed": true
+      },
+      {
+        "eval_id": "RAG-CAL-011",
+        "per_role_equals_without_restricted": true,
+        "ranking_changed": false,
+        "scores_changed": true
+      },
+      {
+        "eval_id": "RAG-CAL-012",
+        "per_role_equals_without_restricted": true,
+        "ranking_changed": false,
+        "scores_changed": true
+      }
+    ],
+    "per_role_matches_corpus_without_restricted": 10,
+    "queries": 10,
+    "ranking_changed": 2,
+    "scores_changed": 10
+  },
+  "sqlite_version": "3.49.1"
+}
