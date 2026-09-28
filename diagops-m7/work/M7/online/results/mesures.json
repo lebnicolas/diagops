@@ -1,0 +1,583 @@
+{
+  "meta": {
+    "date_execution_utc": "2026-09-28T06:10:35+00:00",
+    "script": "work/M7/online/mesures.py",
+    "code_m4_reutilise": "C:\\devs\\formation-Simplon\\projets\\diagops-m4\\work\\M4",
+    "convention": "Chaque bloc porte un champ 'nature' : 'mesuré' (exécuté sur ce poste par ce script), 'estimé' (calcul à partir d'une hypothèse écrite), 'non mesuré'.",
+    "duree_totale_s": 29.7,
+    "mode_rapide": false
+  },
+  "environnement": {
+    "nature": "mesuré",
+    "processeur": "13th Gen Intel(R) Core(TM) i7-13620H",
+    "coeurs_logiques": 16,
+    "ram_totale_gio": 31.7,
+    "alimentation_secteur": true,
+    "systeme": "Windows-11-10.0.26200-SP0",
+    "python": "3.12.10",
+    "numpy": "2.3.2",
+    "pandas": "2.3.1",
+    "scikit_learn": "1.7.1",
+    "joblib": "1.5.3",
+    "psutil": "7.2.2",
+    "interpreteur": "C:\\devs\\formation-Simplon\\projets\\diagops-m4\\work\\M4\\.venv\\Scripts\\python.exe",
+    "remarque": "poste portable personnel, autres applications ouvertes : mesures bruitées, à lire en ordre de grandeur"
+  },
+  "demarrage": {
+    "nature": "mesuré",
+    "import_numpy_pandas_sklearn_joblib_ms": 898.9,
+    "import_modules_m4_ms": 89.6,
+    "rss_depart_mo": 35.4,
+    "rss_apres_imports_mo": 150.3
+  },
+  "integrite_entrees": {
+    "nature": "mesuré",
+    "fichiers": {
+      "sensor_calibration.csv": {
+        "sha256": "b1321432cc28b446be1df1565ea669b4d59250e5bcea14f880efac222c7cacd9",
+        "identique_au_gel": true,
+        "identique_copie_data_pack_m7": true,
+        "taille_octets": 74594
+      },
+      "sensor_test.csv": {
+        "sha256": "d5f5ba463477c77bfa7bb281d8735ab47524fcf3f5da31ce6af6028e32776907",
+        "identique_au_gel": true,
+        "identique_copie_data_pack_m7": true,
+        "taille_octets": 134531
+      }
+    }
+  },
+  "preparation": {
+    "nature": "mesuré",
+    "description": "lecture CSV + contrôle d'étiquette par fenêtre + 19 features (code M4)",
+    "calibration": {
+      "lignes": 900,
+      "fenetres": 30,
+      "n": 30,
+      "p50_ms": 53.2828,
+      "p95_ms": 64.4495,
+      "p99_ms": 70.2297,
+      "min_ms": 50.1355,
+      "max_ms": 72.0564,
+      "moyenne_ms": 54.9841,
+      "par_fenetre_p50_ms": 1.7761
+    },
+    "test_sans_etiquette": {
+      "lignes": 1800,
+      "fenetres": 60,
+      "n": 30,
+      "p50_ms": 97.0535,
+      "p95_ms": 118.2736,
+      "p99_ms": 121.5219,
+      "min_ms": 94.6074,
+      "max_ms": 122.021,
+      "moyenne_ms": 100.29,
+      "par_fenetre_p50_ms": 1.6176
+    }
+  },
+  "entrainement": {
+    "nature": "mesuré",
+    "ajustement_30_fenetres": {
+      "n": 200,
+      "p50_ms": 1.8976,
+      "p95_ms": 2.1839,
+      "p99_ms": 2.6717,
+      "min_ms": 1.7237,
+      "max_ms": 3.0616,
+      "moyenne_ms": 1.9354
+    },
+    "memoire_pic_ajustement_ko_tracemalloc": 56.1,
+    "validation_croisee_5x5_complete_s": 0.084,
+    "remarque": "l'ajustement exclut la préparation des features, mesurée à part"
+  },
+  "qualite": {
+    "nature": "mesuré",
+    "perimetre": "calibration seule (30 fenêtres, 11 fabriquées), F1 hors pli sur 5 partitions ; le test scellé n'est pas évaluable ici",
+    "f1_hors_pli_moyen": 0.694,
+    "f1_hors_pli_ecart_type": 0.0684,
+    "f1_hors_pli_min": 0.6,
+    "f1_hors_pli_max": 0.8,
+    "roc_auc_hors_pli": 0.7368,
+    "matrice_premiere_repetition": {
+      "vrai_positif": 7,
+      "faux_positif": 3,
+      "faux_negatif": 4,
+      "vrai_negatif": 16
+    },
+    "baseline_m3_f1": 0.375,
+    "reproduit_valeur_gel": true,
+    "oracle_test": "non disponible — aucun retour du formateur trouvé dans les dépôts M4 à M7 au 28/09/2026"
+  },
+  "reproductibilite": {
+    "nature": "mesuré",
+    "empreinte_artefact_gele": "164d05b129ce5e4107cdc27279bc198cc6203017b2f8838768119219c352a68c",
+    "empreinte_artefact_gele_conforme_gel_json": true,
+    "empreinte_reajustement": "164d05b129ce5e4107cdc27279bc198cc6203017b2f8838768119219c352a68c",
+    "reajustement_identique_octet_pour_octet": true,
+    "ecart_max_probabilites_gele_vs_reajuste": 0.0,
+    "ecart_max_probabilites_vs_predictions_remises": 0.0,
+    "decisions_identiques_aux_predictions_remises": 60,
+    "fenetres_test": 60,
+    "repartition_decisions_test": {
+      "fabriquée": 17,
+      "réelle": 43
+    }
+  },
+  "inference": {
+    "nature": "mesuré",
+    "modele": "artefact gelé candidat_m4.joblib (StandardScaler + LogisticRegression)",
+    "chargement_artefact_joblib": {
+      "n": 100,
+      "p50_ms": 0.2363,
+      "p95_ms": 0.3362,
+      "p99_ms": 0.4198,
+      "min_ms": 0.2166,
+      "max_ms": 0.4581,
+      "moyenne_ms": 0.2497
+    },
+    "lot_60_fenetres_predict_proba": {
+      "n": 1000,
+      "p50_ms": 0.0993,
+      "p95_ms": 0.1457,
+      "p99_ms": 0.2578,
+      "min_ms": 0.0875,
+      "max_ms": 0.3205,
+      "moyenne_ms": 0.1079,
+      "par_fenetre_p50_ms": 0.00166,
+      "debit_fenetres_par_s_p50": 604230
+    },
+    "unitaire_predict_proba_1_fenetre": {
+      "n": 3000,
+      "p50_ms": 0.0928,
+      "p95_ms": 0.1136,
+      "p99_ms": 0.1812,
+      "min_ms": 0.0845,
+      "max_ms": 0.5018,
+      "moyenne_ms": 0.0965
+    },
+    "bout_en_bout_1_fenetre_features_plus_prediction": {
+      "n": 1200,
+      "p50_ms": 1.6139,
+      "p95_ms": 2.0926,
+      "p99_ms": 2.7239,
+      "min_ms": 1.4799,
+      "max_ms": 4.9908,
+      "moyenne_ms": 1.6878
+    },
+    "memoire_pic_lot_ko_tracemalloc": 20.0,
+    "temps_cpu_par_fenetre_us": 1.562,
+    "temps_mur_par_fenetre_us": 1.666,
+    "temps_cpu_bout_en_bout_par_fenetre_us": 1679.7,
+    "remarque": "la préparation des features domine la latence de bout en bout ; la prédiction seule est un produit scalaire"
+  },
+  "demarrage_a_froid": {
+    "nature": "mesuré",
+    "description": "nouveau processus Python : imports + chargement de l'artefact + une prédiction ; cache disque déjà chaud",
+    "processus_complet": {
+      "n": 10,
+      "p50_ms": 1199.0499,
+      "p95_ms": 1226.2831,
+      "p99_ms": 1230.9416,
+      "min_ms": 1130.2051,
+      "max_ms": 1232.1062,
+      "moyenne_ms": 1191.1556
+    },
+    "dans_le_processus": {
+      "n": 10,
+      "p50_ms": 1059.8854,
+      "p95_ms": 1085.6608,
+      "p99_ms": 1087.6939,
+      "min_ms": 1007.2461,
+      "max_ms": 1088.2022,
+      "moyenne_ms": 1053.5936
+    }
+  },
+  "alternative_packaging_json": {
+    "nature": "mesuré",
+    "description": "paramètres du pipeline exportés en JSON, inférence réécrite en numpy puis en Python pur ; scikit-learn, scipy et pickle ne sont plus nécessaires à l'exploitation",
+    "taille_json_octets": 1902,
+    "taille_joblib_octets": 1953,
+    "ecart_max_proba_numpy_vs_sklearn": 0.0,
+    "ecart_max_proba_python_pur_vs_sklearn": 2.220446049250313e-16,
+    "decisions_identiques_numpy": 60,
+    "decisions_identiques_python_pur": 60,
+    "fenetres": 60,
+    "unitaire_numpy": {
+      "n": 3000,
+      "p50_ms": 0.0046,
+      "p95_ms": 0.0059,
+      "p99_ms": 0.0072,
+      "min_ms": 0.0043,
+      "max_ms": 0.0456,
+      "moyenne_ms": 0.0051
+    },
+    "unitaire_python_pur": {
+      "n": 3000,
+      "p50_ms": 0.0013,
+      "p95_ms": 0.0017,
+      "p99_ms": 0.0019,
+      "min_ms": 0.0011,
+      "max_ms": 0.012,
+      "moyenne_ms": 0.0014
+    },
+    "limite": "la préparation des features reste en pandas/numpy ; seul le modèle change de format"
+  },
+  "alternative_stockage_sqlite": {
+    "nature": "mesuré",
+    "description": "journal des prédictions versionné (empreinte modèle + empreinte entrée + date + champ de revue humaine), purge de rétention à 180 jours",
+    "lignes_inserees": 720,
+    "insertion_ms": 12.95,
+    "purge_ms": 1.85,
+    "lignes_apres_purge": 420,
+    "taille_apres_purge_octets": 110592,
+    "taille_csv_predictions_actuel_octets": 3365,
+    "remarque": "le CSV actuel ne porte ni version du modèle ni date par ligne"
+  },
+  "modes_de_panne": {
+    "nature": "mesuré",
+    "fenetre_de_reference": "M4-TEST-001",
+    "lecture": "detecte=False signifie qu'une prédiction est rendue sans erreur ni alerte : panne silencieuse",
+    "cas": [
+      {
+        "cas": "reference_sans_alteration",
+        "resultat": "prédiction produite",
+        "probabilite_fabriquee": 0.0794,
+        "decision": "réelle",
+        "detecte": false,
+        "alertes": 0,
+        "premiere_alerte": null
+      },
+      {
+        "cas": "toutes_valeurs_manquantes",
+        "resultat": "prédiction produite",
+        "probabilite_fabriquee": 0.024,
+        "decision": "réelle",
+        "detecte": false,
+        "alertes": 0,
+        "premiere_alerte": null
+      },
+      {
+        "cas": "une_seule_ligne",
+        "resultat": "prédiction produite",
+        "probabilite_fabriquee": 0.0461,
+        "decision": "réelle",
+        "detecte": false,
+        "alertes": 0,
+        "premiere_alerte": null
+      },
+      {
+        "cas": "capteur_inconnu",
+        "resultat": "prédiction produite",
+        "probabilite_fabriquee": 0.0794,
+        "decision": "réelle",
+        "detecte": false,
+        "alertes": 0,
+        "premiere_alerte": null
+      },
+      {
+        "cas": "valeurs_constantes",
+        "resultat": "prédiction produite",
+        "probabilite_fabriquee": 1.0,
+        "decision": "fabriquée",
+        "detecte": false,
+        "alertes": 0,
+        "premiere_alerte": null
+      },
+      {
+        "cas": "horodatages_invalides",
+        "resultat": "prédiction produite",
+        "probabilite_fabriquee": 0.0348,
+        "decision": "réelle",
+        "detecte": false,
+        "alertes": 1,
+        "premiere_alerte": "Could not infer format, so each element will be parsed individually, falling back to `dateutil`. To ensure parsing is co"
+      },
+      {
+        "cas": "colonne_unit_absente",
+        "resultat": "exception",
+        "type": "KeyError",
+        "message": "'unit'",
+        "detecte": true,
+        "alertes": 0
+      },
+      {
+        "cas": "valeur_extreme_1e12",
+        "resultat": "prédiction produite",
+        "probabilite_fabriquee": 0.0463,
+        "decision": "réelle",
+        "detecte": false,
+        "alertes": 0,
+        "premiere_alerte": null
+      },
+      {
+        "cas": "fenetre_vide",
+        "resultat": "exception",
+        "type": "IndexError",
+        "message": "single positional indexer is out-of-bounds",
+        "detecte": true,
+        "alertes": 0
+      },
+      {
+        "cas": "artefact_joblib_tronque",
+        "resultat": "exception",
+        "type": "ValueError",
+        "detecte": true
+      }
+    ],
+    "non_testes": [
+      "version de scikit-learn différente au chargement du pickle (aucune autre version installée, pas d'accès réseau pour en installer)",
+      "disque plein, droits en écriture refusés",
+      "dérive du générateur de données (aucun nouveau lot disponible)"
+    ]
+  },
+  "biais": {
+    "nature": "mesuré",
+    "lecture": "test : taux de signalement sans étiquette (écart de traitement, pas une erreur) ; calibration : erreurs hors pli de la première répétition",
+    "test_taux_signalement_par_capteur": {
+      "current_a": {
+        "fenetres": 14,
+        "signalees": 3,
+        "taux": 0.214
+      },
+      "pressure_bar": {
+        "fenetres": 14,
+        "signalees": 8,
+        "taux": 0.571
+      },
+      "rpm": {
+        "fenetres": 6,
+        "signalees": 0,
+        "taux": 0.0
+      },
+      "temperature_c": {
+        "fenetres": 13,
+        "signalees": 2,
+        "taux": 0.154
+      },
+      "vibration_mm_s": {
+        "fenetres": 13,
+        "signalees": 4,
+        "taux": 0.308
+      }
+    },
+    "test_taux_signalement_par_site": {
+      "SITE-EST": {
+        "fenetres": 8,
+        "signalees": 1,
+        "taux": 0.125
+      },
+      "SITE-NORD": {
+        "fenetres": 32,
+        "signalees": 8,
+        "taux": 0.25
+      },
+      "SITE-SUD": {
+        "fenetres": 20,
+        "signalees": 8,
+        "taux": 0.4
+      }
+    },
+    "test_taux_signalement_par_criticite": {
+      "critical": {
+        "fenetres": 26,
+        "signalees": 5,
+        "taux": 0.192
+      },
+      "high": {
+        "fenetres": 22,
+        "signalees": 7,
+        "taux": 0.318
+      },
+      "low": {
+        "fenetres": 2,
+        "signalees": 1,
+        "taux": 0.5
+      },
+      "medium": {
+        "fenetres": 10,
+        "signalees": 4,
+        "taux": 0.4
+      }
+    },
+    "test_taux_signalement_par_type_equipement": {
+      "chiller": {
+        "fenetres": 8,
+        "signalees": 2,
+        "taux": 0.25
+      },
+      "compressor": {
+        "fenetres": 6,
+        "signalees": 2,
+        "taux": 0.333
+      },
+      "conveyor": {
+        "fenetres": 6,
+        "signalees": 0,
+        "taux": 0.0
+      },
+      "electrical_cabinet": {
+        "fenetres": 1,
+        "signalees": 0,
+        "taux": 0.0
+      },
+      "fan": {
+        "fenetres": 9,
+        "signalees": 2,
+        "taux": 0.222
+      },
+      "mixer": {
+        "fenetres": 2,
+        "signalees": 0,
+        "taux": 0.0
+      },
+      "oven": {
+        "fenetres": 8,
+        "signalees": 3,
+        "taux": 0.375
+      },
+      "pump": {
+        "fenetres": 13,
+        "signalees": 4,
+        "taux": 0.308
+      },
+      "robot": {
+        "fenetres": 3,
+        "signalees": 1,
+        "taux": 0.333
+      },
+      "sensor": {
+        "fenetres": 1,
+        "signalees": 1,
+        "taux": 1.0
+      },
+      "steam_unit": {
+        "fenetres": 3,
+        "signalees": 2,
+        "taux": 0.667
+      }
+    },
+    "test_equipements_sans_fiche": 0,
+    "calibration_erreurs_par_capteur": {
+      "current_a": {
+        "fenetres": 6,
+        "fabriquees": 4,
+        "faux_positifs_sur_reelles": 1,
+        "faux_negatifs_sur_fabriquees": 2
+      },
+      "pressure_bar": {
+        "fenetres": 3,
+        "fabriquees": 1,
+        "faux_positifs_sur_reelles": 0,
+        "faux_negatifs_sur_fabriquees": 0
+      },
+      "rpm": {
+        "fenetres": 4,
+        "fabriquees": 2,
+        "faux_positifs_sur_reelles": 0,
+        "faux_negatifs_sur_fabriquees": 1
+      },
+      "temperature_c": {
+        "fenetres": 9,
+        "fabriquees": 1,
+        "faux_positifs_sur_reelles": 0,
+        "faux_negatifs_sur_fabriquees": 1
+      },
+      "vibration_mm_s": {
+        "fenetres": 8,
+        "fabriquees": 3,
+        "faux_positifs_sur_reelles": 2,
+        "faux_negatifs_sur_fabriquees": 0
+      }
+    },
+    "colonnes_entree": [
+      "window_id",
+      "equipment_id",
+      "timestamp",
+      "sensor_name",
+      "value",
+      "unit",
+      "period"
+    ]
+  },
+  "explicabilite": {
+    "nature": "mesuré",
+    "methode": "contribution = coefficient × valeur standardisée ; comptage des 3 premières contributions positives par fenêtre signalée du test",
+    "fenetres_signalees": 17,
+    "top3_occurrences": {
+      "part_changements_de_signe": 13,
+      "autocorr_lag2": 10,
+      "plus_longue_repetition": 7,
+      "autocorr_lag4": 7,
+      "part_valeurs_distinctes": 5,
+      "part_hors_plage": 4,
+      "autocorr_lag1": 3,
+      "part_pas_non_nominal": 1,
+      "ecart_type_pas": 1
+    },
+    "coefficients": {
+      "coefficient_variation": -0.2343,
+      "etendue_relative": -0.2226,
+      "ecart_type_differences_relatif": -0.2306,
+      "autocorr_lag1": -0.3369,
+      "autocorr_lag2": 0.6774,
+      "autocorr_lag4": -0.43,
+      "part_changements_de_signe": 0.5938,
+      "asymetrie": -0.1272,
+      "aplatissement": -0.1056,
+      "part_valeurs_distinctes": -0.1484,
+      "plus_longue_repetition": 1.1072,
+      "part_pas_non_nominal": 0.502,
+      "ecart_type_pas": 0.502,
+      "part_hors_grille": -0.1797,
+      "part_manquantes": 0.0,
+      "part_sentinelles": -0.2109,
+      "part_hors_plage": 0.3917,
+      "part_precision_excessive": 0.0,
+      "unite_conforme": 0.0
+    }
+  },
+  "empreinte_disque": {
+    "nature": "mesuré",
+    "venv_m4_complet_mo": 1209.4,
+    "dependances_execution_actuelles_mo": 289.5,
+    "dependances_execution_variante_json_mo": 117.7,
+    "torch_mo": 491.6,
+    "artefact_modele_octets": 1953,
+    "code_m4_modele_octets": 28767,
+    "remarque": "le venv M4 sert aussi le RAG (torch, sentence-transformers) et Jupyter ; le modèle n'en utilise qu'une partie"
+  },
+  "capacite": {
+    "nature": "estimé",
+    "hypotheses": {
+      "equipements_parc": 420,
+      "capteurs_par_equipement_observes": 1.95,
+      "source_capteurs": "sensor_readings.csv : séries équipement×capteur distinctes / équipements présents",
+      "pas_nominal_h": 6,
+      "mesures_par_fenetre": 30,
+      "duree_fenetre_jours": 7.5
+    },
+    "fenetres_a_traiter_par_jour": 109.0,
+    "temps_calcul_par_jour_s_au_p95_bout_en_bout": 0.228,
+    "lecture": "charge journalière du parc entier rapportée à la latence mesurée ; la capacité n'est pas une contrainte à ce volume"
+  },
+  "energie": {
+    "nature": "estimé",
+    "methode": "temps CPU mesuré par fenêtre × puissance maximale turbo du processeur entier ; borne haute grossière, pas une mesure au wattmètre",
+    "source_puissance": "Intel ARK, Core i7-13620H, Maximum Turbo Power 115 W (base 45 W), consulté le 28/09/2026",
+    "joules_par_fenetre_prediction_seule_borne_haute": 0.0001796875,
+    "joules_par_fenetre_bout_en_bout_borne_haute": 0.19316406249999998,
+    "wh_par_jour_parc_bout_en_bout_borne_haute": 0.005847,
+    "wh_demarrage_a_froid_borne_haute": 0.0383,
+    "non_mesure": "consommation réelle (pas de wattmètre ni de compteur RAPL lisible sous Windows), poste au repos, empreinte carbone, fabrication du matériel"
+  },
+  "cout": {
+    "nature": "non mesuré",
+    "constat": "exécution sur un poste existant : aucun coût marginal facturé ; le coût du poste, de l'électricité et du temps humain de revue n'est pas chiffré"
+  },
+  "non_modification_m4": {
+    "nature": "mesuré",
+    "fichiers_controles": 95,
+    "identique_avant_apres": true,
+    "differences": []
+  }
+}
