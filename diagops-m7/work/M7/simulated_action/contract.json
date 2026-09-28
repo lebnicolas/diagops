@@ -1,19 +1,33 @@
 {
   "schema_version": 1,
   "name": "request_inspection_simulated",
+  "purpose": "Préparer une demande d'inspection fictive à partir d'un diagnostic DiagOps, pour exercer approbation, idempotence et compensation.",
   "executable": false,
   "environment": "tabletop_only",
   "real_side_effects": false,
+  "registered_in_agent": false,
+  "reference_path": "hors chemin de référence ; toute entrée exige un ADR et une décision humaine ultérieure",
   "authorized_role": "superviseur_fictif",
   "request_fields": [
     "synthetic_equipment_id",
     "reason",
     "idempotency_key"
   ],
+  "request_constraints": {
+    "synthetic_equipment_id": "^EQ-FICTIF-\\d{3}$",
+    "reason": "texte libre, 200 caractères au plus, sans donnée personnelle",
+    "idempotency_key": "chaîne opaque fournie par le demandeur, unique par demande"
+  },
+  "preview": {
+    "shown_fields": ["synthetic_equipment_id", "reason"],
+    "hash": "sha256 du JSON trié des champs affichés"
+  },
   "approval": {
     "human_required": true,
+    "approver_distinct_from_requester": true,
     "bind_to": "sha256_of_exact_preview",
     "expires": true,
+    "ttl_seconds": 900,
     "change_invalidates": true
   },
   "idempotency": {
@@ -32,12 +46,20 @@
   ],
   "audit_fields": [
     "fictional_actor",
+    "idempotency_key",
     "payload_hash",
     "decision",
+    "reason",
     "timestamp",
     "fictional_receipt"
   ],
+  "audit_forbidden_fields": [
+    "personal_data",
+    "credentials",
+    "real_system_identifiers"
+  ],
+  "degraded_mode": "aucune action en mode dégradé : la demande reste à l'état previewed et un humain la reprend hors système",
   "cancellation": "before simulated effect",
-  "compensation": "new journal entry after simulated effect",
+  "compensation": "new journal entry after simulated effect; the receipt and the history are kept",
   "network_client": null
 }

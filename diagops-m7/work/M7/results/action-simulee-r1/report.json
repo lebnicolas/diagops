@@ -1,0 +1,332 @@
+{
+  "1_nominal": {
+    "recu": "RECU-FICTIF-0001",
+    "journal": [
+      {
+        "t": 0,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-1",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "aperçu",
+        "reason": "contenu exact présenté",
+        "state": "draft->previewed"
+      },
+      {
+        "t": 10,
+        "fictional_actor": "sup-B",
+        "idempotency_key": "K-1",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "approbation",
+        "reason": "décision humaine",
+        "state": "previewed->approved"
+      },
+      {
+        "t": 20,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-1",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "effet simulé",
+        "reason": "RECU-FICTIF-0001",
+        "state": "approved->simulated_done"
+      }
+    ]
+  },
+  "2_refus_expiration_changement": {
+    "rejet": {
+      "ok": false,
+      "refus": "état rejected"
+    },
+    "expiration": {
+      "ok": false,
+      "refus": "approbation expirée"
+    },
+    "changement": {
+      "ok": false,
+      "refus": "état previewed"
+    },
+    "reapprobation_ancien_apercu": {
+      "ok": false,
+      "refus": "aperçu périmé"
+    },
+    "journal": [
+      {
+        "t": 0,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-2",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "aperçu",
+        "reason": "contenu exact présenté",
+        "state": "draft->previewed"
+      },
+      {
+        "t": 5,
+        "fictional_actor": "sup-B",
+        "idempotency_key": "K-2",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "rejet",
+        "reason": "décision humaine",
+        "state": "previewed->rejected"
+      },
+      {
+        "t": 6,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-2",
+        "payload_hash": "",
+        "decision": "refus",
+        "reason": "état rejected",
+        "state": "rejected->rejected"
+      },
+      {
+        "t": 0,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-3",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "aperçu",
+        "reason": "contenu exact présenté",
+        "state": "draft->previewed"
+      },
+      {
+        "t": 5,
+        "fictional_actor": "sup-B",
+        "idempotency_key": "K-3",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "approbation",
+        "reason": "décision humaine",
+        "state": "previewed->approved"
+      },
+      {
+        "t": 906,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-3",
+        "payload_hash": "",
+        "decision": "refus",
+        "reason": "approbation expirée",
+        "state": "approved->expired"
+      },
+      {
+        "t": 0,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-4",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "aperçu",
+        "reason": "contenu exact présenté",
+        "state": "draft->previewed"
+      },
+      {
+        "t": 5,
+        "fictional_actor": "sup-B",
+        "idempotency_key": "K-4",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "approbation",
+        "reason": "décision humaine",
+        "state": "previewed->approved"
+      },
+      {
+        "t": 6,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-4",
+        "payload_hash": "20de2764441e17f6e8d31d36b00a106f3145b8bcc9c1a2b59179715e6f28cef2",
+        "decision": "modification",
+        "reason": "l'approbation antérieure tombe",
+        "state": "approved->previewed"
+      },
+      {
+        "t": 7,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-4",
+        "payload_hash": "",
+        "decision": "refus",
+        "reason": "état previewed",
+        "state": "previewed->previewed"
+      },
+      {
+        "t": 8,
+        "fictional_actor": "sup-B",
+        "idempotency_key": "K-4",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "refus",
+        "reason": "l'aperçu approuvé n'est pas le contenu courant",
+        "state": "previewed->previewed"
+      }
+    ]
+  },
+  "3_rejeu": {
+    "premier_recu": "RECU-FICTIF-0001",
+    "second_recu": "RECU-FICTIF-0001",
+    "doublons": 0,
+    "meme_cle_autre_contenu": {
+      "ok": false,
+      "refus": "même clé, contenu différent"
+    },
+    "journal": [
+      {
+        "t": 0,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-5",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "aperçu",
+        "reason": "contenu exact présenté",
+        "state": "draft->previewed"
+      },
+      {
+        "t": 1,
+        "fictional_actor": "sup-B",
+        "idempotency_key": "K-5",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "approbation",
+        "reason": "décision humaine",
+        "state": "previewed->approved"
+      },
+      {
+        "t": 2,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-5",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "effet simulé",
+        "reason": "RECU-FICTIF-0001",
+        "state": "approved->simulated_done"
+      },
+      {
+        "t": 3,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-5",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "rejeu",
+        "reason": "déjà exécuté, même reçu",
+        "state": "simulated_done->simulated_done"
+      },
+      {
+        "t": 4,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-5",
+        "payload_hash": "afc6275303ed543fd65b89d63b7d62e9611e6f30383acc8535bb1060a8244052",
+        "decision": "refus",
+        "reason": "même clé, contenu différent",
+        "state": "simulated_done->simulated_done"
+      }
+    ]
+  },
+  "4_annulation_compensation": {
+    "annulation": "cancelled",
+    "execution_apres_annulation": {
+      "ok": false,
+      "refus": "état cancelled"
+    },
+    "recu": "RECU-FICTIF-0001",
+    "compensation": "compensated",
+    "entrees_journal_conservees": 8,
+    "journal": [
+      {
+        "t": 0,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-6",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "aperçu",
+        "reason": "contenu exact présenté",
+        "state": "draft->previewed"
+      },
+      {
+        "t": 1,
+        "fictional_actor": "sup-B",
+        "idempotency_key": "K-6",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "approbation",
+        "reason": "décision humaine",
+        "state": "previewed->approved"
+      },
+      {
+        "t": 2,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-6",
+        "payload_hash": "",
+        "decision": "annulation",
+        "reason": "avant effet",
+        "state": "approved->cancelled"
+      },
+      {
+        "t": 3,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-6",
+        "payload_hash": "",
+        "decision": "refus",
+        "reason": "état cancelled",
+        "state": "cancelled->cancelled"
+      },
+      {
+        "t": 0,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-7",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "aperçu",
+        "reason": "contenu exact présenté",
+        "state": "draft->previewed"
+      },
+      {
+        "t": 1,
+        "fictional_actor": "sup-B",
+        "idempotency_key": "K-7",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "approbation",
+        "reason": "décision humaine",
+        "state": "previewed->approved"
+      },
+      {
+        "t": 2,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-7",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "effet simulé",
+        "reason": "RECU-FICTIF-0001",
+        "state": "approved->simulated_done"
+      },
+      {
+        "t": 3,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-7",
+        "payload_hash": "",
+        "decision": "compensation",
+        "reason": "nouvelle entrée, RECU-FICTIF-0001 conservé",
+        "state": "simulated_done->compensated"
+      }
+    ]
+  },
+  "5_identite": {
+    "role_technicien": {
+      "ok": false,
+      "refus": "rôle non autorisé"
+    },
+    "auto_approbation": {
+      "ok": false,
+      "refus": "auto-approbation"
+    },
+    "journal": [
+      {
+        "t": 0,
+        "fictional_actor": "tech-C",
+        "idempotency_key": "K-8",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "refus",
+        "reason": "rôle non autorisé",
+        "state": "-->-"
+      },
+      {
+        "t": 0,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-9",
+        "payload_hash": "890471cbcc76176d756719813a069fd8df39593067fef8bd332649e779a2259d",
+        "decision": "aperçu",
+        "reason": "contenu exact présenté",
+        "state": "draft->previewed"
+      },
+      {
+        "t": 1,
+        "fictional_actor": "sup-A",
+        "idempotency_key": "K-9",
+        "payload_hash": "",
+        "decision": "refus",
+        "reason": "le demandeur ne s'approuve pas lui-même",
+        "state": "previewed->previewed"
+      }
+    ]
+  }
+}
