@@ -1,0 +1,207 @@
+{
+  "python": "3.12.10",
+  "scenarios": {
+    "RES-01": {
+      "apres_reprise": {
+        "failed": [
+          "SCN-006",
+          "SCN-013",
+          "SCN-014"
+        ],
+        "success": 15
+      },
+      "degrade": {
+        "answered": 7,
+        "failed": [
+          "SCN-001",
+          "SCN-006",
+          "SCN-013",
+          "SCN-016"
+        ],
+        "refused": 11,
+        "stop_reasons": {
+          "erreur_outil": 6,
+          "preuve_insuffisante": 5,
+          "reponse_produite": 7
+        },
+        "success": 14
+      },
+      "duree_scenario_ms": 93.4,
+      "execution": "injection locale : manifeste du corpus supprimé sur la copie ; index actif du banc supprimé",
+      "index_actif_supprime": "FileNotFoundError",
+      "non_teste": "modèle génératif : la référence n'en contient pas (réponse extractive déterministe)",
+      "reference": {
+        "count": 18,
+        "failed": [
+          "SCN-006",
+          "SCN-013",
+          "SCN-014"
+        ],
+        "success": 15
+      },
+      "reprise_ms": 15.8
+    },
+    "RES-02": {
+      "duree_scenario_ms": 27.1,
+      "execution": "simulation sur table + proxy local : panne 'unavailable' injectée sur search_knowledge par le registre M6",
+      "non_teste": "aucun fournisseur distant dans la référence : latence réseau, quotas, réponses partielles, changement de version côté fournisseur et coupure en cours de réponse ne sont pas exercés",
+      "proxy": {
+        "answered": 7,
+        "failed": [
+          "SCN-001",
+          "SCN-006",
+          "SCN-013",
+          "SCN-016"
+        ],
+        "refused": 11,
+        "stop_reasons": {
+          "erreur_outil": 6,
+          "preuve_insuffisante": 5,
+          "reponse_produite": 7
+        },
+        "success": 14
+      }
+    },
+    "RES-03": {
+      "agent_m6_cite": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-PUMP-VIB-002"
+      ],
+      "deux_revisions_actives_servies": true,
+      "duree_scenario_ms": 49.3,
+      "execution": "injection locale : révision 2 ajoutée au manifeste copié, révision 1 laissée active ; index du banc construit avant la mise à jour et resté actif",
+      "export_banc_v2": "acceptée",
+      "index_actif_perime_sert": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "index_actif_signale_peremption": false,
+      "non_teste": "date d'effet future ou révision retirée sans remplaçante"
+    },
+    "RES-04": {
+      "budget_depasse": {
+        "budget_ms": 100,
+        "refused": true,
+        "steps": 1,
+        "stop_reason": "budget_duree_depasse",
+        "wall_ms": 401.2
+      },
+      "concurrent_8_fils_ms": {
+        "p50": 0.041,
+        "p95": 0.372,
+        "total_mur": 54.0
+      },
+      "duree_scenario_ms": 530.6,
+      "execution": "exécution locale : 360 exécutions séquentielles puis 360 sur 8 fils ; budget de durée ramené à 100 ms sur une copie de la politique, outil ralenti de 400 ms",
+      "non_teste": "coût facturé (aucun appel payant), charge multi-processus, mémoire sous charge",
+      "sequentiel_ms": {
+        "p50": 0.039,
+        "p95": 0.417,
+        "total": 57.9
+      }
+    },
+    "RES-05": {
+      "duree_scenario_ms": 3034.0,
+      "execution": "injection locale par le registre M6 : délai 3000 ms (timeout outil 1500 ms), résultat vide ; scénario ADV-006 rejoué pour l'incohérence fiche/document",
+      "incoherence": {
+        "answer": "Réponse fondée sur : EQ-PUMP-001.",
+        "conflit_expose": false,
+        "stop_reason": "reponse_produite",
+        "tools_used": [
+          "get_equipment"
+        ]
+      },
+      "non_teste": "outil qui renvoie des données fausses mais bien formées sans signal de contradiction",
+      "outil_lent": {
+        "outcome": "ToolTimeout",
+        "stop_reason": "erreur_outil",
+        "timeout_outil_ms": 1500,
+        "wall_ms": 3008.1
+      },
+      "outil_vide": {
+        "refused": true,
+        "stop_reason": "preuve_insuffisante"
+      }
+    },
+    "RES-06": {
+      "agent_m6": {
+        "answered": 7,
+        "failed": [
+          "SCN-001",
+          "SCN-006",
+          "SCN-013",
+          "SCN-016"
+        ],
+        "refused": 11,
+        "stop_reasons": {
+          "erreur_outil": 6,
+          "preuve_insuffisante": 5,
+          "reponse_produite": 7
+        },
+        "success": 14
+      },
+      "duree_scenario_ms": 33.7,
+      "execution": "injection locale : une ligne ajoutée à DOC-CHILL-TEMP-001 sans mise à jour du manifeste",
+      "export_banc": "refusée : checksum source invalide",
+      "granularite": "corpus entier : un seul document altéré rend toute la recherche documentaire indisponible",
+      "non_teste": "document altéré ET manifeste mis à jour (voir RT-03, empoisonnement accepté)",
+      "scenarios_documentaires_touches": [
+        "SCN-001",
+        "SCN-011",
+        "SCN-012",
+        "SCN-013",
+        "SCN-014",
+        "SCN-016"
+      ]
+    },
+    "RES-07": {
+      "apres_rechargement_des_caches": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-RAG-OPS-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "apres_reconstruction_index": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-STEAM-PRESS-001",
+        "DOC-RAG-OPS-001"
+      ],
+      "avant": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "duree_scenario_ms": 61.0,
+      "execution": "injection locale : rôle technicien retiré de DOC-PUMP-VIB-001 dans le manifeste copié",
+      "index_banc_construit_avant": [
+        "DOC-PUMP-VIB-001",
+        "DOC-CHILL-TEMP-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "meme_processus_sans_rechargement": [
+        "DOC-CHILL-TEMP-001",
+        "DOC-PUMP-VIB-001",
+        "DOC-STEAM-PRESS-001"
+      ],
+      "non_teste": "révocation propagée à des copies distantes ou à des traces déjà émises",
+      "reconstruction_ms": 14.8,
+      "revocation_effective_sans_action": false
+    },
+    "RES-08": {
+      "banc": {
+        "corruption_detected": true,
+        "ranking_equal": true,
+        "recovery_ms": 14.039,
+        "rollback_equal": true,
+        "status": "passed"
+      },
+      "duree_scenario_ms": 88.7,
+      "execution": "exécution réelle du banc : corruption du candidat SQLite, détection, retour au JSON ; puis source de reprise altérée et reconstruction complète depuis le manifeste",
+      "non_teste": "perte simultanée du manifeste et de l'export (aucune sauvegarde hors poste)",
+      "reconstruction_complete_ms": 12.0,
+      "reconstruction_identique": true,
+      "reprise_depuis_source_alteree": "refusée : source de reprise altérée"
+    }
+  }
+}
