@@ -1,0 +1,36 @@
+source_file,row_identifier,rule_id,column,observed_value,reason,decision
+equipment.csv,EQ-CHILL-128,R-EQ-001,equipment_id,EQ-CHILL-128,Ligne strictement dupliquée,doublon_supprime
+equipment.csv,EQ-CONV-222,R-EQ-001,equipment_id,EQ-CONV-222,Ligne strictement dupliquée,doublon_supprime
+equipment.csv,EQ-OVEN-366,R-EQ-001,equipment_id,EQ-OVEN-366,Ligne strictement dupliquée,doublon_supprime
+equipment.csv,EQ-ROBOT-390,R-EQ-001,equipment_id,EQ-ROBOT-390,Ligne strictement dupliquée,doublon_supprime
+equipment.csv,EQ-CAB-239,R-EQ-003,equipment_type,Pump ,Catégorie non normalisée,valeur_normalisee
+equipment.csv,EQ-COMP-169,R-EQ-004,rated_power_kw,-12.5,Puissance nominale nulle ou négative,champ_neutralise
+equipment.csv,EQ-CONV-137,R-EQ-005,commissioning_date,2031-04-17,Date de mise en service absente ou postérieure à la période,champ_neutralise
+equipment.csv,EQ-FAN-180,R-EQ-006,manufacturer,,Fabricant manquant,conserve_signale
+equipment.csv,EQ-MIX-319,R-EQ-006,rated_power_kw,,Puissance nominale manquante,conserve_signale
+events.csv,EVT-2026S1-0022,R-EVT-001,event_id,EVT-2026S1-0022,Ligne strictement dupliquée,doublon_supprime
+events.csv,EVT-2026S1-0155,R-EVT-001,event_id,EVT-2026S1-0155,Ligne strictement dupliquée,doublon_supprime
+events.csv,EVT-2026S1-0314,R-EVT-001,event_id,EVT-2026S1-0314,Ligne strictement dupliquée,doublon_supprime
+events.csv,EVT-2026S1-0432,R-EVT-001,event_id,EVT-2026S1-0432,Ligne strictement dupliquée,doublon_supprime
+events.csv,EVT-2026S1-0032,R-EVT-004,end_at,2026-04-09T17:50:00Z,Fin antérieure au début,champ_neutralise
+events.csv,EVT-2026S1-0102,R-EVT-002,severity,URGENT,Sévérité hors domaine,exclue
+events.csv,EVT-2026S1-0180,R-EVT-005,equipment_id,EQ-ORPHAN-999,Équipement référencé absent de la table préparée,exclue
+events.csv,EVT-2026S1-0265,R-EVT-003,event_type,Incident ,Type d'événement non normalisé,valeur_normalisee
+maintenance_history.csv,MNT-2026S1-0061,R-MNT-001,maintenance_id,MNT-2026S1-0061,Ligne strictement dupliquée,doublon_supprime
+maintenance_history.csv,MNT-2026S1-0334,R-MNT-001,maintenance_id,MNT-2026S1-0334,Ligne strictement dupliquée,doublon_supprime
+maintenance_history.csv,MNT-2026S1-0778,R-MNT-001,maintenance_id,MNT-2026S1-0778,Ligne strictement dupliquée,doublon_supprime
+maintenance_history.csv,MNT-2026S1-1201,R-MNT-001,maintenance_id,MNT-2026S1-1201,Ligne strictement dupliquée,doublon_supprime
+maintenance_history.csv,MNT-2026S1-1601,R-MNT-001,maintenance_id,MNT-2026S1-1601,Ligne strictement dupliquée,doublon_supprime
+maintenance_history.csv,MNT-2026S1-0041,R-MNT-005,downtime_minutes,-45,Durée d'arrêt négative ou illisible,exclue
+maintenance_history.csv,MNT-2026S1-0206,R-MNT-005,downtime_minutes,99999,"Durée d'arrêt supérieure à quatorze jours, expertise métier requise",conserve_signale
+maintenance_history.csv,MNT-2026S1-0389,R-MNT-002,event_id,EVT-ORPHAN-999,Événement référencé absent de la table préparée,exclue
+maintenance_history.csv,MNT-2026S1-0545,R-MNT-003,equipment_id,EQ-ORPHAN-998,Équipement référencé absent de la table préparée,exclue
+maintenance_history.csv,MNT-2026S1-0621,R-MNT-004,closed_at,2026-06-14T14:55:00Z,Clôture antérieure à l'ouverture,champ_neutralise
+maintenance_history.csv,MNT-2026S1-0703,R-MNT-006,parts_cost_eur,-350.0,Coût de pièces négatif,champ_neutralise
+maintenance_history.csv,MNT-2026S1-0857,R-MNT-002,event_id,EVT-2026S1-0102,Événement référencé absent de la table préparée,exclue
+maintenance_history.csv,MNT-2026S1-0912,R-MNT-007,intervention_type,Correctif,Type d'intervention non normalisé,valeur_normalisee
+maintenance_history.csv,MNT-2026S1-0912,R-MNT-007,intervention_type,Correctif,Type d'intervention hors domaine,exclue
+maintenance_history.csv,MNT-2026S1-1006,R-MNT-002,event_id,EVT-2026S1-0102,Événement référencé absent de la table préparée,exclue
+maintenance_history.csv,MNT-2026S1-1121,R-MNT-008,work_order_note,telephone+nom,Information relative à une personne dans une note libre,pseudonymise
+maintenance_history.csv,MNT-2026S1-1190,R-MNT-002,event_id,EVT-2026S1-0102,Événement référencé absent de la table préparée,exclue
+maintenance_history.csv,MNT-2026S1-1334,R-MNT-008,work_order_note,email,Information relative à une personne dans une note libre,pseudonymise

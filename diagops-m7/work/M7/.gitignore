@@ -1,0 +1,5 @@
+# Les rapports sont des preuves à conserver dans le dépôt privé apprenant.
+# Les copies du corpus et les index locaux sont reconstruisibles.
+results/**/corpus.json
+results/**/index.sqlite
+results/**/active.json

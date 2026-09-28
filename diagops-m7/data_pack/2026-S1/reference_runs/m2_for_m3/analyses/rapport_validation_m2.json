@@ -1,0 +1,126 @@
+{
+  "status": "reference_completed",
+  "scope": "préparation de référence des trois tables ouvertes en M2",
+  "sources": {
+    "equipment.csv": {
+      "rows_in": 420,
+      "rows_out": 416,
+      "sha256": "d8c51e4cb152107fa5c7a27ae00f96afb19d83f8d92a9c220d0d1f4528c885a0"
+    },
+    "events.csv": {
+      "rows_in": 520,
+      "rows_out": 514,
+      "sha256": "4a7d3b5178562a5666e20baad4fe2103f72532296edaf7b26109c2a6edd6872a"
+    },
+    "maintenance_history.csv": {
+      "rows_in": 1800,
+      "rows_out": 1788,
+      "sha256": "635d354bb8ce13b617c5289920ab5a2237191b220b667b0c339a47ce12f247c1"
+    }
+  },
+  "checks": [
+    {
+      "rule_id": "R-EQ-001",
+      "source": "equipment.csv",
+      "affected_rows": 4
+    },
+    {
+      "rule_id": "R-EQ-003",
+      "source": "equipment.csv",
+      "affected_rows": 1
+    },
+    {
+      "rule_id": "R-EQ-004",
+      "source": "equipment.csv",
+      "affected_rows": 1
+    },
+    {
+      "rule_id": "R-EQ-005",
+      "source": "equipment.csv",
+      "affected_rows": 1
+    },
+    {
+      "rule_id": "R-EQ-006",
+      "source": "equipment.csv",
+      "affected_rows": 2
+    },
+    {
+      "rule_id": "R-EVT-001",
+      "source": "events.csv",
+      "affected_rows": 4
+    },
+    {
+      "rule_id": "R-EVT-002",
+      "source": "events.csv",
+      "affected_rows": 1
+    },
+    {
+      "rule_id": "R-EVT-003",
+      "source": "events.csv",
+      "affected_rows": 1
+    },
+    {
+      "rule_id": "R-EVT-004",
+      "source": "events.csv",
+      "affected_rows": 1
+    },
+    {
+      "rule_id": "R-EVT-005",
+      "source": "events.csv",
+      "affected_rows": 1
+    },
+    {
+      "rule_id": "R-MNT-001",
+      "source": "maintenance_history.csv",
+      "affected_rows": 5
+    },
+    {
+      "rule_id": "R-MNT-002",
+      "source": "maintenance_history.csv",
+      "affected_rows": 4
+    },
+    {
+      "rule_id": "R-MNT-003",
+      "source": "maintenance_history.csv",
+      "affected_rows": 1
+    },
+    {
+      "rule_id": "R-MNT-004",
+      "source": "maintenance_history.csv",
+      "affected_rows": 1
+    },
+    {
+      "rule_id": "R-MNT-005",
+      "source": "maintenance_history.csv",
+      "affected_rows": 2
+    },
+    {
+      "rule_id": "R-MNT-006",
+      "source": "maintenance_history.csv",
+      "affected_rows": 1
+    },
+    {
+      "rule_id": "R-MNT-007",
+      "source": "maintenance_history.csv",
+      "affected_rows": 2
+    },
+    {
+      "rule_id": "R-MNT-008",
+      "source": "maintenance_history.csv",
+      "affected_rows": 2
+    }
+  ],
+  "summary": {
+    "rules_triggered": 18,
+    "quarantined_rows": 35,
+    "decisions": {
+      "champ_neutralise": 5,
+      "conserve_signale": 3,
+      "doublon_supprime": 13,
+      "exclue": 9,
+      "pseudonymise": 2,
+      "valeur_normalisee": 3
+    }
+  },
+  "decision": "utilisable sous conditions"
+}

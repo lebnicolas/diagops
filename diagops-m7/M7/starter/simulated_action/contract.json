@@ -1,0 +1,43 @@
+{
+  "schema_version": 1,
+  "name": "request_inspection_simulated",
+  "executable": false,
+  "environment": "tabletop_only",
+  "real_side_effects": false,
+  "authorized_role": "superviseur_fictif",
+  "request_fields": [
+    "synthetic_equipment_id",
+    "reason",
+    "idempotency_key"
+  ],
+  "approval": {
+    "human_required": true,
+    "bind_to": "sha256_of_exact_preview",
+    "expires": true,
+    "change_invalidates": true
+  },
+  "idempotency": {
+    "same_key_same_payload": "same_fictional_receipt",
+    "same_key_different_payload": "reject"
+  },
+  "states": [
+    "draft",
+    "previewed",
+    "approved",
+    "rejected",
+    "expired",
+    "simulated_done",
+    "cancelled",
+    "compensated"
+  ],
+  "audit_fields": [
+    "fictional_actor",
+    "payload_hash",
+    "decision",
+    "timestamp",
+    "fictional_receipt"
+  ],
+  "cancellation": "before simulated effect",
+  "compensation": "new journal entry after simulated effect",
+  "network_client": null
+}

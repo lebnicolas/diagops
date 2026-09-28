@@ -1,0 +1,587 @@
+[
+  {
+    "answered": true,
+    "evidence": [
+      {
+        "reference": "DOC-LOTO-002",
+        "revision": "2",
+        "type": "document"
+      },
+      {
+        "reference": "DOC-STEAM-PRESS-001",
+        "revision": "1",
+        "type": "document"
+      },
+      {
+        "reference": "DOC-PUMP-VIB-001",
+        "revision": "1",
+        "type": "document"
+      }
+    ],
+    "policy_id": "m6-baseline-r1",
+    "refused": false,
+    "role": "technicien",
+    "scenario_id": "SCN-001",
+    "steps": [
+      {
+        "argument_fingerprint": "fc5ecc6dfe82",
+        "argument_keys": [
+          "query",
+          "top_k"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "ok",
+        "row_count": 3,
+        "source": "knowledge/manifest.csv",
+        "tool": "search_knowledge"
+      }
+    ],
+    "stop_reason": "reponse_produite",
+    "tools_used": [
+      "search_knowledge"
+    ]
+  },
+  {
+    "answered": true,
+    "evidence": [
+      {
+        "reference": "EQ-PUMP-001",
+        "source": "equipment.csv",
+        "type": "enregistrement"
+      }
+    ],
+    "policy_id": "m6-baseline-r1",
+    "refused": false,
+    "role": "technicien",
+    "scenario_id": "SCN-002",
+    "steps": [
+      {
+        "argument_fingerprint": "0edb4b837359",
+        "argument_keys": [
+          "equipment_id"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "ok",
+        "row_count": 1,
+        "source": "equipment.csv",
+        "tool": "get_equipment"
+      }
+    ],
+    "stop_reason": "reponse_produite",
+    "tools_used": [
+      "get_equipment"
+    ]
+  },
+  {
+    "answered": true,
+    "evidence": [
+      {
+        "reference": "EVT-2026S1-X022",
+        "source": "events.csv",
+        "type": "enregistrement"
+      },
+      {
+        "reference": "EVT-2026S1-X040",
+        "source": "events.csv",
+        "type": "enregistrement"
+      },
+      {
+        "reference": "EVT-2026S1-0264",
+        "source": "events.csv",
+        "type": "enregistrement"
+      },
+      {
+        "reference": "EVT-2026S1-X011",
+        "source": "events.csv",
+        "type": "enregistrement"
+      }
+    ],
+    "policy_id": "m6-baseline-r1",
+    "refused": false,
+    "role": "technicien",
+    "scenario_id": "SCN-003",
+    "steps": [
+      {
+        "argument_fingerprint": "d65fce0e08c7",
+        "argument_keys": [
+          "equipment_id",
+          "limit"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "ok",
+        "row_count": 4,
+        "source": "events.csv",
+        "tool": "list_events"
+      }
+    ],
+    "stop_reason": "reponse_produite",
+    "tools_used": [
+      "list_events"
+    ]
+  },
+  {
+    "answered": true,
+    "evidence": [
+      {
+        "reference": "EVT-2026S1-0002",
+        "source": "maintenance_history.csv",
+        "type": "enregistrement"
+      },
+      {
+        "reference": "EVT-2026S1-0002",
+        "source": "maintenance_history.csv",
+        "type": "enregistrement"
+      },
+      {
+        "reference": "EVT-2026S1-0002",
+        "source": "maintenance_history.csv",
+        "type": "enregistrement"
+      },
+      {
+        "reference": "EVT-2026S1-0002",
+        "source": "maintenance_history.csv",
+        "type": "enregistrement"
+      },
+      {
+        "reference": "EVT-2026S1-0002",
+        "source": "maintenance_history.csv",
+        "type": "enregistrement"
+      }
+    ],
+    "policy_id": "m6-baseline-r1",
+    "refused": false,
+    "role": "technicien",
+    "scenario_id": "SCN-004",
+    "steps": [
+      {
+        "argument_fingerprint": "b40ac1645dd5",
+        "argument_keys": [
+          "equipment_id",
+          "limit"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "ok",
+        "row_count": 5,
+        "source": "maintenance_history.csv",
+        "tool": "get_maintenance_history"
+      }
+    ],
+    "stop_reason": "reponse_produite",
+    "tools_used": [
+      "get_maintenance_history"
+    ]
+  },
+  {
+    "answered": true,
+    "evidence": [
+      {
+        "reference": "RPT-2027S1-0002",
+        "type": "rapport"
+      }
+    ],
+    "policy_id": "m6-baseline-r1",
+    "refused": false,
+    "role": "technicien",
+    "scenario_id": "SCN-005",
+    "steps": [
+      {
+        "argument_fingerprint": "1a0f12fe6d79",
+        "argument_keys": [
+          "report_id"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "ok",
+        "row_count": 1,
+        "source": "reports.jsonl",
+        "tool": "diagnose_report"
+      }
+    ],
+    "stop_reason": "reponse_produite",
+    "tools_used": [
+      "diagnose_report"
+    ]
+  },
+  {
+    "answered": true,
+    "evidence": [
+      {
+        "reference": "RPT-2027S1-0002",
+        "type": "rapport"
+      }
+    ],
+    "policy_id": "m6-baseline-r1",
+    "refused": false,
+    "role": "technicien",
+    "scenario_id": "SCN-006",
+    "steps": [
+      {
+        "argument_fingerprint": "1a0f12fe6d79",
+        "argument_keys": [
+          "report_id"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "ok",
+        "row_count": 1,
+        "source": "reports.jsonl",
+        "tool": "diagnose_report"
+      }
+    ],
+    "stop_reason": "reponse_produite",
+    "tools_used": [
+      "diagnose_report"
+    ]
+  },
+  {
+    "answered": true,
+    "evidence": [
+      {
+        "reference": "EQ-PUMP-001",
+        "source": "equipment.csv",
+        "type": "enregistrement"
+      }
+    ],
+    "policy_id": "m6-baseline-r1",
+    "refused": false,
+    "role": "technicien",
+    "scenario_id": "SCN-007",
+    "steps": [
+      {
+        "argument_fingerprint": "0edb4b837359",
+        "argument_keys": [
+          "equipment_id"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "ok",
+        "row_count": 1,
+        "source": "equipment.csv",
+        "tool": "get_equipment"
+      }
+    ],
+    "stop_reason": "reponse_produite",
+    "tools_used": [
+      "get_equipment"
+    ]
+  },
+  {
+    "answered": false,
+    "evidence": [],
+    "policy_id": "m6-baseline-r1",
+    "refused": true,
+    "role": "technicien",
+    "scenario_id": "SCN-008",
+    "steps": [
+      {
+        "argument_fingerprint": "cb38848a81d0",
+        "argument_keys": [
+          "equipment_id"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "vide",
+        "row_count": 0,
+        "source": "equipment.csv",
+        "tool": "get_equipment"
+      }
+    ],
+    "stop_reason": "preuve_insuffisante",
+    "tools_used": [
+      "get_equipment"
+    ]
+  },
+  {
+    "answered": false,
+    "evidence": [],
+    "policy_id": "m6-baseline-r1",
+    "refused": true,
+    "role": "technicien",
+    "scenario_id": "SCN-009",
+    "steps": [],
+    "stop_reason": "preuve_insuffisante",
+    "tools_used": []
+  },
+  {
+    "answered": false,
+    "evidence": [],
+    "policy_id": "m6-baseline-r1",
+    "refused": true,
+    "role": "technicien",
+    "scenario_id": "SCN-010",
+    "steps": [
+      {
+        "argument_fingerprint": "98c2ff48a14f",
+        "argument_keys": [
+          "equipment_id",
+          "limit"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "vide",
+        "row_count": 0,
+        "source": "events.csv",
+        "tool": "list_events"
+      }
+    ],
+    "stop_reason": "preuve_insuffisante",
+    "tools_used": [
+      "list_events"
+    ]
+  },
+  {
+    "answered": false,
+    "evidence": [],
+    "policy_id": "m6-baseline-r1",
+    "refused": true,
+    "role": "technicien",
+    "scenario_id": "SCN-011",
+    "steps": [
+      {
+        "argument_fingerprint": "fa042081235f",
+        "argument_keys": [
+          "query",
+          "top_k"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "ToolUnavailable",
+        "row_count": 0,
+        "source": "",
+        "tool": "search_knowledge"
+      }
+    ],
+    "stop_reason": "erreur_outil",
+    "tools_used": [
+      "search_knowledge"
+    ]
+  },
+  {
+    "answered": false,
+    "evidence": [],
+    "policy_id": "m6-baseline-r1",
+    "refused": true,
+    "role": "technicien",
+    "scenario_id": "SCN-012",
+    "steps": [
+      {
+        "argument_fingerprint": "33690f2cbb28",
+        "argument_keys": [
+          "query",
+          "top_k"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "ToolTimeout",
+        "row_count": 0,
+        "source": "",
+        "tool": "search_knowledge"
+      }
+    ],
+    "stop_reason": "erreur_outil",
+    "tools_used": [
+      "search_knowledge"
+    ]
+  },
+  {
+    "answered": true,
+    "evidence": [
+      {
+        "reference": "DOC-STEAM-PRESS-001",
+        "revision": "1",
+        "type": "document"
+      },
+      {
+        "reference": "DOC-RAG-OPS-001",
+        "revision": "1",
+        "type": "document"
+      },
+      {
+        "reference": "DOC-PUMP-VIB-001",
+        "revision": "1",
+        "type": "document"
+      }
+    ],
+    "policy_id": "m6-baseline-r1",
+    "refused": false,
+    "role": "technicien",
+    "scenario_id": "SCN-013",
+    "steps": [
+      {
+        "argument_fingerprint": "598fc310f6ea",
+        "argument_keys": [
+          "query",
+          "top_k"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "ok",
+        "row_count": 3,
+        "source": "knowledge/manifest.csv",
+        "tool": "search_knowledge"
+      }
+    ],
+    "stop_reason": "reponse_produite",
+    "tools_used": [
+      "search_knowledge"
+    ]
+  },
+  {
+    "answered": true,
+    "evidence": [
+      {
+        "reference": "DOC-PUMP-VIB-001",
+        "revision": "1",
+        "type": "document"
+      },
+      {
+        "reference": "DOC-STEAM-PRESS-001",
+        "revision": "1",
+        "type": "document"
+      },
+      {
+        "reference": "DOC-LOTO-002",
+        "revision": "2",
+        "type": "document"
+      }
+    ],
+    "policy_id": "m6-baseline-r1",
+    "refused": false,
+    "role": "technicien",
+    "scenario_id": "SCN-014",
+    "steps": [
+      {
+        "argument_fingerprint": "ae1fcc22ee4f",
+        "argument_keys": [
+          "query",
+          "top_k"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "ok",
+        "row_count": 3,
+        "source": "knowledge/manifest.csv",
+        "tool": "search_knowledge"
+      }
+    ],
+    "stop_reason": "reponse_produite",
+    "tools_used": [
+      "search_knowledge"
+    ]
+  },
+  {
+    "answered": false,
+    "evidence": [],
+    "policy_id": "m6-baseline-r1",
+    "refused": true,
+    "role": "technicien",
+    "scenario_id": "SCN-015",
+    "steps": [],
+    "stop_reason": "preuve_insuffisante",
+    "tools_used": []
+  },
+  {
+    "answered": true,
+    "evidence": [
+      {
+        "reference": "DOC-LOTO-002",
+        "revision": "2",
+        "type": "document"
+      },
+      {
+        "reference": "DOC-STEAM-PRESS-001",
+        "revision": "1",
+        "type": "document"
+      },
+      {
+        "reference": "DOC-RAG-OPS-001",
+        "revision": "1",
+        "type": "document"
+      }
+    ],
+    "policy_id": "m6-baseline-r1",
+    "refused": false,
+    "role": "technicien",
+    "scenario_id": "SCN-016",
+    "steps": [
+      {
+        "argument_fingerprint": "472ced734cf8",
+        "argument_keys": [
+          "query",
+          "top_k"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "ok",
+        "row_count": 3,
+        "source": "knowledge/manifest.csv",
+        "tool": "search_knowledge"
+      }
+    ],
+    "stop_reason": "reponse_produite",
+    "tools_used": [
+      "search_knowledge"
+    ]
+  },
+  {
+    "answered": false,
+    "evidence": [],
+    "policy_id": "m6-baseline-r1",
+    "refused": true,
+    "role": "technicien",
+    "scenario_id": "SCN-017",
+    "steps": [
+      {
+        "argument_fingerprint": "62534ab0e842",
+        "argument_keys": [
+          "report_id"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "vide",
+        "row_count": 0,
+        "source": "reports.jsonl",
+        "tool": "diagnose_report"
+      }
+    ],
+    "stop_reason": "preuve_insuffisante",
+    "tools_used": [
+      "diagnose_report"
+    ]
+  },
+  {
+    "answered": true,
+    "evidence": [
+      {
+        "reference": "RPT-2027S1-0001",
+        "type": "rapport"
+      }
+    ],
+    "policy_id": "m6-baseline-r1",
+    "refused": false,
+    "role": "technicien",
+    "scenario_id": "SCN-018",
+    "steps": [
+      {
+        "argument_fingerprint": "9864b8f3383f",
+        "argument_keys": [
+          "report_id"
+        ],
+        "index": 1,
+        "instruction_like_content": false,
+        "outcome": "ok",
+        "row_count": 1,
+        "source": "reports.jsonl",
+        "tool": "diagnose_report"
+      }
+    ],
+    "stop_reason": "reponse_produite",
+    "tools_used": [
+      "diagnose_report"
+    ]
+  }
+]
